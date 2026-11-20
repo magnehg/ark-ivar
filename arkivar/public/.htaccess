@@ -1,0 +1,14 @@
+# Ark-Ivar: alt som ikke er en fil i denne mappen, går til index.php (Bivrost Kjerne og appens ruter).
+# Krever mod_rewrite. Sikkerhetshodene settes av PHP (Kjerne), ikke her.
+Options -Indexes
+RewriteEngine On
+
+# Nøkkelen til oppdaterings-API-et (Authorization: Bearer) videre til PHP også når PHP kjører som CGI/FastCGI.
+RewriteCond %{HTTP:Authorization} .
+RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# Skjulte filer leveres aldri.
+RewriteRule (^|/)\. - [R=404,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]

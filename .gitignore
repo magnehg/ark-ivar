@@ -17,3 +17,10 @@
 drift/
 *.sql.gz
 /skript/scoper/kollisjonsapp/vendor/
+# Ark-Ivar: verktøy og bygg
+/arkivar/.phpstan-cache/
+/arkivar/.phpunit.cache/
+/arkivar/.phpunit.result.cache
+/arkivar/public/app/
+/web/node_modules/
+/web/tsconfig.tsbuildinfo

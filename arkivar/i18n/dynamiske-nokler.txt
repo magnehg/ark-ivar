@@ -1,0 +1,5 @@
+# Nøkler som lages av koden (prefiks + verdi), så de ikke står bokstavelig i koden.
+arkivar.hendelse.
+arkivar.rolle.
+arkivar.epost.
+arkivar.objekttype.

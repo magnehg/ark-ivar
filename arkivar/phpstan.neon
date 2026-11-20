@@ -1,0 +1,25 @@
+includes:
+    - ../kjerne/vendor/phpstan/phpstan-strict-rules/rules.neon
+    - ../kjerne/vendor/phpstan/phpstan-phpunit/extension.neon
+    - ../kjerne/vendor/phpstan/phpstan-phpunit/rules.neon
+
+parameters:
+    level: max
+    phpVersion:
+        min: 80200
+        max: 80399
+    paths:
+        - src
+        - tester
+        - bin
+        - public
+        - autoload.php
+        - bivrost.php
+    tmpDir: .phpstan-cache
+    # Kjerne, de prefiksede avhengighetene og Kjernens teststøtte.
+    scanDirectories:
+        - ../kjerne/src
+        - ../kjerne/vendor-prefikset
+        - ../kjerne/tester/Stotte
+    bootstrapFiles:
+        - tester/bootstrap.php

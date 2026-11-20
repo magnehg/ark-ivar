@@ -3327,38 +3327,11 @@
       "status": "B",
       "journalposter": [
         {
-          "type": "I",
-          "tittel": "Brev til kommunen (midlertidig)",
+          "type": "U",
+          "tittel": "Melding om skyssbehov for skoleåret 2026/2027 – Sirevåg skole og Sirevåg ungdomsskole",
           "offentlig_tittel": null,
           "dokumentdato": "2026-05-11",
-          "part": "Kari Avsender",
-          "skjerm_part": false,
-          "status": "J",
-          "journalfort": true,
-          "tilgangskode": null,
-          "dokument": {
-            "kanal": "brev",
-            "mottatt": "2026-05-11",
-            "avsender": {
-              "navn": "Kari Avsender",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
-            },
-            "mottaker": null,
-            "emne": "Brev til kommunen",
-            "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
-            ],
-            "vedlegg": []
-          }
-        },
-        {
-          "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
-          "offentlig_tittel": null,
-          "dokumentdato": "2026-05-18",
-          "part": "Kari Avsender",
+          "part": "Rogaland fylkeskommune",
           "skjerm_part": false,
           "status": "E",
           "journalfort": true,
@@ -3367,17 +3340,163 @@
             "kanal": "brev",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Oppvekst",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Kari Avsender",
-            "emne": "Svar fra kommunen",
+            "mottaker": "Rogaland fylkeskommune, Postboks 130 Sentrum, 4001 Stavanger",
+            "emne": "Melding om skyssbehov for skoleåret 2026/2027 – Sirevåg skole og Sirevåg ungdomsskole",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Sirevåg kommune melder med dette behovet for skoleskyss for grunnskoleelevene i kommunen i skoleåret 2026/2027. Meldingen bygger på elevlistene per 1. mai 2026 og på innskrivingen av nye elever til 1. trinn. Vår ref.: {{sak}}.",
+              "Ved Sirevåg skole (1.–7. trinn) har 92 elever rett til skyss etter opplæringslova fordi skolevegen er lengre enn skyssgrensen. Av dem begynner 14 i 1. trinn, der grensen er to kilometer. Ved Sirevåg ungdomsskole (8.–10. trinn) har 71 elever rett til skyss fordi skolevegen er over fire kilometer. Til sammen gjelder meldingen 163 elever, mot 158 i inneværende skoleår. Navn, adresser og holdeplasser er lagt inn i fylkeskommunens skyssportal og er ikke tatt med i dette brevet.",
+              "I tillegg har kommunen gitt 11 elever skyss fordi de har særlig farlig eller vanskelig skoleveg. De bor langs Raunesvegen og Industrivegen, der det ikke er gang- og sykkelveg. Kommunen dekker selv kostnadene for disse elevene og ber om at de får plass på de ordinære skolerutene, slik som i år. De er merket særskilt i skyssportalen.",
+              "Sirevåg skole begynner klokka 08.30. Elevene i 1.–4. trinn slutter klokka 13.15 og elevene i 5.–7. trinn klokka 14.00. Onsdag slutter alle klokka 13.15. Sirevåg ungdomsskole begynner klokka 08.20 og slutter klokka 14.20, onsdag klokka 13.30. Første skoledag er mandag 17. august 2026, og siste skoledag er fredag 18. juni 2027. Skoleruta ligger ved.",
+              "Vi ber om at ruteopplegget blir lagt slik at ingen elever i 1.–4. trinn får mer enn 45 minutter samlet reise- og ventetid hver veg. I år har bussen fra Raunesvegen vært framme ved Sirevåg skole klokka 08.00, og skolen har hatt tilsyn med skysselevene i en halv time før undervisningen begynner. Vi ber fylkeskommunen vurdere om avgangen kan flyttes ti minutter.",
+              "Kommunen betaler refusjon til fylkeskommunen etter persontakst for elevene som har rett til skyss. Vi ber om en bekreftelse på skyssen og ruteopplegget før sommerferien, slik at skolene kan informere de foresatte. Endringer i elevtallet etter sommeren melder skolene fortløpende i skyssportalen. Kontaktperson i kommunen er undertegnede, rakel.raadyr@sirevag.example.",
+              "Med hilsen Rakel Rådyr, rådgiver oppvekst"
             ],
-            "vedlegg": []
+            "vedlegg": [
+              "Skolerute for Sirevåg kommune 2026/2027",
+              "Oversikt over tallet på skysselever per skole og trinn"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Bekreftelse på skoleskyss og ruteopplegg for skoleåret 2026/2027",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-06-19",
+          "part": "Rogaland fylkeskommune",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": "2026-06-22",
+            "avsender": {
+              "navn": "Rogaland fylkeskommune",
+              "adresse": "Postboks 130 Sentrum, 4001 Stavanger",
+              "epost": null
+            },
+            "mottaker": null,
+            "emne": "Skoleskyss i Sirevåg kommune skoleåret 2026/2027 – bekreftelse og ruteopplegg",
+            "tekst": [
+              "Vi viser til meldingen fra Sirevåg kommune datert 11. mai 2026 om skyssbehovet for skoleåret 2026/2027, deres ref. {{sak}}. Rogaland fylkeskommune bekrefter at de 163 elevene som er meldt inn med rett til skyss etter opplæringslova, får skoleskyss fra første skoledag 17. august 2026.",
+              "Skyssen blir kjørt med tre skoleruter, som i inneværende skoleår.\nRute 1 går fra snuplassen innerst i Raunesvegen, forbi krysset med Kvernhusvegen, til Sirevåg skole og Sirevåg ungdomsskole.\nRute 2 går fra Industrivegen om Strandveien til begge skolene.\nRute 3 går fra grenda ved kommunegrensen mot Kvassheim til Sirevåg ungdomsskole og Sirevåg skole.\nRutetidene ligger ved.",
+              "Kommunen ber om at bussen på rute 1 kommer senere fram til Sirevåg skole. Vi har flyttet avgangen fra snuplassen i Raunesvegen fra klokka 07.35 til 07.45. Bussen er da ved Sirevåg skole klokka 08.10 og ved Sirevåg ungdomsskole klokka 08.15. Lenger kan vi ikke flytte avgangen når elevene på ungdomsskolen skal rekke undervisningen klokka 08.20. Med dette opplegget får ingen elever i 1.–4. trinn mer enn 40 minutter samlet reise- og ventetid hver veg.",
+              "De 11 elevene som kommunen har gitt skyss på grunn av særlig farlig eller vanskelig skoleveg, får plass på rute 1 og rute 2. For disse elevene betaler kommunen full pris etter gjeldende takster. For de øvrige elevene betaler kommunen refusjon etter persontakst. Vi fakturerer to ganger i året, i oktober og i mars, etter elevtallet som er registrert i skyssportalen 1. oktober og 1. februar.",
+              "Skysskortene blir sendt til skolene i uke 33. Kortet gjelder én reise til skolen og én reise hjem hver skoledag. Holdeplassene er de samme som i år, og oversikten ligger ved. Vi minner om at de foresatte har ansvaret for eleven på vegen mellom hjemmet og holdeplassen, og at skolen har ansvaret for tilsyn i ventetiden på skolen.",
+              "Endringer i elevtallet, flytting og skyss til to hjem ved delt bosted meldes i skyssportalen. Spørsmål om ruteopplegget kan rettes til undertegnede.",
+              "Med hilsen Henning Tjåland, rådgiver, samferdsel"
+            ],
+            "vedlegg": [
+              "Rutetider for skolerutene i Sirevåg kommune 2026/2027",
+              "Oversikt over holdeplasser"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Bekymring for trafikksikkerheten ved bussholdeplassen i Raunesvegen",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-09-08",
+          "part": "FAU ved Sirevåg skole",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": "2026-09-08",
+            "avsender": {
+              "navn": "FAU ved Sirevåg skole",
+              "adresse": null,
+              "epost": "fau.sirevagskole@epost.example"
+            },
+            "mottaker": null,
+            "emne": "Bekymring for trafikksikkerheten ved bussholdeplassen i Raunesvegen",
+            "tekst": [
+              "Foreldrenes arbeidsutvalg (FAU) ved Sirevåg skole skriver til kommunen fordi vi er bekymret for sikkerheten til barna som tar skolebussen fra holdeplassen i Raunesvegen, ved krysset med Kvernhusvegen. Flere foreldre tok opp saken på FAU-møtet 3. september 2026.",
+              "Hver morgen venter mellom 20 og 25 barn på bussen her. De yngste er seks år. Holdeplassen er bare et skilt i vegkanten. Det er ingen busslomme, ikke fortau og ikke noe sted å stå utenom den smale grusskulderen. Fartsgrensen er 60 kilometer i timen, og om morgenen er det mye trafikk mot Kvassheim, også tunge kjøretøy. Det er ikke gatelys på stedet. Når det blir mørkt om morgenen fra oktober, er barna nesten ikke til å se.",
+              "Onsdag 2. september måtte en bil bråbremse da en gutt i 2. trinn løp ut i vegen etter lua si, som blåste av. Det gikk bra denne gangen, men flere foreldre har sett liknende situasjoner. Om ettermiddagen stopper bussen på motsatt side, og barna må krysse vegen uten gangfelt for å komme hjem til boligfeltet.",
+              "Vi ber kommunen om dette:\n1. En befaring på holdeplassen en morgen, sammen med FAU og skolen.\n2. Lys ved holdeplassen før høstferien.\n3. Lavere fartsgrense og gangfelt på stedet.\n4. En vurdering av om holdeplassen kan flyttes inn i Kvernhusvegen, der det er fortau, snuplass og lite trafikk.",
+              "Vi vet at Raunesvegen ikke er kommunens veg. Men det er kommunens elever som står der, og vi håper kommunen kan ta saken videre til dem som bestemmer over vegen og over bussrutene. Flere foreldre har sagt seg villige til å stå vakt om morgenen til noe er gjort, men det kan ikke bli en varig løsning.",
+              "Vi ber om svar på hva kommunen vil gjøre, og når. Tre bilder fra holdeplassen en morgen i forrige uke ligger ved.",
+              "Med hilsen Marianne Gausland, leder av FAU ved Sirevåg skole"
+            ],
+            "vedlegg": [
+              "Tre bilder fra holdeplassen i Raunesvegen"
+            ]
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Anmodning om trafikksikkerhetstiltak ved bussholdeplassen i Raunesvegen",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-09-24",
+          "part": "Rogaland fylkeskommune",
+          "skjerm_part": false,
+          "status": "E",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Oppvekst",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "Rogaland fylkeskommune, Postboks 130 Sentrum, 4001 Stavanger",
+            "emne": "Anmodning om trafikksikkerhetstiltak ved bussholdeplassen i krysset mellom Raunesvegen og Kvernhusvegen",
+            "tekst": [
+              "Sirevåg kommune ber Rogaland fylkeskommune, som eier av fylkesvegen Raunesvegen og som ansvarlig for skoleskyssen, om å vurdere tiltak ved bussholdeplassen i krysset mellom Raunesvegen og Kvernhusvegen. Vår ref.: {{sak}}.",
+              "Bakgrunnen er en henvendelse fra foreldrenes arbeidsutvalg (FAU) ved Sirevåg skole datert 8. september 2026, som ligger ved. FAU er bekymret for sikkerheten til elevene som venter på skolerute 1 om morgenen. Denne høsten går 23 elever fra 1.–7. trinn på bussen her, og ni av dem går i 1. eller 2. trinn.",
+              "Kommunen var på befaring på holdeplassen torsdag 17. september 2026 fra klokka 07.30, sammen med FAU og rektor ved Sirevåg skole. Holdeplassen er et skilt i vegkanten uten busslomme, fortau eller belysning. Grusskulderen er om lag 80 centimeter bred. Fartsgrensen er 60 kilometer i timen, og sikten mot vest er begrenset av en kurve og av vegetasjon. I løpet av 20 minutter passerte 64 kjøretøy, og ni av dem var tunge. Om ettermiddagen stopper bussen på motsatt side, og elevene krysser vegen uten gangfelt.",
+              "Kommunen gjør det den selv kan. Vi setter opp to lyspunkt i krysset, på kommunal grunn ved Kvernhusvegen, innen 9. oktober 2026, og vi rydder vegetasjon som hindrer sikten. Skolen deler ut refleksvester til de yngste skysselevene og tar opp i klassene hvordan en venter på bussen.",
+              "De øvrige tiltakene er det fylkeskommunen som rår over. Vi ber fylkeskommunen vurdere\n1. lavere fartsgrense forbi holdeplassen og krysset\n2. gangfelt eller en annen sikker kryssing\n3. et opparbeidet venteareal eller en busslomme\n4. om skolerute 1 kan stoppe i Kvernhusvegen i stedet, der det er fortau og snuplass, til en varig løsning er på plass",
+              "Vi ber om en tilbakemelding innen 1. desember 2026 om hvilke tiltak fylkeskommunen kan gjennomføre, og når. Kommunen stiller gjerne på en felles befaring. Kopi av dette brevet er sendt på e-post til FAU ved Sirevåg skole og til rektor ved Sirevåg skole.",
+              "Med hilsen Rakel Rådyr, rådgiver oppvekst"
+            ],
+            "vedlegg": [
+              "Henvendelse fra FAU ved Sirevåg skole datert 8. september 2026",
+              "Kart og bilder fra befaringen 17. september 2026"
+            ]
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Svar til FAU ved Sirevåg skole – tiltak ved bussholdeplassen i Raunesvegen",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-09-25",
+          "part": "FAU ved Sirevåg skole",
+          "skjerm_part": false,
+          "status": "E",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Oppvekst",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "FAU ved Sirevåg skole v/ leder Marianne Gausland, fau.sirevagskole@epost.example",
+            "emne": "Svar på bekymring for trafikksikkerheten ved bussholdeplassen i Raunesvegen – tiltak",
+            "tekst": [
+              "Vi viser til e-posten fra FAU datert 8. september 2026 og til befaringen på holdeplassen 17. september. Takk for at dere tok opp saken, og for at dere stilte på befaringen. Vår ref.: {{sak}}.",
+              "Kommunen deler bekymringen. På befaringen så vi det samme som dere beskriver: Barna står tett på kjørebanen, det mangler lys, og de som går av bussen om ettermiddagen, må krysse vegen uten gangfelt.",
+              "Dette gjør kommunen nå:\n1. Vi setter opp to lyspunkt i krysset, på kommunal grunn ved Kvernhusvegen. Arbeidet er bestilt og skal være ferdig innen 9. oktober 2026.\n2. Teknisk drift og miljø rydder kratt og greiner i krysset i uke 40, slik at bilførerne ser barna tidligere.\n3. Skolen deler ut refleksvester til skysselevene i 1.–4. trinn og tar opp i klassene hvordan en venter på bussen. Det skjer før høstferien.",
+              "Raunesvegen er fylkesveg. Kommunen kan derfor ikke selv sette ned fartsgrensen, merke gangfelt eller bygge busslomme. Vi har i brev 24. september 2026 bedt Rogaland fylkeskommune vurdere lavere fartsgrense forbi holdeplassen, en sikker kryssing og et opparbeidet venteareal. Vi har bedt om svar innen 1. desember 2026. Kopi av brevet ligger ved.",
+              "Forslaget om å flytte holdeplassen inn i Kvernhusvegen har vi også sendt til fylkeskommunen, som bestemmer rutene og holdeplassene for skoleskyssen. Vi mener forslaget er godt, men bussen må kunne snu der, og det må avklares med busselskapet. Vi kan derfor ikke love at det lar seg gjøre.",
+              "Vi setter pris på at foreldre har tilbudt seg å stå vakt om morgenen. En slik ordning må foreldrene selv stå for, men rektor Tora Trane vil gjerne ha et møte med FAU om hvordan skolen kan hjelpe til fram til tiltakene er på plass. Vi sender dere svaret fra fylkeskommunen så snart vi har fått det.",
+              "Med hilsen Rakel Rådyr, rådgiver oppvekst"
+            ],
+            "vedlegg": [
+              "Kopi av brev til Rogaland fylkeskommune datert 24. september 2026"
+            ]
           }
         }
       ]
@@ -3396,10 +3515,10 @@
       "journalposter": [
         {
           "type": "I",
-          "tittel": "Brev til kommunen (midlertidig)",
+          "tittel": "Ønske om ny driftsavtale for Sirevåg idrettspark fra 2027",
           "offentlig_tittel": null,
-          "dokumentdato": "2026-08-10",
-          "part": "Kari Avsender",
+          "dokumentdato": "2026-08-07",
+          "part": "Sirevåg idrettslag",
           "skjerm_part": false,
           "status": "J",
           "journalfort": true,
@@ -3408,25 +3527,31 @@
             "kanal": "brev",
             "mottatt": "2026-08-10",
             "avsender": {
-              "navn": "Kari Avsender",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
+              "navn": "Sirevåg idrettslag",
+              "adresse": "Stadionveien 2, 4399 Sirevåg",
+              "epost": "styret@sirevagil.example"
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Ønske om ny driftsavtale for Sirevåg idrettspark fra 2027",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Sirevåg idrettslag viser til driftsavtalen for Sirevåg idrettspark, som gjelder for årene 2022–2026 og går ut 31. desember 2026. Styret behandlet saken i møte 4. august 2026 og ber med dette om forhandlinger om en ny avtale fra 1. januar 2027.",
+              "Laget har drevet idrettsparken for kommunen siden 1997. I dag har vi over 600 medlemmer, og om lag 400 av dem er barn og unge. Anlegget er i bruk hver eneste dag. Skolene har det på dagtid, og laget har treninger og kamper hver ettermiddag og kveld og i helgene. Medlemmene legger ned om lag 2 000 dugnadstimer i året på anlegget, i tillegg til arbeidet banemannen vår gjør i 40 prosent stilling.",
+              "Driftstilskuddet har vært 360 000 kroner i året siden 2022 og er ikke blitt regulert i avtaleperioden. I samme tid har utgiftene våre til drift av anlegget økt fra 395 000 kroner til 478 000 kroner i året. Det skyldes først og fremst lønn til banemannen, drivstoff og vedlikehold av maskinene og den årlige dyprensen av kunstgresset, som alene koster 40 000 kroner. Mellomlegget dekker laget i dag med dugnadsinntekter som ellers skulle gått til aktivitet for barna.",
+              "Vi ber derfor om at driftstilskuddet i den nye avtalen settes til 450 000 kroner i året, og at det reguleres hvert år etter prisstigningen. Vi ønsker en avtale på fem år, slik at vi kan planlegge og binde oss til vedlikeholdsavtaler for maskinene. Vi ber også om at avtalen sier tydelig hvem som har ansvaret når kunstgresset fra 2018 må skiftes ut. Den utgiften kan ikke laget bære.",
+              "Ellers ønsker vi å videreføre avtalen slik den er. Samarbeidet med kommunen og skolene fungerer godt, og vi er stolte av anlegget. En oversikt over utgiftene laget har hatt til driften av idrettsparken i årene 2022–2025, ligger ved som grunnlag for forhandlingene. Vi stiller gjerne til møte når det passer for kommunen, og håper vi kan ha en ny avtale klar i god tid før årsskiftet.",
+              "Med hilsen Kåre Skadberg, styreleder, Sirevåg idrettslag"
             ],
-            "vedlegg": []
+            "vedlegg": [
+              "Oversikt over lagets utgifter til drift av Sirevåg idrettspark 2022–2025"
+            ]
           }
         },
         {
           "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
+          "tittel": "Utkast til driftsavtale for Sirevåg idrettspark 2027–2031",
           "offentlig_tittel": null,
-          "dokumentdato": "2026-08-17",
-          "part": "Kari Avsender",
+          "dokumentdato": "2026-09-15",
+          "part": "Sirevåg idrettslag",
           "skjerm_part": false,
           "status": "E",
           "journalfort": true,
@@ -3435,17 +3560,225 @@
             "kanal": "brev",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Næring, kultur og beredskap",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Kari Avsender",
-            "emne": "Svar fra kommunen",
+            "mottaker": "Sirevåg idrettslag v/ styreleder Kåre Skadberg, Stadionveien 2, 4399 Sirevåg",
+            "emne": "Utkast til driftsavtale for Sirevåg idrettspark 2027–2031",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Vi viser til brevet fra Sirevåg idrettslag datert 7. august 2026 og til møtet i rådhuset 27. august 2026. Vedlagt følger kommunens utkast til driftsavtale for Sirevåg idrettspark for årene 2027–2031. Vår ref.: {{sak}}.",
+              "Utkastet bygger på gjeldende avtale. Fordelingen av oppgavene er som før. Idrettslaget har den daglige driften, med tilsyn, klipping og merking av banene, renhold av garderobene og enkelt vedlikehold. Kommunen eier anlegget og har ansvaret for bygningene, de tekniske anleggene, flomlysene og forsikringen. Skolene bruker anlegget vederlagsfritt på dagtid.",
+              "Tre punkter er nye.\n1. Driftstilskuddet økes fra 360 000 til 420 000 kroner i året.\n2. Kommunen tar over avtalen med leverandøren om dyprens og etterfylling av kunstgresset, som i dag koster laget om lag 40 000 kroner i året.\n3. Avtalen slår fast at kommunen som eier har ansvaret for å skifte ut kunstgresset når det er utslitt. Laget forplikter seg til å følge kommunens rutiner for å hindre at gummigranulat sprer seg fra banen.",
+              "Laget ba om 450 000 kroner i året og årlig prisregulering. Så langt kan ikke kommunen gå. Når kommunen tar over dyprensen, blir den samlede forbedringen for laget likevel om lag 100 000 kroner i året. Vi foreslår et fast beløp i hele perioden i stedet for prisregulering, fordi det gir begge parter forutsigbarhet og er slik kommunen ordner tilsvarende avtaler med andre lag. Punkt 10 i utkastet gir hver av partene rett til å kreve forhandlinger dersom forutsetningene endrer seg vesentlig.",
+              "Avtalen gjelder i fem år og binder kommunen ut over økonomiplanperioden. Den må derfor godkjennes av kommunestyret. Vi tar sikte på å legge saken fram i kommunestyrets møte 29. oktober 2026. Tilskuddet forutsetter at kommunestyret bevilger midlene i budsjettet for hvert år.",
+              "Vi ber om lagets merknader til utkastet innen 1. oktober 2026. Ta gjerne kontakt med undertegnede på stian.stokkand@sirevag.example dersom noe er uklart.",
+              "Med hilsen Stian Stokkand, kulturkonsulent"
+            ],
+            "vedlegg": [
+              "Utkast til driftsavtale for Sirevåg idrettspark 2027–2031"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Tilbakemelding på utkast til driftsavtale for Sirevåg idrettspark 2027–2031",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-09-29",
+          "part": "Sirevåg idrettslag",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": "2026-09-29",
+            "avsender": {
+              "navn": "Sirevåg idrettslag",
+              "adresse": "Stadionveien 2, 4399 Sirevåg",
+              "epost": "styret@sirevagil.example"
+            },
+            "mottaker": null,
+            "emne": "Tilbakemelding på utkast til driftsavtale for Sirevåg idrettspark 2027–2031",
+            "tekst": [
+              "Vi viser til kommunens brev 15. september 2026 med utkast til driftsavtale for Sirevåg idrettspark 2027–2031, deres ref. {{sak}}. Styret i Sirevåg idrettslag behandlet utkastet i styremøte mandag 28. september.",
+              "Styret hadde håpet på 450 000 kroner og prisregulering, og vi vil ikke legge skjul på at et fast beløp i fem år kan bli knapt mot slutten av perioden. Vi ser likevel at kommunen har kommet oss i møte ved å ta over dyprensen av kunstgresset og ved å slå fast hvem som har ansvaret for utskiftingen. Styret godtar derfor utkastet. Vedtaket var enstemmig.",
+              "Vi har to små merknader. I punkt 4 står det at laget skal merke gressbanen hver uke i sesongen. Vi ber om at det endres til «etter behov, og minst annenhver uke i sesongen», som er slik vi gjør det i dag. I punkt 5 ber vi om at det kommer med at kommunen varsler laget minst fire uker før kommunen selv skal bruke anlegget til arrangementer.",
+              "Dersom kommunen er enig i disse to endringene, er laget klar til å skrive under så snart kommunestyret har behandlet saken.",
+              "Med hilsen Kåre Skadberg, styreleder, Sirevåg idrettslag"
             ],
             "vedlegg": []
+          }
+        },
+        {
+          "type": "S",
+          "tittel": "Saksframlegg til kommunestyret – driftsavtale for Sirevåg idrettspark 2027–2031 med Sirevåg idrettslag",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-10-12",
+          "part": "Stian Stokkand",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "saksframlegg",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Næring, kultur og beredskap",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Driftsavtale for Sirevåg idrettspark 2027–2031 med Sirevåg idrettslag",
+            "tekst": [
+              "Saksframlegg til kommunestyret, møte 29. oktober 2026. Arkivsak {{sak}}. Saksbehandler: Stian Stokkand, kulturkonsulent.",
+              "## Saken gjelder",
+              "Driftsavtalen mellom Sirevåg kommune og Sirevåg idrettslag om Sirevåg idrettspark går ut 31. desember 2026. Kommunedirektøren legger fram forslag til ny avtale for årene 2027–2031. Avtalen binder kommunen i fem år, ut over økonomiplanperioden, og skal etter kommunens økonomireglement godkjennes av kommunestyret.",
+              "## Bakgrunn",
+              "Sirevåg idrettspark i Stadionveien er kommunens hovedanlegg for idrett. Kommunen eier grunnen og anlegget, som har kunstgressbane fra 2018, gressbane, løpebane, flomlys og et garderobebygg fra 1994. Klubbhuset eies av idrettslaget og er ikke en del av avtalen.",
+              "Idrettslaget har hatt den daglige driften av anlegget siden 1997, de siste fem årene etter avtalen for 2022–2026. Laget har over 600 medlemmer, og om lag 400 av dem er barn og unge. Sirevåg skole og Sirevåg ungdomsskole bruker anlegget til kroppsøving og aktivitetsdager på dagtid uten å betale for det.",
+              "Idrettslaget ba i brev 7. august 2026 om en ny avtale på fem år, et driftstilskudd på 450 000 kroner i året med årlig prisregulering og en avklaring av hvem som har ansvaret når kunstgresset må skiftes ut. Kommunen og laget hadde møte 27. august. Kommunen sendte utkast til avtale 15. september. Styret i laget godtok utkastet 28. september og ba om to mindre endringer, som gjelder merking av gressbanen og varsling når kommunen selv skal bruke anlegget. Begge er tatt inn i avtalen som legges fram.",
+              "## Hovedpunkter i avtalen",
+              "Idrettslaget har daglig tilsyn med anlegget, klipper og merker banene, holder garderobene rene, tar hånd om avfall og gjør enkelt vedlikehold. Kommunen har ansvaret for bygningene, de tekniske anleggene, flomlysene og forsikringen og dekker utgiftene til strøm og vann.",
+              "Tre punkter er nye. Driftstilskuddet økes fra 360 000 til 420 000 kroner i året og er fast i hele perioden. Kommunen tar over avtalen med leverandøren om dyprens og etterfylling av kunstgresset, som koster om lag 40 000 kroner i året. Avtalen slår dessuten fast at kommunen som eier har ansvaret for å skifte ut kunstgresset, og at laget skal følge kommunens rutiner for å hindre at gummigranulat sprer seg fra banen.",
+              "Laget sender som før årsmelding og regnskap til kommunen hvert år til orientering, og partene har et årlig driftsmøte. Avtalen kan sies opp med tolv måneders frist. Hver av partene kan kreve forhandlinger dersom forutsetningene endrer seg vesentlig.",
+              "## Økonomi",
+              "Driftstilskuddet øker med 60 000 kroner i året. Utgiften til dyprens av kunstgresset kommer i tillegg, slik at kommunens årlige utgifter etter avtalen øker med om lag 100 000 kroner, til 460 000 kroner. Økningen blir innarbeidet i kommunedirektørens forslag til budsjett 2027 og økonomiplan 2027–2030, arkivsak {{sak:budsjett-2027}}.",
+              "Utskiftingen av kunstgresset er anslått til 3,2 millioner kroner og ventes å bli nødvendig i 2029 eller 2030. Den må behandles som en egen investering når den tid kommer.",
+              "## Vurdering",
+              "Kommunedirektøren mener avtalen er god for kommunen. Skulle kommunen drevet anlegget selv, ville det kreve om lag ett årsverk og egne maskiner, anslått til 950 000 kroner i året. Dugnadsinnsatsen i laget, om lag 2 000 timer i året, gjør at anlegget kan holdes åpent og i god stand til en langt lavere kostnad.",
+              "Laget har dokumentert at utgiftene til driften har økt fra 395 000 til 478 000 kroner i året siden 2022, mens tilskuddet har stått stille. Kommunedirektøren mener det er rimelig at kommunen dekker en større del. Tilskuddet ligger 30 000 kroner under det laget ba om, men når kommunen tar over dyprensen, er den samlede forbedringen større enn økningen laget ba om. Et fast beløp gir forutsigbarhet for begge parter og er i tråd med kommunens andre avtaler med lag og foreninger.",
+              "Ansvaret for utskifting av kunstgresset har vært uklart i gjeldende avtale. Anlegget er kommunens eiendom, og det er ryddig at avtalen sier at eieren har ansvaret. Kommunedirektøren tilrår at kommunestyret godkjenner avtalen.",
+              "## Forslag til vedtak",
+              "Kommunestyret godkjenner driftsavtalen for Sirevåg idrettspark 2027–2031 mellom Sirevåg kommune og Sirevåg idrettslag. Det årlige driftstilskuddet er 420 000 kroner.",
+              "Ulla Ugle, kommunedirektør\nStian Stokkand, kulturkonsulent"
+            ],
+            "vedlegg": [
+              "Driftsavtale for Sirevåg idrettspark 2027–2031",
+              "Brev fra Sirevåg idrettslag datert 7. august 2026",
+              "E-post fra Sirevåg idrettslag datert 29. september 2026"
+            ]
+          }
+        },
+        {
+          "type": "X",
+          "tittel": "Saksprotokoll – kommunestyret 29.10.2026 – PS 60/26 – driftsavtale for Sirevåg idrettspark 2027–2031 med Sirevåg idrettslag",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-10-30",
+          "part": "Petra Pinnsvin",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "protokoll",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Kommunedirektørens stab",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Saksprotokoll – kommunestyret 29.10.2026 – PS 60/26 – driftsavtale for Sirevåg idrettspark 2027–2031 med Sirevåg idrettslag",
+            "tekst": [
+              "Saksprotokoll fra kommunestyret, møte 29. oktober 2026 i kommunestyresalen i rådhuset. Sak PS 60/26 gjelder driftsavtale for Sirevåg idrettspark 2027–2031 med Sirevåg idrettslag. Arkivsak {{sak}}.",
+              "## Kommunedirektørens forslag til vedtak",
+              "Kommunestyret godkjenner driftsavtalen for Sirevåg idrettspark 2027–2031 mellom Sirevåg kommune og Sirevåg idrettslag. Det årlige driftstilskuddet er 420 000 kroner.",
+              "## Behandling i møtet",
+              "Ordfører Gunnhild Søyland (Sp) ledet behandlingen. 25 stemmeberettigede var til stede. Kulturkonsulent Stian Stokkand svarte på spørsmål om hva driftstilskuddet skal dekke, og om hvordan kommunen følger opp avtalen.",
+              "Mona Tunheim (Ap) og Torstein Ege (H) framhevet dugnadsinnsatsen i idrettslaget og sa at avtalen gir laget forutsigbare rammer i fem år. Det ble ikke satt fram andre forslag.",
+              "## Votering",
+              "Kommunedirektørens forslag til vedtak ble enstemmig vedtatt.",
+              "## Vedtak",
+              "Kommunestyret godkjenner driftsavtalen for Sirevåg idrettspark 2027–2031 mellom Sirevåg kommune og Sirevåg idrettslag. Det årlige driftstilskuddet er 420 000 kroner.",
+              "Rett utskrift bekreftes.\nSirevåg, 30. oktober 2026\nPetra Pinnsvin, politisk sekretær"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Melding om vedtak og avtale til underskrift – driftsavtale for Sirevåg idrettspark 2027–2031",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-11-02",
+          "part": "Sirevåg idrettslag",
+          "skjerm_part": false,
+          "status": "E",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Næring, kultur og beredskap",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "Sirevåg idrettslag v/ styreleder Kåre Skadberg, Stadionveien 2, 4399 Sirevåg",
+            "emne": "Melding om vedtak og avtale til underskrift – driftsavtale for Sirevåg idrettspark 2027–2031",
+            "tekst": [
+              "Kommunestyret behandlet 29. oktober 2026 forslaget til ny driftsavtale for Sirevåg idrettspark, sak PS 60/26. Vår ref.: {{sak}}.",
+              "Kommunestyret gjorde enstemmig dette vedtaket: «Kommunestyret godkjenner driftsavtalen for Sirevåg idrettspark 2027–2031 mellom Sirevåg kommune og Sirevåg idrettslag. Det årlige driftstilskuddet er 420 000 kroner.»",
+              "Avtalen som ble godkjent, er den laget fikk som utkast 15. september 2026, med de to endringene laget ba om i e-posten 29. september. Gressbanen skal merkes etter behov og minst annenhver uke i sesongen, og kommunen varsler laget minst fire uker før kommunen selv skal bruke anlegget til arrangementer.",
+              "Vedlagt følger avtalen i to eksemplarer. Ordfører Gunnhild Søyland har underskrevet begge for kommunen. Vi ber om at styrelederen underskriver begge eksemplarene, og at laget sender det ene tilbake til kommunen innen 16. november 2026. Det andre beholder laget.",
+              "Avtalen gjelder fra 1. januar 2027. Første halvdel av driftstilskuddet for 2027, 210 000 kroner, blir utbetalt 1. februar 2027, forutsatt at kommunestyret vedtar budsjettet for 2027 i møtet 10. desember 2026. Kommunen tar over avtalen om dyprens av kunstgresset fra samme dag som driftsavtalen begynner å gjelde, og vi tar kontakt med leverandøren om det i løpet av november.",
+              "Vi takker for et godt samarbeid om avtalen og foreslår at det første årlige driftsmøtet etter den nye avtalen blir holdt i mars 2027.",
+              "Med hilsen Stian Stokkand, kulturkonsulent"
+            ],
+            "vedlegg": [
+              "Driftsavtale for Sirevåg idrettspark 2027–2031 i to eksemplarer",
+              "Saksprotokoll fra kommunestyret 29. oktober 2026, PS 60/26"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Underskrevet driftsavtale for Sirevåg idrettspark 2027–2031",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-11-09",
+          "part": "Sirevåg idrettslag",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "avtale",
+            "mottatt": "2026-11-10",
+            "avsender": {
+              "navn": "Sirevåg idrettslag",
+              "adresse": "Stadionveien 2, 4399 Sirevåg",
+              "epost": "styret@sirevagil.example"
+            },
+            "mottaker": null,
+            "emne": "Driftsavtale for Sirevåg idrettspark 2027–2031",
+            "tekst": [
+              "Driftsavtale mellom Sirevåg kommune, Rådhusgata 1, 4399 Sirevåg (kommunen), og Sirevåg idrettslag, Stadionveien 2, 4399 Sirevåg (laget), om drift av Sirevåg idrettspark. Avtalen er godkjent av kommunestyret 29. oktober 2026 i sak PS 60/26.",
+              "## 1 Formål",
+              "Avtalen skal sikre at Sirevåg idrettspark er åpen, trygg og godt vedlikeholdt for skolene, idrettslaget og innbyggerne. Den fordeler oppgavene, ansvaret og kostnadene mellom kommunen som eier og laget som driver anlegget.",
+              "## 2 Anlegget",
+              "Avtalen gjelder kunstgressbanen, gressbanen, løpebanen, flomlysene, garderobebygget og parkeringsplassen i Stadionveien. Kommunen eier grunnen og anlegget. Klubbhuset eies av laget og er ikke omfattet av avtalen.",
+              "## 3 Avtaletid",
+              "Avtalen gjelder fra 1. januar 2027 til 31. desember 2031 og avløser driftsavtalen for årene 2022–2026.",
+              "## 4 Lagets oppgaver",
+              "Laget har den daglige driften av anlegget. Laget skal\na) ha daglig tilsyn med anlegget og låse garderobebygget hver kveld\nb) klippe gressbanen og merke den etter behov, og minst annenhver uke i sesongen\nc) børste kunstgresset hver uke og følge kommunens rutiner for å hindre at gummigranulat sprer seg fra banen\nd) holde garderobene rene og tømme avfallsbeholderne\ne) gjøre enkelt vedlikehold som koster inntil 10 000 kroner per tilfelle\nf) melde fra til kommunen straks om skader og feil som kan være til fare for brukerne",
+              "## 5 Kommunens oppgaver",
+              "Kommunen har ansvaret for bygningene, de tekniske anleggene og flomlysene og dekker utgiftene til strøm, vann og forsikring av anlegget. Kommunen har avtalen med leverandøren om dyprens og etterfylling av kunstgresset. Kommunen har som eier ansvaret for å skifte ut kunstgresset når det er utslitt. Kommunen kan bruke anlegget til egne arrangementer inntil seks dager i året og varsler laget minst fire uker i forveien.",
+              "## 6 Bruk av anlegget",
+              "Sirevåg skole og Sirevåg ungdomsskole disponerer anlegget vederlagsfritt på skoledager fram til klokka 15.30. Laget disponerer anlegget resten av tiden og fordeler treningstidene. Andre lag og foreninger i kommunen kan leie anlegget av laget til satser som kommunen har godkjent. Anlegget skal være åpent for egenorganisert aktivitet når det ikke er i bruk.",
+              "## 7 Rapportering",
+              "Laget sender årsmelding og regnskap til kommunen hvert år innen 1. juni, til orientering. Partene har et årlig driftsmøte i mars, der de går gjennom tilstanden på anlegget og planene for året.",
+              "## 8 Driftstilskudd",
+              "Kommunen betaler laget et driftstilskudd på 420 000 kroner i året. Beløpet er fast i avtaletiden. Tilskuddet utbetales med 210 000 kroner 1. februar og 210 000 kroner 1. august. Utbetalingen forutsetter at kommunestyret har bevilget midlene i årsbudsjettet.",
+              "## 9 Forsikring og ansvar",
+              "Kommunen forsikrer anlegget. Laget forsikrer eget utstyr og egne maskiner og har ansvarsforsikring for egen aktivitet. Laget svarer for skader som skyldes uaktsomhet hos lagets medlemmer eller ansatte.",
+              "## 10 Endringer, mislighold og oppsigelse",
+              "Hver av partene kan kreve forhandlinger dersom forutsetningene for avtalen endrer seg vesentlig. Endringer i avtalen skal være skriftlige. Avtalen kan sies opp av hver av partene med tolv måneders skriftlig frist. Ved vesentlig mislighold kan den andre parten heve avtalen etter skriftlig varsel og en rimelig frist til å rette forholdet. Forhandlinger om ny avtale skal begynne senest 1. mars 2031.",
+              "## Underskrifter",
+              "Avtalen er skrevet i to eksemplarer, ett til hver av partene.\nSirevåg, 2. november 2026. For Sirevåg kommune: Gunnhild Søyland, ordfører.\nSirevåg, 9. november 2026. For Sirevåg idrettslag: Kåre Skadberg, styreleder."
+            ],
+            "vedlegg": [
+              "Kart over Sirevåg idrettspark"
+            ]
           }
         }
       ]
@@ -3464,10 +3797,10 @@
       "journalposter": [
         {
           "type": "I",
-          "tittel": "Brev til kommunen (midlertidig)",
+          "tittel": "Planinitiativ og anmodning om oppstartsmøte – detaljregulering for Havneområdet nord",
           "offentlig_tittel": null,
-          "dokumentdato": "2026-03-09",
-          "part": "Kari Avsender",
+          "dokumentdato": "2026-03-06",
+          "part": "Jæren Plan og Landskap AS",
           "skjerm_part": false,
           "status": "J",
           "journalfort": true,
@@ -3476,25 +3809,291 @@
             "kanal": "brev",
             "mottatt": "2026-03-09",
             "avsender": {
-              "navn": "Kari Avsender",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
+              "navn": "Jæren Plan og Landskap AS",
+              "adresse": "Storgata 14, 4398 Kvassheim",
+              "epost": "post@jaerenplan.example"
+            },
+            "mottaker": null,
+            "emne": "Planinitiativ og anmodning om oppstartsmøte – detaljregulering for Havneområdet nord i Sirevåg",
+            "tekst": [
+              "På vegne av Sirevåg Fiskemottak AS ber Jæren Plan og Landskap AS om oppstartsmøte med Sirevåg kommune om en privat detaljregulering for den nordre delen av havna i Sirevåg. Dette brevet er planinitiativet. Forslagsstiller er Sirevåg Fiskemottak AS ved daglig leder Jarle Kyllingstad.",
+              "Planområdet er på om lag 18 dekar. Av dette er 7 dekar landareal og 11 dekar sjø. Det omfatter fiskemottakets eiendom Havnegata 12, gnr. 31 bnr. 22, med sjøhuset fra 1936 og mottakshallen fra 2019. Det omfatter også den kommunale kaia, parkeringsplassen sør for sjøhuset, slippen og den indre delen av havnebassenget med flytebrygga. Forslaget til avgrensning er vist på kartet som ligger ved.",
+              "Formålet med planen er å legge til rette for at sjøhuset kan tas i bruk til servering, med uteservering på kaia, og for en småbåthavn med gjesteplasser innerst i havna. Fiskemottaket skal drive videre i mottakshallen som i dag. Forslagsstilleren ønsker også en sammenhengende gangforbindelse langs kaia, slik at havna blir lettere tilgjengelig for innbyggere og besøkende.",
+              "I gjeldende reguleringsplan for Sirevåg havn fra 1989 er området satt av til havne- og næringsformål, og i kommuneplanens arealdel er det vist som næringsområde og havn. Servering for allmennheten og småbåthavn ligger utenfor formålet i reguleringsplanen. Vi mener tiltaket er i tråd med hovedtrekkene i kommuneplanen, men at det krever en ny detaljregulering.",
+              "Det er ikke planlagt nye bygg ut over et servicebygg på inntil 60 m² ved småbåthavna. Sjøhuset skal bevares utvendig. Temaene vi ser som viktigst i planarbeidet, er forholdet til strandsonen og allmenn ferdsel, støy fra serveringen mot boligene i Havnegata, trafikk og parkering, sikkerhet mot stormflo og hensynet til fiskerinæringen og de andre brukerne av havna. Vi vurderer det slik at planen ikke utløser krav om konsekvensutredning, men ber om kommunens syn på det.",
+              "Vi foreslår at oppstart varsles til grunneiere, naboer, næringsdrivende og lag i havna og til offentlige myndigheter, og at det holdes et åpent møte i varslingsperioden. Fra oss møter arealplanlegger Sigrid Kverneland og landskapsarkitekt Jone Risa, og fra forslagsstilleren møter Jarle Kyllingstad. Vi kan møte i uke 12 eller 13.",
+              "Med hilsen Sigrid Kverneland, arealplanlegger, Jæren Plan og Landskap AS"
+            ],
+            "vedlegg": [
+              "Kart med forslag til planavgrensning",
+              "Skisse av småbåthavn og uteservering",
+              "Utsnitt av gjeldende reguleringsplan for Sirevåg havn"
+            ]
+          }
+        },
+        {
+          "type": "X",
+          "tittel": "Referat fra oppstartsmøte 19.03.2026 – detaljregulering for Havneområdet nord",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-03-24",
+          "part": "Viktor Vipe",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "notat",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Plan, bygg og eiendom",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Referat fra oppstartsmøte 19. mars 2026 – detaljregulering for Havneområdet nord, planID 2026002",
+            "tekst": [
+              "Referat fra oppstartsmøte etter plan- og bygningsloven § 12-8, holdt i rådhuset 19. mars 2026. Arkivsak {{sak}}. Møtet ble holdt etter planinitiativ fra Jæren Plan og Landskap AS datert 6. mars 2026.",
+              "## Til stede",
+              "Fra forslagsstilleren møtte daglig leder Jarle Kyllingstad, Sirevåg Fiskemottak AS. Fra plankonsulenten møtte arealplanlegger Sigrid Kverneland og landskapsarkitekt Jone Risa, Jæren Plan og Landskap AS. Fra kommunen møtte arealplanlegger Viktor Vipe, som skrev referatet, byggesaksbehandler Gunnar Grevling og miljørådgiver Sandra Salamander.",
+              "## Planinitiativet",
+              "Forslagsstilleren vil legge til rette for servering i sjøhuset fra 1936, uteservering på kaia og småbåthavn med gjesteplasser innerst i havna. Fiskemottaket skal drive videre i mottakshallen. Planområdet er på om lag 18 dekar, medregnet 11 dekar sjø. Det omfatter Havnegata 12, gnr. 31 bnr. 22, og kommunal grunn med kai, parkeringsplass og slipp.",
+              "## Planstatus og kommunens vurdering",
+              "Området er regulert til havne- og næringsformål i reguleringsplanen for Sirevåg havn fra 1989 og er vist som næringsområde og havn i kommuneplanens arealdel. Kommunen mener planinitiativet er i tråd med hovedtrekkene i kommuneplanen og med målet om en mer levende havn. Kommunen tilrår at planarbeidet settes i gang.",
+              "Kommunen er grunneier til kaia, parkeringsplassen og slippen. At kommunal grunn tas med i planområdet, betyr ikke at kommunen har tatt stilling til salg eller utleie av grunnen. Det må avklares i en egen sak.",
+              "## Temaer som må utredes",
+              "Kommunen ba om at planforslaget særlig gjør rede for disse temaene:\n1. Strandsone og allmenn ferdsel. Kaia skal være åpen for allmennheten, og uteserveringen må ikke stenge gangforbindelsen.\n2. Støy fra servering og uteservering mot boligene i Havnegata.\n3. Sikkerhet mot stormflo og havnivåstigning.\n4. Trafikk, parkering og varelevering i Havnegata.\n5. Hensynet til fiskerinæringen og de andre brukerne av havna, blant dem Sirevåg båtforening, som disponerer flytebrygga.\n6. Sjøhuset som kulturminne.\n7. Forurenset grunn og sjøbunn dersom det skal mudres eller pæles.",
+              "## Konsekvensutredning",
+              "Kommunen har vurdert planinitiativet etter forskrift om konsekvensutredninger. Planen er i tråd med kommuneplanen og legger ikke til rette for tiltak som utløser krav om konsekvensutredning. Virkningene skal beskrives i planbeskrivelsen, og det skal lages risiko- og sårbarhetsanalyse.",
+              "## Krav til planforslaget",
+              "Planforslaget skal ha plankart, reguleringsbestemmelser, planbeskrivelse, risiko- og sårbarhetsanalyse, støyvurdering og en vurdering av stormflo. Det skal også ha en oppsummering av merknadene til varselet om oppstart med forslagsstillerens kommentarer. Planen får navnet Detaljregulering for Havneområdet nord og planID 2026002.",
+              "## Varsling og medvirkning",
+              "Forslagsstilleren varsler oppstart av planarbeidet i Jærposten og i brev til grunneiere, naboer, lag og offentlige myndigheter, jf. plan- og bygningsloven § 12-8. Kommunen sender adresseliste og legger varselet ut på www.sirevag.example. Fristen for merknader settes til seks uker. Merknadene sendes til plankonsulenten, som legger dem ved planforslaget. Forslagsstilleren holder et åpent møte i varslingsperioden.",
+              "## Framdrift og gebyr",
+              "Forslagsstilleren tar sikte på å varsle oppstart i april og sende planforslaget til kommunen i september 2026. Kommunen legger et komplett planforslag fram for plan- og teknisk utvalg til første gangs behandling innen tolv uker. Behandlingsgebyret følger kommunens gebyrregulativ og blir fakturert når planforslaget legges ut til offentlig ettersyn.",
+              "Referatet er sendt til deltakerne. Det gjengir kommunens foreløpige vurderinger og gir ingen rettigheter i den senere saksbehandlingen.",
+              "Viktor Vipe, arealplanlegger"
+            ],
+            "vedlegg": [
+              "Kart med planavgrensning",
+              "Adresseliste for varsel om oppstart"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Varsel om oppstart av planarbeid – detaljregulering for Havneområdet nord",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-04-24",
+          "part": "Jæren Plan og Landskap AS",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": "2026-04-24",
+            "avsender": {
+              "navn": "Jæren Plan og Landskap AS",
+              "adresse": "Storgata 14, 4398 Kvassheim",
+              "epost": "post@jaerenplan.example"
+            },
+            "mottaker": null,
+            "emne": "Varsel om oppstart av planarbeid – detaljregulering for Havneområdet nord, planID 2026002",
+            "tekst": [
+              "På vegne av Sirevåg Fiskemottak AS varsler vi at det settes i gang arbeid med detaljregulering for Havneområdet nord i Sirevåg, planID 2026002, jf. plan- og bygningsloven § 12-8. Varselet er sendt til grunneiere, naboer, lag og offentlige myndigheter etter adresselisten fra kommunen, og det er kunngjort i Jærposten 24. april 2026. Sirevåg kommune får varselet som grunneier og planmyndighet.",
+              "Planområdet er på om lag 18 dekar og omfatter Havnegata 12, gnr. 31 bnr. 22, den kommunale kaia, parkeringsplassen sør for sjøhuset, slippen og den indre delen av havnebassenget. Formålet er å legge til rette for servering i sjøhuset fra 1936, uteservering på kaia og en småbåthavn med gjesteplasser. Fiskemottaket skal drive videre som i dag. Planavgrensningen er vist på kartet som ligger ved.",
+              "Kommunen har i oppstartsmøtet 19. mars 2026 vurdert at planarbeidet ikke utløser krav om konsekvensutredning. Virkningene av planen blir beskrevet i planbeskrivelsen, og det blir laget risiko- og sårbarhetsanalyse. Referatet fra oppstartsmøtet ligger ved.",
+              "Det blir holdt et åpent informasjonsmøte i sjøhuset i Havnegata 12 tirsdag 12. mai 2026 klokka 18.00. Alle som er interessert, er velkomne.",
+              "Merknader og innspill til planarbeidet sendes til Jæren Plan og Landskap AS, Storgata 14, 4398 Kvassheim, eller til post@jaerenplan.example innen 5. juni 2026. Merknadene blir oppsummert og kommentert i planforslaget og lagt ved når forslaget sendes til kommunen. Det blir en ny anledning til å uttale seg når planforslaget legges ut til offentlig ettersyn.",
+              "Med hilsen Sigrid Kverneland, arealplanlegger, Jæren Plan og Landskap AS"
+            ],
+            "vedlegg": [
+              "Kart med planavgrensning",
+              "Referat fra oppstartsmøte 19. mars 2026",
+              "Adresseliste"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Uttalelse til varsel om oppstart av planarbeid – detaljregulering for Havneområdet nord",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-06-02",
+          "part": "Statsforvalteren i Rogaland",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": "2026-06-03",
+            "avsender": {
+              "navn": "Statsforvalteren i Rogaland",
+              "adresse": "Postboks 59, 4001 Stavanger",
               "epost": null
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Uttalelse til varsel om oppstart av planarbeid – detaljregulering for Havneområdet nord, planID 2026002, Sirevåg kommune",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Vi viser til varsel om oppstart av planarbeid datert 24. april 2026 fra Jæren Plan og Landskap AS. Varselet gjelder detaljregulering for Havneområdet nord i Sirevåg kommune, planID 2026002. Formålet er å legge til rette for servering i et eldre sjøhus og for småbåthavn.",
+              "Statsforvalteren skal se til at nasjonale og viktige regionale interesser blir tatt vare på i planarbeidet. Vi har innspill om strandsonen, støy og flomfare.",
+              "## Strandsonen",
+              "Planområdet ligger i hundremetersbeltet langs sjøen. Der skal det tas særlig hensyn til natur- og kulturmiljø, friluftsliv, landskap og andre allmenne interesser. Området er allerede bygd ut som havn, og vi har ikke merknader til at eksisterende bygg tas i bruk til nye formål. Vi forventer at planen sikrer allmennheten fri ferdsel langs kaia, og at uteservering og småbåthavn ikke stenger for den. Nye bygg bør holdes på et minimum.",
+              "## Støy",
+              "Servering og uteservering kan gi støy for boligene i Havnegata, særlig om kvelden. Vi ber om at støy blir utredet etter retningslinjen for behandling av støy i arealplanlegging, og at bestemmelsene setter grenser for støy og for når uteserveringen kan være åpen.",
+              "## Flomfare",
+              "Planområdet er utsatt for stormflo. Planforslaget må vise at kravene til sikkerhet mot stormflo i byggteknisk forskrift er oppfylt, med påslag for havnivåstigning og bølger. Vi ber om at risiko- og sårbarhetsanalysen særlig tar for seg stormflo. Bestemmelsene må fastsette laveste gulvnivå for nye bygg og nødvendige sikringstiltak for bygg som får endret bruk.",
+              "## Andre forhold",
+              "Dersom det skal mudres, fylles ut i sjø eller pæles, må sjøbunnen undersøkes for forurensning, og tiltakene kan kreve tillatelse etter forurensningsloven. Vi ber også om at virkningene for naturmangfoldet i sjøen blir vurdert.",
+              "Statsforvalteren vurderer planforslaget når det kommer på høring. Blir ikke hensynet til allmenn ferdsel i strandsonen, støy og sikkerhet mot stormflo tatt vare på i planen, kan det gi grunnlag for innsigelse.",
+              "Brevet er sendt til Jæren Plan og Landskap AS med kopi til Sirevåg kommune.",
+              "Med hilsen Eirik Mauland, seniorrådgiver"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Planforslag til første gangs behandling – detaljregulering for Havneområdet nord",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-09-28",
+          "part": "Jæren Plan og Landskap AS",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": "2026-09-28",
+            "avsender": {
+              "navn": "Jæren Plan og Landskap AS",
+              "adresse": "Storgata 14, 4398 Kvassheim",
+              "epost": "post@jaerenplan.example"
+            },
+            "mottaker": null,
+            "emne": "Planforslag til første gangs behandling – detaljregulering for Havneområdet nord, planID 2026002",
+            "tekst": [
+              "På vegne av Sirevåg Fiskemottak AS sender vi forslag til detaljregulering for Havneområdet nord, planID 2026002, til første gangs behandling. Vi viser til oppstartsmøtet 19. mars 2026 og til kommunens referat, deres ref. {{sak}}.",
+              "Planområdet er på 18 dekar. Sjøhuset i Havnegata 12 reguleres til kombinert formål for næring og bevertning, og mottakshallen til næring som i dag. Kaia mellom sjøhuset og slippen reguleres til kai med en gangforbindelse på minst tre meters bredde, som skal være åpen for allmennheten. Plassen sør for sjøhuset reguleres til uteservering med inntil 60 sitteplasser. Slippen beholdes, med kjøreatkomst på 3,5 meters bredde over kaia.",
+              "Innerst i havnebassenget reguleres en småbåthavn med inntil 40 båtplasser, der ti er gjesteplasser, og et servicebygg på inntil 60 m². Parkering med 16 plasser legges nord for mottakshallen, med atkomst fra Havnegata. Sjøhuset får hensynssone for bevaring. Det kan ikke rives, og fasadene mot havna skal tas vare på.",
+              "Det kom fem merknader til varselet om oppstart. De er fra Statsforvalteren i Rogaland, Rogaland fylkeskommune, Sirevåg Rør og Varme AS og to beboere i Havnegata. Merknadene ligger ved i kopi sammen med våre kommentarer, se vedlegg 7.",
+              "Innspillene fra Statsforvalteren er fulgt opp slik: Gangforbindelsen langs kaia er sikret i plankartet, og bestemmelsene sier at uteserveringen ikke kan gjerdes inn mot kaikanten. Støyvurderingen viser at grenseverdiene ved den nærmeste boligen, Havnegata 9, blir overholdt når uteserveringen stenger klokka 22.00 og det ikke spilles forsterket musikk ute. Begge deler er tatt inn i bestemmelsene.",
+              "Vurderingen av stormflo viser at en 200-års stormflo med påslag for havnivåstigning og bølger når kote 2,3. Gulvet i sjøhuset ligger på kote 2,1. Bestemmelsene krever at nye bygg har gulv på minst kote 2,6, og at sjøhuset sikres opp til samme kote før det tas i bruk til servering. Planen forutsetter ikke mudring eller utfylling i sjø. Flytebryggene forankres med lodd.",
+              "Planforslaget består av plankart, reguleringsbestemmelser og planbeskrivelse med risiko- og sårbarhetsanalyse. Vi ber om at forslaget blir lagt fram for plan- og teknisk utvalg så snart som mulig, og hører gjerne fra kommunen dersom noe mangler. Forslagsstilleren vil om kort tid be kommunen om en forhåndskonferanse om bruksendring av sjøhuset.",
+              "Med hilsen Sigrid Kverneland, arealplanlegger, Jæren Plan og Landskap AS"
+            ],
+            "vedlegg": [
+              "Plankart datert 25. september 2026",
+              "Reguleringsbestemmelser datert 25. september 2026",
+              "Planbeskrivelse",
+              "Risiko- og sårbarhetsanalyse",
+              "Støyvurdering",
+              "Vurdering av stormflo og havnivåstigning",
+              "Merknader til varsel om oppstart med forslagsstillerens kommentarer"
+            ]
+          }
+        },
+        {
+          "type": "S",
+          "tittel": "Saksframlegg til plan- og teknisk utvalg – detaljregulering for Havneområdet nord, planID 2026002 – første gangs behandling",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-10-20",
+          "part": "Viktor Vipe",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "saksframlegg",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Plan, bygg og eiendom",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Detaljregulering for Havneområdet nord, planID 2026002 – første gangs behandling",
+            "tekst": [
+              "Saksframlegg til plan- og teknisk utvalg, møte 4. november 2026. Arkivsak {{sak}}. Saksbehandler: Viktor Vipe, arealplanlegger.",
+              "## Saken gjelder",
+              "Sirevåg Fiskemottak AS har lagt fram et privat forslag til detaljregulering for Havneområdet nord, planID 2026002. Planen åpner for servering i sjøhuset i Havnegata 12 og for småbåthavn innerst i havna. Utvalget skal ta stilling til om forslaget skal sendes på høring og legges ut til offentlig ettersyn, jf. plan- og bygningsloven § 12-10.",
+              "## Bakgrunn",
+              "Forslagsstiller er Sirevåg Fiskemottak AS, som eier Havnegata 12, gnr. 31 bnr. 22. Planforslaget er utarbeidet av Jæren Plan og Landskap AS. Oppstartsmøtet ble holdt 19. mars 2026. Oppstart av planarbeidet ble varslet 24. april 2026 med frist for merknader 5. juni, jf. plan- og bygningsloven § 12-8. Kommunen mottok planforslaget 28. september 2026.",
+              "Området er regulert til havne- og næringsformål i reguleringsplanen for Sirevåg havn fra 1989. I kommuneplanens arealdel er det vist som næringsområde og havn. Planområdet er på 18 dekar, og 11 dekar av dette er sjø. Kommunen eier kaia, parkeringsplassen sør for sjøhuset og slippen, som alle ligger i planområdet.",
+              "## Planforslaget",
+              "Sjøhuset fra 1936 reguleres til kombinert formål for næring og bevertning og får hensynssone for bevaring. Det kan ikke rives, og fasadene mot havna skal tas vare på. Mottakshallen fra 2019 reguleres til næring, slik at fiskemottaket kan drive videre som i dag.",
+              "Kaia mellom sjøhuset og slippen reguleres til kai med en gangforbindelse på minst tre meters bredde, som skal være åpen for allmennheten. Plassen sør for sjøhuset, som i dag er parkeringsplass, reguleres til uteservering med inntil 60 sitteplasser. Slippen beholdes, med kjøreatkomst på 3,5 meters bredde over kaia.",
+              "Innerst i havnebassenget, der det i dag ligger en flytebrygge, reguleres en småbåthavn med inntil 40 båtplasser. Ti av dem skal være gjesteplasser. Ved småbåthavna kan det settes opp et servicebygg på inntil 60 m². Parkering med 16 plasser legges nord for mottakshallen, med atkomst fra Havnegata.",
+              "## Merknader til varselet om oppstart",
+              "Det kom fem merknader til varselet. Statsforvalteren i Rogaland ba i brev 2. juni 2026 om at planen sikrer allmenn ferdsel i strandsonen, utreder støy og viser at kravene til sikkerhet mot stormflo er oppfylt. Rogaland fylkeskommune ba om at sjøhuset blir bevart. Sirevåg Rør og Varme AS i Havnegata 5 og to beboere i Havnegata var opptatt av trafikk, parkering og støy om kvelden. Merknadene er gjengitt og kommentert av forslagsstilleren i vedlegg 7.",
+              "## Vurdering",
+              "Strandsone og allmenn ferdsel. Planområdet ligger i hundremetersbeltet langs sjøen, men er bygd ut som havn fra før. Planen åpner bare for ett nytt bygg, servicebygget ved småbåthavna. Gangforbindelsen langs kaia gjør havna mer tilgjengelig enn i dag, og bestemmelsene sier at uteserveringen ikke kan gjerdes inn mot kaikanten. Kommunedirektøren mener at innspillet fra Statsforvalteren er fulgt opp.",
+              "Støy. Støyvurderingen viser at grenseverdiene ved den nærmeste boligen, Havnegata 9, blir overholdt når uteserveringen stenger klokka 22.00 og det ikke spilles forsterket musikk ute. Begge deler er tatt inn i bestemmelsene.",
+              "Stormflo. Vurderingen av stormflo viser at en 200-års stormflo med påslag for havnivåstigning og bølger når kote 2,3. Gulvet i sjøhuset ligger på kote 2,1. Bestemmelsene krever at nye bygg har gulv på minst kote 2,6, og at sjøhuset sikres opp til samme kote før det tas i bruk til servering. Kommunedirektøren mener at dette er tilstrekkelig i en reguleringsplan. Sikringstiltakene må dokumenteres i byggesaken.",
+              "Trafikk og parkering. Planen har 16 parkeringsplasser nord for mottakshallen. Dagens parkeringsplass sør for sjøhuset, med om lag 20 plasser, blir uteservering. Kommunedirektøren er usikker på om parkeringsdekningen er god nok når serveringsstedet, småbåthavna og slippen er i bruk samtidig, og mener at dette må belyses i høringen.",
+              "Småbåthavn og slipp. Flytebrygga innerst i havna disponeres i dag av Sirevåg båtforening. Planen fastsetter hvor småbåthavna skal ligge, og hvor stor den kan være, men ikke hvem som skal eie eller leie båtplassene. Atkomsten til slippen blir smalere enn i dag. Kommunedirektøren ber høringspartene særlig uttale seg om småbåthavna og slippen.",
+              "Kommunal grunn. Planen forutsetter bruk av kommunal grunn til uteservering og småbåthavn. Utvalget tar ikke stilling til salg eller utleie av grunnen i denne saken. Det må behandles i en egen sak før planen kan gjennomføres.",
+              "Forholdet til byggesaken. Forslagsstilleren har bedt om forhåndskonferanse om bruksendring av sjøhuset til serveringssted, arkivsak {{sak:bruksendring-havnegata-12}}. Forhåndskonferansen ble holdt 13. oktober 2026. En søknad om bruksendring må behandles etter gjeldende plan så lenge den nye planen ikke er vedtatt.",
+              "Konsekvensutredning. Kommunen vurderte i oppstartsmøtet at planen ikke utløser krav om konsekvensutredning. Planforslaget gir ikke grunn til å endre den vurderingen. Virkningene er beskrevet i planbeskrivelsen og i risiko- og sårbarhetsanalysen.",
+              "## Konklusjon",
+              "Kommunedirektøren mener at planforslaget er godt nok utredet til at det kan sendes på høring og legges ut til offentlig ettersyn. Kommunedirektøren har ikke med dette tatt endelig stilling til forslaget. Etter høringen blir merknadene vurdert, og saken legges fram for utvalget til andre gangs behandling før kommunestyret gjør endelig vedtak, jf. plan- og bygningsloven § 12-12.",
+              "## Forslag til vedtak",
+              "Plan- og teknisk utvalg sender forslaget til detaljregulering for Havneområdet nord, planID 2026002, på høring og legger det ut til offentlig ettersyn i seks uker, jf. plan- og bygningsloven § 12-10.",
+              "Ulla Ugle, kommunedirektør\nViktor Vipe, arealplanlegger"
+            ],
+            "vedlegg": [
+              "Plankart datert 25. september 2026",
+              "Reguleringsbestemmelser datert 25. september 2026",
+              "Planbeskrivelse",
+              "Risiko- og sårbarhetsanalyse",
+              "Støyvurdering",
+              "Vurdering av stormflo og havnivåstigning",
+              "Merknader til varsel om oppstart med forslagsstillerens kommentarer"
+            ]
+          }
+        },
+        {
+          "type": "X",
+          "tittel": "Saksprotokoll – plan- og teknisk utvalg 04.11.2026 – PS 41/26 – detaljregulering for Havneområdet nord, planID 2026002 – første gangs behandling",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-11-05",
+          "part": "Petra Pinnsvin",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "protokoll",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Kommunedirektørens stab",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Saksprotokoll – plan- og teknisk utvalg 04.11.2026 – PS 41/26 – detaljregulering for Havneområdet nord, planID 2026002",
+            "tekst": [
+              "Saksprotokoll fra plan- og teknisk utvalg, møte 4. november 2026 i kommunestyresalen i rådhuset. Sak PS 41/26 gjelder første gangs behandling av detaljregulering for Havneområdet nord, planID 2026002. Arkivsak {{sak}}.",
+              "## Kommunedirektørens forslag til vedtak",
+              "Plan- og teknisk utvalg sender forslaget til detaljregulering for Havneområdet nord, planID 2026002, på høring og legger det ut til offentlig ettersyn i seks uker, jf. plan- og bygningsloven § 12-10.",
+              "## Behandling i møtet",
+              "Utvalgets leder Arvid Kvinnesland (H) ledet behandlingen. Sju stemmeberettigede var til stede. Utvalget var på befaring i Havneområdet nord før møtet. Arealplanlegger Viktor Vipe orienterte om planforslaget. Han gjorde rede for hvordan forslaget svarer på uttalelsen fra Statsforvalteren i Rogaland til varselet om oppstart, som gjaldt strandsonen, støy og flomfare.",
+              "Medlemmene stilte spørsmål om parkering, om allmennhetens ferdsel langs kaien og om sikkerheten mot stormflo. Flere understreket at naboer og næringsdrivende i havna må få god anledning til å uttale seg i høringen. Det ble ikke satt fram andre forslag.",
+              "## Votering",
+              "Kommunedirektørens forslag til vedtak ble enstemmig vedtatt.",
+              "## Vedtak",
+              "Plan- og teknisk utvalg sender forslaget til detaljregulering for Havneområdet nord, planID 2026002, på høring og legger det ut til offentlig ettersyn i seks uker, jf. plan- og bygningsloven § 12-10.",
+              "Rett utskrift bekreftes.\nSirevåg, 5. november 2026\nPetra Pinnsvin, politisk sekretær"
             ],
             "vedlegg": []
           }
         },
         {
           "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
+          "tittel": "Høring og offentlig ettersyn – forslag til detaljregulering for Havneområdet nord, planID 2026002",
           "offentlig_tittel": null,
-          "dokumentdato": "2026-03-16",
-          "part": "Kari Avsender",
+          "dokumentdato": "2026-11-06",
+          "part": "Berørte parter og offentlige myndigheter",
           "skjerm_part": false,
           "status": "E",
           "journalfort": true,
@@ -3503,17 +4102,27 @@
             "kanal": "brev",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Plan, bygg og eiendom",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Kari Avsender",
-            "emne": "Svar fra kommunen",
+            "mottaker": "Berørte parter og offentlige myndigheter etter adresseliste",
+            "emne": "Høring og offentlig ettersyn – forslag til detaljregulering for Havneområdet nord, planID 2026002 – frist for merknader 21. desember 2026",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Plan- og teknisk utvalg vedtok 4. november 2026 i sak PS 41/26 å sende forslaget til detaljregulering for Havneområdet nord, planID 2026002, på høring og legge det ut til offentlig ettersyn, jf. plan- og bygningsloven § 12-10. Vår ref.: {{sak}}.",
+              "Forslagsstiller er Sirevåg Fiskemottak AS, og planforslaget er utarbeidet av Jæren Plan og Landskap AS. Planområdet er på 18 dekar og omfatter Havnegata 12, kaia, slippen og den indre delen av havnebassenget. Planen åpner for servering i sjøhuset fra 1936, uteservering på plassen sør for sjøhuset og en småbåthavn med inntil 40 båtplasser innerst i havna. Fiskemottaket skal drive videre som i dag.",
+              "Planforslaget med plankart, bestemmelser, planbeskrivelse og utredninger ligger på www.sirevag.example og i servicetorget i rådhuset, Rådhusgata 1. Saksframlegget og saksprotokollen fra utvalget ligger samme sted. Høringen er kunngjort i Jærposten 6. november 2026. Kommunen og forslagsstilleren holder et åpent informasjonsmøte i kommunestyresalen i rådhuset torsdag 26. november 2026 klokka 18.00.",
+              "Merknader til planforslaget sendes skriftlig til Sirevåg kommune, Rådhusgata 1, 4399 Sirevåg, eller til postmottak@sirevag.example innen 21. desember 2026. Merk brevet eller e-posten med saksnummeret {{sak}}. Merknadene er offentlige og blir lagt fram for utvalget sammen med kommunedirektørens vurdering.",
+              "Kommunen ber særlig om synspunkter på parkeringsdekningen, på småbåthavna og atkomsten til slippen og på åpningstiden for uteserveringen.",
+              "Etter høringen vurderer kommunen merknadene og legger saken fram for plan- og teknisk utvalg til andre gangs behandling. Kommunestyret gjør det endelige vedtaket, jf. plan- og bygningsloven § 12-12. Vedtaket om å legge planforslaget ut til offentlig ettersyn er en avgjørelse om saksbehandlingen og kan ikke påklages. Kommunestyrets endelige planvedtak kan påklages.",
+              "Brevet er sendt til grunneiere og naboer i Havnegata, Sirevåg Fiskemottak AS, Jæren Plan og Landskap AS, Sirevåg Rør og Varme AS, Sirevåg båtforening, Statsforvalteren i Rogaland, Rogaland fylkeskommune, Statens vegvesen og Mattilsynet. Det er også sendt til kommunens råd for eldre, for personer med funksjonsnedsettelse og for ungdom. Adresselisten ligger ved.",
+              "Med hilsen Viktor Vipe, arealplanlegger"
             ],
-            "vedlegg": []
+            "vedlegg": [
+              "Saksprotokoll fra plan- og teknisk utvalg 4. november 2026, PS 41/26",
+              "Plankart og reguleringsbestemmelser datert 25. september 2026",
+              "Adresseliste"
+            ]
           }
         }
       ]
@@ -3532,10 +4141,10 @@
       "journalposter": [
         {
           "type": "I",
-          "tittel": "Brev til kommunen (midlertidig)",
+          "tittel": "Utkast til ny samarbeidsavtale om interkommunal legevakt 2027–2030",
           "offentlig_tittel": null,
-          "dokumentdato": "2026-06-22",
-          "part": "Kari Avsender",
+          "dokumentdato": "2026-06-19",
+          "part": "Kvassheim kommune",
           "skjerm_part": false,
           "status": "J",
           "journalfort": true,
@@ -3544,25 +4153,33 @@
             "kanal": "brev",
             "mottatt": "2026-06-22",
             "avsender": {
-              "navn": "Kari Avsender",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
+              "navn": "Kvassheim kommune",
+              "adresse": "Rådhusvegen 1, 4398 Kvassheim",
+              "epost": "postmottak@kvassheim.example"
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Jæren sør legevakt – utkast til ny samarbeidsavtale for årene 2027–2030",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Samarbeidsavtalen mellom Kvassheim kommune og Sirevåg kommune om Jæren sør legevakt gjelder for årene 2023–2026 og går ut 31. desember 2026. Kvassheim kommune sender som vertskommune med dette utkast til ny avtale for årene 2027–2030 og ber om Sirevåg kommunes merknader.",
+              "Utkastet viderefører samarbeidet som et vertskommunesamarbeid etter kommuneloven. Kvassheim kommune er vertskommune og arbeidsgiver for de ansatte. Legevakten holder til i Kvassheim helsehus. Legevaktsentralen er bemannet hele døgnet. Legevakten er åpen fra klokka 15.30 til 08.00 på hverdager og hele døgnet i helger og høytider. På dagtid på hverdager har fastlegene i hver kommune ansvaret for øyeblikkelig hjelp, som i dag.",
+              "Vi foreslår disse endringene fra gjeldende avtale:\n1. Legevakten får egen legevaktbil fra 1. januar 2027, slik at lege og sykepleier kan rykke ut til pasienter i begge kommunene.\n2. Netto driftsutgifter fordeles som før etter folketallet 1. januar i budsjettåret. Vertskommunen får et administrasjonstillegg på 5 prosent, mot 3 prosent i dag.\n3. Oppsigelsesfristen økes fra tolv til atten måneder.\n4. Vertskommunen sender budsjettforslaget for legevakten til samarbeidskommunen innen 1. november hvert år.",
+              "Med folketallet 1. januar 2026 blir Sirevåg kommunes andel 26,0 prosent. Netto driftsutgifter for 2027 er foreløpig beregnet til 11,9 millioner kroner, medregnet legevaktbilen og administrasjonstillegget. Sirevåg kommunes andel blir da om lag 3,1 millioner kroner, mot 2,9 millioner kroner i 2026.",
+              "Avtaler om vertskommunesamarbeid skal vedtas av kommunestyret selv i begge kommunene. Vi tar sikte på å legge avtalen fram for Kvassheim kommunestyre 22. oktober 2026. Vi ber om merknader fra Sirevåg kommune innen 1. september 2026, slik at vi kan sende ut et omforent forslag i god tid før behandlingen.",
+              "Kontaktperson hos oss er undertegnede. Vi stiller gjerne til et møte om utkastet etter sommerferien.",
+              "Med hilsen Arne Hognestad, kommunalsjef helse og velferd, Kvassheim kommune"
             ],
-            "vedlegg": []
+            "vedlegg": [
+              "Utkast til samarbeidsavtale om Jæren sør legevakt 2027–2030",
+              "Foreløpig budsjett for Jæren sør legevakt 2027"
+            ]
           }
         },
         {
           "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
+          "tittel": "Innspill til utkast til samarbeidsavtale om interkommunal legevakt 2027–2030",
           "offentlig_tittel": null,
-          "dokumentdato": "2026-06-29",
-          "part": "Kari Avsender",
+          "dokumentdato": "2026-08-28",
+          "part": "Kvassheim kommune",
           "skjerm_part": false,
           "status": "E",
           "journalfort": true,
@@ -3571,17 +4188,179 @@
             "kanal": "brev",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Helse og omsorg",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Kari Avsender",
-            "emne": "Svar fra kommunen",
+            "mottaker": "Kvassheim kommune, Rådhusvegen 1, 4398 Kvassheim",
+            "emne": "Jæren sør legevakt – innspill til utkast til samarbeidsavtale for årene 2027–2030",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Vi viser til brevet fra Kvassheim kommune datert 19. juni 2026 med utkast til ny samarbeidsavtale om Jæren sør legevakt for årene 2027–2030, og til møtet mellom kommunene 20. august 2026. Vår ref.: {{sak}}.",
+              "Sirevåg kommune ønsker å videreføre samarbeidet. Legevakten gir innbyggerne våre et faglig godt tilbud som kommunen ikke kunne gitt alene, og vi er godt fornøyd med hvordan Kvassheim kommune driver tjenesten. Vi støtter forslaget om legevaktbil. Administrasjonen har likevel fire innspill til utkastet, som vi ber Kvassheim kommune vurdere før avtalen legges fram for kommunestyrene.",
+              "1. Sykebesøk og utrykning. Reiseveien fra Sirevåg til legevakten er om lag 25 minutter. Vi ber om at avtalen sier at legevaktbilen skal betjene begge kommunene på like vilkår, også Sirevåg omsorgssenter. Vi ber også om at vertskommunen hvert halvår rapporterer tallet på henvendelser, konsultasjoner og utrykninger fordelt på kommune.",
+              "2. Administrasjonstillegget. Vi ber om at tillegget holdes på 3 prosent som i dag, eller at en økning blir dokumentert med de kostnadene vertskommunen faktisk har.",
+              "3. Budsjett og samarbeidsmøter. Kommunedirektøren i Sirevåg legger fram budsjettforslaget sitt i begynnelsen av november. Vi ber derfor om at budsjettforslaget for legevakten sendes oss innen 1. september. Vi ber også om at avtalen får faste samarbeidsmøter to ganger i året mellom helselederne og kommuneoverlegene i de to kommunene.",
+              "4. Oppsigelse og evaluering. Vi ber om at oppsigelsesfristen fortsatt er tolv måneder, og at samarbeidet evalueres innen 1. juli 2028.",
+              "Vi ber om et revidert utkast innen 1. oktober 2026. Saken skal etter planen legges fram for kommunestyret i Sirevåg 29. oktober 2026.",
+              "Med hilsen Jon Jerv, rådgiver helse og omsorg"
             ],
             "vedlegg": []
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Revidert utkast til samarbeidsavtale om interkommunal legevakt 2027–2030 etter innspill",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-09-25",
+          "part": "Kvassheim kommune",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": "2026-09-25",
+            "avsender": {
+              "navn": "Kvassheim kommune",
+              "adresse": "Rådhusvegen 1, 4398 Kvassheim",
+              "epost": "postmottak@kvassheim.example"
+            },
+            "mottaker": null,
+            "emne": "Jæren sør legevakt – revidert utkast til samarbeidsavtale for årene 2027–2030",
+            "tekst": [
+              "Vi viser til innspillene fra Sirevåg kommune i brev 28. august 2026, deres ref. {{sak}}. Vedlagt følger revidert utkast til samarbeidsavtale om Jæren sør legevakt for årene 2027–2030.",
+              "Vi har tatt inn tre av de fire innspillene. Avtalen har fått et nytt punkt 5 om sykebesøk og utrykning. Der står det at legevaktbilen betjener begge kommunene på like vilkår, og at vertskommunen hvert halvår rapporterer aktiviteten fordelt på kommune. Budsjettforslaget sendes innen 15. september, som er det tidligste vi kan klare, og det blir samarbeidsmøter i mars og september. Oppsigelsesfristen er tolv måneder, og samarbeidet skal evalueres innen 1. juli 2028.",
+              "Administrasjonstillegget kan vi ikke holde på 3 prosent. Vertskommunen har fått flere oppgaver med personal, lønn, journalsystem og lokaler enn da gjeldende avtale ble inngått. En oversikt over kostnadene ligger ved. Den viser at de utgjør 4,4 prosent av netto driftsutgifter. Vi foreslår at tillegget settes til 4 prosent.",
+              "Med 4 prosent administrasjonstillegg er netto driftsutgifter for 2027 beregnet til 11,8 millioner kroner. Sirevåg kommunes andel på 26,0 prosent blir fortsatt om lag 3,1 millioner kroner.",
+              "Vi legger dette utkastet fram for Kvassheim kommunestyre 22. oktober 2026 og ber om en tilbakemelding innen 2. oktober dersom Sirevåg kommune har flere merknader.",
+              "Med hilsen Arne Hognestad, kommunalsjef helse og velferd, Kvassheim kommune"
+            ],
+            "vedlegg": [
+              "Revidert utkast til samarbeidsavtale om Jæren sør legevakt 2027–2030",
+              "Oversikt over vertskommunens administrasjonskostnader",
+              "Budsjett for Jæren sør legevakt 2027"
+            ]
+          }
+        },
+        {
+          "type": "S",
+          "tittel": "Saksframlegg til kommunestyret – interkommunalt legevaktsamarbeid med Kvassheim kommune – avtale 2027–2030",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-10-09",
+          "part": "Jon Jerv",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "saksframlegg",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Helse og omsorg",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Interkommunalt legevaktsamarbeid med Kvassheim kommune – avtale 2027–2030",
+            "tekst": [
+              "Saksframlegg til kommunestyret, møte 29. oktober 2026. Arkivsak {{sak}}. Saksbehandler: Jon Jerv, rådgiver helse og omsorg.",
+              "## Saken gjelder",
+              "Avtalen med Kvassheim kommune om felles legevakt går ut 31. desember 2026. Kommunestyret skal ta stilling til ny avtale for årene 2027–2030. Samarbeidet er et vertskommunesamarbeid etter kommuneloven, og slike avtaler skal vedtas av kommunestyret selv.",
+              "## Bakgrunn",
+              "Kommunen skal etter helse- og omsorgstjenesteloven sørge for legevakt hele døgnet. Sirevåg har siden 2015 samarbeidet med Kvassheim kommune om Jæren sør legevakt, som holder til i Kvassheim helsehus. Kvassheim kommune er vertskommune og arbeidsgiver for de ansatte. Legevaktsentralen er bemannet hele døgnet. Legevakten er åpen fra klokka 15.30 til 08.00 på hverdager og hele døgnet i helger og høytider, mens fastlegene har ansvaret for øyeblikkelig hjelp på dagtid.",
+              "I 2025 hadde legevakten om lag 2 700 henvendelser fra innbyggere i Sirevåg. Av dem endte 1 450 med konsultasjon på legevakten.",
+              "Kvassheim kommune sendte utkast til ny avtale 19. juni 2026. Administrasjonen i Sirevåg ga innspill 28. august, og Kvassheim kommune sendte revidert utkast 25. september. Det er det reviderte utkastet som legges fram. Kvassheim kommunestyre behandler avtalen 22. oktober 2026.",
+              "## Hovedpunkter i avtalen",
+              "Avtalen viderefører samarbeidet med Kvassheim kommune som vertskommune. Legevakten får egen legevaktbil fra 1. januar 2027, slik at lege og sykepleier kan rykke ut til pasienter i begge kommunene, også til Sirevåg omsorgssenter. Vertskommunen rapporterer hvert halvår henvendelser, konsultasjoner og utrykninger fordelt på kommune.",
+              "Netto driftsutgifter fordeles etter folketallet 1. januar i budsjettåret. Vertskommunen får et administrasjonstillegg på 4 prosent. Budsjettforslaget for legevakten sendes Sirevåg kommune innen 15. september hvert år, og helselederne og kommuneoverlegene i de to kommunene har samarbeidsmøter i mars og september. Avtalen kan sies opp med tolv måneders frist, og samarbeidet skal evalueres innen 1. juli 2028.",
+              "## Kommunens innspill",
+              "Tre av de fire innspillene fra Sirevåg er tatt inn i avtalen. Det gjelder punktet om sykebesøk og rapportering, tidligere budsjettforslag med faste samarbeidsmøter og tolv måneders oppsigelsesfrist med evaluering.",
+              "Kvassheim kommune foreslo først å øke administrasjonstillegget fra 3 til 5 prosent. Sirevåg ba om at det ble holdt på 3 prosent, eller at økningen ble dokumentert. Kvassheim kommune har lagt fram en oversikt som viser kostnader på 4,4 prosent, og tillegget er satt til 4 prosent. Kommunedirektøren mener det er rimelig.",
+              "## Økonomi",
+              "Med folketallet 1. januar 2026 er Sirevågs andel 26,0 prosent. Netto driftsutgifter for 2027 er beregnet til 11,8 millioner kroner, og Sirevåg betaler om lag 3,1 millioner kroner. Det er om lag 200 000 kroner mer enn i 2026 og skyldes legevaktbilen, lønnsveksten og det høyere administrasjonstillegget. Utgiften blir innarbeidet i kommunedirektørens forslag til budsjett 2027 og økonomiplan 2027–2030, arkivsak {{sak:budsjett-2027}}.",
+              "## Vurdering",
+              "Sirevåg har for få innbyggere og for få leger til å drive legevakt alene. Kommunen har fem fastleger. Med egen legevakt ville de fått vakt om lag hver femte kveld, natt og helg i tillegg til vanlig praksis, og det ville gjort det vanskeligere å rekruttere og beholde fastleger. Kommunedirektøren anslår at en egen legevakt ville kostet minst det dobbelte av det samarbeidet koster.",
+              "Ulempen ved samarbeidet er reiseveien. Fra Sirevåg sentrum er det om lag 25 minutter med bil til legevakten i Kvassheim, og fra de sørligste delene av kommunen noe mer. Legevaktbilen og det nye punktet om sykebesøk avhjelper dette for pasienter som ikke kan reise selv. Rapporteringen hvert halvår gjør at kommunen kan følge med på om innbyggerne i Sirevåg får det tilbudet avtalen forutsetter.",
+              "Avtalen binder kommunen i fire år, men kan sies opp med tolv måneders frist. Kommunedirektøren mener at evalueringen i 2028 gir et godt grunnlag for å vurdere samarbeidet på nytt før neste avtaleperiode, og tilrår at kommunestyret godkjenner avtalen.",
+              "## Forslag til vedtak",
+              "Kommunestyret godkjenner avtalen om interkommunalt legevaktsamarbeid med Kvassheim kommune for årene 2027–2030. Kvassheim kommune er vertskommune for Jæren sør legevakt.",
+              "Ulla Ugle, kommunedirektør\nJon Jerv, rådgiver helse og omsorg"
+            ],
+            "vedlegg": [
+              "Samarbeidsavtale om Jæren sør legevakt 2027–2030",
+              "Budsjett for Jæren sør legevakt 2027",
+              "E-post fra Kvassheim kommune datert 25. september 2026"
+            ]
+          }
+        },
+        {
+          "type": "X",
+          "tittel": "Saksprotokoll – kommunestyret 29.10.2026 – PS 61/26 – interkommunalt legevaktsamarbeid med Kvassheim kommune – avtale 2027–2030",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-10-30",
+          "part": "Petra Pinnsvin",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "protokoll",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Kommunedirektørens stab",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Saksprotokoll – kommunestyret 29.10.2026 – PS 61/26 – interkommunalt legevaktsamarbeid med Kvassheim kommune – avtale 2027–2030",
+            "tekst": [
+              "Saksprotokoll fra kommunestyret, møte 29. oktober 2026 i kommunestyresalen i rådhuset. Sak PS 61/26 gjelder avtale om interkommunalt legevaktsamarbeid med Kvassheim kommune for årene 2027–2030. Arkivsak {{sak}}.",
+              "## Kommunedirektørens forslag til vedtak",
+              "Kommunestyret godkjenner avtalen om interkommunalt legevaktsamarbeid med Kvassheim kommune for årene 2027–2030. Kvassheim kommune er vertskommune for Jæren sør legevakt.",
+              "## Behandling i møtet",
+              "Ordfører Gunnhild Søyland (Sp) ledet behandlingen. 25 stemmeberettigede var til stede. Rådgiver helse og omsorg Jon Jerv orienterte om hovedpunktene i avtalen og svarte på spørsmål om kostnadsfordelingen. Sirevåg betaler etter folketall, om lag 3,1 millioner kroner i året.",
+              "I ordskiftet la flertallet vekt på at samarbeidet gir innbyggerne en faglig trygg legevakt hele døgnet, og at Sirevåg er for liten til å drive legevakt alene. Mindretallet mente at reiseveien til legevakten i Kvassheim er for lang for mange innbyggere, og at avtalen binder kommunen for lenge. Det ble ikke satt fram andre forslag.",
+              "## Votering",
+              "Kommunedirektørens forslag til vedtak ble vedtatt med 21 mot 4 stemmer.",
+              "## Vedtak",
+              "Kommunestyret godkjenner avtalen om interkommunalt legevaktsamarbeid med Kvassheim kommune for årene 2027–2030. Kvassheim kommune er vertskommune for Jæren sør legevakt.",
+              "Rett utskrift bekreftes.\nSirevåg, 30. oktober 2026\nPetra Pinnsvin, politisk sekretær"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Melding om vedtak – avtale om interkommunalt legevaktsamarbeid 2027–2030",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-11-03",
+          "part": "Kvassheim kommune",
+          "skjerm_part": false,
+          "status": "E",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Helse og omsorg",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "Kvassheim kommune, Rådhusvegen 1, 4398 Kvassheim",
+            "emne": "Jæren sør legevakt – melding om vedtak i Sirevåg kommunestyre og avtale til underskrift",
+            "tekst": [
+              "Kommunestyret i Sirevåg behandlet 29. oktober 2026 avtalen om interkommunalt legevaktsamarbeid med Kvassheim kommune for årene 2027–2030, sak PS 61/26. Vår ref.: {{sak}}.",
+              "Kommunestyret gjorde dette vedtaket med 21 mot 4 stemmer: «Kommunestyret godkjenner avtalen om interkommunalt legevaktsamarbeid med Kvassheim kommune for årene 2027–2030. Kvassheim kommune er vertskommune for Jæren sør legevakt.»",
+              "Avtalen som ble godkjent, er det reviderte utkastet Kvassheim kommune sendte 25. september 2026. Vi har merket oss at Kvassheim kommunestyre godkjente den samme avtalen i møtet 22. oktober 2026.",
+              "Vedlagt følger avtalen i to eksemplarer, underskrevet av ordfører Gunnhild Søyland. Vi ber om at Kvassheim kommune underskriver begge og sender det ene tilbake til oss.",
+              "Avtalen gjelder fra 1. januar 2027. Vi ber om å få tilsendt det endelige budsjettet for legevakten for 2027 når det er vedtatt, og foreslår at det første samarbeidsmøtet etter den nye avtalen blir holdt i mars 2027. Kontaktperson i Sirevåg kommune er undertegnede, jon.jerv@sirevag.example. Vi takker for et godt samarbeid om avtalen.",
+              "Med hilsen Jon Jerv, rådgiver helse og omsorg"
+            ],
+            "vedlegg": [
+              "Samarbeidsavtale om Jæren sør legevakt 2027–2030 i to eksemplarer",
+              "Saksprotokoll fra kommunestyret 29. oktober 2026, PS 61/26"
+            ]
           }
         }
       ]
@@ -3599,38 +4378,55 @@
       "status": "B",
       "journalposter": [
         {
-          "type": "I",
-          "tittel": "Brev til kommunen (midlertidig)",
+          "type": "X",
+          "tittel": "Tilstandsvurdering av vannledningen i Fyrveien",
           "offentlig_tittel": null,
           "dokumentdato": "2026-04-20",
-          "part": "Kari Avsender",
+          "part": "Lars Laks",
           "skjerm_part": false,
           "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
-            "kanal": "brev",
-            "mottatt": "2026-04-20",
+            "kanal": "notat",
+            "mottatt": null,
             "avsender": {
-              "navn": "Kari Avsender",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
+              "navn": "Sirevåg kommune, Teknisk drift og miljø",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Tilstandsvurdering av vannledningen i Fyrveien",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Notat til saken. Arkivsak {{sak}}. Notatet oppsummerer tilstanden på den kommunale vannledningen i Fyrveien og tilrår at den skiftes ut i 2026.",
+              "## Ledningen",
+              "Vannledningen i Fyrveien er en 150 millimeter ledning av grått støpejern, lagt i 1962. Den er 310 meter lang og går fra krysset med Strandveien til snuplassen ved Fyrveien 14. Ledningen forsyner 13 boliger, Fyrveien 2–14, og har to brannkummer. Den ligger i kjørebanen, 1,2 til 1,5 meter under bakken.",
+              "## Brudd og lekkasjer",
+              "Ledningen har hatt fire brudd på fem år: i februar 2021, november 2023, januar 2025 og mars 2026. Alle har vært tverrbrudd, som er vanlig for grått støpejern fra denne tiden. Hvert brudd har gitt stengt vann i fire til sju timer for alle boligene, og reparasjonene har til sammen kostet om lag 340 000 kroner. Etter bruddet 9. mars 2026 hadde flere beboere brunt vann i kranene i to døgn.",
+              "Lekkasjesøk i mars 2026 viste i tillegg en lekkasje ved Fyrveien 6, anslått til 0,4 liter i sekundet. Det svarer til om lag 12 600 kubikkmeter rent vann i året.",
+              "## Rørprøve og kapasitet",
+              "Driftsoperatørene tok ut en rørprøve da bruddet i mars ble reparert. Prøven viser kraftig utvendig korrosjon og rustknoller innvendig, som har redusert tverrsnittet med om lag en tredel. Måling i brannkummen ved Fyrveien 12 viste at ledningen ikke gir de 20 literne i sekundet som brannvesenet legger til grunn for slokkevann i boligområder.",
+              "## Vurdering",
+              "Ledningen er 64 år gammel og har nådd slutten av levetiden. Bruddene kommer oftere, og hvert brudd svekker røret videre. Punktreparasjoner løser ikke problemene med rust, dårlig kapasitet og lekkasje. Jeg vurderer faren for nye brudd det kommende året som høy.",
+              "Avløpsledningen i Fyrveien ble rørinspisert i 2024 og er i god stand. Den trenger ikke å skiftes nå, og det er derfor ikke grunn til å vente på et felles prosjekt for vann og avløp.",
+              "## Tilråding",
+              "Jeg tilrår at vannledningen skiftes ut i 2026 med en ny 160 millimeter ledning av polyetylen i samme trasé, med nye brannkummer og nye anboringer for stikkledningene. Arbeidet kan bestilles på kommunens rammeavtale for grave- og ledningsarbeid og er anslått til 2,9 millioner kroner uten merverdiavgift. Beløpet kan dekkes av bevilgningen til ledningsfornyelse i investeringsbudsjettet for 2026. Fyrveien står på tiltakslisten i hovedplanen for vann og avløp.",
+              "Arbeidet bør gjøres mellom august og oktober, etter fellesferien og før frosten. Beboerne må ha midlertidig vannforsyning mens den gamle ledningen er ute av drift, og de må varsles i god tid. Stikkledningene fra hovedledningen og inn til husene er private. Flere av dem er trolig like gamle som hovedledningen, og eierne bør få tilbud om å skifte dem for egen regning mens grøfta er åpen.",
+              "Lars Laks, ingeniør vann og avløp"
             ],
-            "vedlegg": []
+            "vedlegg": [
+              "Kart over vannledningen i Fyrveien",
+              "Bruddstatistikk 2021–2026",
+              "Bilder av rørprøven"
+            ]
           }
         },
         {
           "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
+          "tittel": "Varsel om gravearbeid og stengt vann – utskifting av vannledning i Fyrveien",
           "offentlig_tittel": null,
-          "dokumentdato": "2026-04-27",
-          "part": "Kari Avsender",
+          "dokumentdato": "2026-08-03",
+          "part": "Beboerne i Fyrveien 2–14",
           "skjerm_part": false,
           "status": "E",
           "journalfort": true,
@@ -3639,15 +4435,90 @@
             "kanal": "brev",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Teknisk drift og miljø",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Kari Avsender",
-            "emne": "Svar fra kommunen",
+            "mottaker": "Beboerne i Fyrveien 2–14, 4399 Sirevåg",
+            "emne": "Varsel om gravearbeid og stengt vann – utskifting av vannledningen i Fyrveien",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Sirevåg kommune skal skifte ut den kommunale vannledningen i Fyrveien. Ledningen er fra 1962 og har hatt flere brudd de siste årene. Dette brevet går til alle husstandene i Fyrveien 2–14. Vår ref.: {{sak}}.",
+              "Arbeidet begynner mandag 17. august 2026 og skal etter planen være ferdig fredag 16. oktober 2026. Entreprenøren er Sirevåg Maskin og Anlegg AS. Det blir arbeidet på hverdager mellom klokka 07.00 og 17.00. Grøfta graves i kjørebanen, og gata blir tatt i tre etapper, slik at bare en del av den er gravd opp om gangen.",
+              "Vannet blir stengt to ganger. Tirsdag 18. august mellom klokka 09.00 og 14.00 kobler vi husene over på en midlertidig vannledning som legges oppå bakken. Vannet blir stengt en gang til når husene kobles på den nye ledningen. Det skjer etter planen i uke 41, og vi varsler dagen på tekstmelding minst to døgn i forveien. Tapp vann til drikke og matlaging før vannet stenges, og hold kranene lukket mens det er stengt. Når vannet kommer tilbake, kan det være misfarget. La kaldtvannet renne til det er klart.",
+              "Gata er åpen for gående hele tiden. Det kan bli korte perioder der du ikke kan kjøre helt fram til huset. Entreprenøren legger kjøreplater over grøfta morgen og ettermiddag, og utrykningskjøretøy kommer alltid fram. Vi ber om at biler ikke parkeres i gata mens arbeidet pågår. Avfallet blir hentet som vanlig.",
+              "Stikkledningen fra hovedledningen og inn til huset er din egen. Mange av stikkledningene i Fyrveien er like gamle som hovedledningen. Mens grøfta er åpen, kan du få skiftet stikkledningen fram til tomtegrensen for egen regning. Entreprenøren gir pristilbud til dem som ønsker det. Gi beskjed til kommunen innen 14. august dersom du vil ha et tilbud.",
+              "Hekker, gjerder, murer og belegg langs gata skal ikke bli skadet av arbeidet. Entreprenøren tar bilder av alle eiendommene før arbeidet begynner. Skulle noe likevel bli skadet, ber vi deg melde fra til kommunen så snart som mulig.",
+              "Spørsmål om arbeidet kan rettes til undertegnede på lars.laks@sirevag.example eller til servicetorget i rådhuset. Vi beklager ulempene arbeidet fører med seg.",
+              "Med hilsen Lars Laks, ingeniør vann og avløp"
+            ],
+            "vedlegg": [
+              "Kart over arbeidsområdet med etapper"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Krav om erstatning for skadet hekk – Fyrveien 12",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-08-19",
+          "part": "Borghild Særheim",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": "2026-08-21",
+            "avsender": {
+              "navn": "Borghild Særheim",
+              "adresse": "Fyrveien 12, 4399 Sirevåg",
+              "epost": null
+            },
+            "mottaker": null,
+            "emne": "Skade på hekken min under gravearbeidet i Fyrveien",
+            "tekst": [
+              "Jeg bor i Fyrveien 12 og skriver om gravearbeidet i gata. Dere ba i brevet 3. august om at vi melder fra hvis noe blir skadet, og det gjør jeg nå.",
+              "I går, tirsdag 18. august, la entreprenøren ut den midlertidige vannledningen. Da gravemaskinen skulle snu ved innkjørselen min, kom den borti bøkehekken mot gata. Om lag fire meter av hekken er revet opp eller knekt helt nede ved rota. Jeg sto i kjøkkenvinduet og så det skje, og jeg gikk ut og snakket med føreren med en gang. Han beklaget og sa at jeg måtte ta det opp med kommunen.",
+              "Hekken ble plantet av mannen min og meg i 1998, og den er to meter høy. Jeg forstår at ledningen må skiftes, og jeg har ikke noe imot arbeidet. Men hekken skjermer hagen min mot gata, og jeg synes ikke det er rimelig at jeg skal betale for å få den i stand.",
+              "Jeg har vært på hagesenteret i Kvassheim og fått et pristilbud. Tolv bøkeplanter på halvannen meter koster 4 800 kroner, og planting med ny jord koster 1 700 kroner. Til sammen blir det 6 500 kroner. Så store planter som de som ble ødelagt, er ikke å få kjøpt, så det vil uansett ta noen år før hekken er som før.",
+              "Jeg ber om at kommunen erstatter de 6 500 kronene. Pristilbudet og tre bilder av hekken ligger ved. Kontonummeret mitt har jeg skrevet på et eget ark. Kom gjerne og se på skaden, jeg er hjemme de fleste dager.",
+              "Vennlig hilsen Borghild Særheim"
+            ],
+            "vedlegg": [
+              "Pristilbud fra hagesenteret",
+              "Tre bilder av hekken",
+              "Ark med kontonummer"
+            ]
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Svar på krav om erstatning for skadet hekk – Fyrveien 12",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-09-01",
+          "part": "Borghild Særheim",
+          "skjerm_part": false,
+          "status": "E",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Teknisk drift og miljø",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "Borghild Særheim, Fyrveien 12, 4399 Sirevåg",
+            "emne": "Svar på krav om erstatning for skadet hekk – Fyrveien 12",
+            "tekst": [
+              "Vi viser til brevet ditt datert 19. august 2026, som kommunen mottok 21. august. Du krever erstatning for skade på hekken i Fyrveien 12 under arbeidet med vannledningen. Vår ref.: {{sak}}.",
+              "Undertegnede var på befaring hos deg 25. august sammen med anleggslederen fra Sirevåg Maskin og Anlegg AS. Entreprenøren bekrefter at gravemaskinen kom borti hekken 18. august, og at om lag fire meter av hekken er ødelagt. Bildene entreprenøren tok før arbeidet begynte, viser at hekken var hel og frisk.",
+              "Kommunen erkjenner ansvaret for skaden og innvilger kravet ditt fullt ut. Du får 6 500 kroner i erstatning, slik pristilbudet fra hagesenteret viser. Beløpet blir utbetalt til kontoen du har oppgitt, innen 15. september 2026.",
+              "Entreprenøren har tilbudt seg å fjerne de ødelagte plantene og røttene uten kostnad for deg, slik at det er klart for planting. Ta kontakt med undertegnede dersom du ønsker det. Vi råder deg til å vente med å plante til gravearbeidet utenfor eiendommen din er ferdig. Det er det etter planen i uke 40.",
+              "Kommunen krever beløpet dekket av entreprenøren etter kontrakten. Det er en sak mellom kommunen og entreprenøren og har ikke noe å si for utbetalingen til deg. Når beløpet er utbetalt, regner vi kravet som gjort opp.",
+              "Vi beklager skaden og ulempene den har ført til. Entreprenøren har gått gjennom rutinene med førerne og setter opp sperrebånd foran hekker og gjerder i resten av anleggstiden. Kopi av dette brevet er sendt til Sirevåg Maskin og Anlegg AS.",
+              "Med hilsen Lars Laks, ingeniør vann og avløp"
             ],
             "vedlegg": []
           }
@@ -3668,10 +4539,10 @@
       "journalposter": [
         {
           "type": "I",
-          "tittel": "Brev til kommunen (midlertidig)",
+          "tittel": "Invitasjon til felles beredskapsøvelse 23.09.2026 – langvarig bortfall av strøm og ekom",
           "offentlig_tittel": null,
-          "dokumentdato": "2026-05-04",
-          "part": "Kari Avsender",
+          "dokumentdato": "2026-04-30",
+          "part": "Statsforvalteren i Rogaland",
           "skjerm_part": false,
           "status": "J",
           "journalfort": true,
@@ -3680,25 +4551,34 @@
             "kanal": "brev",
             "mottatt": "2026-05-04",
             "avsender": {
-              "navn": "Kari Avsender",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
+              "navn": "Statsforvalteren i Rogaland",
+              "adresse": "Postboks 59, 4001 Stavanger",
               "epost": null
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Invitasjon til felles beredskapsøvelse for kommunene på Jæren 23. september 2026 – langvarig bortfall av strøm og ekom",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Statsforvalteren i Rogaland inviterer kommunene på Jæren til en felles beredskapsøvelse onsdag 23. september 2026. Temaet er langvarig bortfall av strøm og elektronisk kommunikasjon (ekom) etter ekstremvær. Øvelsen har fått navnet Mørk kyst 2026.",
+              "Kommunens beredskapsplan skal øves minst hvert annet år etter forskrift om kommunal beredskapsplikt. Risiko- og sårbarhetsanalysen for Rogaland peker på langvarig strømbrudd som en av hendelsene med størst følger for liv og helse. Erfaringene fra uvær de siste årene viser dessuten at mobilnett og bredbånd faller ut etter få timer når strømmen er borte.",
+              "Øvelsen er en spilløvelse for kommunens kriseledelse og varer fra klokka 08.30 til 15.00. Kriseledelsen øver i egne lokaler og får hendelsene inn fra Statsforvalterens spillstab på e-post, på telefon og over Nødnett. Fra klokka 11.00 blir det vanlige sambandet tatt ut av spillet, og kommunene må bruke reserveløsningene sine. Scenarioet er en storm med orkan i kastene som gir strømbrudd i hele regionen i minst tre døgn.",
+              "Øvingsmålene er at kommunene skal\n1. etablere kriseledelse og holde oversikt over situasjonen uten vanlig samband\n2. sikre liv og helse for sårbare innbyggere, blant dem brukere av trygghetsalarm og hjemmeboende med medisinsk utstyr som trenger strøm\n3. informere innbyggerne når mobilnett og internett er nede\n4. rapportere til Statsforvalteren etter fastsatt mal og til fastsatte tider",
+              "Vi ber kommunen melde seg på innen 29. mai 2026 og oppgi kontaktperson, lokal øvingsleder og en evaluator som ikke selv deltar i kriseledelsen. Det blir planleggingsmøter på video 11. juni og 27. august. Den lokale øvingslederen får spillplanen for egen kommune i uke 37. Den skal ikke være kjent for dem som skal øves.",
+              "Etter øvelsen ber vi hver kommune evaluere egen innsats og sende en kort evalueringsrapport til Statsforvalteren innen 16. oktober 2026. Rapportene går inn i Statsforvalterens samlede evaluering, som blir lagt fram på beredskapssamlingen for kommunene 2. desember 2026.",
+              "Nettselskapene, teleoperatørene, politiet, Sivilforsvaret og helseforetaket deltar i spillstaben. Påmeldingen sendes til Statsforvalteren i Rogaland, Postboks 59, 4001 Stavanger. Øvingsdirektivet og påmeldingsskjemaet ligger ved.",
+              "Med hilsen Tor Inge Gudmestad, seniorrådgiver, samfunnssikkerhet og beredskap"
             ],
-            "vedlegg": []
+            "vedlegg": [
+              "Øvingsdirektiv for Mørk kyst 2026",
+              "Påmeldingsskjema"
+            ]
           }
         },
         {
           "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
+          "tittel": "Påmelding til felles beredskapsøvelse 23.09.2026 – kontaktpersoner",
           "offentlig_tittel": null,
-          "dokumentdato": "2026-05-11",
-          "part": "Kari Avsender",
+          "dokumentdato": "2026-05-20",
+          "part": "Statsforvalteren i Rogaland",
           "skjerm_part": false,
           "status": "E",
           "journalfort": true,
@@ -3707,17 +4587,97 @@
             "kanal": "brev",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Næring, kultur og beredskap",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Kari Avsender",
-            "emne": "Svar fra kommunen",
+            "mottaker": "Statsforvalteren i Rogaland, Postboks 59, 4001 Stavanger",
+            "emne": "Påmelding til beredskapsøvelsen Mørk kyst 2026 – kontaktpersoner i Sirevåg kommune",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Vi viser til invitasjonen fra Statsforvalteren i Rogaland datert 30. april 2026 til beredskapsøvelsen Mørk kyst 2026. Sirevåg kommune melder seg med dette på øvelsen onsdag 23. september 2026. Vår ref.: {{sak}}.",
+              "Kommunens kriseledelse deltar samlet. Den består av ordfører Gunnhild Søyland, kommunedirektør Ulla Ugle, lederne for Helse og omsorg, Oppvekst og Teknisk drift og miljø, kommuneoverlegen og beredskapskoordinatoren. Kriseledelsen øver i beredskapsrommet i rådhuset. Servicetorget øver som publikumsmottak, og Sirevåg omsorgssenter og hjemmetjenesten deltar med vaktlederne sine.",
+              "Kontaktperson og lokal øvingsleder er beredskapskoordinator Torgeir Tiur, torgeir.tiur@sirevag.example. Fordi øvingslederen kjenner spillplanen, deltar han ikke i kriseledelsen under øvelsen. Personalrådgiver Maren Mår er loggfører og sekretær for kriseledelsen. Evaluator er miljørådgiver Sandra Salamander, som ikke er medlem av kriseledelsen.",
+              "Vi har tre ønsker til spillplanen. Kommunen har 214 brukere av trygghetsalarm, og alarmene går over mobilnettet. Vi ønsker å øve på hvordan hjemmetjenesten følger opp disse brukerne når nettet er nede. Vi ønsker også å prøve nødstrømmen ved Sirevåg omsorgssenter under øvelsen og å øve på informasjon til innbyggerne uten mobilnett og internett.",
+              "Torgeir Tiur deltar på planleggingsmøtene 11. juni og 27. august. Påmeldingsskjemaet ligger ved. Vi sender evalueringsrapporten innen fristen 16. oktober 2026.",
+              "Med hilsen Torgeir Tiur, beredskapskoordinator"
             ],
-            "vedlegg": []
+            "vedlegg": [
+              "Utfylt påmeldingsskjema"
+            ]
+          }
+        },
+        {
+          "type": "X",
+          "tittel": "Evaluering av beredskapsøvelsen 23.09.2026 – langvarig bortfall av strøm og ekom",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-10-02",
+          "part": "Torgeir Tiur",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "notat",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Næring, kultur og beredskap",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Evaluering av beredskapsøvelsen Mørk kyst 2026, 23. september 2026",
+            "tekst": [
+              "Notat til saken. Arkivsak {{sak}}. Notatet er kommunens egen evaluering av beredskapsøvelsen Mørk kyst 2026, som ble holdt onsdag 23. september 2026. Det bygger på evaluatorens observasjoner, på loggen fra kriseledelsen og på gjennomgangen kriseledelsen hadde rett etter øvelsen og i møte 29. september.",
+              "## Om øvelsen",
+              "Statsforvalteren i Rogaland ledet øvelsen, som var en spilløvelse for kriseledelsen i kommunene på Jæren. Scenarioet var en storm som ga strømbrudd i hele regionen i minst tre døgn. Fra klokka 11.00 var mobilnett, fasttelefon og internett ute av spillet. Kriseledelsen i Sirevåg øvde i beredskapsrommet i rådhuset fra klokka 08.30 til 15.00. Servicetorget, Sirevåg omsorgssenter og hjemmetjenesten deltok.",
+              "## Det som fungerte godt",
+              "Kriseledelsen var samlet 35 minutter etter det første varselet, og rollene var avklart fra starten. Loggføringen var god gjennom hele øvelsen, også etter at loggen måtte føres på papir. Nødstrømsaggregatet ved Sirevåg omsorgssenter ble prøvd i virkelig drift og tok over strømforsyningen etter 40 sekunder. Kriseledelsen og vaktlederne i helse og omsorg samarbeidet tett, og kommuneoverlegen ga tydelige råd om hva som måtte prioriteres.",
+              "## Læringspunkter",
+              "1. Samband. Kommunen har to satellittelefoner. Den ene var ikke ladet, og bare to i kriseledelsen visste hvordan de brukes. Nødnett-terminalen i rådhuset fungerte, men kommunen har bare én.\n2. Trygghetsalarmer. Hjemmetjenesten har ingen oppdatert liste på papir over de 214 brukerne av trygghetsalarm. Uten fagsystemet tok det over to timer å få oversikt over hvem som måtte ha besøk.\n3. Drivstoff. Aggregatet ved omsorgssenteret har drivstoff til om lag 18 timers drift. Kommunen har ingen avtale om levering av drivstoff i en krise.\n4. Informasjon til innbyggerne. Beredskapsplanen sier at kommunen skal opprette møteplasser der innbyggerne kan få informasjon og hjelp når nettet er nede. Stedene er ikke bestemt, og innbyggerne kjenner ikke til ordningen.\n5. Rapportering. Den første situasjonsrapporten til Statsforvalteren ble sendt 50 minutter etter fristen, fordi malen bare lå på nett.\n6. Utholdenhet. Planen har ikke vaktlister for en kriseledelse som skal arbeide i flere døgn.",
+              "## Tiltak",
+              "Kriseledelsen bestemte disse tiltakene i møtet 29. september 2026:\n1. Beredskapskoordinatoren lager rutine for månedlig kontroll og lading av satellittelefonene og holder opplæring for kriseledelsen innen 1. desember 2026.\n2. Helse og omsorg skriver ut listen over brukere av trygghetsalarm hver uke og oppbevarer den innelåst på vaktrommet, fra 1. november 2026.\n3. Teknisk drift og miljø legger fram forslag til avtale om levering av drivstoff og vurderer større tank ved omsorgssenteret innen 1. februar 2027.\n4. Beredskapskoordinatoren foreslår møteplasser for innbyggerne i revisjonen av beredskapsplanen, som legges fram for kommunestyret våren 2027.\n5. Maler for rapportering og varslingslister legges i papirperm i beredskapsrommet innen 1. november 2026.\n6. Vaktordning for kriseledelsen tas inn i den reviderte beredskapsplanen.",
+              "## Videre oppfølging",
+              "Evalueringsrapporten til Statsforvalteren sendes innen 16. oktober 2026 og bygger på dette notatet. Beredskapskoordinatoren rapporterer til kommunedirektøren om status for tiltakene 1. mars 2027.",
+              "Torgeir Tiur, beredskapskoordinator"
+            ],
+            "vedlegg": [
+              "Evaluatorens observasjonsskjema",
+              "Logg fra kriseledelsen 23. september 2026"
+            ]
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Evalueringsrapport etter beredskapsøvelsen 23.09.2026 – Sirevåg kommune",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-10-16",
+          "part": "Statsforvalteren i Rogaland",
+          "skjerm_part": false,
+          "status": "E",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Næring, kultur og beredskap",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "Statsforvalteren i Rogaland, Postboks 59, 4001 Stavanger",
+            "emne": "Evalueringsrapport fra Sirevåg kommune etter beredskapsøvelsen Mørk kyst 2026",
+            "tekst": [
+              "Vi viser til invitasjonen datert 30. april 2026 og til beredskapsøvelsen Mørk kyst 2026, som ble holdt 23. september 2026. Statsforvalteren ba kommunene sende en kort evalueringsrapport innen 16. oktober. Rapporten fra Sirevåg kommune ligger ved. Vår ref.: {{sak}}.",
+              "Sirevåg kommune deltok med hele kriseledelsen, servicetorget, Sirevåg omsorgssenter og hjemmetjenesten. Kriseledelsen var samlet 35 minutter etter det første varselet. Kommunen mener øvelsen var nyttig og realistisk, og at den traff de svakhetene vi selv var usikre på.",
+              "De viktigste funnene våre er at reservesambandet ikke var godt nok kjent og vedlikeholdt, at hjemmetjenesten manglet oversikt på papir over brukerne av trygghetsalarm, at nødstrømmen ved omsorgssenteret har drivstoff til under ett døgn, og at møteplassene for innbyggerne ikke er bestemt. Den første situasjonsrapporten til Statsforvalteren kom 50 minutter for sent.",
+              "Kriseledelsen bestemte seks tiltak 29. september 2026, med ansvar og frister. De står i rapporten. Fire av dem skal være gjennomført innen 1. februar 2027, og de to siste tas inn i revisjonen av beredskapsplanen, som legges fram for kommunestyret våren 2027.",
+              "Vi har to innspill til Statsforvalteren. Malen for situasjonsrapport bør finnes i en utgave som kan fylles ut for hånd og leses opp over Nødnett. Vi ønsker også at Statsforvalteren tar opp med nettselskapene og teleoperatørene hvor lenge basestasjonene i kommunen har reservestrøm, fordi kommunen i dag ikke får den oversikten.",
+              "Vi takker for en godt planlagt øvelse og deltar gjerne på beredskapssamlingen 2. desember 2026.",
+              "Med hilsen Torgeir Tiur, beredskapskoordinator"
+            ],
+            "vedlegg": [
+              "Evalueringsrapport fra Sirevåg kommune etter øvelsen Mørk kyst 2026"
+            ]
           }
         }
       ]
@@ -3928,7 +4888,7 @@
               "Tomten skal overdras til datteren min, Ingrid Rauneset. Hun er vokst opp på gården og ønsker å flytte hjem til Sirevåg med familien og bygge bolig her. Hun arbeider i dag i Kvassheim og hjelper til på gården i lamminga og i slåtten. For oss betyr det mye å ha henne i nærheten, både for drifta og fordi jeg selv er blitt 67 år.",
               "Gården er på 186 dekar. Av dette er 142 dekar fulldyrka jord, 31 dekar er innmarksbeite, og resten er tun, veg og skrinn mark. Jeg driver med sau og ammekyr. Tomten jeg vil dele fra, ligger helt nordøst på eiendommen, mellom gårdsvegen min og boligen i Raunesvegen 118, og grenser mot Raunesvegen i nord. Det er en bergknaus med lyng og einer som verken er dyrka eller kan dyrkes, og den har aldri vært brukt til annet enn litt beite.",
               "Tomten får atkomst fra gårdsvegen, så det trengs ingen ny avkjørsel fra Raunesvegen. Vannledningen ligger langs vegen, og avløpet tenker vi å løse med et minirenseanlegg som det blir søkt om sammen med byggesaken. Tomten ligger om lag 280 meter fra tunet og driftsbygningen og kommer ikke i veien for drifta.",
-              "Jeg mener dette er en tomt som ikke tar noe fra landbruket. Den ligger inntil de to boligene som ble delt fra gården i 1970-årene, og den berører ikke dyrka mark. Naboene i Raunesvegen 116 og 118 ble varslet 24. august 2026, og de har ikke hatt merknader.",
+              "Jeg mener dette er en tomt som ikke tar noe fra landbruket. Den ligger inntil de to boligene som ble delt fra gården i 1970-årene, og den berører ikke dyrka mark. Naboene i Raunesvegen 116 og 118 ble varslet 17. august 2026, og de har ikke hatt merknader.",
               "Jeg håper kommunen ser velvillig på søknaden. Kart der tomten er tegnet inn, ligger ved.",
               "Med hilsen Oddvar Rauneset"
             ],
@@ -4033,7 +4993,7 @@
               "## Bakgrunn",
               "Rauneset gård er på 186 dekar. Av dette er 142 dekar fulldyrka jord og 31 dekar innmarksbeite, mens resten er tun, veg og grunnlendt mark. Eieren driver med sau og ammekyr. Tomten skal overdras til datteren hans, Ingrid Rauneset, som vil bygge bolig der. Hun arbeider utenfor gården og hjelper til i drifta.",
               "Tomten ligger nordøst på eiendommen, mellom gårdsvegen og boligeiendommen Raunesvegen 118. Den grenser mot Raunesvegen i nord og mot fulldyrka jord i sør. Arealet er en bergknaus med lyng og einer, registrert som åpen fastmark i gårdskartet. Tomten skal ha atkomst fra gårdsvegen, som har avkjørsel til Raunesvegen fra før. Kommunal vannledning ligger langs vegen. Avløpet er tenkt løst med minirenseanlegg.",
-              "Naboene i Raunesvegen 116 og 118 ble varslet 24. august 2026, jf. plan- og bygningsloven § 21-3. De har ikke hatt merknader.",
+              "Naboene i Raunesvegen 116 og 118 ble varslet 17. august 2026, jf. plan- og bygningsloven § 21-3. Fristen for merknader gikk ut 31. august 2026, og de har ikke hatt merknader.",
               "## Uttalelse fra Statsforvalteren i Rogaland",
               "Søknaden ble sendt til Statsforvalteren i Rogaland 14. september 2026, med kopi til Rogaland fylkeskommune. Statsforvalteren skriver i brev datert 6. oktober 2026 at de nasjonale og regionale landbruksinteressene ikke blir vesentlig berørt, og fraråder ikke dispensasjon. Statsforvalteren forutsetter at dyrka mark ikke blir berørt, verken av tomten, atkomsten eller ledningsgrøfter, og ber kommunen vurdere om saken kan få følger for senere søknader. Rogaland fylkeskommune har ikke uttalt seg.",
               "## Vurdering etter plan- og bygningsloven",
@@ -4081,8 +5041,8 @@
               "## Kommunedirektørens forslag til vedtak",
               "1. Plan- og teknisk utvalg gir dispensasjon fra LNF-formålet i kommuneplanens arealdel for fradeling av en boligtomt på inntil 1,2 dekar fra gnr. 14 bnr. 3, Raunesvegen 120, jf. plan- og bygningsloven § 19-2.\n2. Utvalget gir tillatelse til deling etter plan- og bygningsloven § 20-1 første ledd bokstav m og samtykke til deling etter jordlova.\n3. Tillatelsen gis på disse vilkårene:\na) Tomten skal ha de grensene som er vist på kartet som fulgte søknaden. Grensen mot sør legges minst tre meter fra kanten av den fulldyrka jorda. De endelige grensene fastsettes i oppmålingsforretningen.\nb) Dyrka mark skal ikke berøres. Atkomsten skal gå fra gårdsvegen, og ledninger for vann og avløp skal legges utenom dyrka mark.\nc) Vegrett over gnr. 14 bnr. 3 skal tinglyses samtidig med at tomten blir opprettet.\nd) Utvidet bruk av avkjørselen til Raunesvegen skal være avklart med vegmyndigheten før det gis byggetillatelse på tomten.\n4. Tillatelsen faller bort dersom det ikke er rekvirert oppmålingsforretning innen tre år.",
               "## Behandling i møtet",
-              "Utvalgets leder Arvid Kvinnesland (H) ledet behandlingen. Sju stemmeberettigede var til stede. Oppmålingsingeniør Ole Oter orienterte om søknaden og om uttalelsen fra Statsforvalteren i Rogaland, og han svarte på spørsmål om grensen mot den dyrka marka og om atkomsten.",
-              "I ordskiftet la flertallet vekt på at tomten ligger på udyrkbar mark inntil to boliger, at Statsforvalteren ikke fraråder dispensasjon, og at vilkårene sikrer at dyrka mark ikke blir berørt. Mindretallet mente at boligbygging i LNF-områdene bør avklares i kommuneplanen, og at en dispensasjon kan gjøre det vanskeligere å si nei til senere søknader om fradeling fra gårdsbruk.",
+              "Utvalgets leder Arvid Kvinnesland (H) ledet behandlingen. Alle sju medlemmene var til stede. Utvalget var på befaring på Raunesvegen 120 før møtet. Oppmålingsingeniør Ole Oter orienterte om søknaden og om uttalelsen fra Statsforvalteren i Rogaland, og han svarte på spørsmål om grensen mot den dyrka marka og om atkomsten.",
+              "I ordskiftet la flertallet vekt på at tomten ligger på udyrkbar mark inntil to boliger, at Statsforvalteren ikke fraråder dispensasjon, og at vilkårene sikrer at dyrka mark ikke blir berørt. Mindretallet mente at boligbygging i LNF-områdene bør avklares i kommuneplanen, og at en dispensasjon kan gjøre det vanskeligere å si nei til senere søknader om fradeling fra gårdsbruk. Det ble ikke satt fram andre forslag.",
               "## Votering",
               "Kommunedirektørens forslag til vedtak ble vedtatt med 5 mot 2 stemmer.",
               "## Vedtak",
@@ -4212,14 +5172,14 @@
               "## Tiltaket",
               "Tiltakshaveren vil gjøre sjøhuset i Havnegata 12 om fra lager til serveringssted med om lag 80 sitteplasser i første etasje. Andre etasje skal brukes til lager og personalrom. Det er ikke planlagt tilbygg eller påbygg. Det skal settes inn en ny rømningsdør, og det må monteres ventilasjonsanlegg med avkast over tak. Fasadene mot havna skal ellers være som i dag.",
               "## Plangrunnlaget",
-              "I gjeldende plan er eiendommen satt av til havne- og næringsformål. Servering for allmennheten ligger utenfor dette formålet. Kommunen arbeider med detaljregulering for Havneområdet nord, planID 2026002, arkivsak {{sak:detaljregulering-havneomradet-nord}}, der tiltakshaveren er forslagsstiller. Planforslaget åpner for servering i sjøhuset. Viktor Vipe opplyste at planforslaget etter planen skal til første gangs behandling i plan- og teknisk utvalg 4. november 2026, og at det deretter skal ligge ute til offentlig ettersyn i minst seks uker, jf. plan- og bygningsloven § 12-10. Kommunestyret kan tidligst vedta planen på nyåret 2027, jf. § 12-12.",
+              "I gjeldende plan er eiendommen satt av til havne- og næringsformål. Servering for allmennheten ligger utenfor dette formålet. Kommunen har et forslag til detaljregulering for Havneområdet nord, planID 2026002, til behandling, arkivsak {{sak:detaljregulering-havneomradet-nord}}. Tiltakshaveren er forslagsstiller. Planforslaget åpner for servering i sjøhuset. Viktor Vipe opplyste at planforslaget etter planen skal til første gangs behandling i plan- og teknisk utvalg 4. november 2026, og at det deretter skal ligge ute til offentlig ettersyn i minst seks uker, jf. plan- og bygningsloven § 12-10. Kommunestyret kan tidligst vedta planen på nyåret 2027, jf. § 12-12.",
               "Kommunen forklarte at en søknad som skal avgjøres før planen er vedtatt, må behandles etter gjeldende plan og krever dispensasjon etter plan- og bygningsloven § 19-2. En dispensasjonssøknad må begrunnes og sendes til berørte statlige og regionale myndigheter til uttalelse. Kommunen er tilbakeholden med å gi dispensasjon mens et planarbeid for det samme området pågår, fordi det kan foregripe planbehandlingen. Alternativet er at søknaden sendes inn nå, men ikke avgjøres før planen er vedtatt. Da trengs det ingen dispensasjon. Tiltakshaveren vil vurdere hva som blir valgt. Kommunen ga ikke noe forhåndstilsagn.",
               "## Krav til søknaden",
               "Bruksendringen krever søknad og tillatelse etter plan- og bygningsloven § 20-1 første ledd bokstav d. Tiltakshaveren kan ikke søke selv. Søknaden må sendes av et foretak som er ansvarlig søker, og prosjekteringen og utførelsen må dekkes av foretak med ansvarsrett. Erklæringer om ansvarsrett og gjennomføringsplan skal følge søknaden.",
               "Søknaden må ha tegninger av planer, snitt og fasader før og etter endringen, og en situasjonsplan som viser atkomst, parkering og varelevering. Fordi bygget skal brukes av publikum, kreves det et brannkonsept som viser rømningsveier og hvor mange personer lokalene er beregnet for. Søknaden må også gjøre rede for ventilasjon og lukt fra kjøkkenet, støy mot naboene, universell utforming, og vann og avløp med fettutskiller. Sjøhuset står på kaikanten, og søknaden må derfor vise at kravene til sikkerhet mot stormflo er oppfylt.",
               "Lokalene blir arbeidsplass, og Arbeidstilsynet må ha gitt samtykke før kommunen kan gi tillatelse. Naboene skal varsles, jf. plan- og bygningsloven § 21-3. Kommunen minnet om at serveringsstedet må registreres hos Mattilsynet før åpning, og at serveringsbevilling og en eventuell skjenkebevilling søkes for seg hos enheten Næring, kultur og beredskap.",
               "## Videre saksgang",
-              "Tiltakshaveren tar sikte på å sende søknad i løpet av november 2026. Kommunens frist for å behandle søknaden er tolv uker fra søknaden er komplett. Blir det søkt om dispensasjon, løper ikke fristen mens saken er til uttalelse hos andre myndigheter. Referatet gjengir det som ble opplyst i møtet, og binder verken kommunen eller tiltakshaveren. Deltakerne har fått kopi av referatet.",
+              "Tiltakshaveren tar sikte på å sende søknad i løpet av november 2026. Kommunen ba om at søknaden blir merket med saksnummeret {{sak}}. Kommunens frist for å behandle søknaden er tolv uker fra søknaden er komplett. Blir det søkt om dispensasjon, løper ikke fristen mens saken er til uttalelse hos andre myndigheter. Referatet gjengir det som ble opplyst i møtet, og binder verken kommunen eller tiltakshaveren. Hovedpunktene ble gjennomgått og godkjent av deltakerne før møtet ble avsluttet. Referatet ligger i saken og legges til grunn når søknaden blir behandlet.",
               "Gunnar Grevling, byggesaksbehandler"
             ],
             "vedlegg": []
@@ -4246,7 +5206,7 @@
             "mottaker": null,
             "emne": "Søknad om bruksendring fra sjøhus til serveringssted – Havnegata 12, gnr. 31 bnr. 22",
             "tekst": [
-              "Sirevåg Fiskemottak AS søker om tillatelse til bruksendring av sjøhuset i Havnegata 12, gnr. 31 bnr. 22, fra lager til serveringssted. Vi viser til forhåndskonferansen 13. oktober 2026 og til kommunens referat, deres ref. {{sak}}.",
+              "Sirevåg Fiskemottak AS søker om tillatelse til bruksendring av sjøhuset i Havnegata 12, gnr. 31 bnr. 22, fra lager til serveringssted. Vi viser til forhåndskonferansen med kommunen 13. oktober 2026, deres ref. {{sak}}.",
               "Første etasje på 180 m² skal innredes til fiskerestaurant med 80 sitteplasser, kjøkken, garderobe for gjester og toaletter, der ett er tilpasset rullestolbrukere. Andre etasje skal brukes til lager, garderobe og pauserom for de ansatte. Loftet blir ikke tatt i bruk. Det blir satt inn en ny rømningsdør i nordveggen og montert ventilasjonsanlegg med avkast over tak. Ellers blir fasadene som i dag. Uteservering på kaia er ikke med i denne søknaden.",
               "Bruksendringen er i samsvar med forslaget til detaljregulering for Havneområdet nord, planID 2026002, som plan- og teknisk utvalg 4. november 2026 vedtok å legge ut til offentlig ettersyn. Vi ønsker å åpne til sommeren 2027 og ber om at søknaden blir behandlet så raskt som mulig. Dersom kommunen mener det er nødvendig, ber vi om at søknaden også blir behandlet som en søknad om dispensasjon fra gjeldende plan.",
               "Tegningene er laget av Haver Arkitektkontor AS, som også skal være ansvarlig søker. Byggmester Odland AS skal stå for ombyggingen. Vi sender søknaden selv nå for ikke å tape tid. Erklæringene om ansvarsrett og gjennomføringsplanen blir ettersendt så snart avtalene med foretakene er underskrevet. En kort brannteknisk beskrivelse ligger ved. Vi sendte søknad om samtykke til Arbeidstilsynet 6. november 2026. Sjøhuset er koblet til kommunalt vann og avløp, og det blir montert fettutskiller.",
@@ -4285,9 +5245,9 @@
             "tekst": [
               "Vi viser til søknaden om bruksendring av sjøhuset i Havnegata 12, datert 10. november 2026. Kommunen mottok søknaden 11. november 2026. Vår ref.: {{sak}}. Dette brevet er et foreløpig svar etter forvaltningsloven § 11 a.",
               "Vi har gått gjennom søknaden. Den er ikke komplett, og vi kan ikke behandle den før vi har fått det som står i punktene under.",
-              "1. Ansvarsrett. Søknaden er sendt av tiltakshaveren. Som det går fram av referatet fra forhåndskonferansen, må søknaden sendes av ansvarlig søker, og den må ha erklæringer om ansvarsrett for søker, prosjekterende og utførende og en gjennomføringsplan.\n2. Forholdet til plan. Bruksendringen er i strid med gjeldende plan, der eiendommen er satt av til havne- og næringsformål. Dere må avklare om dere søker om dispensasjon etter plan- og bygningsloven § 19-2 nå, eller om søknaden skal vente til detaljreguleringen for Havneområdet nord er vedtatt. En søknad om dispensasjon må begrunnes, og naboene må varsles om at det søkes om dispensasjon.\n3. Brannsikkerhet. Den branntekniske beskrivelsen er for kort. Vi trenger et brannkonsept fra ansvarlig prosjekterende som viser rømningsveier og hvor mange personer lokalene er beregnet for.\n4. Situasjonsplan. Situasjonskartet viser bare bygget. Vi trenger en situasjonsplan som viser atkomst, parkering og plass for varelevering.\n5. Stormflo. Søknaden gjør ikke rede for sikkerheten mot stormflo.\n6. Arbeidstilsynet. Samtykket fra Arbeidstilsynet må sendes til oss når det foreligger.",
+              "1. Ansvarsrett. Søknaden er sendt av tiltakshaveren. Som det ble opplyst i forhåndskonferansen, og som går fram av referatet som ligger ved, må søknaden sendes av ansvarlig søker, og den må ha erklæringer om ansvarsrett for søker, prosjekterende og utførende og en gjennomføringsplan.\n2. Forholdet til plan. Bruksendringen er i strid med gjeldende plan, der eiendommen er satt av til havne- og næringsformål. Dere må avklare om dere søker om dispensasjon etter plan- og bygningsloven § 19-2 nå, eller om søknaden skal vente til detaljreguleringen for Havneområdet nord er vedtatt. En søknad om dispensasjon må begrunnes, og naboene må varsles om at det søkes om dispensasjon.\n3. Brannsikkerhet. Den branntekniske beskrivelsen er for kort. Vi trenger et brannkonsept fra ansvarlig prosjekterende som viser rømningsveier og hvor mange personer lokalene er beregnet for.\n4. Situasjonsplan. Situasjonskartet viser bare bygget. Vi trenger en situasjonsplan som viser atkomst, parkering og plass for varelevering.\n5. Stormflo. Søknaden gjør ikke rede for sikkerheten mot stormflo.\n6. Støy og lukt. Søknaden gjør ikke rede for støy mot naboene eller for lukt fra kjøkkenet.\n7. Arbeidstilsynet. Samtykket fra Arbeidstilsynet må sendes til oss når det foreligger.",
               "Forslaget til detaljregulering, arkivsak {{sak:detaljregulering-havneomradet-nord}}, ligger ute til offentlig ettersyn til 21. desember 2026. Kommunestyret kan tidligst behandle planen på nyåret 2027. Velger dere å vente på planen, blir søknaden liggende til planen er vedtatt, og dere slipper å søke om dispensasjon. Velger dere å søke om dispensasjon nå, sender vi søknaden til berørte myndigheter til uttalelse, og utfallet er usikkert så lenge planarbeidet pågår.",
-              "Naboene ble varslet 9. november 2026. Vi tar ikke søknaden til behandling før fristen naboene har til å komme med merknader, er ute.",
+              "Naboene ble varslet 9. november 2026, dagen før søknaden ble sendt. Naboene har to uker på seg til å komme med merknader, og fristen går ut 23. november 2026. Vi tar ikke søknaden til behandling før fristen er ute. Merknader dere får fra naboene, må dere sende til oss sammen med en redegjørelse for hvordan dere har vurdert dem.",
               "Vi ber om å få dokumentasjonen innen 18. desember 2026. Fristen kommunen har til å behandle søknaden, løper ikke før søknaden er komplett. Arbeidet med ombyggingen kan ikke settes i gang før tillatelse er gitt. Får vi ikke dokumentasjonen innen fristen, kan søknaden bli avvist.",
               "Med hilsen Gunnar Grevling, byggesaksbehandler"
             ],
@@ -4334,9 +5294,9 @@
               "Søknaden gjelder: Tillatelse til tiltak uten ansvarsrett\nTiltak: Nytt bygg, frittliggende garasje\nSøkes det om dispensasjon: Nei",
               "Gårdsnummer: 12\nBruksnummer: 46\nAdresse: Strandveien 16, 4399 Sirevåg\nTomteareal: 740 m²",
               "Tiltakshavere: Marit og Leif Tengesdal\nAdresse: Strandveien 16, 4399 Sirevåg\nE-post: leif.tengesdal@epost.example",
-              "Bygningstype: Garasje for to biler, ikke til beboelse\nBebygd areal: 36 m² (6,0 x 6,0 meter)\nGesimshøyde: 2,6 meter\nMønehøyde: 4,6 meter\nTakform: Saltak med 30 graders takvinkel, som på boligen\nKledning: Stående trekledning i samme farge som boligen",
+              "Bygningstype: Garasje for to biler, ikke til beboelse\nBebygd areal: 36 m² (6,0 x 6,0 meter)\nGesimshøyde: 2,6 meter\nMønehøyde: 4,6 meter\nTakform: Saltak med 34 graders takvinkel, som på boligen\nKledning: Stående trekledning i samme farge som boligen",
               "Gjeldende plan: Reguleringsplan for Strandveien boligfelt fra 1998\nPlassering: Nordøst på tomten, ved avkjørselen\nAvstand til grensen mot Strandveien 14: 1,5 meter\nAvstand til boligen på Strandveien 14: Om lag 9 meter\nBebygd areal på eiendommen etter tiltaket: 160 m² (21,6 prosent av tomten)\nAtkomst: Eksisterende avkjørsel fra Strandveien",
-              "Naboene varslet: 24. februar 2025\nMerknader fra naboer: Ingen\nSamtykke til plassering nærmere grensen enn fire meter: Gitt skriftlig av Gudmund Refsnes, Strandveien 14",
+              "Naboene varslet: 17. februar 2025\nMerknader fra naboer: Ingen\nSamtykke til plassering nærmere grensen enn fire meter: Gitt skriftlig av Gudmund Refsnes, Strandveien 14",
               "Andre opplysninger: Vi søker fordi mønehøyden er over fire meter. Garasjen er på 36 m², som er det største planen tillater. Overvann fra taket ledes til en steinsatt grøft på egen tomt. Vi ønsker å bygge sommeren 2025.",
               "Erklæring: Vi bekrefter at opplysningene er riktige, og at vi som tiltakshavere har ansvaret for at garasjen blir bygget i samsvar med plan- og bygningsloven og tillatelsen.\nSted og dato: Sirevåg, 7. mars 2025\nUnderskrift: Marit Tengesdal og Leif Tengesdal"
             ],
@@ -4374,7 +5334,7 @@
               "Sirevåg kommune gir tillatelse til å føre opp en frittliggende garasje på eiendommen gnr. 12 bnr. 46, Strandveien 16, slik det er vist på situasjonsplanen og tegningene som fulgte søknaden. Tiltaket krever søknad og tillatelse etter plan- og bygningsloven § 20-1 første ledd bokstav a. Kommunen godkjenner at garasjen blir plassert 1,5 meter fra grensen mot Strandveien 14, gnr. 12 bnr. 45. Tillatelsen gis på vilkårene som står nedenfor. Vedtaket er gjort på delegert myndighet.",
               "## Søknaden",
               "Søknaden gjelder en garasje for to biler med 36 m² bebygd areal, gesimshøyde 2,6 meter og mønehøyde 4,6 meter. Garasjen får saltak og kledning som boligen. Den skal stå nordøst på tomten, ved avkjørselen som er i bruk i dag. Bebygd areal på eiendommen blir 160 m² etter tiltaket. Marit og Leif Tengesdal søker uten ansvarlige foretak og har selv ansvaret for at garasjen blir bygget i samsvar med regelverket.",
-              "Naboene ble varslet 24. februar 2025, jf. plan- og bygningsloven § 21-3, og det er ikke kommet merknader. Gudmund Refsnes, som eier Strandveien 14, har samtykket skriftlig til plasseringen.",
+              "Naboene ble varslet 17. februar 2025, jf. plan- og bygningsloven § 21-3, og det er ikke kommet merknader. Gudmund Refsnes, som eier Strandveien 14, har samtykket skriftlig til plasseringen.",
               "## Kommunens vurdering",
               "Eiendommen ligger i reguleringsplanen for Strandveien boligfelt fra 1998 og er regulert til boligformål. Planen tillater garasjer på inntil 36 m². Garasjen holder seg innenfor denne grensen og innenfor den utnyttelsen planen tillater, og tiltaket trenger ikke dispensasjon.",
               "Lovens hovedregel er at bygninger skal stå minst fire meter fra nabogrensen. Kommunen kan godkjenne at garasjer og andre mindre bygninger blir plassert nærmere. Garasjen er under 50 m², naboen har samtykket, og avstanden til boligen på Strandveien 14 er om lag 9 meter. Kommunen finner at plasseringen ikke gir ulemper for naboen eller for brannsikkerheten, og godkjenner den. Garasjen er tilpasset boligen i form og materialbruk.",

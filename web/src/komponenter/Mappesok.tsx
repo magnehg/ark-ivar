@@ -8,7 +8,7 @@ import { api } from '../api';
 import { Flyt, Sak, Sokestreff, flytSok } from '../arkiv';
 import { useKode, useT } from '../i18n';
 import { Feil, useFeiltekst } from './Felles';
-import { Status } from './Status';
+import { Mappeikon, Status } from './Status';
 
 const s = makeStyles({
   felt: { maxWidth: '560px', '& .fui-SearchBox': { width: '100%', maxWidth: 'none' } },
@@ -73,7 +73,7 @@ export function Mappesok({ tips, tipsSprak, handling, sokt, flyt = null }: Egens
           <ul className={c.liste}>
             {treff.map(({ sak, journalposter }) => (
               <li key={sak.id} className={c.treff}>
-                <span className={c.tittel} lang="nb"><Ruterlenke to={`/arkiv/saker/${sak.id}${flytSok(flyt)}`}>{sak.saksnummer} {sak.tittel}</Ruterlenke></span>
+                <span className={c.tittel} lang="nb"><Mappeikon status={sak.status}><Ruterlenke to={`/arkiv/saker/${sak.id}${flytSok(flyt)}`}>{sak.saksnummer} {sak.tittel}</Ruterlenke></Mappeikon></span>
                 <span>{handling?.(sak)}</span>
                 <span className={c.dempet}>
                   <span lang="nb">{sak.arkivdel_tekst} · {sak.klasse_tekst}</span>{sak.skjerm_klasse && <> <Status slag="skjermet">{t('arkivar.sak.skjermet_klasse')}</Status></>}

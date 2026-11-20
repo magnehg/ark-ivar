@@ -160,7 +160,7 @@ export function SorterbarTabell<T>({ rader, kolonner, nokkel, size = 'small', st
 const s = makeStyles({
   tabellvegg: { overflowX: 'auto' },
   // En tabell med utvidbare rader står ved siden av lesevinduet. Den klemmes ikke sammen: veggen rundt ruller sidelengs.
-  bred: { minWidth: '1040px' },
+  bred: { minWidth: '1100px' },
   utvidcelle: { width: '40px', paddingLeft: '4px', paddingRight: 0 },
   utvidetrad: { backgroundColor: tokens.colorNeutralBackground2, ':hover': { backgroundColor: tokens.colorNeutralBackground2 } },
   utvidetcelle: { height: 'auto', whiteSpace: 'normal' },

@@ -76,6 +76,8 @@
 - Reglene for innholdet står i `docs/innhold.md`.
 - 100 nye saksmapper i sakarkivet med 105 dokumenter, skrevet om fra dokumentene i Paragrafkarusellen og tilpasset
   Sirevåg kommune (nøklene begynner med «k1-» til «k10-»).
+- Mappeoversikten: mappeikon foran tittelen (åpen mappe under behandling, lukket når saken er avsluttet), enheten og
+  saksansvarlig først, og primærklasseringen sist med arkivdelen under. Søketreffene har samme ikon.
 - Dokumentfiler: hver journalpost har filen i produksjonsformat, og i arkivformat (PDF, eller ren tekst for e-post) når
   den er arkivert. Radene i mappeoversikten, i en mappe og i journalen kan utvides og viser filene med ikon for
   formatet, og et klikk på en fil åpner den i et lesevindu til høyre.

@@ -360,6 +360,7 @@
   "arkivar.sak.dokument_venter": "Du registrerer dokumentet:",
   "arkivar.sak.dokument_venter.hjelp": "Hører det til i denne mappen, velger du «Ny journalpost».",
   "arkivar.sak.enhet": "Ansvarlig enhet",
+  "arkivar.sak.enhet.kort": "Enhet",
   "arkivar.sak.hjemmel": "Hjemmel for skjermingen",
   "arkivar.sak.journalposter": "Dokumentene i mappen",
   "arkivar.sak.nummer": "Saksnr.",

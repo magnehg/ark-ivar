@@ -360,6 +360,7 @@
   "arkivar.sak.dokument_venter": "You are registering the document:",
   "arkivar.sak.dokument_venter.hjelp": "If it belongs in this file, choose “New journal entry”.",
   "arkivar.sak.enhet": "Responsible unit",
+  "arkivar.sak.enhet.kort": "Unit",
   "arkivar.sak.hjemmel": "Legal basis for the screening",
   "arkivar.sak.journalposter": "The documents in the file",
   "arkivar.sak.nummer": "Case no.",

@@ -9,13 +9,14 @@ import { useDato, useKode, useT } from '../../i18n';
 import { Feil, Kort, Laster, Sidehode, useFeiltekst, useHent } from '../../komponenter/Felles';
 import { Journalpostfiler, Mappefiler } from '../../komponenter/Dokumentfiler';
 import { Mappesok } from '../../komponenter/Mappesok';
-import { Status } from '../../komponenter/Status';
+import { Mappeikon, Status } from '../../komponenter/Status';
 import { Kolonne, SorterbarTabell, TabellVerktoy } from '../../komponenter/Tabell';
 
 const s = makeStyles({
   fakta: { display: 'grid', gridTemplateColumns: 'max-content 1fr', gap: '4px 16px', margin: 0, '& dt': { color: tokens.colorNeutralForeground2 }, '& dd': { margin: 0 } },
   filter: { maxWidth: '320px', marginBottom: '8px' },
   dempet: { color: tokens.colorNeutralForeground2 },
+  under: { display: 'block', color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200 },
   venter: { marginBottom: '16px' },
   knapper: { display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' },
 });
@@ -35,15 +36,18 @@ export function Saker() {
   const alle = liste.data?.saker ?? [];
   const rader = arkivdel === '' ? alle : alle.filter((r) => r.arkivdel === arkivdel);
   // Tittelen får mest plass. Uten en bredde på den klemmer de andre kolonnene den sammen.
+  const enhetsnavn = (kode: string) => struktur.data?.enheter.find((e) => e.kode === kode)?.navn ?? kode;
+  // Enheten og saksansvarlig står først, så studenten ser hvem som eier saken; klasseringen står sist.
   const kolonner: Kolonne<Sak>[] = [
-    { id: 'nummer', overskrift: t('arkivar.sak.nummer'), stil: { width: '84px' }, celle: (r) => r.saksnummer, sorter: (r) => sorterbart(r.saksnummer) },
-    { id: 'tittel', overskrift: t('arkivar.sak.tittel'), stil: { width: '32%' }, sprak: 'nb', celle: (r) => (<Ruterlenke to={`/arkiv/saker/${r.id}`}>{r.tittel}</Ruterlenke>), sorter: (r) => r.tittel },
-    { id: 'arkivdel', overskrift: t('arkivar.sak.arkivdel'), stil: { width: '11%' }, sprak: 'nb', celle: (r) => r.arkivdel_tekst, sorter: (r) => r.arkivdel_tekst },
-    { id: 'klasse', overskrift: t('arkivar.sak.primaer'), stil: { width: '17%' }, sprak: 'nb', celle: (r) => r.klasse_tekst, sorter: (r) => r.klasse_tekst },
-    { id: 'ansvarlig', overskrift: t('arkivar.sak.ansvarlig'), stil: { width: '12%' }, sprak: 'nb', celle: (r) => r.saksansvarlig_navn, sorter: (r) => r.saksansvarlig_navn },
-    { id: 'dato', overskrift: t('arkivar.sak.dato'), stil: { width: '100px' }, celle: (r) => dato(r.saksdato), sorter: (r) => r.saksdato },
-    { id: 'status', overskrift: t('arkivar.sak.status'), stil: { width: '150px' }, celle: (r) => kode('saksstatus', r.status), sorter: (r) => r.status },
-    { id: 'antall', overskrift: t('arkivar.sak.antall'), stil: { width: '96px' }, celle: (r) => r.antall, sorter: (r) => r.antall },
+    { id: 'enhet', overskrift: t('arkivar.sak.enhet.kort'), stil: { width: '64px' }, sprak: 'nb', celle: (r) => <abbr title={enhetsnavn(r.enhet)}>{r.enhet}</abbr>, sorter: (r) => r.enhet },
+    { id: 'ansvarlig', overskrift: t('arkivar.sak.ansvarlig'), stil: { width: '120px' }, sprak: 'nb', celle: (r) => r.saksansvarlig_navn, sorter: (r) => r.saksansvarlig_navn },
+    { id: 'nummer', overskrift: t('arkivar.sak.nummer'), stil: { width: '80px' }, celle: (r) => r.saksnummer, sorter: (r) => sorterbart(r.saksnummer) },
+    { id: 'tittel', overskrift: t('arkivar.sak.tittel'), sprak: 'nb', celle: (r) => (<Mappeikon status={r.status}><Ruterlenke to={`/arkiv/saker/${r.id}`}>{r.tittel}</Ruterlenke></Mappeikon>), sorter: (r) => r.tittel },
+    { id: 'dato', overskrift: t('arkivar.sak.dato'), stil: { width: '96px' }, celle: (r) => dato(r.saksdato), sorter: (r) => r.saksdato },
+    { id: 'status', overskrift: t('arkivar.sak.status'), stil: { width: '64px' }, celle: (r) => <abbr title={t(`arkivar.saksstatus.${r.status.toLowerCase()}`)}>{r.status}</abbr>, sorter: (r) => r.status },
+    { id: 'antall', overskrift: t('arkivar.sak.antall'), stil: { width: '92px' }, celle: (r) => r.antall, sorter: (r) => r.antall },
+    // Klasseringen står sist, med arkivdelen under: arkivdelen sier hva slags klassering det er.
+    { id: 'klasse', overskrift: t('arkivar.sak.primaer'), stil: { width: '230px' }, sprak: 'nb', celle: (r) => (<>{r.klasse_tekst}<span className={c.under}>{r.arkivdel_tekst}</span></>), sorter: (r) => `${r.arkivdel_tekst} ${r.klasse_tekst}` },
   ];
   return (
     <>

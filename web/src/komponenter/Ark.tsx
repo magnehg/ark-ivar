@@ -8,26 +8,26 @@ import { useOkt } from './Felles';
 import { Kommunevapen } from './Kommunevapen';
 
 // Kornet i et skannet ark: et lite bilde med støy som legges over papiret (et bilde, så CSP tillater det som data:).
-const KORN = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23k)'/%3E%3C/svg%3E\")";
+const KORN = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.035 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23k)'/%3E%3C/svg%3E\")";
 
 const s = makeStyles({
   // Et inngående brev på papir er skannet av arkivtjenesten. Arket er et bilde av papir og har sine egne farger i
-  // alle temaer (som kommunevåpenet): gulnet papir, blekk, korn, en skygge fra skanneren og litt skjev plassering.
+  // alle temaer (som kommunevåpenet). Det skal se ut som en vanlig skanning av et nytt brev: hvitt kontorpapir med et
+  // svakt gråskjær, litt korn, en smal skygge fra skannerlokket og litt skjev plassering. Ikke gammelt eller gulnet.
   // Teksten er fortsatt vanlig tekst, så den kan leses av skjermlesere, søkes i og forstørres.
   skannet: {
-    backgroundColor: '#f6f3ea', backgroundImage: `linear-gradient(90deg, rgba(0, 0, 0, 0.10), rgba(0, 0, 0, 0) 14px), linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0) 10px), ${KORN}`,
-    color: '#2a2a2e', fontFamily: "'Times New Roman', Times, 'Liberation Serif', serif", fontSize: '17px', lineHeight: '1.5',
-    border: '1px solid #c9c4b6', borderRadius: '1px', boxShadow: '0 1px 2px rgba(0, 0, 0, 0.25), 0 6px 16px rgba(0, 0, 0, 0.12)',
-    textShadow: '0 0 0.6px rgba(42, 42, 46, 0.55)', margin: '6px 8px',
-    '& h2, & h3, & .fui-Text': { fontFamily: 'inherit', color: 'inherit', fontSize: 'inherit' },
+    backgroundColor: '#f9f9f8', backgroundImage: `linear-gradient(90deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0) 8px), ${KORN}`,
+    color: '#1f1f22', fontFamily: "Calibri, Carlito, Arial, Helvetica, sans-serif",
+    border: '1px solid #d6d6d4', borderRadius: 0, boxShadow: '0 1px 3px rgba(0, 0, 0, 0.18)', margin: '4px 6px',
+    '& h2, & h3, & .fui-Text': { fontFamily: 'inherit', color: 'inherit' },
   },
-  skjevVenstre: { transform: 'rotate(-0.5deg)' },
-  skjevHoyre: { transform: 'rotate(0.4deg)' },
-  skannetDempet: { color: '#4a4a50' },
+  skjevVenstre: { transform: 'rotate(-0.35deg)' },
+  skjevHoyre: { transform: 'rotate(0.3deg)' },
+  skannetDempet: { color: '#45454a' },
   // Mottaksstempelet til arkivtjenesten.
   stempel: {
-    alignSelf: 'flex-end', border: '2px solid #a33a3a', color: '#a33a3a', borderRadius: '3px', padding: '2px 8px', marginTop: '6px', transform: 'rotate(-4deg)',
-    fontFamily: "'Courier New', Courier, monospace", fontSize: '13px', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', opacity: 0.8, textShadow: 'none', whiteSpace: 'nowrap',
+    alignSelf: 'flex-end', border: '1.5px solid #3a5a9a', color: '#3a5a9a', borderRadius: '2px', padding: '1px 6px', marginTop: '6px', transform: 'rotate(-2deg)',
+    fontFamily: "'Courier New', Courier, monospace", fontSize: '12px', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', opacity: 0.75, whiteSpace: 'nowrap',
   },
   ark: { background: tokens.colorNeutralBackground1, border: `1px solid ${tokens.colorNeutralStroke2}`, borderRadius: tokens.borderRadiusMedium, boxShadow: tokens.shadow4, padding: '32px', minWidth: 0 },
   hode: { display: 'flex', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap', marginBottom: '24px', color: tokens.colorNeutralForeground2 },

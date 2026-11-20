@@ -69,6 +69,6 @@
   (F) og ligger i arkivformat (A) når journalposten er arkivert, ellers i produksjonsformat (P).
 - Sirevåg kommune har fått et oppdiktet kommunevåpen, som står i toppfeltet, i brevhodet på kommunens dokumenter og
   på forsiden.
-- Inngående brev og skjemaer på papir vises som skannede ark: gulnet papir, korn, skygge fra skanneren, litt skjev
-  plassering og mottaksstempel. Teksten er fortsatt vanlig tekst. E-post og kommunens egne dokumenter er som før.
+- Inngående brev og skjemaer på papir vises som skannede ark: hvitt papir med et svakt gråskjær, litt korn, en smal
+  skygge fra skanneren, litt skjev plassering og mottaksstempel. Teksten er fortsatt vanlig tekst. E-post og kommunens egne dokumenter er som før.
 - Reglene for innholdet står i `docs/innhold.md`.

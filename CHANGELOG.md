@@ -71,4 +71,6 @@
   på forsiden.
 - Inngående brev og skjemaer på papir vises som skannede ark: hvitt papir med et svakt gråskjær, litt korn, en smal
   skygge fra skanneren, litt skjev plassering og mottaksstempel. Teksten er fortsatt vanlig tekst. E-post og kommunens egne dokumenter er som før.
+- Menyen under Arkivet har en lenke til arkivplanen, som ligger i undermappen `arkivplan/` ved siden av appen
+  (`arkivar/public/arkivplan/index.html`).
 - Reglene for innholdet står i `docs/innhold.md`.

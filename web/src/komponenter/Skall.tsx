@@ -3,7 +3,7 @@
 import { CSSProperties, ReactNode, Suspense } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Avatar, Button, Menu, MenuDivider, MenuGroup, MenuGroupHeader, MenuItem, MenuItemRadio, MenuList, MenuPopover, MenuProps, MenuTrigger, Text, makeStyles, mergeClasses, tokens } from '@fluentui/react-components';
-import { AlignStretchHorizontal20Regular, ArrowAutofitWidthDotted20Regular, Desktop20Regular, DocumentBulletList20Regular, Folder20Regular, Globe20Regular, Home20Regular, MailInbox20Regular, TextBulletListTree20Regular, People20Regular, PeopleTeam20Regular, Person20Regular, SignOut20Regular, WeatherMoon20Regular, WeatherSunny20Regular } from '@fluentui/react-icons';
+import { AlignStretchHorizontal20Regular, ArrowAutofitWidthDotted20Regular, Desktop20Regular, DocumentBulletList20Regular, Folder20Regular, Globe20Regular, Home20Regular, MailInbox20Regular, BookOpen20Regular, TextBulletListTree20Regular, People20Regular, PeopleTeam20Regular, Person20Regular, SignOut20Regular, WeatherMoon20Regular, WeatherSunny20Regular } from '@fluentui/react-icons';
 import { Innlogget, api, harRolle, kanAdministrere } from '../api';
 import { SPRAK, Sprakkode, useSprak, useT } from '../i18n';
 import { Kommunevapen } from './Kommunevapen';
@@ -46,7 +46,11 @@ const MODUS_IKON: Record<Lysmodus, JSX.Element> = { system: <Desktop20Regular />
 const BREDDE_IKON: Record<Bredde, JSX.Element> = { begrenset: <ArrowAutofitWidthDotted20Regular />, full: <AlignStretchHorizontal20Regular /> };
 
 // vis: lenken står bare i menyen for den som har tilgangen siden krever (serveren kontrollerer det uansett).
-type Lenke = { til: string; tekst: string; ikon: ReactNode; vis?: (i: Innlogget | null) => boolean };
+// fil: lenken går til en fil som webserveren leverer selv (utenfor appen), og laster derfor hele siden.
+type Lenke = { til: string; tekst: string; ikon: ReactNode; vis?: (i: Innlogget | null) => boolean; fil?: boolean };
+
+/** Arkivplanen til kommunen ligger som en undermappe ved siden av appen (arkivar/public/arkivplan/). */
+const ARKIVPLAN = '/arkivplan/index.html';
 type Modus = { id: string; til: string; tekst: string; grupper: { tittel: string; lenker: Lenke[] }[] };
 
 function useModuser(innlogget: Innlogget | null): Modus[] {
@@ -62,6 +66,7 @@ function useModuser(innlogget: Innlogget | null): Modus[] {
       { til: '/arkiv/saker', tekst: t('arkivar.nav.saker'), ikon: <Folder20Regular />, vis: student },
       { til: '/arkiv/journal', tekst: t('arkivar.nav.journal'), ikon: <DocumentBulletList20Regular />, vis: student },
       { til: '/arkiv/struktur', tekst: t('arkivar.nav.struktur'), ikon: <TextBulletListTree20Regular />, vis: student },
+      { til: ARKIVPLAN, tekst: t('arkivar.nav.arkivplan'), ikon: <BookOpen20Regular />, vis: student, fil: true },
     ] }] },
     { id: 'klasser', til: '/klasser', tekst: t('arkivar.modus.klasser'), grupper: [{ tittel: t('arkivar.modus.klasser'), lenker: [
       { til: '/klasser', tekst: t('arkivar.nav.klasser'), ikon: <PeopleTeam20Regular />, vis: (i) => harRolle(i, 'laerer') },
@@ -149,7 +154,9 @@ export function Skall() {
           {aktiv?.grupper.map((g) => (
             <div key={g.tittel}>
               <h2 className={c.sideTittel}>{g.tittel}</h2>
-              {g.lenker.map((l) => <NavLink key={l.til} to={l.til} end={l.til === '/'} className={({ isActive }) => `${c.sideLenke} ${isActive ? c.sideAktiv : ''}`}>{l.ikon}{l.tekst}</NavLink>)}
+              {g.lenker.map((l) => (l.fil
+                ? <a key={l.til} href={l.til} className={c.sideLenke}>{l.ikon}{l.tekst}</a>
+                : <NavLink key={l.til} to={l.til} end={l.til === '/'} className={({ isActive }) => `${c.sideLenke} ${isActive ? c.sideAktiv : ''}`}>{l.ikon}{l.tekst}</NavLink>))}
             </div>
           ))}
         </nav>

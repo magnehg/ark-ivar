@@ -202,18 +202,24 @@ final class Postmottak
 
     /**
      * Sletter en journalpost studenten har laget uten dokument fra postmottaket. En registrering av et dokument fra
-     * postmottaket fjernes ved å angre behandlingen, og dokumentene som fulgte med arkivet, kan ikke slettes.
+     * postmottaket fjernes ved å angre behandlingen, og dokumentene som fulgte med arkivet, kan ikke slettes. Gir
+     * løpenummeret journalposten hadde (til loggen).
      */
-    public function slettJournalpost(string $arkivId, string $id): void
+    public function slettJournalpost(string $arkivId, string $id): string
     {
-        $post = $this->register->journalpost($arkivId, $id) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
-        if ($post['oppgave_id'] !== null) {
-            throw new HttpFeil(409, 'journalpost_fra_postmottak', 'arkivar.feil.journalpost_fra_postmottak');
-        }
-        if ($post['startdokument'] !== null) {
-            throw new HttpFeil(409, 'journalpost_fulgte_med', 'arkivar.feil.journalpost_fulgte_med');
-        }
-        $this->register->slettJournalpost($arkivId, $id);
+        return $this->db->transaksjon(function () use ($arkivId, $id): string {
+            $this->register->laas($arkivId);
+            $post = $this->register->journalpost($arkivId, $id) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
+            if ($post['oppgave_id'] !== null) {
+                throw new HttpFeil(409, 'journalpost_fra_postmottak', 'arkivar.feil.journalpost_fra_postmottak');
+            }
+            if ($post['startdokument'] !== null) {
+                throw new HttpFeil(409, 'journalpost_fulgte_med', 'arkivar.feil.journalpost_fulgte_med');
+            }
+            $this->register->slettJournalpost($arkivId, $id);
+
+            return Felt::tall($post['journalaar']) . '/' . Felt::tall($post['sekvens']);
+        });
     }
 
     /**

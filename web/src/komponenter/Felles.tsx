@@ -57,21 +57,36 @@ export function Laster() { const t = useT(); return <Spinner label={t('arkivar.f
 export function Feil({ melding }: { melding: string }) { return <MessageBar intent="error" role="alert"><MessageBarBody>{melding}</MessageBarBody></MessageBar>; }
 export function Ok({ melding }: { melding: string }) { return <MessageBar intent="success" role="status"><MessageBarBody>{melding}</MessageBarBody></MessageBar>; }
 
-/** Henter data og håndterer lasting og feil. last() henter på nytt. */
+/** En feil ved henting, med en knapp som prøver på nytt. */
+export function Hentefeil({ melding, last }: { melding: string; last: () => void }) {
+  const t = useT();
+  return (
+    <MessageBar intent="error" role="alert" layout="multiline">
+      <MessageBarBody>{melding} <Button size="small" onClick={last}>{t('arkivar.felles.prov_igjen')}</Button></MessageBarBody>
+    </MessageBar>
+  );
+}
+
+/**
+ * Henter data og håndterer lasting og feil. last() henter på nytt. Data og feil gjelder alltid adressen som er gitt
+ * nå: byttes adressen, er data tom til det nye svaret kommer, så svaret fra den forrige adressen aldri vises som om
+ * det hørte til den nye. Når samme adresse hentes på nytt, står det som vises, til det nye svaret er der.
+ */
 export function useHent<T>(sti: string | null): { data: T | null; feil: string | null; laster: boolean; last: () => void } {
   const feiltekst = useFeiltekst();
-  const [data, settData] = useState<T | null>(null);
-  const [feil, settFeil] = useState<string | null>(null);
-  const [laster, settLaster] = useState(sti !== null);
+  const [svar, settSvar] = useState<{ sti: string; runde: number; data: T | null; feil: string | null } | null>(null);
   const [runde, settRunde] = useState(0);
   useEffect(() => {
     if (!sti) return;
     let aktiv = true;
-    settLaster(true); settFeil(null);
-    api.get<T>(sti).then((d) => { if (aktiv) settData(d); }).catch((e: unknown) => { if (aktiv) settFeil(feiltekst(e)); }).finally(() => { if (aktiv) settLaster(false); });
+    api.get<T>(sti)
+      .then((d) => { if (aktiv) settSvar({ sti, runde, data: d, feil: null }); })
+      .catch((e: unknown) => { if (aktiv) settSvar((forrige) => ({ sti, runde, data: forrige && forrige.sti === sti ? forrige.data : null, feil: feiltekst(e) })); });
     return () => { aktiv = false; };
   }, [sti, runde]); // eslint-disable-line react-hooks/exhaustive-deps
-  return { data, feil, laster, last: () => settRunde((n) => n + 1) };
+  const gjeldende = svar && svar.sti === sti ? svar : null;
+  const ferdig = gjeldende !== null && gjeldende.runde === runde;
+  return { data: gjeldende ? gjeldende.data : null, feil: ferdig ? gjeldende.feil : null, laster: sti !== null && !ferdig, last: () => settRunde((n) => n + 1) };
 }
 
 /** Fanger feil i en side, så menyen blir stående. nullstill: endres den (ny adresse), prøves siden på nytt. */

@@ -34,8 +34,8 @@ export function Arkivnokkel({ struktur }: { struktur: Struktur }) {
   };
   const tekst = (k: Klasse) => (
     <span>
-      {k.tittel}
-      {k.merknad && <span className={c.merknad}>{k.merknad}</span>}
+      <span lang="nb">{k.tittel}</span>
+      {k.merknad && <span className={c.merknad} lang="nb">{k.merknad}</span>}
       {k.henvisning && <span className={c.merknad}>{t('arkivar.struktur.arkivnokkel.henvisning', { arkivdel: arkivdel(k.henvisning) })}</span>}
     </span>
   );
@@ -46,27 +46,31 @@ export function Arkivnokkel({ struktur }: { struktur: Struktur }) {
     <>
       <div className={c.sok}>
         <Field label={t('arkivar.struktur.arkivnokkel.sok')}>
-          <SearchBox value={sok} onChange={(_, d) => settSok(d.value)} placeholder={t('arkivar.registrering.klasse.sok')} />
+          <SearchBox value={sok} onChange={(_, d) => settSok(d.value)} placeholder={t('arkivar.registrering.klasse.sok')} dismiss={{ 'aria-label': t('arkivar.felles.tom_sok') }} />
         </Field>
       </div>
-      {ord ? (
-        <div role="region" aria-live="polite">
-          <p className={c.dempet}>{t('arkivar.struktur.arkivnokkel.treff', { antall: treff.length })}</p>
-          <ul className={c.treff}>
-            {treff.map((k) => (
-              <li key={k.kode}>
-                <span className={c.kode}>{k.kode}</span>
-                <span>{tekst(k)}{sti(k) && <span className={c.merknad}>{sti(k)}</span>}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
+      {/* Området står i siden hele tiden, så en skjermleser får med seg antall treff også på det første søket. */}
+      <div role="region" aria-live="polite" aria-label={t('arkivar.sok.resultat')}>
+        {ord && (
+          <>
+            <p className={c.dempet}>{t('arkivar.struktur.arkivnokkel.treff', { antall: treff.length })}</p>
+            <ul className={c.treff}>
+              {treff.map((k) => (
+                <li key={k.kode}>
+                  <span className={c.kode}>{k.kode}</span>
+                  <span>{tekst(k)}{sti(k) && <span className={c.merknad} lang="nb">{sti(k)}</span>}</span>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
+      {!ord && (
         <Accordion multiple collapsible>
           {klasser.filter((k) => k.forelder === null).map((klasse) => (
             <AccordionItem key={klasse.kode} value={klasse.kode}>
               <AccordionHeader as="h3">
-                <span className={c.klassetittel}>{klasse.kode} {klasse.tittel}</span>
+                <span className={c.klassetittel} lang="nb">{klasse.kode} {klasse.tittel}</span>
                 <span className={c.antall}>{t('arkivar.struktur.arkivnokkel.antall', { antall: under(klasse.kode).length })}</span>
               </AccordionHeader>
               <AccordionPanel>

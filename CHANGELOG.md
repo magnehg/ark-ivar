@@ -14,8 +14,8 @@
 - Siden får en engangsverdi for stilene i CSP-hodet, så Fluent virker uten `unsafe-inline`.
 - Øvingsarkivet: hver bruker får et eget arkiv for Sirevåg kommune med saker og journal, og kan nullstille det.
   Arkivstrukturen (arkivdeler, arkivnøkkel, enheter, ansatte og tilgangskoder) kan leses.
-- Postmottaket med tolv eksempeldokumenter: studenten velger behandling, registrerer sak og journalpost med
-  tilgangskode og skjerming, og får en vurdering mot fasiten med forklaring per kriterium. Kan angres.
+- Postmottaket med eksempeldokumenter: studenten velger hva som skal skje med hvert dokument, og får en vurdering mot
+  fasiten med forklaring per kriterium. Behandlingen kan angres og gjøres på nytt.
 - Journalen kan vises som offentlig journal, med skjermede titler og navn.
 - Læreren ser hvor mange dokumenter hver student i klassen har behandlet, og hvor mange valg som var riktige.
 - Arkivet har seks arkivdeler med hver sin primærklassering: sakarkiv (arkivnøkkel), eiendomsarkiv (gårds- og
@@ -45,6 +45,12 @@
 - Saksdato og journaldato følger norsk tid.
 - Forsiden sier fra når mappene og dokumentene i Ark-Ivar er oppdatert etter at øvingsarkivet ble laget, og ber
   studenten nullstille.
+- Feilmeldingen i skjemaene for ny mappe og ny journalpost står ved knappen, så den synes i et lavt vindu.
+- Et dokument som alt er behandlet (Tilbake i nettleseren etter en registrering), gir en melding med lenke til
+  vurderingen i stedet for en side som laster uten ende. Henting som feiler, gir en melding med «Prøv igjen».
+- Innholdet fra arkivet er merket som norsk, og tekstene fra grensesnittet følger språket som er valgt. Knappene i
+  søkefeltene og klassevelgeren har navn på alle tre språkene.
+- Siden for en journalpost ligger under mappen i adressen, så «Mapper» er aktiv i menyen.
 - Kommunens ansatte, elevene og barnehagebarna har dyrenavn med bokstavrim, etter mønster av Pelle Parafins
   Bøljeband (Gunnar Grevling på byggesak, Stian Stokkand, Frida Frosk, Sandra Salamander).
 - Postmottaket har 24 dokumenter. Hvert dokument har en naturlig mappe: en som finnes i arkivet, eller en ny for

@@ -25,6 +25,8 @@ const s = makeStyles({
 type Egenskaper = {
   /** Søketipset som vises under feltet (fra saksmalen, eller det generelle). */
   tips?: string | null;
+  /** Språket tipset står på, når det kommer fra arkivets data og ikke fra grensesnittet (saksmalene er norske). */
+  tipsSprak?: string;
   /** Det som står til høyre for hvert treff, for eksempel knappen som bruker mappen. */
   handling?: (sak: Sak) => ReactNode;
   /** Kalles når et søk er gjort, med antall treff. */
@@ -33,7 +35,7 @@ type Egenskaper = {
   flyt?: Flyt;
 };
 
-export function Mappesok({ tips, handling, sokt, flyt = null }: Egenskaper) {
+export function Mappesok({ tips, tipsSprak, handling, sokt, flyt = null }: Egenskaper) {
   const c = s(); const t = useT(); const feiltekst = useFeiltekst();
   const [sok, settSok] = useState('');
   // null betyr at det ikke er søkt ennå.
@@ -55,30 +57,30 @@ export function Mappesok({ tips, handling, sokt, flyt = null }: Egenskaper) {
     <div>
       <div className={c.felt}>
         <Field label={t('arkivar.sok.felt')} hint={t('arkivar.sok.hjelp')}>
-          <SearchBox value={sok} onChange={(_, d) => settSok(d.value)} placeholder={t('arkivar.sok.plassholder')} />
+          <SearchBox value={sok} onChange={(_, d) => settSok(d.value)} placeholder={t('arkivar.sok.plassholder')} dismiss={{ 'aria-label': t('arkivar.felles.tom_sok') }} />
         </Field>
       </div>
       {tips && (
-        <div className={c.tips} lang="nb">
+        <div className={c.tips}>
           <Lightbulb20Regular className={c.tipsikon} aria-hidden />
-          <span><Text weight="semibold">{t('arkivar.sok.tips')}</Text> {tips}</span>
+          <span><Text weight="semibold">{t('arkivar.sok.tips')}</Text> <span lang={tipsSprak}>{tips}</span></span>
         </div>
       )}
       {feil && <Feil melding={feil} />}
       <div role="region" aria-live="polite" aria-label={t('arkivar.sok.resultat')}>
         {treff && <p className={c.antall}>{t('arkivar.sok.treff', { antall: treff.length })}</p>}
         {treff && treff.length > 0 && (
-          <ul className={c.liste} lang="nb">
+          <ul className={c.liste}>
             {treff.map(({ sak, journalposter }) => (
               <li key={sak.id} className={c.treff}>
-                <span className={c.tittel}><Ruterlenke to={`/arkiv/saker/${sak.id}${flytSok(flyt)}`}>{sak.saksnummer} {sak.tittel}</Ruterlenke></span>
+                <span className={c.tittel} lang="nb"><Ruterlenke to={`/arkiv/saker/${sak.id}${flytSok(flyt)}`}>{sak.saksnummer} {sak.tittel}</Ruterlenke></span>
                 <span>{handling?.(sak)}</span>
                 <span className={c.dempet}>
-                  {sak.arkivdel_tekst} · {sak.klasse_tekst}{sak.skjerm_klasse && <> <Status slag="skjermet">{t('arkivar.sak.skjermet_klasse')}</Status></>}
+                  <span lang="nb">{sak.arkivdel_tekst} · {sak.klasse_tekst}</span>{sak.skjerm_klasse && <> <Status slag="skjermet">{t('arkivar.sak.skjermet_klasse')}</Status></>}
                   {' · '}{t(`arkivar.saksstatus.${sak.status.toLowerCase()}`)} · {t('arkivar.sok.dokumenter', { antall: sak.antall })}
                 </span>
                 {journalposter.map((p) => (
-                  <span key={p.postnr} className={c.dokument}>{t('arkivar.sok.dokument', { nr: p.postnr, tittel: p.tittel })}{p.part_navn && ` (${p.part_navn})`}</span>
+                  <span key={p.postnr} className={c.dokument}>{t('arkivar.sok.dokument', { nr: p.postnr })}: <span lang="nb">{p.tittel}{p.part_navn && ` (${p.part_navn})`}</span></span>
                 ))}
               </li>
             ))}

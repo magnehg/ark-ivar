@@ -85,6 +85,16 @@ uttrekk eller avlevere.
   låser arkivet (`Register::laas()`), så sjekkene (dokumentet er ubehandlet, mappen finnes og er åpen) fortsatt
   gjelder når raden lagres, og saks- og dokumentnumre ikke kan bli like. Saksdato, journaldato og «ikke frem i
   tid» følger norsk tid (`Dato::idag()`), ikke UTC-klokka i Kjerne.
+- **Henting i grensesnittet:** `useHent(sti)` gir bare data og feil for adressen som er gitt nå; byttes adressen, er
+  data tom til svaret kommer (det gamle svaret vises aldri under en ny adresse). `useStruktur()` gir
+  `{ data, feil, last }`, og sidene viser `Hentefeil` med «Prøv igjen». ID-er fra adressen kodes med `del()` før de
+  settes i en sti til API-et, og `lesFlyt()` godtar bare ID-er på formen til dokumentene i postmottaket.
+- **Språkmerking:** innholdet fra arkivet (titler, dokumenttekst, registerposter, saksmaler) er norsk og merkes med
+  `lang="nb"` der det står (`kroppSprak="nb"` på tabeller, `tipsSprak` i `Mappesok`); tekst fra `t()` skal aldri
+  ligge under et `lang="nb"` uten å være merket med språket i grensesnittet (`useSprak()`).
+- **Migreringen `002_arkiv.sql`** er endret på stedet flere ganger før første utgivelse. Kjernen lagrer sjekksummen
+  av hver kjørte fil og stopper på en endret fil, så en database installert fra en eldre commit må slettes og
+  installeres på nytt. Fra første utgivelse fryses filen, og endringer kommer i en ny fil (`003_….sql`).
 - **Utgaven av innholdet:** `arkivar_arkiv.innhold` er et fingeravtrykk av `sirevag.json` og `oppgaver.json` da
   arkivet ble fylt. Er filene byttet siden, gir `GET /api/arkiv` `utdatert`, og forsiden ber studenten nullstille:
   dokumentene leses fra filene og kan ha endret seg under mappene i arkivet.

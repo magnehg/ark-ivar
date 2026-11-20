@@ -224,8 +224,8 @@ final class Arkivruter
             return Svar::json(['journalpost' => $register->visJournalpost($post), 'sak' => $register->visSak($sak), 'dokument' => $this->dokument($arkiv, $post)]);
         });
         $r->legg('DELETE', '/api/arkiv/journalposter/{id}', function (Foresporsel $f, array $v): Svar {
-            $this->postmottak()->slettJournalpost($this->arkiv(), $v['id']);
-            $this->kjerne->logg()->skriv('urn:arkivar:hendelse:journalpost:slettet', $this->loggobjekt('journalpost', $v['id'], $v['id']));
+            $lopenummer = $this->postmottak()->slettJournalpost($this->arkiv(), $v['id']);
+            $this->kjerne->logg()->skriv('urn:arkivar:hendelse:journalpost:slettet', $this->loggobjekt('journalpost', $v['id'], $lopenummer));
 
             return Svar::json(['ok' => true]);
         });

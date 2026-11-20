@@ -32,14 +32,15 @@ export function Klassevelger({ struktur, arkivdel, verdi, velg }: Egenskaper) {
       onOptionSelect={(_, d) => { if (d.optionValue) { velg(d.optionValue); settSok(null); } }}
       onBlur={() => settSok(null)}
       listbox={{ style: { maxHeight: '320px' } }}
+      expandIcon={{ 'aria-label': t('arkivar.felles.aapne_liste') }}
     >
       {grupper.map((g) => (
-        <OptionGroup key={g.gruppe} label={g.gruppe}>
+        <OptionGroup key={g.gruppe} label={g.gruppe} lang="nb">
           {g.klasser.map((k) => <Option key={k.kode} value={k.kode} text={`${k.kode} ${k.tittel}`}>{k.kode} {k.tittel}</Option>)}
         </OptionGroup>
       ))}
       {poster.map((p) => (
-        <Option key={p.kode} value={p.kode} text={registertekst(arkivdel, p)}>
+        <Option key={p.kode} value={p.kode} text={registertekst(arkivdel, p)} lang="nb">
           <span>{registertekst(arkivdel, p)}<span className={c.detalj}>{p.detalj}</span></span>
         </Option>
       ))}

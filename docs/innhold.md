@@ -101,8 +101,9 @@ Skal det i arkivet, er rekkefølgen den samme som i et sak- og arkivsystem:
    journalføres eller arkiveres uten journalføring. Studenten kan også lage egne journalposter uten dokument fra
    postmottaket; de vurderes ikke.
 
-Vurderingen kommer når dokumentet er registrert. En ny sak skal ha sin egen mappe: legger studenten to saker i samme
-mappe, er det feil for den andre. Ny saksmal: legg den i `saksmaler` med kode, navn, arkivdel, forslag til tittel,
+Vurderingen kommer når dokumentet er registrert. En ny sak skal ha sin egen mappe: legger studenten dokumenter fra
+flere saker i samme mappe, er mappen feil for alle dokumentene i den, og vurderingen følger med når et dokument
+legges til eller angres. Ny saksmal: legg den i `saksmaler` med kode, navn, arkivdel, forslag til tittel,
 beskrivelse og søketips.
 
 ## Regler for alt innhold
@@ -128,7 +129,9 @@ beskrivelse og søketips.
 5. **Saksnummer.** Kommunens egne dokumenter viser til mappen med plassholderen `{{sak}}` (for eksempel «Vår ref.:
    {{sak}}» sist i første avsnitt, eller «arkivsak {{sak}}»). En annen mappe vises til med `{{sak:<nøkkel>}}`, som må
    finnes i `sirevag.json`. Innbyggere kan vise til «deres ref. {{sak}}» når de svarer på et brev fra kommunen.
-   Ikke dikt opp saksnummer med tall.
+   Ikke dikt opp saksnummer med tall. Plassholderne virker bare i emnet, teksten og vedleggene til et dokument, ikke
+   i titler og navn. Et dokument i postmottaket (`oppgaver.json`) ligger ikke i en mappe ennå, så der brukes alltid
+   `{{sak:<nøkkel>}}`.
 6. **Språk.** Klart norsk bokmål. Ikke engelske ord der norske finnes. Ikke tankestrek som komma; bruk «–» bare i
    titler mellom ledd. Datoer skrives «17. november 2026» i tekst.
 7. **Lovhenvisninger.** Bruk bare hjemlene i avsnittet «Regelverk» under, og bare der du er sikker. Er du i tvil,

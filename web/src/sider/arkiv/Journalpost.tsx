@@ -4,7 +4,7 @@ import { Link as Ruterlenke, useNavigate, useParams } from 'react-router-dom';
 import { Button, Text, makeStyles, tokens } from '@fluentui/react-components';
 import { Delete20Regular } from '@fluentui/react-icons';
 import { api } from '../../api';
-import { Dokument, Journalpost as Post, Sak } from '../../arkiv';
+import { Dokument, Journalpost as Post, Sak, del } from '../../arkiv';
 import { useDato, useT } from '../../i18n';
 import { Ark } from '../../komponenter/Ark';
 import { Feil, Kort, Laster, Sidehode, useFeiltekst, useHent } from '../../komponenter/Felles';
@@ -20,12 +20,12 @@ const s = makeStyles({
 export default function Journalpost() {
   const c = s(); const t = useT(); const dato = useDato(); const feiltekst = useFeiltekst(); const naviger = useNavigate();
   const { id = '' } = useParams();
-  const hentet = useHent<{ journalpost: Post; sak: Sak; dokument: Dokument | null }>(`/api/arkiv/journalposter/${id}`);
+  const hentet = useHent<{ journalpost: Post; sak: Sak; dokument: Dokument | null }>(`/api/arkiv/journalposter/${del(id)}`);
   const [feil, settFeil] = useState<string | null>(null);
   if (hentet.feil) return <Feil melding={hentet.feil} />;
   if (!hentet.data) return <Laster />;
   const { journalpost: p, sak, dokument } = hentet.data;
-  const slett = () => { settFeil(null); api.slett(`/api/arkiv/journalposter/${id}`).then(() => naviger(`/arkiv/saker/${sak.id}`)).catch((e: unknown) => settFeil(feiltekst(e))); };
+  const slett = () => { settFeil(null); api.slett(`/api/arkiv/journalposter/${del(id)}`).then(() => naviger(`/arkiv/saker/${sak.id}`)).catch((e: unknown) => settFeil(feiltekst(e))); };
   return (
     <>
       <Sidehode tittel={p.tittel} ingress={t('arkivar.journalpost.ingress', { nummer: `${sak.saksnummer}-${p.postnr}` })} />

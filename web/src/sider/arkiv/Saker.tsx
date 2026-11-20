@@ -4,7 +4,7 @@ import { Link as Ruterlenke, useNavigate, useParams, useSearchParams } from 'rea
 import { Button, Field, MessageBar, MessageBarBody, Select, Text, makeStyles, tokens } from '@fluentui/react-components';
 import { Add20Regular, Delete20Regular } from '@fluentui/react-icons';
 import { api } from '../../api';
-import { Behandling, Journalpost, Sak, flytSok, lesFlyt, useStruktur } from '../../arkiv';
+import { Behandling, Journalpost, Sak, del, flytSok, lesFlyt, useStruktur } from '../../arkiv';
 import { useDato, useT } from '../../i18n';
 import { Feil, Kort, Laster, Sidehode, useFeiltekst, useHent } from '../../komponenter/Felles';
 import { Mappesok } from '../../komponenter/Mappesok';
@@ -57,7 +57,7 @@ export function Saker() {
             <Field label={t('arkivar.saker.filter')} className={c.filter}>
               <Select value={arkivdel} onChange={(_, d) => settArkivdel(d.value)}>
                 <option value="">{t('arkivar.saker.alle_arkivdeler')}</option>
-                {(struktur?.arkivdeler ?? []).map((a) => <option key={a.kode} value={a.kode}>{a.tittel}</option>)}
+                {(struktur.data?.arkivdeler ?? []).map((a) => <option key={a.kode} value={a.kode}>{a.tittel}</option>)}
               </Select>
             </Field>
             <TabellVerktoy tekst={t('arkivar.tabell.antall', { vist: rader.length, alle: alle.length })}>{null}</TabellVerktoy>
@@ -75,29 +75,31 @@ export function EnSak() {
   const [sok] = useSearchParams();
   // Dokumentet fra postmottaket studenten holder på å registrere (kom hit fra søket).
   const flyt = lesFlyt(sok);
-  const sak = useHent<{ sak: Sak; journalposter: Journalpost[]; kan_slettes: boolean }>(`/api/arkiv/saker/${id}`);
-  const venter = useHent<Behandling>(flyt ? `/api/arkiv/postmottak/${flyt.dokument}` : null);
+  const sak = useHent<{ sak: Sak; journalposter: Journalpost[]; kan_slettes: boolean }>(`/api/arkiv/saker/${del(id)}`);
+  const venter = useHent<Behandling>(flyt ? `/api/arkiv/postmottak/${del(flyt.dokument)}` : null);
+  // Dokumentet følger bare med videre når det finnes og ikke er behandlet (mens det hentes, følger det med).
+  const aktivFlyt = flyt && (venter.laster || (venter.data !== null && !venter.data.behandlet)) ? flyt : null;
   const struktur = useStruktur();
   const [feil, settFeil] = useState<string | null>(null);
   if (sak.feil) return <Feil melding={sak.feil} />;
   if (!sak.data) return <Laster />;
   const d = sak.data.sak;
   const avsluttet = d.status === 'A';
-  const slett = () => { settFeil(null); api.slett(`/api/arkiv/saker/${id}`).then(() => naviger('/arkiv/saker')).catch((e: unknown) => settFeil(feiltekst(e))); };
+  const slett = () => { settFeil(null); api.slett(`/api/arkiv/saker/${del(id)}`).then(() => naviger('/arkiv/saker')).catch((e: unknown) => settFeil(feiltekst(e))); };
   // I mappen står det korte navnet på tilgangskoden. Hele hjemmelen står på journalposten og i journalen.
-  const tilgangsnavn = (kode: string) => struktur?.tilgangskoder.find((k) => k.kode === kode)?.navn ?? kode;
+  const tilgangsnavn = (kode: string) => struktur.data?.tilgangskoder.find((k) => k.kode === kode)?.navn ?? kode;
   const tilgang = (r: Journalpost) => (r.tilgangskode ? <Status slag="skjermet">{tilgangsnavn(r.tilgangskode)}</Status> : t('arkivar.tilgang.offentlig'));
   const kolonner: Kolonne<Journalpost>[] = [
     { id: 'nr', overskrift: t('arkivar.journalpost.nr'), stil: { width: '70px' }, celle: (r) => r.postnr, sorter: (r) => r.postnr },
     { id: 'type', overskrift: t('arkivar.journalpost.type'), stil: { width: '70px' }, celle: (r) => (<abbr title={t(`arkivar.jptype.${r.type.toLowerCase()}`)}>{r.type}</abbr>), sorter: (r) => r.type },
-    { id: 'tittel', overskrift: t('arkivar.journalpost.tittel'), celle: (r) => <Ruterlenke to={`/arkiv/journalposter/${r.id}`}>{r.tittel}</Ruterlenke>, sorter: (r) => r.tittel },
+    { id: 'tittel', overskrift: t('arkivar.journalpost.tittel'), celle: (r) => <Ruterlenke to={`/arkiv/saker/${d.id}/journalposter/${r.id}`}>{r.tittel}</Ruterlenke>, sorter: (r) => r.tittel },
     { id: 'part', overskrift: t('arkivar.journalpost.part'), stil: { width: '15%' }, celle: (r) => r.part_navn, sorter: (r) => r.part_navn },
     { id: 'dato', overskrift: t('arkivar.journalpost.dokumentdato'), stil: { width: '110px' }, celle: (r) => dato(r.dokumentdato), sorter: (r) => r.dokumentdato },
     { id: 'status', overskrift: t('arkivar.journalpost.status'), stil: { width: '120px' }, celle: (r) => t(r.journalfort ? `arkivar.jpstatus.${r.status.toLowerCase()}` : 'arkivar.jpstatus.uten'), sorter: (r) => r.status },
     { id: 'tilgang', overskrift: t('arkivar.journalpost.tilgang'), stil: { width: '18%' }, celle: tilgang, sorter: (r) => r.tilgangskode ?? '' },
   ];
   const nyJournalpost = (
-    <Button appearance="primary" icon={<Add20Regular />} disabled={avsluttet} onClick={() => naviger(`/arkiv/saker/${id}/ny-journalpost${flytSok(flyt)}`)}>{t('arkivar.sak.ny_journalpost')}</Button>
+    <Button appearance="primary" icon={<Add20Regular />} disabled={avsluttet} onClick={() => naviger(`/arkiv/saker/${d.id}/ny-journalpost${flytSok(aktivFlyt)}`)}>{t('arkivar.sak.ny_journalpost')}</Button>
   );
   return (
     <>

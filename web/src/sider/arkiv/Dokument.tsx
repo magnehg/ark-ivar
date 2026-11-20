@@ -6,10 +6,10 @@ import { Link as Ruterlenke, useNavigate, useParams } from 'react-router-dom';
 import { Button, Caption1, Radio, RadioGroup, Text, makeStyles, tokens } from '@fluentui/react-components';
 import { Add20Regular, ArrowUndo20Regular } from '@fluentui/react-icons';
 import { api } from '../../api';
-import { Behandling, Flyt, Handling, Kriterium, Sak, flytSok, useStruktur } from '../../arkiv';
+import { Behandling, Flyt, Handling, Kriterium, Sak, del, flytSok, useStruktur } from '../../arkiv';
 import { useDato, useT } from '../../i18n';
 import { Ark } from '../../komponenter/Ark';
-import { Feil, Kort, Laster, Sidehode, useFeiltekst, useHent } from '../../komponenter/Felles';
+import { Feil, Hentefeil, Kort, Laster, Sidehode, useFeiltekst, useHent } from '../../komponenter/Felles';
 import { Mappesok } from '../../komponenter/Mappesok';
 import { Status } from '../../komponenter/Status';
 
@@ -44,7 +44,7 @@ function Behandlingsvalg({ id, struktur, ferdig }: { id: string; struktur: { han
   const flyt: Flyt = arkiveres ? { dokument: id, handling } : null;
   const registrer = () => {
     settOpptatt(true); settFeil(null);
-    api.post(`/api/arkiv/postmottak/${id}`, { handling }).then(ferdig).catch((e: unknown) => settFeil(feiltekst(e))).finally(() => settOpptatt(false));
+    api.post(`/api/arkiv/postmottak/${del(id)}`, { handling }).then(ferdig).catch((e: unknown) => settFeil(feiltekst(e))).finally(() => settOpptatt(false));
   };
   const bruk = (sak: Sak) => (sak.status === 'A'
     ? <Status slag="noytral">{t('arkivar.sok.avsluttet')}</Status>
@@ -52,7 +52,8 @@ function Behandlingsvalg({ id, struktur, ferdig }: { id: string; struktur: { han
   return (
     <div className={c.skjema}>
       {feil && <Feil melding={feil} />}
-      <RadioGroup value={handling} onChange={(_, d) => settHandling(d.value as Handling)} aria-label={t('arkivar.registrering.handling')}>
+      {/* Søket begynner på nytt når behandlingen byttes, og da må det søkes igjen før en ny mappe kan opprettes. */}
+      <RadioGroup value={handling} onChange={(_, d) => { settHandling(d.value as Handling); settHarSokt(false); }} aria-label={t('arkivar.registrering.handling')}>
         {struktur.handlinger.map((h) => (
           <Radio key={h} value={h} label={<><Text>{t(`arkivar.handling.${h}`)}</Text><Caption1 className={c.valgtekst}>{t(`arkivar.handling.${h}.hjelp`)}</Caption1></>} />
         ))}
@@ -62,7 +63,7 @@ function Behandlingsvalg({ id, struktur, ferdig }: { id: string; struktur: { han
         <>
           <h3 className={c.gruppetittel}>{t('arkivar.behandling.mappe.tittel')}</h3>
           <p className={c.dempet}>{t('arkivar.behandling.mappe.ingress')}</p>
-          <Mappesok tips={t('arkivar.sok.tips.generelt')} handling={bruk} flyt={flyt} sokt={() => settHarSokt(true)} />
+          <Mappesok key={handling} tips={t('arkivar.sok.tips.generelt')} handling={bruk} flyt={flyt} sokt={() => settHarSokt(true)} />
           <div className={c.knapper}>
             <Button icon={<Add20Regular />} disabled={!harSokt} onClick={() => naviger(`/arkiv/saker/ny${flytSok(flyt)}`)}>{t('arkivar.behandling.ny_mappe')}</Button>
             {!harSokt && <Caption1 className={c.valgtekst}>{t('arkivar.behandling.ny_mappe.sok_forst')}</Caption1>}
@@ -94,7 +95,7 @@ function Vurdering({ id, b, angret }: { id: string; b: Behandling; angret: () =>
     if (k.id === 'skjerm_klasse') return t('arkivar.vurdering.hjelp.skjerm_klasse');
     return k.id === 'skjerm_sakstittel' ? t('arkivar.vurdering.hjelp.skjerm_sakstittel') : '';
   };
-  const angre = () => { settFeil(null); api.slett(`/api/arkiv/postmottak/${id}`).then(angret).catch((e: unknown) => settFeil(feiltekst(e))); };
+  const angre = () => { settFeil(null); api.slett(`/api/arkiv/postmottak/${del(id)}`).then(angret).catch((e: unknown) => settFeil(feiltekst(e))); };
   return (
     <div>
       {feil && <Feil melding={feil} />}
@@ -129,10 +130,11 @@ function Vurdering({ id, b, angret }: { id: string; b: Behandling; angret: () =>
 export default function Dokument() {
   const c = s(); const t = useT();
   const { id = '' } = useParams();
-  const behandling = useHent<Behandling>(`/api/arkiv/postmottak/${id}`);
+  const behandling = useHent<Behandling>(`/api/arkiv/postmottak/${del(id)}`);
   const struktur = useStruktur();
-  if (behandling.feil) return <Feil melding={behandling.feil} />;
-  if (!behandling.data || !struktur) return <Laster />;
+  if (behandling.feil && !behandling.data) return <Feil melding={behandling.feil} />;
+  if (struktur.feil) return <Hentefeil melding={struktur.feil} last={struktur.last} />;
+  if (!behandling.data || !struktur.data) return <Laster />;
   const b = behandling.data;
   return (
     <>
@@ -140,7 +142,7 @@ export default function Dokument() {
       <div className={c.to}>
         <div className={c.fast}><Ark dok={b.dokument} /></div>
         <Kort tittel={t(b.behandlet ? 'arkivar.vurdering.tittel' : 'arkivar.behandling.tittel')} id="registrering">
-          {b.behandlet ? <Vurdering id={id} b={b} angret={behandling.last} /> : <Behandlingsvalg id={id} struktur={struktur} ferdig={behandling.last} />}
+          {b.behandlet ? <Vurdering id={id} b={b} angret={behandling.last} /> : <Behandlingsvalg id={id} struktur={struktur.data} ferdig={behandling.last} />}
         </Kort>
       </div>
     </>

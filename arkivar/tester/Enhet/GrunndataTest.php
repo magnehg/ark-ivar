@@ -390,4 +390,56 @@ final class GrunndataTest extends TestCase
 
         return $rest === 11 ? 0 : $rest;
     }
+
+    /**
+     * Alle tekstene under en verdi, med stien dit («saker.3.journalposter.0.dokument.tekst.2»).
+     *
+     * @return list<array{sti: string, tekst: string}>
+     */
+    private static function tekster(mixed $verdi, string $sti = ''): array
+    {
+        if (is_string($verdi)) {
+            return [['sti' => $sti, 'tekst' => $verdi]];
+        }
+        $ut = [];
+        foreach (is_array($verdi) ? $verdi : [] as $nokkel => $under) {
+            $ut = array_merge($ut, self::tekster($under, $sti === '' ? (string) $nokkel : $sti . '.' . $nokkel));
+        }
+
+        return $ut;
+    }
+
+    public function testPlassholderneForSaksnummerErGyldige(): void
+    {
+        // «{{sak}}» er mappen dokumentet ligger i, og «{{sak:<nøkkel>}}» en annen mappe som fulgte med. De byttes
+        // bare ut i emnet, teksten og vedleggene til et dokument. En skrivefeil eller en nøkkel som ikke finnes, ville
+        // gitt rå eller tom tekst i dokumentet, så alt kontrolleres her.
+        $rot = dirname(__DIR__, 2) . '/data/';
+        $mapper = array_column((new Grunndata())->saker(), 'nokkel');
+        $filer = ['sirevag.json' => Grunndata::les($rot . 'sirevag.json')['saker'] ?? [], 'oppgaver.json' => Grunndata::les($rot . 'oppgaver.json')['oppgaver'] ?? []];
+        $antall = 0;
+        foreach ($filer as $fil => $innhold) {
+            foreach (self::tekster($innhold) as ['sti' => $sti, 'tekst' => $tekst]) {
+                if (!str_contains($tekst, '{{') && !str_contains($tekst, '}}')) {
+                    continue;
+                }
+                $hvor = "$fil: $sti";
+                $felt = $fil === 'sirevag.json' ? '/^\d+\.journalposter\.\d+\.dokument\.(emne|tekst\.\d+|vedlegg\.\d+)$/' : '/^\d+\.(emne|tekst\.\d+|vedlegg\.\d+)$/';
+                self::assertMatchesRegularExpression($felt, $sti, "$hvor: plassholdere byttes bare ut i emne, tekst og vedlegg.");
+                self::assertGreaterThan(0, preg_match_all('/\{\{sak(?::([a-z0-9-]+))?\}\}/', $tekst, $treff), "$hvor: plassholderen er feil skrevet.");
+                $rest = (string) preg_replace('/\{\{sak(?::[a-z0-9-]+)?\}\}/', '', $tekst);
+                self::assertFalse(str_contains($rest, '{{') || str_contains($rest, '}}'), "$hvor: plassholderen er feil skrevet.");
+                foreach ($treff[1] as $nokkel) {
+                    $antall++;
+                    if ($nokkel === '') {
+                        // Et dokument i postmottaket ligger ikke i en mappe ennå.
+                        self::assertSame('sirevag.json', $fil, "$hvor: i postmottaket må plassholderen ha nøkkelen til mappen.");
+                        continue;
+                    }
+                    self::assertContains($nokkel, $mapper, "$hvor: mappen «{$nokkel}» finnes ikke.");
+                }
+            }
+        }
+        self::assertGreaterThan(50, $antall, 'Dokumentene viser til saksnumrene.');
+    }
 }

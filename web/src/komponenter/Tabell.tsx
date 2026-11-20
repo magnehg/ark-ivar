@@ -75,10 +75,12 @@ type TabellProps<T> = {
   /** Redigerbar tabell: rekkefølgen fryses mens fokus er i tabellkroppen, så raden ikke flytter seg mens brukeren skriver. */
   frysVedRedigering?: boolean;
   startSortering?: Sortering | null;
+  /** Språket radene er på, når det er et annet enn grensesnittet (innholdet fra arkivet er norsk). Overskriftene er oversatt. */
+  kroppSprak?: string;
 };
 
 /** Tabell der alle kolonner med sorteringsverdi kan sorteres ved klikk på overskriften (GRS-02). */
-export function SorterbarTabell<T>({ rader, kolonner, nokkel, size = 'small', style, radEgenskaper, utenVegg, startSortering, frysVedRedigering, ...aria }: TabellProps<T>) {
+export function SorterbarTabell<T>({ rader, kolonner, nokkel, size = 'small', style, radEgenskaper, utenVegg, startSortering, frysVedRedigering, kroppSprak, ...aria }: TabellProps<T>) {
   const { sortert: levende, sortering, klikk: sorter } = useSortering(rader, kolonner, startSortering ?? null);
   const [frosset, settFrosset] = useState<number[] | null>(null);
   // Fryst rekkefølge: radene står der de stod da fokus kom inn i tabellkroppen. Nye rader legges sist.
@@ -101,7 +103,7 @@ export function SorterbarTabell<T>({ rader, kolonner, nokkel, size = 'small', st
             : <TableHeaderCell key={k.id} style={k.stil} sortable={false}>{k.overskrift}</TableHeaderCell>)}
         </TableRow>
       </TableHeader>
-      <TableBody>
+      <TableBody lang={kroppSprak}>
         {sortert.map(({ rad, indeks }) => (
           <TableRow key={nokkel(rad, indeks)} {...radEgenskaper?.(rad, indeks)}>
             {kolonner.map((k) => <TableCell key={k.id} style={k.stil}>{k.celle(rad, indeks)}</TableCell>)}

@@ -1,6 +1,5 @@
 // Typene for øvingsarkivet (API-et under /api/arkiv/) og arkivstrukturen, som er lik for alle og hentes én gang.
-import { useEffect, useState } from 'react';
-import { api } from './api';
+import { useHent } from './komponenter/Felles';
 
 export type Handling = 'journalfor' | 'arkiver' | 'fagsystem' | 'ikke_arkiver';
 export type Postmottaksrad = { id: string; kanal: string; mottatt: string; emne: string; avsender: string; behandlet: boolean; handling: Handling | null; poeng: number | null; maks: number | null };
@@ -57,16 +56,14 @@ export type Oversikt = { saker: number; journalposter: number; behandlet: number
 
 let lagret: Struktur | null = null;
 
-/** Arkivstrukturen (arkivdeler, arkivnøkkel, enheter, ansatte og tilgangskoder). Hentes første gang den trengs. */
-export function useStruktur(): Struktur | null {
-  const [struktur, sett] = useState<Struktur | null>(lagret);
-  useEffect(() => {
-    if (lagret) return;
-    let aktiv = true;
-    api.get<Struktur>('/api/arkiv/struktur').then((s) => { lagret = s; if (aktiv) sett(s); }).catch(() => { /* siden viser feilen fra sitt eget kall */ });
-    return () => { aktiv = false; };
-  }, []);
-  return struktur;
+/**
+ * Arkivstrukturen (arkivdeler, arkivnøkkel, enheter, ansatte og tilgangskoder). Hentes første gang den trengs og
+ * huskes til siden lastes på nytt. Lar den seg ikke hente, har siden feilen og kan prøve igjen med last().
+ */
+export function useStruktur(): { data: Struktur | null; feil: string | null; last: () => void } {
+  const hent = useHent<Struktur>(lagret ? null : '/api/arkiv/struktur');
+  if (hent.data) lagret = hent.data;
+  return { data: lagret, feil: lagret ? null : hent.feil, last: hent.last };
 }
 
 export type Klassegruppe = { gruppe: string; klasser: Klasse[] };
@@ -104,9 +101,13 @@ export function registertreff(poster: Registerpost[], sok: string): Registerpost
 
 /** Det som følger med i adressen mens et dokument fra postmottaket registreres: dokumentet og behandlingen som er valgt. */
 export type Flyt = { dokument: string; handling: Handling } | null;
+/** ID-ene til dokumentene i postmottaket. Alt annet i adressen er ikke et dokument, og blir ikke brukt. */
+const DOKUMENT_ID = /^[a-z0-9-]{1,60}$/;
 export function lesFlyt(sok: URLSearchParams): Flyt {
   const dokument = sok.get('dokument');
   const handling = sok.get('handling');
-  return dokument && (handling === 'journalfor' || handling === 'arkiver') ? { dokument, handling } : null;
+  return dokument && DOKUMENT_ID.test(dokument) && (handling === 'journalfor' || handling === 'arkiver') ? { dokument, handling } : null;
 }
+/** En ID fra adressen som en del av en sti til API-et. Den kodes, så den aldri kan peke til en annen adresse. */
+export const del = (id: string): string => encodeURIComponent(id);
 export const flytSok = (flyt: Flyt): string => (flyt ? `?dokument=${encodeURIComponent(flyt.dokument)}&handling=${flyt.handling}` : '');

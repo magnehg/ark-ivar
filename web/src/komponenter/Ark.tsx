@@ -1,8 +1,9 @@
 // Et dokument vist som et ark: brevhode med avsender og mottaker, datoer, emne, tekst og vedlegg. Brukes for
-// dokumentene i postmottaket og for dokumentene som ligger i arkivet. Innholdet er norsk uansett språk i grensesnittet.
+// dokumentene i postmottaket og for dokumentene som ligger i arkivet. Innholdet er norsk uansett språk i grensesnittet:
+// arket er merket som norsk, og ledetekstene fra grensesnittet («Datert», «Til:») er merket med språket de står på.
 import { Text, makeStyles, tokens } from '@fluentui/react-components';
 import { Dokument } from '../arkiv';
-import { useDato, useT } from '../i18n';
+import { useDato, useSprak, useT } from '../i18n';
 
 const s = makeStyles({
   ark: { background: tokens.colorNeutralBackground1, border: `1px solid ${tokens.colorNeutralStroke2}`, borderRadius: tokens.borderRadiusMedium, boxShadow: tokens.shadow4, padding: '32px', minWidth: 0 },
@@ -19,7 +20,7 @@ const s = makeStyles({
 const MELLOMTITTEL = '## ';
 
 export function Ark({ dok }: { dok: Dokument }) {
-  const c = s(); const t = useT(); const dato = useDato();
+  const c = s(); const t = useT(); const dato = useDato(); const { sprak } = useSprak();
   return (
     <article className={c.ark} aria-label={t('arkivar.dokument.arket')} lang="nb">
       <div className={c.hode}>
@@ -28,18 +29,18 @@ export function Ark({ dok }: { dok: Dokument }) {
           {dok.avsender.adresse && <span>{dok.avsender.adresse}</span>}
           {dok.avsender.epost && <span>{dok.avsender.epost}</span>}
         </div>
-        <div className={c.kolonne}>
+        <div className={c.kolonne} lang={sprak}>
           <span>{t(`arkivar.kanal.${dok.kanal}`)}</span>
           <span>{t('arkivar.dokument.datert', { dato: dato(dok.dokumentdato) })}</span>
           {dok.mottatt && <span>{t('arkivar.dokument.mottatt', { dato: dato(dok.mottatt) })}</span>}
         </div>
       </div>
-      {dok.mottaker && <div className={c.mottaker}>{t('arkivar.dokument.til', { mottaker: dok.mottaker })}</div>}
+      {dok.mottaker && <div className={c.mottaker}><span lang={sprak}>{t('arkivar.dokument.til')}</span> {dok.mottaker}</div>}
       <h2 className={c.emne}>{dok.emne}</h2>
       {dok.tekst.map((avsnitt, nr) => (avsnitt.startsWith(MELLOMTITTEL)
         ? <h3 key={nr} className={c.mellomtittel}>{avsnitt.slice(MELLOMTITTEL.length)}</h3>
         : <p key={nr} className={c.avsnitt}>{avsnitt}</p>))}
-      {dok.vedlegg.length > 0 && <div className={c.vedlegg}><Text weight="semibold">{t('arkivar.dokument.vedlegg')}</Text> {dok.vedlegg.join(', ')}</div>}
+      {dok.vedlegg.length > 0 && <div className={c.vedlegg}><Text weight="semibold" lang={sprak}>{t('arkivar.dokument.vedlegg')}</Text> {dok.vedlegg.join(', ')}</div>}
     </article>
   );
 }

@@ -78,7 +78,7 @@ function App() {
               {student && <Route path="arkiv/saker/:id" element={<EnSak />} />}
               {student && <Route path="arkiv/saker/:id/ny-journalpost" element={<NyJournalpost />} />}
               {student && <Route path="arkiv/journal" element={<Journal />} />}
-              {student && <Route path="arkiv/journalposter/:id" element={<Journalpost />} />}
+              {student && <Route path="arkiv/saker/:sakId/journalposter/:id" element={<Journalpost />} />}
               {student && <Route path="arkiv/struktur" element={<Struktur />} />}
               {laerer && <Route path="klasser" element={<Klasser />} />}
               {admin && <Route path="administrasjon/brukere" element={<Brukere />} />}

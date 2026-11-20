@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ArkIvar\Tester\EndeTilEnde;
 
 use ArkIvar\Tester\Stotte\AppTestCase;
-use ArkIvar\Tester\Stotte\Nettleser;
 use Bivrost\Kjerne\Database\Felt;
 
 /**
@@ -14,44 +13,6 @@ use Bivrost\Kjerne\Database\Felt;
  */
 final class KontoTest extends AppTestCase
 {
-    private const PASSORD = 'tre grønne sykler i regn';
-
-    /** Legger til et godkjent domene som driftsbrukeren. */
-    private function godkjennDomene(string $domene = 'hogskolen.example', bool $underdomener = true): Nettleser
-    {
-        $drift = $this->drift();
-        [$svar] = $drift->kall('POST', '/api/admin/domener', ['domene' => $domene, 'sted' => 'Høgskolen i Eksempel', 'underdomener' => $underdomener]);
-        self::assertSame(201, $svar->status, $svar->kropp);
-
-        return $drift;
-    }
-
-    /** Registrerer og bekrefter en student, og gir nettleseren der studenten er logget inn. */
-    private function student(string $epost, string $navn = 'Kari Student', ?string $klassekode = null, string $ip = '10.0.0.1'): Nettleser
-    {
-        $n = $this->nettleser($ip);
-        $n->start();
-        [$svar] = $n->kall('POST', '/api/registrering', ['navn' => $navn, 'epost' => $epost, 'passord' => self::PASSORD] + ($klassekode !== null ? ['klassekode' => $klassekode] : []));
-        self::assertSame(200, $svar->status, $svar->kropp);
-        [$svar] = $n->kall('POST', '/api/registrering/bekreft', ['epost' => $epost, 'kode' => $this->kodeFraEpost(strtolower($epost))]);
-        self::assertSame(200, $svar->status, $svar->kropp);
-
-        return $n;
-    }
-
-    /** Lager en bruker som driftsbrukeren (administrator eller lærer) og logger den inn. */
-    private function ansatt(Nettleser $drift, string $rolle, string $epost, string $navn, string $ip): Nettleser
-    {
-        [$svar] = $drift->kall('POST', '/api/admin/brukere', ['epost' => $epost, 'navn' => $navn, 'rolle' => $rolle, 'passord' => self::PASSORD]);
-        self::assertSame(201, $svar->status, $svar->kropp);
-        $n = $this->nettleser($ip);
-        $n->start();
-        [$svar] = $n->kall('POST', '/api/innlogging', ['epost' => $epost, 'passord' => self::PASSORD]);
-        self::assertSame(200, $svar->status, $svar->kropp);
-
-        return $n;
-    }
-
     public function testStudentMedGodkjentDomeneRegistrererBekrefterOgLoggerInn(): void
     {
         $this->godkjennDomene();

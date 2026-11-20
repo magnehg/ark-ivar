@@ -1,0 +1,487 @@
+{
+ "oppgaver": [
+  {
+   "id": "dispensasjon-strandveien",
+   "kanal": "brev",
+   "mottatt": "2026-11-16",
+   "dokumentdato": "2026-11-12",
+   "avsender": {
+    "navn": "Gudmund Refsnes",
+    "adresse": "Strandveien 14, 4399 Sirevåg",
+    "epost": null
+   },
+   "emne": "Søknad om dispensasjon fra reguleringsplanen – garasje på Strandveien 14",
+   "tekst": [
+    "Jeg søker med dette om dispensasjon fra reguleringsplanen for Strandveien boligfelt for å føre opp en frittliggende garasje på eiendommen min, gnr. 12 bnr. 45.",
+    "Garasjen blir på 42 m² og plasseres 2,5 meter fra nabogrensen mot nord. Planen tillater garasjer på inntil 36 m², og det er derfor jeg søker om dispensasjon. Tomten skråner, og en mindre garasje vil ikke gi plass til både bil og bod.",
+    "Naboene er varslet. Kvittering for nabovarsel, situasjonsplan og tegninger ligger ved. Jeg ber om at søknaden behandles så snart som mulig, siden jeg ønsker å starte arbeidet til våren."
+   ],
+   "vedlegg": [
+    "Situasjonsplan",
+    "Fasadetegninger",
+    "Kvittering for nabovarsel"
+   ],
+   "fasit": {
+    "handling": "journalfor",
+    "sak": {
+     "type": "ny",
+     "tittel": "Byggesak – dispensasjon – garasje – Strandveien 14 – gnr. 12 bnr. 45",
+     "arkivdel": "SAK",
+     "klasse": [
+      "520"
+     ]
+    },
+    "type": "I",
+    "tittel": "Søknad om dispensasjon fra reguleringsplan – garasje – Strandveien 14 – gnr. 12 bnr. 45",
+    "tilgangskode": [],
+    "skjerm_tittel": false,
+    "skjerm_part": false,
+    "forklaring": {
+     "handling": "En søknad til kommunen er et saksdokument som skal behandles, og den har verdi som dokumentasjon. Den skal journalføres og arkiveres.",
+     "sak": "Søknaden starter en ny sak. Kommunen har ingen sak om denne eiendommen og dette tiltaket fra før.",
+     "klasse": "Selv om søknaden gjelder dispensasjon fra en reguleringsplan, er det en byggesak for én eiendom (520). Klassen 510 er for arbeidet med selve reguleringsplanene.",
+     "tilgang": "Søknaden har ingen opplysninger som er underlagt taushetsplikt. Navn og adresse på den som søker om byggetillatelse, er offentlige.",
+     "skjerming": "Ingenting skal skjermes. Tittelen bør ha med hva saken gjelder, adressen og gårds- og bruksnummeret, så den kan finnes igjen."
+    }
+   }
+  },
+  {
+   "id": "klage-fyrveien",
+   "kanal": "epost",
+   "mottatt": "2026-11-17",
+   "dokumentdato": "2026-11-17",
+   "avsender": {
+    "navn": "Solveig Mæland",
+    "adresse": "Fyrveien 10, 4399 Sirevåg",
+    "epost": "solveig.maeland@epost.example"
+   },
+   "emne": "Klage på tillatelse til tilbygg i Fyrveien 8",
+   "tekst": [
+    "Jeg viser til kommunens vedtak av 30. oktober 2026 om tillatelse til tilbygg på Fyrveien 8, gnr. 9 bnr. 112. Jeg er nabo i nummer 10 og klager på vedtaket.",
+    "Tilbygget kommer to meter nærmere grensen enn tegningene jeg fikk i nabovarselet viste, og det vil ta mye av kveldssola på terrassen min. Jeg kan ikke se at kommunen har vurdert merknaden jeg sendte i august.",
+    "Jeg ber om at vedtaket oppheves, og at arbeidet ikke settes i gang før klagen er behandlet."
+   ],
+   "vedlegg": [],
+   "fasit": {
+    "handling": "journalfor",
+    "sak": {
+     "type": "eksisterende",
+     "nokkel": "byggesak-fyrveien-8",
+     "arkivdel": "SAK",
+     "klasse": [
+      "520"
+     ]
+    },
+    "type": "I",
+    "tittel": "Klage på tillatelse til tiltak – tilbygg til bolig – Fyrveien 8 – gnr. 9 bnr. 112",
+    "tilgangskode": [],
+    "skjerm_tittel": false,
+    "skjerm_part": false,
+    "forklaring": {
+     "handling": "En klage på et vedtak skal behandles av kommunen og er et saksdokument. Den skal journalføres, også når den kommer på e-post.",
+     "sak": "Klagen hører til byggesaken den gjelder. Den skal ligge i den samme saksmappen som søknaden og vedtaket, ikke i en ny sak.",
+     "klasse": "Saken har klassen 520 Byggesaker fra før. Klagen får den samme.",
+     "tilgang": "Klagen har ingen taushetsbelagte opplysninger. At en nabo klager på en byggetillatelse, er offentlig.",
+     "skjerming": "Ingenting skal skjermes. Tittelen bør si at dette er en klage, og hvilket vedtak den gjelder."
+    }
+   }
+  },
+  {
+   "id": "tilrettelegging-elev",
+   "kanal": "brev",
+   "mottatt": "2026-11-13",
+   "dokumentdato": "2026-11-10",
+   "avsender": {
+    "navn": "Hilde og Rune Skretting",
+    "adresse": "Bakkevegen 3, 4399 Sirevåg",
+    "epost": null
+   },
+   "emne": "Søknad om tilrettelagt opplæring for Mathias Skretting, 5. trinn ved Sirevåg skole",
+   "tekst": [
+    "Vi søker om tilrettelagt opplæring for sønnen vår, Mathias Skretting, som går i 5. trinn ved Sirevåg skole.",
+    "Mathias fikk i oktober diagnosen ADHD ved barne- og ungdomspsykiatrisk poliklinikk. Han har store vansker med å konsentrere seg i fulle klasser, og han har falt langt bak i norsk og matematikk det siste året. Epikrisen fra poliklinikken ligger ved.",
+    "Vi ber om at kommunen vurderer behovet hans, og at pedagogisk-psykologisk tjeneste kobles inn. Vi ønsker et møte med skolen så snart som mulig."
+   ],
+   "vedlegg": [
+    "Epikrise fra barne- og ungdomspsykiatrisk poliklinikk"
+   ],
+   "fasit": {
+    "handling": "journalfor",
+    "sak": {
+     "type": "ny",
+     "tittel": "Elevmappe – Mathias Skretting",
+     "arkivdel": "ELEV",
+     "klasse": [
+      "330"
+     ],
+     "offentlig_tittel": "Elevmappe – *****"
+    },
+    "type": "I",
+    "tittel": "Søknad om tilrettelagt opplæring – Mathias Skretting – Sirevåg skole",
+    "offentlig_tittel": "Søknad om tilrettelagt opplæring – *****",
+    "tilgangskode": [
+     "13-1"
+    ],
+    "skjerm_tittel": true,
+    "skjerm_part": true,
+    "sensitive_ord": [
+     "Mathias",
+     "Skretting"
+    ],
+    "forklaring": {
+     "handling": "Søknaden skal behandles og ende i et vedtak om eleven har rett til tilrettelagt opplæring. Den skal journalføres og arkiveres.",
+     "sak": "Kommunen har ingen mappe om denne eleven fra før, så det må opprettes en ny.",
+     "arkivdel": "Dokumenter om enkeltelever hører hjemme i arkivdelen for elevmapper, ikke i det emneordnede sakarkivet.",
+     "klasse": "Søknaden gjelder tilrettelagt opplæring (330).",
+     "tilgang": "Opplysninger om en elevs helse og vansker på skolen er personlige forhold som er underlagt taushetsplikt.",
+     "skjerming": "Elevens navn må ikke stå i den offentlige journalen. Både sakstittelen og tittelen på journalposten skjermes, og avsenderen også, fordi navnet på foreldrene viser hvem eleven er."
+    }
+   }
+  },
+  {
+   "id": "tilbud-renhold",
+   "kanal": "brev",
+   "mottatt": "2026-11-19",
+   "dokumentdato": "2026-11-18",
+   "avsender": {
+    "navn": "Jærrent AS",
+    "adresse": "Industrivegen 22, 4399 Sirevåg",
+    "epost": "post@jaerrent.example"
+   },
+   "emne": "Tilbud – renholdstjenester for kommunale bygg 2027–2030",
+   "tekst": [
+    "Vi viser til kunngjøringen av 12. oktober 2026 og leverer med dette tilbud på renholdstjenester for kommunale bygg i perioden 2027–2030.",
+    "Tilbudet omfatter daglig renhold av rådhuset, tre skoler, to barnehager og omsorgssenteret. Samlet pris er 4 860 000 kroner per år eksklusive merverdiavgift. Prisene per bygg, bemanningsplanen og beskrivelsen av metodene våre står i vedleggene.",
+    "Tilbudet er bindende til 20. februar 2027."
+   ],
+   "vedlegg": [
+    "Prisskjema",
+    "Bemanningsplan",
+    "Løsningsbeskrivelse",
+    "Skatteattest"
+   ],
+   "fasit": {
+    "handling": "journalfor",
+    "sak": {
+     "type": "eksisterende",
+     "nokkel": "anskaffelse-renhold",
+     "arkivdel": "SAK",
+     "klasse": [
+      "130"
+     ]
+    },
+    "type": "I",
+    "tittel": "Tilbud – renholdstjenester for kommunale bygg 2027–2030 – Jærrent AS",
+    "tilgangskode": [
+     "23-3"
+    ],
+    "skjerm_tittel": null,
+    "skjerm_part": null,
+    "forklaring": {
+     "handling": "Et tilbud i en konkurranse er et saksdokument med stor verdi som dokumentasjon. Det skal journalføres.",
+     "sak": "Tilbudet hører til anskaffelsessaken som alt finnes, sammen med kunngjøringen.",
+     "klasse": "Anskaffelsessaken har klassen 130 Anskaffelser og innkjøp.",
+     "tilgang": "Tilbud i en anskaffelse kan unntas fra innsyn til leverandøren er valgt. Det skal hindre at tilbyderne får vite om hverandres tilbud mens konkurransen pågår.",
+     "skjerming": "Tittelen kan stå åpent så lenge den ikke røper pris eller innhold. Om avsenderen skal skjermes til konkurransen er avgjort, vurderes ikke i denne oppgaven."
+    }
+   }
+  },
+  {
+   "id": "kursinvitasjon",
+   "kanal": "epost",
+   "mottatt": "2026-11-16",
+   "dokumentdato": "2026-11-16",
+   "avsender": {
+    "navn": "Nordisk Kurs og Kompetanse AS",
+    "adresse": null,
+    "epost": "kurs@nordiskkurs.example"
+   },
+   "emne": "Siste sjanse: 20 % rabatt på kurset «Effektiv dokumenthåndtering i kommunen»",
+   "tekst": [
+    "Hei! Visste du at kommuner i snitt bruker fire timer i uken på å lete etter dokumenter?",
+    "Meld deg på vårt populære dagskurs «Effektiv dokumenthåndtering i kommunen» i Stavanger 14. januar. Bestiller du før 1. desember, får du 20 % rabatt. Kurset koster da 3 960 kroner per deltaker.",
+    "Svar på denne e-posten for å melde deg på, eller for å melde deg av nyhetsbrevet vårt."
+   ],
+   "vedlegg": [],
+   "fasit": {
+    "handling": "ikke_arkiver",
+    "forklaring": {
+     "handling": "Dette er reklame som er sendt til mange. Den er ikke et saksdokument for kommunen: den skal ikke behandles, og den har ingen verdi som dokumentasjon. Slikt holdes utenfor arkivet (arkivbegrensning)."
+    }
+   }
+  },
+  {
+   "id": "innsynskrav-jaerposten",
+   "kanal": "epost",
+   "mottatt": "2026-11-18",
+   "dokumentdato": "2026-11-18",
+   "avsender": {
+    "navn": "Jærposten v/ journalist Oda Nærland",
+    "adresse": null,
+    "epost": "oda.naerland@jaerposten.example"
+   },
+   "emne": "Innsynskrav: reiseregninger for ordfører og kommunedirektør i 2026",
+   "tekst": [
+    "Jeg ber om innsyn i alle reiseregninger for ordføreren og kommunedirektøren hittil i 2026, med bilag.",
+    "Jeg viser til offentleglova § 3 og ber om svar uten ugrunnet opphold. Dersom kommunen mener at noe må unntas, ber jeg om at hjemmelen oppgis, og om at resten av dokumentene sendes med en gang."
+   ],
+   "vedlegg": [],
+   "fasit": {
+    "handling": "journalfor",
+    "sak": {
+     "type": "eksisterende",
+     "nokkel": "innsynskrav-2026",
+     "arkivdel": "SAK",
+     "klasse": [
+      "020"
+     ]
+    },
+    "type": "I",
+    "tittel": "Krav om innsyn i reiseregninger for ordfører og kommunedirektør 2026",
+    "tilgangskode": [],
+    "skjerm_tittel": false,
+    "skjerm_part": false,
+    "forklaring": {
+     "handling": "Et innsynskrav skal behandles og besvares, og kommunen må kunne dokumentere når kravet kom og hva som ble svart. Det skal journalføres.",
+     "sak": "Kommunen samler årets innsynskrav i saken «Innsynskrav 2026». Kravet gjelder ikke en bestemt sak i arkivet, så det legges der.",
+     "klasse": "Samlesaken har klassen 020 Innsyn, personvern og informasjonssikkerhet.",
+     "tilgang": "Et innsynskrav er selv et offentlig dokument. Det har ingen taushetsbelagte opplysninger.",
+     "skjerming": "Ingenting skal skjermes. Hvem som ber om innsyn, er ikke taushetsbelagt, og en journalist som spør på vegne av en avis, skjermes ikke."
+    }
+   }
+  },
+  {
+   "id": "jobbsoknad-byggesak",
+   "kanal": "epost",
+   "mottatt": "2026-11-15",
+   "dokumentdato": "2026-11-15",
+   "avsender": {
+    "navn": "Emil Tjensvoll",
+    "adresse": "Kvernhusveien 7, 4340 Bryne",
+    "epost": "emil.tjensvoll@epost.example"
+   },
+   "emne": "Søknad på stillingen som byggesaksbehandler, stillingsnr. 26/41",
+   "tekst": [
+    "Jeg søker på stillingen som byggesaksbehandler i Sirevåg kommune.",
+    "Jeg er utdannet bygningsingeniør og har arbeidet fem år med byggesaker i en nabokommune. Jeg kjenner plan- og bygningsloven godt og har erfaring med både søknader, dispensasjoner og tilsyn.",
+    "CV, vitnemål og attester ligger ved. Jeg ber om at søknaden behandles fortrolig overfor nåværende arbeidsgiver."
+   ],
+   "vedlegg": [
+    "CV",
+    "Vitnemål",
+    "Attester"
+   ],
+   "fasit": {
+    "handling": "journalfor",
+    "sak": {
+     "type": "eksisterende",
+     "nokkel": "tilsetting-byggesaksbehandler",
+     "arkivdel": "SAK",
+     "klasse": [
+      "210"
+     ]
+    },
+    "type": "I",
+    "tittel": "Søknad på stilling – byggesaksbehandler – stillingsnr. 26/41",
+    "tilgangskode": [
+     "25"
+    ],
+    "skjerm_tittel": false,
+    "skjerm_part": true,
+    "sensitive_ord": [
+     "Emil",
+     "Tjensvoll"
+    ],
+    "forklaring": {
+     "handling": "En jobbsøknad er et saksdokument i tilsettingssaken og skal journalføres.",
+     "sak": "Søknaden hører til tilsettingssaken for denne stillingen, som ble opprettet da stillingen ble lyst ut.",
+     "arkivdel": "Tilsettingssaken ligger i sakarkivet. Personalmappen opprettes først for den som blir tilsatt.",
+     "klasse": "Tilsettingssaken har klassen 210 Rekruttering og tilsetting.",
+     "tilgang": "Søknader i tilsettingssaker kan unntas fra innsyn. Søkerlisten er derimot offentlig, og den lages som et eget dokument når fristen er ute.",
+     "skjerming": "Tittelen har ikke søkerens navn og kan stå åpent. Avsenderen skjermes, så den offentlige journalen ikke viser hvem som har søkt, før søkerlisten er laget."
+    }
+   }
+  },
+  {
+   "id": "faktura-ror",
+   "kanal": "brev",
+   "mottatt": "2026-11-17",
+   "dokumentdato": "2026-11-13",
+   "avsender": {
+    "navn": "Sirevåg Rør og Varme AS",
+    "adresse": "Havnegata 5, 4399 Sirevåg",
+    "epost": "faktura@sirevagror.example"
+   },
+   "emne": "Faktura nr. 20417 – utskifting av blandebatterier, Sirevåg skole",
+   "tekst": [
+    "Faktura nr. 20417. Fakturadato 13. november 2026. Forfall 13. desember 2026.",
+    "Utskifting av seks blandebatterier i garderobene ved Sirevåg skole, utført 9.–10. november 2026 etter bestilling fra teknisk drift. Arbeid 14 timer, materiell etter spesifikasjon.",
+    "Å betale: 38 750 kroner inklusive merverdiavgift."
+   ],
+   "vedlegg": [
+    "Timeliste og materialspesifikasjon"
+   ],
+   "fasit": {
+    "handling": "fagsystem",
+    "forklaring": {
+     "handling": "En faktura er et regnskapsbilag. Den skal tas vare på, men i økonomisystemet, der den blir attestert, betalt og oppbevart etter reglene for regnskap. Den journalføres ikke i sakarkivet."
+    }
+   }
+  },
+  {
+   "id": "horing-verneplan",
+   "kanal": "brev",
+   "mottatt": "2026-11-12",
+   "dokumentdato": "2026-11-09",
+   "avsender": {
+    "navn": "Statsforvalteren i Rogaland",
+    "adresse": "Postboks 59, 4001 Stavanger",
+    "epost": null
+   },
+   "emne": "Høring – forslag til utvidelse av Ognasanden landskapsvernområde",
+   "tekst": [
+    "Statsforvalteren sender med dette på høring et forslag om å utvide Ognasanden landskapsvernområde mot sør. Utvidelsen berører om lag 310 dekar i Sirevåg kommune, blant annet deler av friområdet ved Rauneset.",
+    "Vi ber kommunen særlig vurdere hvordan forslaget påvirker gjeldende arealplaner, den planlagte kyststien og landbruksinteressene i området.",
+    "Høringsfristen er 15. februar 2027. Kart og forslag til verneforskrift ligger ved."
+   ],
+   "vedlegg": [
+    "Kart over foreslått utvidelse",
+    "Forslag til verneforskrift"
+   ],
+   "fasit": {
+    "handling": "journalfor",
+    "sak": {
+     "type": "ny",
+     "tittel": "Høring – utvidelse av Ognasanden landskapsvernområde",
+     "arkivdel": "SAK",
+     "klasse": [
+      "630",
+      "050"
+     ]
+    },
+    "type": "I",
+    "tittel": "Høring – forslag til utvidelse av Ognasanden landskapsvernområde",
+    "tilgangskode": [],
+    "skjerm_tittel": false,
+    "skjerm_part": false,
+    "forklaring": {
+     "handling": "Kommunen er bedt om å uttale seg, og saken skal behandles. Høringsbrevet skal journalføres.",
+     "sak": "Kommunen har ingen sak om denne høringen fra før. Det opprettes en ny, der også kommunens uttalelse skal ligge.",
+     "klasse": "Saken gjelder vern av natur og friluftsområder (630). Kommuner som samler alle høringer på ett sted, kan bruke 050 Høringer og samarbeid med andre myndigheter. Begge godtas her.",
+     "tilgang": "Et høringsbrev fra en offentlig myndighet er offentlig.",
+     "skjerming": "Ingenting skal skjermes."
+    }
+   }
+  },
+  {
+   "id": "sporsmal-gjenvinning",
+   "kanal": "epost",
+   "mottatt": "2026-11-18",
+   "dokumentdato": "2026-11-18",
+   "avsender": {
+    "navn": "Torhild Aase",
+    "adresse": null,
+    "epost": "torhild.aase@epost.example"
+   },
+   "emne": "Åpningstider på gjenvinningsstasjonen i jula?",
+   "tekst": [
+    "Hei. Jeg lurer på om gjenvinningsstasjonen holder åpent i romjula, og om jeg kan levere et gammelt kjøleskap der uten å betale.",
+    "Hilsen Torhild"
+   ],
+   "vedlegg": [],
+   "fasit": {
+    "handling": "ikke_arkiver",
+    "forklaring": {
+     "handling": "Dette er et enkelt spørsmål om praktiske opplysninger. Det besvares med en gang og fører ikke til saksbehandling. Verken spørsmålet eller svaret har verdi som dokumentasjon, så det holdes utenfor arkivet (arkivbegrensning)."
+    }
+   }
+  },
+  {
+   "id": "varsel-arbeidsmiljo",
+   "kanal": "epost",
+   "mottatt": "2026-11-14",
+   "dokumentdato": "2026-11-14",
+   "avsender": {
+    "navn": "Camilla Hobberstad",
+    "adresse": null,
+    "epost": "camilla.hobberstad@epost.example"
+   },
+   "emne": "Varsel om kritikkverdige forhold ved omsorgssenteret",
+   "tekst": [
+    "Jeg er sykepleier ved Sirevåg omsorgssenter og varsler med dette om forhold jeg mener er kritikkverdige.",
+    "Avdelingslederen, Svein Lode, har over flere måneder omtalt enkelte ansatte nedsettende i fellesmøter og har ved to anledninger truet med å endre turnusen til dem som sier ham imot. To kolleger er sykmeldt, og de har fortalt meg at det skyldes arbeidsmiljøet.",
+    "Jeg ber om at varselet behandles etter kommunens varslingsrutine, og at navnet mitt ikke gjøres kjent for avdelingslederen."
+   ],
+   "vedlegg": [],
+   "fasit": {
+    "handling": "journalfor",
+    "sak": {
+     "type": "ny",
+     "tittel": "Varsling – arbeidsmiljø – Sirevåg omsorgssenter",
+     "arkivdel": "SAK",
+     "klasse": [
+      "220"
+     ]
+    },
+    "type": "I",
+    "tittel": "Varsel om kritikkverdige forhold – Sirevåg omsorgssenter",
+    "tilgangskode": [
+     "13-1",
+     "24"
+    ],
+    "skjerm_tittel": false,
+    "skjerm_part": true,
+    "sensitive_ord": [
+     "Camilla",
+     "Hobberstad",
+     "Svein",
+     "Lode"
+    ],
+    "forklaring": {
+     "handling": "Et varsel skal behandles etter varslingsrutinen, og kommunen må kunne dokumentere hva den har gjort. Det skal journalføres.",
+     "sak": "Varselet starter en ny sak.",
+     "arkivdel": "Varslingssaken ligger i sakarkivet. Den gjelder et arbeidsmiljø, ikke bare arbeidsforholdet til én ansatt.",
+     "klasse": "Saken gjelder arbeidsmiljø og varsling (220).",
+     "tilgang": "Varselet har opplysninger om personlige forhold for navngitte ansatte, blant annet om sykmelding. Det er underlagt taushetsplikt. Unntaket for meldinger om lovbrudd godtas også.",
+     "skjerming": "Varslerens navn skal ikke stå i den offentlige journalen: avsenderen skjermes. Tittelen kan stå åpent når den ikke nevner navn. Skriver du navn i tittelen, må tittelen skjermes."
+    }
+   }
+  },
+  {
+   "id": "aarsmelding-idrettslag",
+   "kanal": "brev",
+   "mottatt": "2026-11-11",
+   "dokumentdato": "2026-11-06",
+   "avsender": {
+    "navn": "Sirevåg idrettslag",
+    "adresse": "Stadionveien 2, 4399 Sirevåg",
+    "epost": "styret@sirevagil.example"
+   },
+   "emne": "Årsmelding 2025 til orientering",
+   "tekst": [
+    "Vedlagt følger årsmeldingen for Sirevåg idrettslag for 2025, til orientering.",
+    "Laget har nå 612 medlemmer. Vi takker kommunen for godt samarbeid om driften av idrettsparken gjennom året."
+   ],
+   "vedlegg": [
+    "Årsmelding 2025"
+   ],
+   "fasit": {
+    "handling": "arkiver",
+    "sak": {
+     "type": "ny",
+     "tittel": "Sirevåg idrettslag – årsmeldinger",
+     "arkivdel": "SAK",
+     "klasse": [
+      "720"
+     ]
+    },
+    "tittel": "Årsmelding 2025 – Sirevåg idrettslag",
+    "forklaring": {
+     "handling": "Årsmeldingen er sendt til orientering og skal ikke behandles av kommunen. Den er derfor ikke et dokument som må journalføres. Men den sier noe om en viktig samarbeidspartner og bruken av kommunens anlegg, og har verdi som dokumentasjon. Den arkiveres uten journalføring.",
+     "sak": "Kommunen har ingen sak for årsmeldinger fra idrettslaget i arkivet. Det opprettes en ny.",
+     "klasse": "Dokumentet gjelder idrett og frivillighet (720)."
+    }
+   }
+  }
+ ]
+}

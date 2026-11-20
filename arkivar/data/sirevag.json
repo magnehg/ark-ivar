@@ -1,0 +1,596 @@
+{
+ "virksomhet": {
+  "navn": "Sirevåg kommune",
+  "adresse": "Rådhusgata 1, 4399 Sirevåg",
+  "epost": "postmottak@sirevag.example"
+ },
+ "arkivdeler": [
+  {
+   "kode": "SAK",
+   "tittel": "Sakarkiv 2024–",
+   "beskrivelse": "Emneordnet sakarkiv for hele kommunen. Ordnet etter arkivnøkkelen."
+  },
+  {
+   "kode": "ELEV",
+   "tittel": "Elevmapper",
+   "beskrivelse": "Én mappe per elev. Inneholder opplysninger om enkeltelever og er skjermet."
+  },
+  {
+   "kode": "PERS",
+   "tittel": "Personalmapper",
+   "beskrivelse": "Én mappe per ansatt. Inneholder opplysninger om arbeidsforholdet og er skjermet."
+  }
+ ],
+ "klasser": [
+  {
+   "kode": "0",
+   "tittel": "Organisasjon og styring",
+   "forelder": null
+  },
+  {
+   "kode": "000",
+   "tittel": "Kommunens organisasjon og ledelse",
+   "forelder": "0"
+  },
+  {
+   "kode": "010",
+   "tittel": "Politiske organer og valg",
+   "forelder": "0"
+  },
+  {
+   "kode": "020",
+   "tittel": "Innsyn, personvern og informasjonssikkerhet",
+   "forelder": "0"
+  },
+  {
+   "kode": "030",
+   "tittel": "Arkiv og dokumentasjon",
+   "forelder": "0"
+  },
+  {
+   "kode": "040",
+   "tittel": "Kommunikasjon og informasjon",
+   "forelder": "0"
+  },
+  {
+   "kode": "050",
+   "tittel": "Høringer og samarbeid med andre myndigheter",
+   "forelder": "0"
+  },
+  {
+   "kode": "1",
+   "tittel": "Økonomi",
+   "forelder": null
+  },
+  {
+   "kode": "100",
+   "tittel": "Budsjett og økonomiplan",
+   "forelder": "1"
+  },
+  {
+   "kode": "110",
+   "tittel": "Regnskap og revisjon",
+   "forelder": "1"
+  },
+  {
+   "kode": "120",
+   "tittel": "Skatt, avgifter og gebyrer",
+   "forelder": "1"
+  },
+  {
+   "kode": "130",
+   "tittel": "Anskaffelser og innkjøp",
+   "forelder": "1"
+  },
+  {
+   "kode": "140",
+   "tittel": "Tilskudd og støtteordninger",
+   "forelder": "1"
+  },
+  {
+   "kode": "2",
+   "tittel": "Personal",
+   "forelder": null
+  },
+  {
+   "kode": "200",
+   "tittel": "Personalpolitikk",
+   "forelder": "2"
+  },
+  {
+   "kode": "210",
+   "tittel": "Rekruttering og tilsetting",
+   "forelder": "2"
+  },
+  {
+   "kode": "220",
+   "tittel": "Arbeidsmiljø, HMS og varsling",
+   "forelder": "2"
+  },
+  {
+   "kode": "230",
+   "tittel": "Lønn og pensjon",
+   "forelder": "2"
+  },
+  {
+   "kode": "3",
+   "tittel": "Oppvekst og utdanning",
+   "forelder": null
+  },
+  {
+   "kode": "300",
+   "tittel": "Barnehage",
+   "forelder": "3"
+  },
+  {
+   "kode": "310",
+   "tittel": "Grunnskole",
+   "forelder": "3"
+  },
+  {
+   "kode": "320",
+   "tittel": "Skolefritidsordning",
+   "forelder": "3"
+  },
+  {
+   "kode": "330",
+   "tittel": "Spesialpedagogisk hjelp og tilrettelagt opplæring",
+   "forelder": "3"
+  },
+  {
+   "kode": "340",
+   "tittel": "Kultur og fritid for barn og unge",
+   "forelder": "3"
+  },
+  {
+   "kode": "4",
+   "tittel": "Helse og omsorg",
+   "forelder": null
+  },
+  {
+   "kode": "400",
+   "tittel": "Helsetjenester",
+   "forelder": "4"
+  },
+  {
+   "kode": "410",
+   "tittel": "Omsorgstjenester",
+   "forelder": "4"
+  },
+  {
+   "kode": "420",
+   "tittel": "Sosiale tjenester",
+   "forelder": "4"
+  },
+  {
+   "kode": "430",
+   "tittel": "Barnevern",
+   "forelder": "4"
+  },
+  {
+   "kode": "5",
+   "tittel": "Plan, bygg og eiendom",
+   "forelder": null
+  },
+  {
+   "kode": "500",
+   "tittel": "Kommuneplan og arealplan",
+   "forelder": "5"
+  },
+  {
+   "kode": "510",
+   "tittel": "Reguleringsplaner",
+   "forelder": "5"
+  },
+  {
+   "kode": "520",
+   "tittel": "Byggesaker",
+   "forelder": "5"
+  },
+  {
+   "kode": "530",
+   "tittel": "Deling og oppmåling",
+   "forelder": "5"
+  },
+  {
+   "kode": "540",
+   "tittel": "Kommunale eiendommer",
+   "forelder": "5"
+  },
+  {
+   "kode": "6",
+   "tittel": "Teknisk drift og miljø",
+   "forelder": null
+  },
+  {
+   "kode": "600",
+   "tittel": "Vei og trafikk",
+   "forelder": "6"
+  },
+  {
+   "kode": "610",
+   "tittel": "Vann og avløp",
+   "forelder": "6"
+  },
+  {
+   "kode": "620",
+   "tittel": "Renovasjon",
+   "forelder": "6"
+  },
+  {
+   "kode": "630",
+   "tittel": "Natur, miljø og friluftsliv",
+   "forelder": "6"
+  },
+  {
+   "kode": "640",
+   "tittel": "Havn og kyst",
+   "forelder": "6"
+  },
+  {
+   "kode": "7",
+   "tittel": "Næring, kultur og beredskap",
+   "forelder": null
+  },
+  {
+   "kode": "700",
+   "tittel": "Næringsutvikling",
+   "forelder": "7"
+  },
+  {
+   "kode": "710",
+   "tittel": "Landbruk og fiske",
+   "forelder": "7"
+  },
+  {
+   "kode": "720",
+   "tittel": "Kultur, idrett og frivillighet",
+   "forelder": "7"
+  },
+  {
+   "kode": "730",
+   "tittel": "Bevillinger og tillatelser",
+   "forelder": "7"
+  },
+  {
+   "kode": "740",
+   "tittel": "Beredskap og samfunnssikkerhet",
+   "forelder": "7"
+  }
+ ],
+ "enheter": [
+  {
+   "kode": "KD",
+   "navn": "Kommunedirektørens stab"
+  },
+  {
+   "kode": "DOK",
+   "navn": "Dokumentsenteret"
+  },
+  {
+   "kode": "OKO",
+   "navn": "Økonomi og innkjøp"
+  },
+  {
+   "kode": "HR",
+   "navn": "Personal og organisasjon"
+  },
+  {
+   "kode": "OPP",
+   "navn": "Oppvekst"
+  },
+  {
+   "kode": "HEL",
+   "navn": "Helse og omsorg"
+  },
+  {
+   "kode": "PBE",
+   "navn": "Plan, bygg og eiendom"
+  },
+  {
+   "kode": "TEK",
+   "navn": "Teknisk drift og miljø"
+  },
+  {
+   "kode": "NKB",
+   "navn": "Næring, kultur og beredskap"
+  }
+ ],
+ "ansatte": [
+  {
+   "initialer": "AKV",
+   "navn": "Anne Kvalbein",
+   "tittel": "Kommunedirektør",
+   "enhet": "KD"
+  },
+  {
+   "initialer": "ISI",
+   "navn": "Ingrid Sirnes",
+   "tittel": "Arkivleder",
+   "enhet": "DOK"
+  },
+  {
+   "initialer": "HBR",
+   "navn": "Henrik Brusand",
+   "tittel": "Innkjøpsrådgiver",
+   "enhet": "OKO"
+  },
+  {
+   "initialer": "SVA",
+   "navn": "Silje Vatnamo",
+   "tittel": "Personalrådgiver",
+   "enhet": "HR"
+  },
+  {
+   "initialer": "MRE",
+   "navn": "Marte Refsland",
+   "tittel": "Rådgiver oppvekst",
+   "enhet": "OPP"
+  },
+  {
+   "initialer": "LHE",
+   "navn": "Lars Hellvik",
+   "tittel": "Rådgiver helse og omsorg",
+   "enhet": "HEL"
+  },
+  {
+   "initialer": "THA",
+   "navn": "Tobias Hadland",
+   "tittel": "Byggesaksbehandler",
+   "enhet": "PBE"
+  },
+  {
+   "initialer": "JOG",
+   "navn": "Jonas Ogna",
+   "tittel": "Ingeniør vann og avløp",
+   "enhet": "TEK"
+  },
+  {
+   "initialer": "KVA",
+   "navn": "Kaja Varhaug",
+   "tittel": "Miljørådgiver",
+   "enhet": "TEK"
+  },
+  {
+   "initialer": "EST",
+   "navn": "Eirik Stokkaland",
+   "tittel": "Kulturkonsulent",
+   "enhet": "NKB"
+  }
+ ],
+ "tilgangskoder": [
+  {
+   "kode": "13-1",
+   "navn": "Taushetsplikt: personlige forhold",
+   "hjemmel": "Offl. § 13 første ledd, jf. fvl. § 13 første ledd nr. 1"
+  },
+  {
+   "kode": "13-2",
+   "navn": "Taushetsplikt: forretningsforhold",
+   "hjemmel": "Offl. § 13 første ledd, jf. fvl. § 13 første ledd nr. 2"
+  },
+  {
+   "kode": "14",
+   "navn": "Organinterne dokumenter",
+   "hjemmel": "Offl. § 14 første ledd"
+  },
+  {
+   "kode": "15",
+   "navn": "Dokumenter innhentet utenfra til intern saksforberedelse",
+   "hjemmel": "Offl. § 15"
+  },
+  {
+   "kode": "23-1",
+   "navn": "Forhandlingsposisjon",
+   "hjemmel": "Offl. § 23 første ledd"
+  },
+  {
+   "kode": "23-3",
+   "navn": "Tilbud og protokoll i anskaffelser",
+   "hjemmel": "Offl. § 23 tredje ledd"
+  },
+  {
+   "kode": "24",
+   "navn": "Kontroll, regulering og lovbrudd",
+   "hjemmel": "Offl. § 24"
+  },
+  {
+   "kode": "25",
+   "navn": "Tilsettingssaker",
+   "hjemmel": "Offl. § 25 første ledd"
+  },
+  {
+   "kode": "26",
+   "navn": "Eksamen, karakterer og personbilder",
+   "hjemmel": "Offl. § 26"
+  }
+ ],
+ "saker": [
+  {
+   "nokkel": "byggesak-fyrveien-8",
+   "tittel": "Byggesak – tilbygg til bolig – Fyrveien 8 – gnr. 9 bnr. 112",
+   "arkivdel": "SAK",
+   "klasse": "520",
+   "enhet": "PBE",
+   "saksansvarlig": "THA",
+   "saksdato": "2026-08-17",
+   "journalposter": [
+    {
+     "type": "I",
+     "tittel": "Søknad om tillatelse til tiltak – tilbygg til bolig – Fyrveien 8",
+     "dokumentdato": "2026-08-14",
+     "part": "Vibeke og Trond Auglend",
+     "status": "J",
+     "tilgangskode": null,
+     "innhold": "Søknad om tillatelse til å føre opp et tilbygg på 28 m² mot sør. Vedlagt situasjonsplan, tegninger og kvittering for nabovarsel.",
+     "saksbehandler": null
+    },
+    {
+     "type": "U",
+     "tittel": "Foreløpig svar – søknad om tilbygg til bolig – Fyrveien 8",
+     "dokumentdato": "2026-08-24",
+     "part": "Vibeke og Trond Auglend",
+     "status": "E",
+     "tilgangskode": null,
+     "innhold": "Kommunen har mottatt søknaden. Forventet saksbehandlingstid er tolv uker.",
+     "saksbehandler": null
+    },
+    {
+     "type": "U",
+     "tittel": "Tillatelse til tiltak – tilbygg til bolig – Fyrveien 8 – gnr. 9 bnr. 112",
+     "dokumentdato": "2026-10-30",
+     "part": "Vibeke og Trond Auglend",
+     "status": "E",
+     "tilgangskode": null,
+     "innhold": "Vedtak: Søknaden godkjennes med hjemmel i plan- og bygningsloven. Vedtaket kan påklages innen tre uker. Kopi er sendt til naboene som har merknader.",
+     "saksbehandler": null
+    }
+   ]
+  },
+  {
+   "nokkel": "anskaffelse-renhold",
+   "tittel": "Anskaffelse – renholdstjenester for kommunale bygg 2027–2030",
+   "arkivdel": "SAK",
+   "klasse": "130",
+   "enhet": "OKO",
+   "saksansvarlig": "HBR",
+   "saksdato": "2026-09-01",
+   "journalposter": [
+    {
+     "type": "X",
+     "tittel": "Behovsvurdering – renhold av kommunale bygg",
+     "dokumentdato": "2026-09-01",
+     "part": "Henrik Brusand",
+     "status": "F",
+     "tilgangskode": "14",
+     "innhold": "Intern vurdering av omfang, kvalitetskrav og forventet kostnadsramme for ny avtale.",
+     "saksbehandler": null
+    },
+    {
+     "type": "U",
+     "tittel": "Kunngjøring av konkurranse – renholdstjenester for kommunale bygg 2027–2030",
+     "dokumentdato": "2026-10-12",
+     "part": "Doffin",
+     "status": "E",
+     "tilgangskode": null,
+     "innhold": "Åpen anbudskonkurranse. Tilbudsfrist 20. november 2026 klokka 12.00.",
+     "saksbehandler": null
+    }
+   ]
+  },
+  {
+   "nokkel": "innsynskrav-2026",
+   "tittel": "Innsynskrav 2026",
+   "arkivdel": "SAK",
+   "klasse": "020",
+   "enhet": "DOK",
+   "saksansvarlig": "ISI",
+   "saksdato": "2026-01-05",
+   "journalposter": [
+    {
+     "type": "I",
+     "tittel": "Krav om innsyn i møtebok for formannskapet 2025",
+     "dokumentdato": "2026-02-03",
+     "part": "Birger Salte",
+     "status": "J",
+     "tilgangskode": null,
+     "innhold": "Ber om innsyn i møteboken for formannskapet for hele 2025.",
+     "saksbehandler": null
+    },
+    {
+     "type": "U",
+     "tittel": "Svar på krav om innsyn i møtebok for formannskapet 2025",
+     "dokumentdato": "2026-02-05",
+     "part": "Birger Salte",
+     "status": "E",
+     "tilgangskode": null,
+     "innhold": "Innsyn er gitt. Møtebøkene ligger også på kommunens nettsider.",
+     "saksbehandler": null
+    }
+   ]
+  },
+  {
+   "nokkel": "tilsetting-byggesaksbehandler",
+   "tittel": "Tilsetting – byggesaksbehandler – stillingsnr. 26/41",
+   "arkivdel": "SAK",
+   "klasse": "210",
+   "enhet": "HR",
+   "saksansvarlig": "SVA",
+   "saksdato": "2026-10-19",
+   "journalposter": [
+    {
+     "type": "X",
+     "tittel": "Utlysningstekst – byggesaksbehandler – stillingsnr. 26/41",
+     "dokumentdato": "2026-10-19",
+     "part": "Silje Vatnamo",
+     "status": "F",
+     "tilgangskode": null,
+     "innhold": "Fast stilling som byggesaksbehandler i Plan, bygg og eiendom. Søknadsfrist 22. november 2026.",
+     "saksbehandler": null
+    }
+   ]
+  },
+  {
+   "nokkel": "budsjett-2027",
+   "tittel": "Budsjett 2027 og økonomiplan 2027–2030",
+   "arkivdel": "SAK",
+   "klasse": "100",
+   "enhet": "OKO",
+   "saksansvarlig": "AKV",
+   "saksdato": "2026-06-10",
+   "journalposter": [
+    {
+     "type": "S",
+     "tittel": "Saksframlegg – budsjettrammer 2027",
+     "dokumentdato": "2026-06-10",
+     "part": "Formannskapet",
+     "status": "F",
+     "tilgangskode": null,
+     "innhold": "Kommunedirektørens forslag til rammer for budsjettarbeidet.",
+     "saksbehandler": null
+    },
+    {
+     "type": "I",
+     "tittel": "Uttalelse til budsjett 2027 – Sirevåg eldreråd",
+     "dokumentdato": "2026-11-02",
+     "part": "Sirevåg eldreråd",
+     "status": "J",
+     "tilgangskode": null,
+     "innhold": "Eldrerådet ber om at dagtilbudet på omsorgssenteret videreføres på dagens nivå.",
+     "saksbehandler": null
+    }
+   ]
+  },
+  {
+   "nokkel": "skoleskyss-2026",
+   "tittel": "Skoleskyss skoleåret 2026/2027 – organisering og avtaler",
+   "arkivdel": "SAK",
+   "klasse": "310",
+   "enhet": "OPP",
+   "saksansvarlig": "MRE",
+   "saksdato": "2026-05-04",
+   "journalposter": [
+    {
+     "type": "U",
+     "tittel": "Bestilling av skoleskyss for skoleåret 2026/2027",
+     "dokumentdato": "2026-05-04",
+     "part": "Rogaland fylkeskommune",
+     "status": "E",
+     "tilgangskode": null,
+     "innhold": "Oversikt over ruter og antall elever med rett til skyss.",
+     "saksbehandler": null
+    },
+    {
+     "type": "I",
+     "tittel": "Bekreftelse på skoleskyss for skoleåret 2026/2027",
+     "dokumentdato": "2026-06-01",
+     "part": "Rogaland fylkeskommune",
+     "status": "J",
+     "tilgangskode": null,
+     "innhold": "Fylkeskommunen bekrefter rutene fra skolestart.",
+     "saksbehandler": null
+    }
+   ]
+  }
+ ]
+}

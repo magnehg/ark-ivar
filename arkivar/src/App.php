@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ArkIvar;
 
+use ArkIvar\Arkiv\Arkivruter;
 use ArkIvar\Brukere\Brukere;
 use ArkIvar\Brukere\Domener;
 use ArkIvar\Brukere\Engangskoder;
@@ -157,6 +158,7 @@ final class App
         $this->kontoruter($ruter);
         $this->klasseruter($ruter);
         $this->adminruter($ruter);
+        (new Arkivruter($this->kjerne, $this->klokke))->legg($ruter);
         $svar = $ruter->handter($f);
         if ($svar !== null) {
             return $svar;

@@ -1,0 +1,246 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ArkIvar\Arkiv;
+
+use Bivrost\Kjerne\Database\Db;
+use Bivrost\Kjerne\Database\Felt;
+use Bivrost\Kjerne\Krypto\Tilfeldig;
+use Psr\Clock\ClockInterface;
+
+/**
+ * Saksmappene og journalpostene i et øvingsarkiv (arkivar_sak og arkivar_journalpost). Alle oppslag tar arkivets
+ * ID, så en bruker aldri kan lese eller endre noe i et annet arkiv.
+ *
+ * Saksnummeret er saksår og en fortløpende sekvens (2026/7), og hver journalpost har et dokumentnummer i saken
+ * (2026/7-3) og et løpenummer i journalen. Tellerne står på arkivet.
+ */
+final class Register
+{
+    public function __construct(private readonly Db $db, private readonly ClockInterface $klokke, private readonly Grunndata $grunndata)
+    {
+    }
+
+    /** Neste nummer i en av arkivets tellere (sak_sekvens eller journal_sekvens). */
+    private function neste(string $arkivId, string $teller): int
+    {
+        $kolonne = $teller === 'sak' ? 'sak_sekvens' : 'journal_sekvens';
+        $this->db->utfor("UPDATE arkivar_arkiv SET $kolonne = $kolonne + 1 WHERE id = ?", [$arkivId]);
+
+        return Felt::tall($this->db->verdi("SELECT $kolonne FROM arkivar_arkiv WHERE id = ?", [$arkivId]));
+    }
+
+    /**
+     * Oppretter en saksmappe og gir ID-en. $nokkel settes bare på sakene som følger med arkivet. Med
+     * $offentligTittel er sakstittelen skjermet: den offentlige journalen viser den offentlige tittelen, og
+     * $tilgangskode gir hjemmelen.
+     */
+    public function opprettSak(
+        string $arkivId,
+        string $tittel,
+        string $arkivdel,
+        string $klasse,
+        string $enhet,
+        string $saksansvarlig,
+        string $saksdato,
+        ?string $nokkel = null,
+        ?string $offentligTittel = null,
+        ?string $tilgangskode = null,
+    ): string {
+        $id = Tilfeldig::uuid();
+        $this->db->utfor(
+            'INSERT INTO arkivar_sak (id, arkiv_id, nokkel, saksaar, sekvens, tittel, offentlig_tittel, skjerm_tittel, tilgangskode, arkivdel, klasse, enhet,
+                saksansvarlig, status, saksdato, opprettet)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [
+                $id, $arkivId, $nokkel, (int) substr($saksdato, 0, 4), $this->neste($arkivId, 'sak'), $tittel, $offentligTittel, $offentligTittel !== null ? 1 : 0, $tilgangskode,
+                $arkivdel, $klasse, $enhet, $saksansvarlig, 'B', $saksdato, Db::tid($this->klokke->now()),
+            ],
+        );
+
+        return $id;
+    }
+
+    /**
+     * Oppretter en journalpost i saken og gir ID-en.
+     *
+     * @param array{
+     *     type: string,
+     *     status: string,
+     *     tittel: string,
+     *     offentlig_tittel?: ?string,
+     *     dokumentdato: string,
+     *     journaldato: string,
+     *     saksbehandler: string,
+     *     enhet: string,
+     *     tilgangskode?: ?string,
+     *     skjerm_tittel?: bool,
+     *     skjerm_part?: bool,
+     *     part_navn?: string,
+     *     part_adresse?: ?string,
+     *     journalfort?: bool,
+     *     oppgave_id?: ?string,
+     *     innhold?: ?string,
+     * } $felt
+     */
+    public function opprettJournalpost(string $arkivId, string $sakId, array $felt): string
+    {
+        $id = Tilfeldig::uuid();
+        $postnr = Felt::tall($this->db->verdi('SELECT COALESCE(MAX(postnr), 0) + 1 FROM arkivar_journalpost WHERE sak_id = ?', [$sakId]));
+        $this->db->utfor(
+            'INSERT INTO arkivar_journalpost (id, arkiv_id, sak_id, postnr, journalaar, sekvens, journalfort, type, status, tittel, offentlig_tittel, dokumentdato, journaldato,
+                saksbehandler, enhet, tilgangskode, skjerm_tittel, skjerm_part, part_navn, part_adresse, oppgave_id, innhold, opprettet)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [
+                $id, $arkivId, $sakId, $postnr, (int) substr($felt['journaldato'], 0, 4), $this->neste($arkivId, 'journal'),
+                ($felt['journalfort'] ?? true) ? 1 : 0, $felt['type'], $felt['status'], $felt['tittel'], $felt['offentlig_tittel'] ?? null,
+                $felt['dokumentdato'], $felt['journaldato'], $felt['saksbehandler'], $felt['enhet'], $felt['tilgangskode'] ?? null,
+                ($felt['skjerm_tittel'] ?? false) ? 1 : 0, ($felt['skjerm_part'] ?? false) ? 1 : 0, $felt['part_navn'] ?? '', $felt['part_adresse'] ?? null,
+                $felt['oppgave_id'] ?? null, $felt['innhold'] ?? null, Db::tid($this->klokke->now()),
+            ],
+        );
+
+        return $id;
+    }
+
+    /**
+     * Sakene i arkivet, nyeste først, med antall registreringer.
+     *
+     * @return list<array<string, mixed>>
+     */
+    public function saker(string $arkivId): array
+    {
+        return $this->db->alle(
+            'SELECT s.*, (SELECT COUNT(*) FROM arkivar_journalpost j WHERE j.sak_id = s.id) AS antall
+               FROM arkivar_sak s WHERE s.arkiv_id = ? ORDER BY s.saksaar DESC, s.sekvens DESC',
+            [$arkivId],
+        );
+    }
+
+    /** @return array<string, mixed>|null */
+    public function sak(string $arkivId, string $id): ?array
+    {
+        return $this->db->en('SELECT * FROM arkivar_sak WHERE arkiv_id = ? AND id = ?', [$arkivId, $id]);
+    }
+
+    /** @return list<array<string, mixed>> */
+    public function journalposter(string $arkivId, string $sakId): array
+    {
+        return $this->db->alle('SELECT * FROM arkivar_journalpost WHERE arkiv_id = ? AND sak_id = ? ORDER BY postnr', [$arkivId, $sakId]);
+    }
+
+    /** @return array<string, mixed>|null */
+    public function journalpost(string $arkivId, string $id): ?array
+    {
+        return $this->db->en('SELECT * FROM arkivar_journalpost WHERE arkiv_id = ? AND id = ?', [$arkivId, $id]);
+    }
+
+    /**
+     * Journalen: alle journalførte poster, nyeste først, med saken de ligger i. Poster som er arkivert uten
+     * journalføring, står ikke i journalen.
+     *
+     * @return list<array<string, mixed>>
+     */
+    public function journal(string $arkivId): array
+    {
+        return $this->db->alle(
+            'SELECT j.*, s.saksaar, s.sekvens AS sakssekvens, s.tittel AS sakstittel, s.skjerm_tittel AS sak_skjermet, s.offentlig_tittel AS sak_offentlig_tittel
+               FROM arkivar_journalpost j JOIN arkivar_sak s ON s.id = j.sak_id
+              WHERE j.arkiv_id = ? AND j.journalfort = 1 ORDER BY j.journaldato DESC, j.sekvens DESC',
+            [$arkivId],
+        );
+    }
+
+    public function slettJournalpost(string $arkivId, string $id): void
+    {
+        $this->db->utfor('DELETE FROM arkivar_journalpost WHERE arkiv_id = ? AND id = ?', [$arkivId, $id]);
+    }
+
+    /** Sletter saken når den ikke har noen registreringer (brukes når en registrering angres). */
+    public function slettTomSak(string $arkivId, string $sakId): void
+    {
+        $this->db->utfor(
+            'DELETE FROM arkivar_sak WHERE arkiv_id = ? AND id = ? AND NOT EXISTS (SELECT 1 FROM arkivar_journalpost j WHERE j.sak_id = arkivar_sak.id)',
+            [$arkivId, $sakId],
+        );
+    }
+
+    /**
+     * Saken slik den sendes til nettleseren, med navnene ved siden av kodene.
+     *
+     * @param array<string, mixed> $rad
+     * @return array<string, mixed>
+     */
+    public function visSak(array $rad): array
+    {
+        $ansvarlig = $this->grunndata->ansatt(Felt::tekst($rad['saksansvarlig']));
+
+        return [
+            'id' => Felt::tekst($rad['id']),
+            'saksnummer' => Felt::tall($rad['saksaar']) . '/' . Felt::tall($rad['sekvens']),
+            'tittel' => Felt::tekst($rad['tittel']),
+            'skjerm_tittel' => Felt::tall($rad['skjerm_tittel']) === 1,
+            'offentlig_tittel' => Felt::valgfriTekst($rad['offentlig_tittel']),
+            'arkivdel' => Felt::tekst($rad['arkivdel']),
+            'arkivdel_tekst' => $this->grunndata->arkivdeltekst(Felt::tekst($rad['arkivdel'])),
+            'klasse' => Felt::tekst($rad['klasse']),
+            'klasse_tekst' => $this->grunndata->klassetekst(Felt::tekst($rad['klasse'])),
+            'enhet' => Felt::tekst($rad['enhet']),
+            'saksansvarlig' => Felt::tekst($rad['saksansvarlig']),
+            'saksansvarlig_navn' => $ansvarlig['navn'] ?? Felt::tekst($rad['saksansvarlig']),
+            'status' => Felt::tekst($rad['status']),
+            'saksdato' => Felt::tekst($rad['saksdato']),
+            'fulgte_med' => $rad['nokkel'] !== null,
+            'antall' => Felt::tall($rad['antall'] ?? 0),
+        ];
+    }
+
+    /**
+     * Journalposten slik den sendes til nettleseren. Med $offentlig vises den som i den offentlige journalen:
+     * skjermet tittel, skjermet sakstittel og skjermet avsender eller mottaker er byttet med den offentlige
+     * tittelen og *****.
+     *
+     * @param array<string, mixed> $rad
+     * @return array<string, mixed>
+     */
+    public function visJournalpost(array $rad, bool $offentlig = false): array
+    {
+        $skjermTittel = Felt::tall($rad['skjerm_tittel']) === 1;
+        $skjermPart = Felt::tall($rad['skjerm_part']) === 1;
+        $offentligTittel = Felt::valgfriTekst($rad['offentlig_tittel']);
+        $saksaar = Felt::tall($rad['saksaar'] ?? 0);
+        $ut = [
+            'id' => Felt::tekst($rad['id']),
+            'sak_id' => Felt::tekst($rad['sak_id']),
+            'postnr' => Felt::tall($rad['postnr']),
+            'lopenummer' => Felt::tall($rad['journalaar']) . '/' . Felt::tall($rad['sekvens']),
+            'journalfort' => Felt::tall($rad['journalfort']) === 1,
+            'type' => Felt::tekst($rad['type']),
+            'status' => Felt::tekst($rad['status']),
+            'tittel' => $offentlig && $skjermTittel ? ($offentligTittel ?? '*****') : Felt::tekst($rad['tittel']),
+            'offentlig_tittel' => $offentligTittel,
+            'dokumentdato' => Felt::tekst($rad['dokumentdato']),
+            'journaldato' => Felt::tekst($rad['journaldato']),
+            'saksbehandler' => Felt::tekst($rad['saksbehandler']),
+            'enhet' => Felt::tekst($rad['enhet']),
+            'tilgangskode' => Felt::valgfriTekst($rad['tilgangskode']),
+            'hjemmel' => $this->grunndata->tilgangstekst(Felt::valgfriTekst($rad['tilgangskode'])),
+            'skjerm_tittel' => $skjermTittel,
+            'skjerm_part' => $skjermPart,
+            'part_navn' => $offentlig && $skjermPart ? '*****' : Felt::tekst($rad['part_navn']),
+            'oppgave_id' => Felt::valgfriTekst($rad['oppgave_id']),
+        ];
+        if (!$offentlig) {
+            $ut['innhold'] = Felt::valgfriTekst($rad['innhold']);
+        }
+        if ($saksaar > 0) {
+            $ut['saksnummer'] = $saksaar . '/' . Felt::tall($rad['sakssekvens'] ?? 0);
+            // En skjermet sakstittel vises aldri i den offentlige journalen, heller ikke på en åpen journalpost.
+            $sakSkjermet = Felt::tall($rad['sak_skjermet'] ?? 0) === 1;
+            $ut['sakstittel'] = $offentlig && $sakSkjermet ? (Felt::valgfriTekst($rad['sak_offentlig_tittel'] ?? null) ?? '*****') : Felt::tekst($rad['sakstittel'] ?? '');
+        }
+
+        return $ut;
+    }
+}

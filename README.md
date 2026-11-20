@@ -16,7 +16,7 @@ saksgangen, i hvert sitt øvingsarkiv. Systemet lager ikke uttrekk og avleverer 
 | Seks arkivdeler: sakarkiv, eiendomsarkiv, personalarkiv, elevarkiv, barnehagebarnarkiv og møtearkiv | På plass |
 | Primærklassering per arkivdel: arkivnøkkel, gårds- og bruksnummer, fødselsdato og navn, eller utvalg. Klasseringen kan skjermes | På plass |
 | Arkivnøkkel bygd på statens fellesnøkkel, med søk | På plass |
-| Mapper med dokumenter som kan åpnes og leses (34 mapper med 154 dokumenter fra start) | På plass |
+| Mapper med dokumenter som kan åpnes og leses (134 mapper med 259 dokumenter fra start) | På plass |
 | Dokumentfiler i produksjonsformat og arkivformat (PDF eller tekst), utvidbare rader og lesevindu til høyre | På plass |
 | Arbeidsgangen: søk etter mappen, opprett den fra en saksmal hvis den ikke finnes, registrer journalposter i mappen | På plass |
 | Postmottaket: 24 eksempeldokumenter som vurderes, registreres og journalføres, med skjerming | På plass |

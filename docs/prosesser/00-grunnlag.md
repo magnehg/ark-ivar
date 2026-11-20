@@ -250,7 +250,7 @@ Mange kommuner bruker KS' K-koder som arkivnøkkel. Sirevåg har en forenklet n�
 | 1 | Økonomi | 150 Budsjett, 160 Anskaffelser |
 | 2 | Personal | 210 Tilsetting, 220 Personalmapper |
 | 3 | Oppvekst | 310 Barnehage, 320 Grunnskole |
-| 4 | Helse og omsorg | 410 Hjemmetjenester, 430 Sosiale tjenester |
+| 4 | Helse og omsorg | 410 Tjenester i hjemmet og på institusjon, 430 Sosiale tjenester |
 | 5 | Kultur, idrett og fritid | 510 Tilskudd til lag og foreninger |
 | 6 | Plan, bygg og eiendom | 610 Arealplan, 613 Byggesak, 620 Oppmåling |
 | 7 | Tekniske tjenester | 710 Vann og avløp, 730 Veg |
@@ -266,6 +266,7 @@ Mange kommuner bruker KS' K-koder som arkivnøkkel. Sirevåg har en forenklet n�
 | PERS | Personalmapper | Den ansatte | Personal og nærmeste leder |
 | ELEV | Elevmapper | Eleven | Skolen eleven går på |
 | HELSE | Saker om helse- og omsorgstjenester | Tjenestemottakeren | Enheten som yter tjenesten |
+| HAVN | Saker i Sirevåg Havn KF | Arkivnøkkelen | Foretaket og Dokumentsenteret |
 
 ## Dokumentasjonsplanen
 
@@ -274,7 +275,8 @@ Kommunen skal ha en oppdatert dokumentasjonsplan som viser hvordan arbeidet med 
 som arkiv, hvordan det lagres, hvilke systemer som brukes, oppbevaringstider, regler om taushetsplikt og rutiner
 for retting av feil (arkivforskrifta § 12). Dokumentasjonsplanen har overtatt for det som før 2026 het arkivplan.
 
-Rutinene i disse prosessbeskrivelsene er den delen av Sirevågs dokumentasjonsplan som handler om sak og arkiv.
+Sirevåg har beholdt det innarbeidede navnet og kaller planen [Arkivplan for Sirevåg kommune](../arkivplan/README.md).
+Prosessbeskrivelsene her er del 8 i arkivplanen: rutinene.
 
 ## Hvem har ansvaret?
 

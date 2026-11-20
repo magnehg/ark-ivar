@@ -8,9 +8,11 @@ den lagt til grunn.
 | Ord | Forklaring | Les mer |
 |---|---|---|
 | **Arkiv** | Dokumentasjon som skal tas vare på i et avgrenset tidsrom eller for ettertiden (arkivlova § 2). Brukes også om øverste nivå i arkivstrukturen, og om stedet der dokumentasjonen oppbevares | [Grunnlaget](00-grunnlag.md) |
+| **Arkivplan** | Sirevågs navn på dokumentasjonsplanen. Ordet var lovens eget fram til 2026 | [Arkivplanen](../arkivplan/README.md) |
 | **Arkivbegrensning** | Eldre ord for å holde dokumenter uten arkivverdi utenfor arkivet. Vurderingen gjøres nå etter arkivforskrifta § 1 | [P1](01-postmottak.md) |
 | **Arkivdel** | En del av arkivet med felles regler, for eksempel sakarkivet eller personalarkivet | [Grunnlaget](00-grunnlag.md) |
 | **Arkivformat** | Et filformat som er egnet for langtidslagring, i praksis PDF/A for tekstdokumenter | [P4](04-utgaende-og-interne.md) |
+| **Arkivlokale** | Rom der arkiver oppbevares, med krav til sikring mot vann, brann, klima og innbrudd (arkivforskrifta § 10) | [Arkivplanen del 3](../arkivplan/03-arkivoversikt.md) |
 | **Arkivnøkkel** | En systematisk oversikt over organets oppgaver, som sakene klassifiseres etter | [Grunnlaget](00-grunnlag.md) |
 | **Arkivperiode** | Tidsrommet en arkivdel er i bruk før den avsluttes og en ny begynner | [P11](11-bevaring-og-kassasjon.md) |
 | **Arkivplikt** | Plikten til å forvalte dokumentasjon som blir til i virksomheten, som arkiv (arkivlova § 5) | [Grunnlaget](00-grunnlag.md) |
@@ -19,6 +21,7 @@ den lagt til grunn.
 | **Avskriving** | Registreringen som viser at et inngående dokument er ferdig behandlet, og hvordan | [P5](05-avskriving-og-avslutning.md) |
 | **Avslutning** | Saken lukkes og låses når behandlingen er ferdig og kontrollert | [P5](05-avskriving-og-avslutning.md) |
 | **Bevaring** | Dokumentasjonen tas vare på for ettertiden | [P11](11-bevaring-og-kassasjon.md) |
+| **Bevarings- og kassasjonsplan** | Oversikten over hva som bevares, og oppbevaringstiden for resten, klasse for klasse | [Arkivplanen del 4](../arkivplan/04-bevarings-og-kassasjonsplan.md) |
 | **Bevaringsinstitusjon** | Institusjon som tar imot arkiv og har ansvar for å langtidsbevare dem og gjøre dem tilgjengelige | [P11](11-bevaring-og-kassasjon.md) |
 | **Dokument** | En logisk avgrenset informasjonsmengde lagret på et medium for senere lesing, lytting, framvisning eller overføring (offentleglova § 4) | [Grunnlaget](00-grunnlag.md) |
 | **Dokumentasjon** | Dokumenter og annen informasjon organet har lagret i informasjonssystemene sine, og som gjelder saksbehandlingen, oppgaveløsningen eller andre vesentlige forhold (arkivlova § 2) | [Grunnlaget](00-grunnlag.md) |
@@ -58,6 +61,7 @@ den lagt til grunn.
 | **Saksdokument** | Dokument som er kommet inn til, lagt fram for eller opprettet av organet, og som gjelder ansvarsområdet eller virksomheten (offentleglova § 4) | [Grunnlaget](00-grunnlag.md) |
 | **Saksframlegg** | Administrasjonens framstilling av en sak for et folkevalgt organ | [P10](10-politisk-behandling.md) |
 | **Saksmappe** | Samlingen av alle journalposter som hører til én sak | [Grunnlaget](00-grunnlag.md) |
+| **Systembeskrivelse** | Beskrivelsen kommunen skal ha av hvert system som inneholder arkiv (arkivforskrifta § 6) | [Arkivplanen del 2](../arkivplan/02-dokumentasjon-og-systemer.md) |
 | **Skjerming** | Opplysninger holdes skjult i journalen eller i et dokument, med henvisning til en hjemmel | [P9](09-skjerming-og-tilgang.md) |
 | **Sladding** | Opplysninger i et dokument dekkes over i kopien som gis ut. Originalen endres ikke | [P8](08-innsyn.md) |
 | **Taushetsplikt** | Plikt til å hindre at andre får kjennskap til bestemte opplysninger (forvaltningsloven § 13 og særlover) | [P9](09-skjerming-og-tilgang.md) |

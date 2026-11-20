@@ -15,3 +15,6 @@
 - Prosessbeskrivelser for sak og arkiv i Sirevåg kommune (docs/prosesser): elleve prosesser fra postmottak til
   bevaring og kassasjon, med figurer, rutiner, lovgrunnlag, forklaringer, eksempler og kontrollspørsmål, og en
   lovoversikt og ordliste. De er læremateriell og grunnlaget for arkivdelen som skal bygges.
+- Arkivplan for Sirevåg kommune (docs/arkivplan): kommunens dokumentasjonsplan etter arkivlova § 8, med organisering
+  og ansvar, dokumentasjon og systemer, arkivoversikt og arkivlokaler, bevarings- og kassasjonsplan,
+  informasjonssikkerhet, avtaler, internkontroll og beredskap. Prosessbeskrivelsene er rutinedelen i planen.

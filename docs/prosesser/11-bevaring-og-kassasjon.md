@@ -72,7 +72,7 @@ stateDiagram-v2
 
 | Steg | Hvem | Hva gjøres |
 |---|---|---|
-| 1 | Arkivleder | Fører inn i dokumentasjonsplanen, for hver klasse i arkivnøkkelen, om dokumentasjonen skal bevares, eller hvor lang oppbevaringstiden er, og hvilken regel det bygger på |
+| 1 | Arkivleder | Fører inn i arkivplanens [bevarings- og kassasjonsplan](../arkivplan/04-bevarings-og-kassasjonsplan.md), for hver klasse i arkivnøkkelen, om dokumentasjonen skal bevares, eller hvor lang oppbevaringstiden er, og hvilken regel det bygger på |
 | 2 | Den som registrerer | Velger riktig klasse (P2). Saken arver regelen fra klassen |
 | 3 | Dokumentsenteret | Kontrollerer regelen når saken avsluttes (P5). En sak kan ha fått et annet innhold enn klassen tilsier. Regelen kan da overstyres på saken, med begrunnelse |
 
@@ -166,7 +166,8 @@ kan da se at saken har eksistert, hva den gjaldt, og etter hvilken regel dokumen
 
 ## Eksempel fra Sirevåg
 
-Utdrag fra Sirevågs dokumentasjonsplan. Oppbevaringstidene er kommunens egne valg og er laget for øving.
+Utdrag fra [bevarings- og kassasjonsplanen](../arkivplan/04-bevarings-og-kassasjonsplan.md) i Sirevågs arkivplan.
+Oppbevaringstidene er kommunens egne valg og er laget for øving.
 
 | Klasse | Dokumentasjon | Regel | Begrunnelse |
 |---|---|---|---|

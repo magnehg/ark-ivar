@@ -4,6 +4,10 @@ Her står arbeidsprosessene i et sak- og arkivsystem slik de skal øves på i Ar
 postmottaket, til saken er avsluttet og dokumentasjonen enten tas vare på for ettertiden eller kasseres. Hver prosess
 har en figur, en rutine steg for steg, lovgrunnlaget og en forklaring på *hvorfor* det gjøres slik.
 
+Prosessbeskrivelsene er rutinedelen (del 8) i [Arkivplan for Sirevåg kommune](../arkivplan/README.md). Resten av
+arkivplanen sier hvem som har ansvaret, hvilke systemer og arkiver kommunen har, hva som bevares, og hvordan
+planen følges opp.
+
 Beskrivelsene har to formål:
 
 1. **Læremateriell for studenten.** De forklarer hva en arkivar og en saksbehandler gjør, og hvilken regel som
@@ -123,7 +127,7 @@ lenger.
 | Lov 4. desember 1992 nr. 126 om arkiv | Lov 20. juni 2025 nr. 96 om dokumentasjon og arkiv (arkivlova) |
 | Forskrift om offentlege arkiv (2017) og riksarkivarens forskrift (2017) | Forskrift 17. desember 2025 nr. 2647 om dokumentasjon og arkiv (arkivforskrifta) og forskrift 19. desember 2025 nr. 2729 (bevaringsforskrifta) |
 | Arkivverket og Riksarkivaren | Nasjonalarkivet |
-| Arkivplan | Dokumentasjonsplan (arkivlova § 8) |
+| Arkivplan | Dokumentasjonsplan (arkivlova § 8). Sirevåg kaller fortsatt sin plan arkivplan |
 | Journalføring i gammel arkivforskrift §§ 9 og 10 | Arkivforskrifta §§ 14 og 15 |
 | Krav om at systemet følger Noark | Funksjonelle krav til informasjonssystemene (arkivforskrifta § 5). Noark 5 nevnes bare i reglene om uttrekk fra statlige organer (§ 28) |
 

@@ -8,3 +8,9 @@ arkivar.utseende.modus.
 arkivar.utseende.bredde.
 arkivar.sprak.
 arkivar.felles.
+arkivar.handling.
+arkivar.jptype.
+arkivar.jpstatus.
+arkivar.saksstatus.
+arkivar.kanal.
+arkivar.kriterium.

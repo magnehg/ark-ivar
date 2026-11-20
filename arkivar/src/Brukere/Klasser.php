@@ -111,15 +111,22 @@ final class Klasser
     }
 
     /**
-     * Studentene i klassen som har bekreftet e-postadressen, sortert på navn.
+     * Studentene i klassen som har bekreftet e-postadressen, sortert på navn, med fremdriften i postmottaket: hvor
+     * mange dokumenter studenten har behandlet i øvingsarkivet sitt, og hvor mange valg som stemte med fasiten.
      *
      * @return list<array<string, mixed>>
      */
     public function medlemmer(string $klasseId): array
     {
+        $status = 'FROM arkivar_oppgavestatus o JOIN arkivar_arkiv a ON a.id = o.arkiv_id WHERE a.eier_id = b.id';
+
         return $this->db->alle(
-            'SELECT b.*, m.innmeldt FROM arkivar_klassemedlem m JOIN arkivar_bruker b ON b.id = m.bruker_id
-              WHERE m.klasse_id = ? AND b.epost_bekreftet IS NOT NULL ORDER BY b.navn, b.epost',
+            "SELECT b.*, m.innmeldt,
+                    (SELECT COUNT(*) $status) AS behandlet,
+                    (SELECT COALESCE(SUM(o.poeng), 0) $status) AS poeng,
+                    (SELECT COALESCE(SUM(o.maks), 0) $status) AS maks
+               FROM arkivar_klassemedlem m JOIN arkivar_bruker b ON b.id = m.bruker_id
+              WHERE m.klasse_id = ? AND b.epost_bekreftet IS NOT NULL ORDER BY b.navn, b.epost",
             [$klasseId],
         );
     }

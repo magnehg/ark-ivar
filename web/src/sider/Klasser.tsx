@@ -16,12 +16,15 @@ const s = makeStyles({
 
 function Studenter({ klasse, oppdatert }: { klasse: Klasse; oppdatert: () => void }) {
   const c = s(); const t = useT(); const tid = useTidspunkt(); const feiltekst = useFeiltekst();
-  const detaljer = useHent<{ klasse: Klasse; studenter: Klassestudent[] }>(`/api/klasser/${klasse.id}`);
+  const detaljer = useHent<{ klasse: Klasse; dokumenter: number; studenter: Klassestudent[] }>(`/api/klasser/${klasse.id}`);
+  const dokumenter = detaljer.data?.dokumenter ?? 0;
   const [feil, settFeil] = useState<string | null>(null);
   const nyKode = () => { settFeil(null); api.post(`/api/klasser/${klasse.id}/ny-kode`).then(() => { detaljer.last(); oppdatert(); }).catch((e: unknown) => settFeil(feiltekst(e))); };
   const kolonner: Kolonne<Klassestudent>[] = [
     { id: 'navn', overskrift: t('arkivar.konto.navn'), celle: (r) => r.navn, sorter: (r) => r.navn },
     { id: 'epost', overskrift: t('arkivar.konto.epost'), celle: (r) => r.epost, sorter: (r) => r.epost, stil: { overflowWrap: 'anywhere' } },
+    { id: 'behandlet', overskrift: t('arkivar.klasser.behandlet'), stil: { width: '130px' }, celle: (r) => t('arkivar.tabell.antall', { vist: r.behandlet, alle: dokumenter }), sorter: (r) => r.behandlet },
+    { id: 'riktige', overskrift: t('arkivar.klasser.riktige'), stil: { width: '130px' }, celle: (r) => (r.maks > 0 ? t('arkivar.tabell.antall', { vist: r.poeng, alle: r.maks }) : ''), sorter: (r) => (r.maks > 0 ? r.poeng / r.maks : null) },
     { id: 'innmeldt', overskrift: t('arkivar.klasser.innmeldt'), celle: (r) => tid(r.innmeldt), sorter: (r) => r.innmeldt },
     { id: 'sist', overskrift: t('arkivar.brukere.sist_innlogget'), celle: (r) => tid(r.sist_innlogget), sorter: (r) => r.sist_innlogget },
   ];

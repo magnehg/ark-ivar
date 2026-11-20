@@ -12,3 +12,9 @@
   Fem fargetemaer i lys og mørk modus, bredde og tre språk i brukermenyen.
 - Installasjonen gjøres i grensesnittet: Kjerne-kopien slipper appens sider gjennom også før installasjonen.
 - Siden får en engangsverdi for stilene i CSP-hodet, så Fluent virker uten `unsafe-inline`.
+- Øvingsarkivet: hver bruker får et eget arkiv for Sirevåg kommune med saker og journal, og kan nullstille det.
+  Arkivstrukturen (arkivdeler, arkivnøkkel, enheter, ansatte og tilgangskoder) kan leses.
+- Postmottaket med tolv eksempeldokumenter: studenten velger behandling, registrerer sak og journalpost med
+  tilgangskode og skjerming, og får en vurdering mot fasiten med forklaring per kriterium. Kan angres.
+- Journalen kan vises som offentlig journal, med skjermede titler og navn.
+- Læreren ser hvor mange dokumenter hver student i klassen har behandlet, og hvor mange valg som var riktige.

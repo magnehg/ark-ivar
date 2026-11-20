@@ -35,6 +35,21 @@ uttrekk eller avlevere.
   (registrering, bekreftelse, innlogging, passord), `Domener` (godkjente e-postdomener), `Klasser`, `Engangskoder`
   og `Roller`. Rollene er et hierarki: student < lærer < administrator. Tilgang sjekkes med
   `$kjerne->krev(Roller::urn(Roller::LAERER))`.
+- **Øvingsarkivet** (`arkivar/src/Arkiv/`, rutene under `/api/arkiv/` i `Arkivruter`): hver bruker har ett arkiv
+  (`arkivar_arkiv`, laget første gang det åpnes av `Ovingsarkiv::forBruker()` og fylt fra grunndataene), med
+  saksmapper (`arkivar_sak`) og journalposter (`arkivar_journalpost`, `Register`). Arkivets ID kommer aldri fra
+  nettleseren, og alle oppslag tar den med. Arkivstrukturen (`Grunndata`, `arkivar/data/sirevag.json`) er felles og
+  kan ikke endres av studentene. Kodene følger Noark 5 (`Kodelister`); navnene står i språkfilene med små bokstaver
+  (`arkivar.jptype.i`).
+- **Postmottaket** (`Postmottak`, `Oppgavesett`, `arkivar/data/oppgaver.json`): studenten er arkivtjenesten og
+  behandler eksempeldokumentene. Svaret vurderes av `Vurdering` (ren funksjon) og lagres i `arkivar_oppgavestatus`.
+  **Fasiten sendes aldri til nettleseren før dokumentet er behandlet** (testen sjekker det). Skjerming krever en
+  tilgangskode (hjemmel), og gjelder journalpostens tittel, sakens tittel og avsenderen; den offentlige journalen
+  (`Register::visJournalpost(…, true)`) viser de offentlige titlene og `*****`.
+- **Nytt eksempeldokument:** legg det i `oppgaver.json` med fasit og forklaringer. `GrunndataTest` sjekker at kodene
+  finnes, og `ArkivTest::testFasitenGirFullUttellingForAlleDokumentene` at fasiten kan oppnås gjennom skjemaet.
+  Dokumentene er datert; dokumentdatoen kan ikke ligge frem i tid, så testen setter klokka. Navn som ikke må stå i
+  en offentlig tittel, står i `sensitive_ord`. Innholdet i `arkivar/data/` er norsk og oversettes ikke.
 - **E-post** (`arkivar/src/Epost/`): `Epostsender` med `MailEpost` (drift) og `FilEpost` (tester og lokal utvikling).
 - **Logg:** hendelser skrives med `$kjerne->logg()->skriv('urn:arkivar:hendelse:<område>:<handling>', …)`, og
   klarteksten står i språkfilene som `arkivar.hendelse.<område>.<handling>`.

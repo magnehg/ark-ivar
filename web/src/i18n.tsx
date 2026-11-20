@@ -51,3 +51,9 @@ export function useTidspunkt() {
   const intl = useIntl();
   return (iso?: string | null) => (iso ? intl.formatDate(iso, { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '');
 }
+
+/** Dato (uten klokkeslett) på brukerens språk fra ÅÅÅÅ-MM-DD, eller tom tekst. */
+export function useDato() {
+  const intl = useIntl();
+  return (dato?: string | null) => (dato ? intl.formatDate(dato + 'T12:00:00', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '');
+}

@@ -21,6 +21,11 @@ export default function MinSide() {
   const [klassefeil, settKlassefeil] = useState<string | null>(null); const [klasseOk, settKlasseOk] = useState<string | null>(null);
   const [passordfeil, settPassordfeil] = useState<string | null>(null); const [passordOk, settPassordOk] = useState(false);
   const [opptatt, settOpptatt] = useState(false);
+  const [bekreft, settBekreft] = useState(false); const [nullstilt, settNullstilt] = useState(false); const [arkivfeil, settArkivfeil] = useState<string | null>(null);
+  const nullstill = () => {
+    settOpptatt(true); settArkivfeil(null);
+    api.post('/api/arkiv/nullstill').then(() => { settNullstilt(true); settBekreft(false); }).catch((e: unknown) => settArkivfeil(feiltekst(e))).finally(() => settOpptatt(false));
+  };
 
   const meldInn = () => {
     settOpptatt(true); settKlassefeil(null); settKlasseOk(null);
@@ -57,6 +62,17 @@ export default function MinSide() {
           <Field label={t('arkivar.konto.klassekode')} hint={t('arkivar.min_side.klasser.hjelp')}><Input value={kode} onChange={(_, d) => settKode(d.value)} autoComplete="off" /></Field>
           <Button type="submit" disabled={opptatt || kode.trim() === ''}>{t('arkivar.min_side.klasser.knapp')}</Button>
         </form>
+      </Kort>
+      <Kort tittel={t('arkivar.min_side.arkiv.tittel')} id="mitt-arkiv">
+        <p className={c.dempet}>{t('arkivar.min_side.arkiv.tekst')}</p>
+        {arkivfeil && <Feil melding={arkivfeil} />}
+        {nullstilt && <Ok melding={t('arkivar.min_side.arkiv.nullstilt')} />}
+        {bekreft ? (
+          <div className={c.skjema}>
+            <span>{t('arkivar.min_side.arkiv.bekreft')}</span>
+            <div><Button appearance="primary" disabled={opptatt} onClick={nullstill}>{t('arkivar.min_side.arkiv.ja')}</Button> <Button onClick={() => settBekreft(false)}>{t('arkivar.min_side.arkiv.avbryt')}</Button></div>
+          </div>
+        ) : <Button onClick={() => { settBekreft(true); settNullstilt(false); }}>{t('arkivar.min_side.arkiv.knapp')}</Button>}
       </Kort>
       <Kort tittel={t('arkivar.min_side.passord.tittel')} id="mitt-passord">
         <form className={c.skjema} noValidate onSubmit={(e) => { e.preventDefault(); byttPassord(); }}>

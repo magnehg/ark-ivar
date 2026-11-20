@@ -100,7 +100,32 @@ final class Vurdering
             $ut[] = self::kriterium('skjerm_part', $svar['skjerm_part'] === $fasit['skjerm_part'], $svar['skjerm_part'] ? 'ja' : 'nei', $fasit['skjerm_part'] ? 'ja' : 'nei', $skjerming);
         }
 
-        return $ut;
+        return self::enForklaringOmSkjerming($ut);
+    }
+
+    /**
+     * Kriteriene om skjerming deler én forklaring i fasiten. Den vises én gang: ved det første av dem som avviker,
+     * ellers ved det første av dem.
+     *
+     * @param list<Kriterium> $kriterier
+     * @return list<Kriterium>
+     */
+    private static function enForklaringOmSkjerming(array $kriterier): array
+    {
+        $skjerming = ['offentlig_sakstittel', 'offentlig_tittel', 'skjerm_tittel', 'skjerm_part'];
+        $valgt = null;
+        foreach ($kriterier as $nr => $k) {
+            if (in_array($k['id'], $skjerming, true) && ($valgt === null || ($kriterier[$valgt]['ok'] && !$k['ok']))) {
+                $valgt = $nr;
+            }
+        }
+        foreach ($kriterier as $nr => $k) {
+            if (in_array($k['id'], $skjerming, true) && $nr !== $valgt) {
+                $kriterier[$nr]['forklaring'] = '';
+            }
+        }
+
+        return $kriterier;
     }
 
     /** @return Kriterium */

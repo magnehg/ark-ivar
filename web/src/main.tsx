@@ -31,6 +31,12 @@ const MinSide = lastSide(() => import('./sider/MinSide'));
 const Klasser = lastSide(() => import('./sider/Klasser'));
 const Brukere = lastSide(() => import('./sider/Brukere'));
 const Domener = lastSide(() => import('./sider/Domener'));
+const Postmottak = lastSide(() => import('./sider/arkiv/Postmottak'));
+const Dokument = lastSide(() => import('./sider/arkiv/Dokument'));
+const Saker = lastSide(() => import('./sider/arkiv/Saker').then((m) => ({ default: m.Saker })));
+const EnSak = lastSide(() => import('./sider/arkiv/Saker').then((m) => ({ default: m.EnSak })));
+const Journal = lastSide(() => import('./sider/arkiv/Journal'));
+const Struktur = lastSide(() => import('./sider/arkiv/Struktur'));
 const Installasjon = lazy(() => import('./sider/Installasjon'));
 
 // Før installasjonen svarer ikke /api/oppsett. Navnet står da her; ellers kommer det fra serveren.
@@ -51,6 +57,7 @@ function App() {
   if (tilstand.slag === 'laster') return <Laster />;
   if (tilstand.slag === 'installasjon') return <Suspense fallback={<Laster />}><Installasjon appnavn={APPNAVN} /></Suspense>;
   if (tilstand.slag === 'feil') return <Feil melding={t('arkivar.feil.nett')} />;
+  const student = harRolle(innlogget, 'student');
   const laerer = harRolle(innlogget, 'laerer');
   const admin = kanAdministrere(innlogget);
   return (
@@ -60,7 +67,13 @@ function App() {
           <Routes>
             <Route element={<Skall />}>
               <Route index element={<Hjem />} />
-              {harRolle(innlogget, 'student') && <Route path="min-side" element={<MinSide />} />}
+              {student && <Route path="min-side" element={<MinSide />} />}
+              {student && <Route path="arkiv/postmottak" element={<Postmottak />} />}
+              {student && <Route path="arkiv/postmottak/:id" element={<Dokument />} />}
+              {student && <Route path="arkiv/saker" element={<Saker />} />}
+              {student && <Route path="arkiv/saker/:id" element={<EnSak />} />}
+              {student && <Route path="arkiv/journal" element={<Journal />} />}
+              {student && <Route path="arkiv/struktur" element={<Struktur />} />}
               {laerer && <Route path="klasser" element={<Klasser />} />}
               {admin && <Route path="administrasjon/brukere" element={<Brukere />} />}
               {admin && <Route path="administrasjon/domener" element={<Domener />} />}

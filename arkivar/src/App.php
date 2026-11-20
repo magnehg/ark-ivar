@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ArkIvar;
 
 use ArkIvar\Arkiv\Arkivruter;
+use ArkIvar\Arkiv\Oppgavesett;
 use ArkIvar\Brukere\Brukere;
 use ArkIvar\Brukere\Domener;
 use ArkIvar\Brukere\Engangskoder;
@@ -356,9 +357,14 @@ final class App
 
             return Svar::json([
                 'klasse' => Klasser::offentlig($klasse, true),
+                // Antall dokumenter i postmottaket, så fremdriften kan vises som «3 av 12».
+                'dokumenter' => count((new Oppgavesett())->alle()),
                 'studenter' => array_map(
-                    static fn (array $b): array => ['id' => Felt::tekst($b['id']), 'navn' => Felt::tekst($b['navn']), 'epost' => Felt::tekst($b['epost']),
-                        'innmeldt' => Brukere::tidspunkt($b['innmeldt']), 'sist_innlogget' => Brukere::tidspunkt($b['sist_innlogget'])],
+                    static fn (array $b): array => [
+                        'id' => Felt::tekst($b['id']), 'navn' => Felt::tekst($b['navn']), 'epost' => Felt::tekst($b['epost']),
+                        'innmeldt' => Brukere::tidspunkt($b['innmeldt']), 'sist_innlogget' => Brukere::tidspunkt($b['sist_innlogget']),
+                        'behandlet' => Felt::tall($b['behandlet']), 'poeng' => Felt::tall($b['poeng']), 'maks' => Felt::tall($b['maks']),
+                    ],
                     $this->klasser()->medlemmer(Felt::tekst($klasse['id'])),
                 ),
             ]);

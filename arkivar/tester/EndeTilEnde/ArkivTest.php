@@ -197,6 +197,9 @@ final class ArkivTest extends AppTestCase
         self::assertSame('520 Byggesaker', $vurdering['klasse']['riktig']);
         self::assertSame(4, $j['poeng']);
         self::assertSame(10, $j['maks']);
+        // Forklaringen om skjerming står én gang, ved kriteriet som avviker.
+        self::assertStringContainsString('Ingenting skal skjermes', Felt::tekst($vurdering['skjerm_tittel']['forklaring']));
+        self::assertSame('', $vurdering['skjerm_part']['forklaring']);
         self::assertIsArray($j['forslag']);
         self::assertStringStartsWith('2026/1 Byggesak – tilbygg til bolig', Felt::tekst($j['forslag']['sak']));
 
@@ -266,6 +269,27 @@ final class ArkivTest extends AppTestCase
         self::assertIsArray($j['oversikt']);
         self::assertSame(6, $j['oversikt']['saker'], 'Et skjema med feil oppretter ingen sak.');
         self::assertSame(12, $j['oversikt']['journalposter']);
+    }
+
+    public function testLaererenSerFremdriftenTilStudenteneIKlassen(): void
+    {
+        $laerer = $this->ansatt($this->drift(), 'laerer', 'lars@hogskolen.example', 'Lars Lærer', '10.0.0.9');
+        [, $j] = $laerer->kall('POST', '/api/klasser', ['navn' => 'Arkivkunnskap høst']);
+        self::assertIsArray($j['klasse']);
+        $klasseId = Felt::tekst($j['klasse']['id']);
+        [$svar] = $this->kari->kall('POST', '/api/meg/klasser', ['kode' => Felt::tekst($j['klasse']['kode'])]);
+        self::assertSame(200, $svar->status, $svar->kropp);
+        $this->student('ola@hogskolen.example', 'Ola Student', Felt::tekst($j['klasse']['kode']), '10.0.0.2');
+
+        // Kari behandler to dokumenter: ett riktig og ett feil. Ola har ikke åpnet arkivet.
+        $this->kari->kall('POST', '/api/arkiv/postmottak/kursinvitasjon', ['handling' => 'ikke_arkiver']);
+        $this->kari->kall('POST', '/api/arkiv/postmottak/faktura-ror', ['handling' => 'ikke_arkiver']);
+        [$svar, $j] = $laerer->kall('GET', "/api/klasser/$klasseId");
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertSame(12, $j['dokumenter']);
+        $studenter = array_column(self::rader($j['studenter']), null, 'navn');
+        self::assertSame([2, 1, 2], [$studenter['Kari Student']['behandlet'], $studenter['Kari Student']['poeng'], $studenter['Kari Student']['maks']]);
+        self::assertSame([0, 0, 0], [$studenter['Ola Student']['behandlet'], $studenter['Ola Student']['poeng'], $studenter['Ola Student']['maks']]);
     }
 
     public function testAngreNullstillOgAdskilteArkiver(): void

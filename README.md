@@ -12,9 +12,26 @@ saksgangen, i hvert sitt øvingsarkiv. Systemet lager ikke uttrekk og avleverer 
 | Kontoer: registrering med godkjent e-postdomene eller klassekode, bekreftelse på e-post, innlogging, glemt passord | På plass (API og tester) |
 | Klasser (lærer) og administrasjon av brukere og godkjente domener | På plass (API og tester) |
 | Nettgrensesnittet (React og Fluent UI v9 på designpakken): innlogging, registrering, min side, klasser, brukere, domener, installasjon | På plass |
-| Arkivet til Sirevåg kommune: arkivstruktur, saksmapper, journalposter, postmottak med eksempeldokumenter | Ikke begynt |
-| Offentlig journal og innsynskrav | Ikke begynt |
-| Fasit og tilbakemelding til studenten, lærerens oversikt | Ikke begynt |
+| Øvingsarkivet: eget arkiv per bruker med saker og journal for Sirevåg kommune, arkivstruktur, nullstilling | På plass |
+| Postmottaket: tolv eksempeldokumenter som vurderes, registreres og journalføres, med skjerming | På plass |
+| Fasit og tilbakemelding per kriterium, og lærerens oversikt over fremdriften i klassen | På plass |
+| Offentlig journal (visning med skjermede titler og navn) | På plass |
+| Saksgang: svar ut, avskrivning, avslutning av saker | Ikke begynt |
+| Behandling av innsynskrav | Ikke begynt |
+| Arkivstruktur som studenten selv kan endre | Ikke begynt |
+
+## Det faglige innholdet
+
+Arkivstrukturen og eksempeldokumentene ligger i `arkivar/data/`:
+
+- `sirevag.json`: arkivdelene, arkivnøkkelen, enhetene, de ansatte, tilgangskodene med hjemmel, og sakene som ligger i
+  arkivet fra start. Arkivnøkkelen er laget for Ark-Ivar og er ikke KS' K-koder (de er lisensbelagt).
+- `oppgaver.json`: dokumentene i postmottaket, hvert med fasit og forklaringer.
+
+**Fasiten, forklaringene og hjemlene er skrevet uten faglig gjennomgang** og må leses av en som kan arkivfaget og
+offentleglova, før systemet brukes i undervisning. Det gjelder særlig hjemlene til tilgangskodene (blant annet
+henvisningene til forvaltningsloven) og begrunnelsene for journalføring og arkivbegrensning etter gjeldende
+arkivregelverk.
 
 ## Hvem bruker det
 

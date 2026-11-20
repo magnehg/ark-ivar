@@ -50,7 +50,7 @@ export type Oppsett = { appnavn: string; virksomhet: string; versjon: string; sp
 export type Bruker = { id: string; epost: string; navn: string; rolle: Rolle; aktiv: boolean; epost_bekreftet: boolean; registrert_via: string; opprettet: string | null; sist_innlogget: string | null };
 export type Rolle = 'student' | 'laerer' | 'administrator';
 export type Klasse = { id: string; navn: string; aktiv: boolean; laerer: string | null; kode?: string; laerer_id?: string; antall?: number };
-export type Klassestudent = { id: string; navn: string; epost: string; innmeldt: string | null; sist_innlogget: string | null };
+export type Klassestudent = { id: string; navn: string; epost: string; innmeldt: string | null; sist_innlogget: string | null; behandlet: number; poeng: number; maks: number };
 export type Domene = { id: string; domene: string; sted: string; underdomener: boolean; aktiv: boolean };
 
 const ROLLE = 'urn:bivrost:app:arkivar:rolle:';

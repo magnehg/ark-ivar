@@ -57,25 +57,53 @@ final class Ovingsarkiv
         });
     }
 
-    /** Legger inn sakene og journalpostene som følger med arkivet. */
+    /**
+     * Legger inn mappene og journalpostene som følger med arkivet. Mappene får saksnummer etter saksdatoen, og
+     * journalpostene løpenummer etter journaldatoen på tvers av mappene, slik de ville fått i et arkiv i bruk.
+     */
     private function fyll(string $arkivId): void
     {
-        foreach ($this->grunndata->saker() as $sak) {
-            $sakId = $this->register->opprettSak($arkivId, $sak['tittel'], $sak['arkivdel'], $sak['klasse'], $sak['enhet'], $sak['saksansvarlig'], $sak['saksdato'], $sak['nokkel']);
+        $saker = $this->grunndata->saker();
+        usort($saker, static fn (array $a, array $b): int => [$a['saksdato'], $a['nokkel']] <=> [$b['saksdato'], $b['nokkel']]);
+        $poster = [];
+        foreach ($saker as $sak) {
+            $sakId = $this->register->opprettSak(
+                $arkivId,
+                $sak['tittel'],
+                $sak['arkivdel'],
+                $sak['klasse'],
+                $sak['enhet'],
+                $sak['saksansvarlig'],
+                $sak['saksdato'],
+                $sak['nokkel'],
+                $sak['offentlig_tittel'],
+                $sak['tilgangskode'],
+                $sak['status'],
+                $sak['skjerm_klasse'],
+            );
             foreach ($sak['journalposter'] as $post) {
-                $this->register->opprettJournalpost($arkivId, $sakId, [
-                    'type' => $post['type'],
-                    'status' => $post['status'],
-                    'tittel' => $post['tittel'],
-                    'dokumentdato' => $post['dokumentdato'],
-                    'journaldato' => $post['dokumentdato'],
-                    'saksbehandler' => $sak['saksansvarlig'],
-                    'enhet' => $sak['enhet'],
-                    'tilgangskode' => $post['tilgangskode'],
-                    'part_navn' => $post['part'],
-                    'innhold' => $post['innhold'],
-                ]);
+                $poster[] = ['sak' => $sak, 'sak_id' => $sakId, 'post' => $post];
             }
+        }
+        usort($poster, static fn (array $a, array $b): int => [$a['post']['journaldato'], $a['sak']['saksdato'], $a['sak']['nokkel'], $a['post']['nr']]
+            <=> [$b['post']['journaldato'], $b['sak']['saksdato'], $b['sak']['nokkel'], $b['post']['nr']]);
+        foreach ($poster as ['sak' => $sak, 'sak_id' => $sakId, 'post' => $post]) {
+            $this->register->opprettJournalpost($arkivId, $sakId, [
+                'type' => $post['type'],
+                'status' => $post['status'],
+                'tittel' => $post['tittel'],
+                'offentlig_tittel' => $post['offentlig_tittel'],
+                'dokumentdato' => $post['dokumentdato'],
+                'journaldato' => $post['journaldato'],
+                'saksbehandler' => $sak['saksansvarlig'],
+                'enhet' => $sak['enhet'],
+                'tilgangskode' => $post['tilgangskode'],
+                'skjerm_tittel' => $post['offentlig_tittel'] !== null,
+                'skjerm_part' => $post['skjerm_part'],
+                'part_navn' => $post['part'],
+                'journalfort' => $post['journalfort'],
+                'startdokument' => $post['dokument'] !== null ? $sak['nokkel'] . '#' . $post['nr'] : null,
+            ]);
         }
     }
 

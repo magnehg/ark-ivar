@@ -12,8 +12,13 @@ saksgangen, i hvert sitt øvingsarkiv. Systemet lager ikke uttrekk og avleverer 
 | Kontoer: registrering med godkjent e-postdomene eller klassekode, bekreftelse på e-post, innlogging, glemt passord | På plass (API og tester) |
 | Klasser (lærer) og administrasjon av brukere og godkjente domener | På plass (API og tester) |
 | Nettgrensesnittet (React og Fluent UI v9 på designpakken): innlogging, registrering, min side, klasser, brukere, domener, installasjon | På plass |
-| Øvingsarkivet: eget arkiv per bruker med saker og journal for Sirevåg kommune, arkivstruktur, nullstilling | På plass |
-| Postmottaket: tolv eksempeldokumenter som vurderes, registreres og journalføres, med skjerming | På plass |
+| Øvingsarkivet: eget arkiv per bruker for Sirevåg kommune, med journal og nullstilling | På plass |
+| Seks arkivdeler: sakarkiv, eiendomsarkiv, personalarkiv, elevarkiv, barnehagebarnarkiv og møtearkiv | På plass |
+| Primærklassering per arkivdel: arkivnøkkel, gårds- og bruksnummer, fødselsdato og navn, eller utvalg. Klasseringen kan skjermes | På plass |
+| Arkivnøkkel bygd på statens fellesnøkkel, med søk | På plass |
+| Mapper med dokumenter som kan åpnes og leses (33 mapper fra start) | På plass |
+| Arbeidsgangen: søk etter mappen, opprett den fra en saksmal hvis den ikke finnes, registrer journalposter i mappen | På plass |
+| Postmottaket: 24 eksempeldokumenter som vurderes, registreres og journalføres, med skjerming | På plass |
 | Fasit og tilbakemelding per kriterium, og lærerens oversikt over fremdriften i klassen | På plass |
 | Offentlig journal (visning med skjermede titler og navn) | På plass |
 | Saksgang: svar ut, avskrivning, avslutning av saker | Ikke begynt |
@@ -22,16 +27,23 @@ saksgangen, i hvert sitt øvingsarkiv. Systemet lager ikke uttrekk og avleverer 
 
 ## Det faglige innholdet
 
-Arkivstrukturen og eksempeldokumentene ligger i `arkivar/data/`:
+Arkivstrukturen og dokumentene ligger i `arkivar/data/`, og reglene for dem står i
+[docs/innhold.md](docs/innhold.md):
 
-- `sirevag.json`: arkivdelene, arkivnøkkelen, enhetene, de ansatte, tilgangskodene med hjemmel, og sakene som ligger i
-  arkivet fra start. Arkivnøkkelen er laget for Ark-Ivar og er ikke KS' K-koder (de er lisensbelagt).
+- `sirevag.json`: arkivdelene, arkivnøkkelen, registrene (eiendommer, ansatte, elever, barnehagebarn og utvalg),
+  enhetene, de ansatte, tilgangskodene med hjemmel, og mappene med dokumenter som ligger i arkivet fra start.
 - `oppgaver.json`: dokumentene i postmottaket, hvert med fasit og forklaringer.
 
-**Fasiten, forklaringene og hjemlene er skrevet uten faglig gjennomgang** og må leses av en som kan arkivfaget og
-offentleglova, før systemet brukes i undervisning. Det gjelder særlig hjemlene til tilgangskodene (blant annet
-henvisningene til forvaltningsloven) og begrunnelsene for journalføring og arkivbegrensning etter gjeldende
-arkivregelverk.
+Arkivnøkkelen er oppdiktet for Sirevåg kommune og bygger på statens fellesnøkkel: klasse 0–2 følger fellesnøkkelen,
+klasse 3–8 er kommunens fagområder. Den er ikke KS' K-koder (de er lisensbelagt). Alle personer, firmaer og lag er
+oppdiktet. Kommunens ansatte, elevene og barnehagebarna har dyrenavn med bokstavrim (Gunnar Grevling, Frida Frosk,
+Mathias Måke), og fødselsnumrene i registrene har feil kontrollsifre.
+
+Regelverket i fasiten og dokumentene er kontrollert mot Lovdata 20. november 2026: arkivlova og arkivforskrifta som
+gjelder fra 1. januar 2026 (Arkivverket heter nå Nasjonalarkivet), offentleglova, forvaltningsloven av 1967,
+opplæringslova og barnehageloven. **Fasiten og forklaringene bør likevel leses av en som kan arkivfaget og
+offentleglova, før systemet brukes i undervisning.** Det som særlig må følges med på, står nederst i
+[docs/innhold.md](docs/innhold.md).
 
 ## Hvem bruker det
 

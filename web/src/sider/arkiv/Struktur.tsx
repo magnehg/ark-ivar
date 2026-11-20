@@ -1,21 +1,16 @@
-// Arkivstrukturen til Sirevåg kommune: arkivdelene, arkivnøkkelen, tilgangskodene, og enhetene med de ansatte.
+// Arkivstrukturen til Sirevåg kommune: arkivdelene med ordningen sin, arkivnøkkelen, registrene mappene klassifiseres
+// på, tilgangskodene, og enhetene med de ansatte.
 import { makeStyles, tokens } from '@fluentui/react-components';
-import { Struktur as Strukturdata, useStruktur } from '../../arkiv';
+import { Arkivdel, Registerpost, Saksmal, Struktur as Strukturdata, useStruktur } from '../../arkiv';
 import { useT } from '../../i18n';
 import { Kort, Laster, Sidehode } from '../../komponenter/Felles';
+import { Arkivnokkel } from './Arkivnokkel';
 import { Kolonne, SorterbarTabell } from '../../komponenter/Tabell';
 
 const s = makeStyles({
-  nokkel: { columns: '3 280px', columnGap: '32px', margin: 0 },
-  gruppe: { breakInside: 'avoid', marginBottom: '16px' },
-  gruppetittel: { fontSize: tokens.fontSizeBase300, fontWeight: tokens.fontWeightSemibold, margin: '0 0 4px', display: 'flex' },
-  // Koden står i sin egen spalte, så en lang tittel brytes under tittelen og ikke under koden.
-  klasser: { listStyle: 'none', margin: 0, padding: 0, '& li': { padding: '2px 0', display: 'flex' } },
-  kode: { fontFamily: tokens.fontFamilyNumeric, color: tokens.colorNeutralForeground2, flex: 'none', width: '40px' },
-  dempet: { color: tokens.colorNeutralForeground2 },
+  dempet: { color: tokens.colorNeutralForeground2, margin: '0 0 8px', maxWidth: '72ch' },
 });
 
-type Arkivdel = Strukturdata['arkivdeler'][number];
 type Tilgangskode = Strukturdata['tilgangskoder'][number];
 type Ansatt = Strukturdata['ansatte'][number];
 
@@ -25,8 +20,26 @@ export default function Struktur() {
   if (!struktur) return <Laster />;
   const enhetsnavn = (kode: string) => struktur.enheter.find((e) => e.kode === kode)?.navn ?? kode;
   const arkivdeler: Kolonne<Arkivdel>[] = [
-    { id: 'kode', overskrift: t('arkivar.struktur.kode'), stil: { width: '90px' }, celle: (r) => r.kode, sorter: (r) => r.kode },
-    { id: 'tittel', overskrift: t('arkivar.struktur.navn'), stil: { width: '26%' }, celle: (r) => r.tittel, sorter: (r) => r.tittel },
+    { id: 'tittel', overskrift: t('arkivar.struktur.navn'), stil: { width: '18%' }, celle: (r) => r.tittel, sorter: (r) => r.tittel },
+    { id: 'ordning', overskrift: t('arkivar.struktur.ordning'), stil: { width: '22%' }, celle: (r) => t(`arkivar.ordning.${r.ordning}.navn`), sorter: (r) => r.ordning },
+    { id: 'mappe', overskrift: t('arkivar.struktur.mappe'), stil: { width: '22%' }, celle: (r) => r.mappe },
+    { id: 'beskrivelse', overskrift: t('arkivar.struktur.beskrivelse'), celle: (r) => r.beskrivelse },
+  ];
+  // I personregistrene er klasseringen fødselsdato og navn. Fødselsnummeret står ved siden av.
+  const register = (del: Arkivdel): Kolonne<Registerpost>[] => (del.ordning === 'person' ? [
+    { id: 'tittel', overskrift: t(`arkivar.ordning.${del.ordning}.kode`), stil: { width: '28%' }, celle: (r) => r.kode, sorter: (r) => r.tittel },
+    { id: 'fnr', overskrift: t('arkivar.struktur.fnr'), stil: { width: '190px' }, celle: (r) => r.fnr, sorter: (r) => r.fodt },
+    { id: 'detalj', overskrift: t('arkivar.struktur.detalj'), celle: (r) => r.detalj, sorter: (r) => r.detalj },
+  ] : [
+    { id: 'kode', overskrift: t(`arkivar.ordning.${del.ordning}.kode`), stil: { width: '160px' }, celle: (r) => r.kode, sorter: (r) => r.kode },
+    { id: 'tittel', overskrift: t('arkivar.struktur.navn'), stil: { width: '30%' }, celle: (r) => r.tittel, sorter: (r) => r.tittel },
+    { id: 'detalj', overskrift: t('arkivar.struktur.detalj'), celle: (r) => r.detalj, sorter: (r) => r.detalj },
+  ]);
+  const arkivdelnavn = (kode: string) => struktur.arkivdeler.find((a) => a.kode === kode)?.tittel ?? kode;
+  const saksmaler: Kolonne<Saksmal>[] = [
+    { id: 'navn', overskrift: t('arkivar.struktur.navn'), stil: { width: '14%' }, celle: (r) => r.navn, sorter: (r) => r.navn },
+    { id: 'arkivdel', overskrift: t('arkivar.sak.arkivdel'), stil: { width: '14%' }, celle: (r) => arkivdelnavn(r.arkivdel), sorter: (r) => arkivdelnavn(r.arkivdel) },
+    { id: 'tittel', overskrift: t('arkivar.struktur.mal.tittel'), stil: { width: '30%' }, celle: (r) => r.tittel, sorter: (r) => r.tittel },
     { id: 'beskrivelse', overskrift: t('arkivar.struktur.beskrivelse'), celle: (r) => r.beskrivelse },
   ];
   const tilgangskoder: Kolonne<Tilgangskode>[] = [
@@ -46,18 +59,19 @@ export default function Struktur() {
       <Kort tittel={t('arkivar.struktur.arkivdeler')} id="arkivdeler">
         <SorterbarTabell rader={struktur.arkivdeler} kolonner={arkivdeler} nokkel={(r) => r.kode} aria-labelledby="arkivdeler" />
       </Kort>
-      <Kort tittel={t('arkivar.struktur.arkivnokkel')} id="arkivnokkel">
-        <div className={c.nokkel}>
-          {struktur.klasser.filter((k) => k.forelder === null).map((gruppe) => (
-            <section key={gruppe.kode} className={c.gruppe}>
-              <h3 className={c.gruppetittel}><span className={c.kode}>{gruppe.kode}</span>{gruppe.tittel}</h3>
-              <ul className={c.klasser}>
-                {struktur.klasser.filter((k) => k.forelder === gruppe.kode).map((k) => <li key={k.kode}><span className={c.kode}>{k.kode}</span>{k.tittel}</li>)}
-              </ul>
-            </section>
-          ))}
-        </div>
+      <Kort tittel={t('arkivar.struktur.saksmaler')} id="saksmaler">
+        <p className={c.dempet}>{t('arkivar.struktur.saksmaler.om')}</p>
+        <SorterbarTabell rader={struktur.saksmaler} kolonner={saksmaler} nokkel={(r) => r.kode} aria-labelledby="saksmaler" />
       </Kort>
+      <Kort tittel={t('arkivar.struktur.arkivnokkel')} id="arkivnokkel">
+        <p className={c.dempet}>{t('arkivar.struktur.arkivnokkel.om')}</p>
+        <Arkivnokkel struktur={struktur} />
+      </Kort>
+      {struktur.arkivdeler.filter((del) => del.ordning !== 'emne').map((del) => (
+        <Kort key={del.kode} tittel={t(`arkivar.ordning.${del.ordning}.register`, { arkivdel: del.tittel })} id={`register-${del.kode}`}>
+          <SorterbarTabell rader={struktur.registre[del.kode] ?? []} kolonner={register(del)} nokkel={(r) => r.kode} aria-labelledby={`register-${del.kode}`} startSortering={{ id: 'tittel', retning: 'ascending' }} />
+        </Kort>
+      ))}
       <Kort tittel={t('arkivar.struktur.tilgangskoder')} id="tilgangskoder">
         <SorterbarTabell rader={struktur.tilgangskoder} kolonner={tilgangskoder} nokkel={(r) => r.kode} aria-labelledby="tilgangskoder" />
       </Kort>

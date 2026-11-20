@@ -11,7 +11,20 @@ use Bivrost\Kjerne\Database\Felt;
  * studenten skal vurdere og registrere, hvert med en fasit og forklaringer. Dokumentene er oppdiktet. Fasiten
  * sendes aldri til nettleseren før studenten har behandlet dokumentet.
  *
- * @phpstan-type Fasitsak array{type: string, nokkel: ?string, tittel: ?string, offentlig_tittel: ?string, arkivdel: string, klasse: list<string>}
+ * Fasitens sak sier om dokumentet skal i en mappe som finnes i arkivet (type «eksisterende» med mappens nøkkel),
+ * eller om det starter en ny sak (type «ny»). «klasse» er primærklasseringene som godtas, og «skjerm_klasse» om
+ * klasseringen på en ny mappe skal skjermes (fødselsdato og navn i personarkivene).
+ *
+ * @phpstan-type Fasitsak array{
+ *     type: string,
+ *     nokkel: ?string,
+ *     felles: ?string,
+ *     tittel: ?string,
+ *     offentlig_tittel: ?string,
+ *     arkivdel: string,
+ *     klasse: list<string>,
+ *     skjerm_klasse: ?bool,
+ * }
  * @phpstan-type Fasit array{
  *     handling: string,
  *     sak: ?Fasitsak,
@@ -66,8 +79,8 @@ final class Oppgavesett
                     'epost' => Felt::valgfriTekst($avsender['epost'] ?? null),
                 ],
                 'emne' => Felt::tekst($r['emne'] ?? null),
-                'tekst' => self::tekster($r['tekst'] ?? null),
-                'vedlegg' => self::tekster($r['vedlegg'] ?? null),
+                'tekst' => Grunndata::tekster($r['tekst'] ?? null),
+                'vedlegg' => Grunndata::tekster($r['vedlegg'] ?? null),
                 'fasit' => self::fasit(is_array($r['fasit'] ?? null) ? $r['fasit'] : []),
             ];
         }
@@ -88,27 +101,31 @@ final class Oppgavesett
     }
 
     /**
-     * Dokumentet slik studenten ser det i postmottaket, uten fasit.
+     * Saken dokumentet hører til etter fasiten, som en nøkkel til sammenlikning: mappen som finnes i arkivet, eller
+     * den nye saken dokumentet starter. To dokumenter som starter samme nye sak, har samme «felles» i fasiten.
+     * Null når dokumentet ikke skal i arkivet.
+     *
+     * @param Oppgave $oppgave
+     */
+    public static function sak(array $oppgave): ?string
+    {
+        $sak = $oppgave['fasit']['sak'];
+        if ($sak === null) {
+            return null;
+        }
+
+        return $sak['type'] === 'eksisterende' ? 'mappe:' . $sak['nokkel'] : 'ny:' . ($sak['felles'] ?? $oppgave['id']);
+    }
+
+    /**
+     * Dokumentet slik studenten ser det i postmottaket, uten fasit. Mottakeren er alltid kommunen.
      *
      * @param Oppgave $oppgave
      * @return array<string, mixed>
      */
     public static function dokument(array $oppgave): array
     {
-        return array_diff_key($oppgave, ['fasit' => true]);
-    }
-
-    /** @return list<string> */
-    private static function tekster(mixed $verdi): array
-    {
-        $ut = [];
-        foreach (is_array($verdi) ? $verdi : [] as $tekst) {
-            if (is_string($tekst)) {
-                $ut[] = $tekst;
-            }
-        }
-
-        return $ut;
+        return array_diff_key($oppgave, ['fasit' => true]) + ['mottaker' => null];
     }
 
     /**
@@ -123,10 +140,12 @@ final class Oppgavesett
             $sak = [
                 'type' => Felt::tekst($s['type'] ?? null, 'ny'),
                 'nokkel' => Felt::valgfriTekst($s['nokkel'] ?? null),
+                'felles' => Felt::valgfriTekst($s['felles'] ?? null),
                 'tittel' => Felt::valgfriTekst($s['tittel'] ?? null),
                 'offentlig_tittel' => Felt::valgfriTekst($s['offentlig_tittel'] ?? null),
                 'arkivdel' => Felt::tekst($s['arkivdel'] ?? null),
-                'klasse' => self::tekster($s['klasse'] ?? null),
+                'klasse' => Grunndata::tekster($s['klasse'] ?? null),
+                'skjerm_klasse' => is_bool($s['skjerm_klasse'] ?? null) ? $s['skjerm_klasse'] : null,
             ];
         }
         $forklaring = [];
@@ -142,10 +161,10 @@ final class Oppgavesett
             'type' => Felt::valgfriTekst($f['type'] ?? null),
             'tittel' => Felt::valgfriTekst($f['tittel'] ?? null),
             'offentlig_tittel' => Felt::valgfriTekst($f['offentlig_tittel'] ?? null),
-            'tilgangskode' => self::tekster($f['tilgangskode'] ?? null),
+            'tilgangskode' => Grunndata::tekster($f['tilgangskode'] ?? null),
             'skjerm_tittel' => is_bool($f['skjerm_tittel'] ?? null) ? $f['skjerm_tittel'] : null,
             'skjerm_part' => is_bool($f['skjerm_part'] ?? null) ? $f['skjerm_part'] : null,
-            'sensitive_ord' => self::tekster($f['sensitive_ord'] ?? null),
+            'sensitive_ord' => Grunndata::tekster($f['sensitive_ord'] ?? null),
             'forklaring' => $forklaring,
         ];
     }

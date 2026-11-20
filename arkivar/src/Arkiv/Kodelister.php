@@ -17,7 +17,9 @@ final class Kodelister
     public const JOURNALSTATUSER = ['J', 'F', 'E', 'A', 'M'];
 
     /** Saksstatus: under behandling, avsluttet. */
-    public const SAKSSTATUSER = ['B', 'A'];
+    public const SAK_UNDER_BEHANDLING = 'B';
+    public const SAK_AVSLUTTET = 'A';
+    public const SAKSSTATUSER = [self::SAK_UNDER_BEHANDLING, self::SAK_AVSLUTTET];
 
     /** Det arkivtjenesten kan gjøre med et dokument i postmottaket. */
     public const JOURNALFOR = 'journalfor';
@@ -25,4 +27,7 @@ final class Kodelister
     public const FAGSYSTEM = 'fagsystem';
     public const IKKE_ARKIVER = 'ikke_arkiver';
     public const HANDLINGER = [self::JOURNALFOR, self::ARKIVER, self::FAGSYSTEM, self::IKKE_ARKIVER];
+
+    /** Behandlingene der dokumentet registreres i en mappe. */
+    public const I_ARKIVET = [self::JOURNALFOR, self::ARKIVER];
 }

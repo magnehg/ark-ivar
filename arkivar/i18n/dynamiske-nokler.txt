@@ -14,3 +14,4 @@ arkivar.jpstatus.
 arkivar.saksstatus.
 arkivar.kanal.
 arkivar.kriterium.
+arkivar.ordning.

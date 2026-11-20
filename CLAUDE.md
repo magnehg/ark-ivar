@@ -37,19 +37,47 @@ uttrekk eller avlevere.
   `$kjerne->krev(Roller::urn(Roller::LAERER))`.
 - **Øvingsarkivet** (`arkivar/src/Arkiv/`, rutene under `/api/arkiv/` i `Arkivruter`): hver bruker har ett arkiv
   (`arkivar_arkiv`, laget første gang det åpnes av `Ovingsarkiv::forBruker()` og fylt fra grunndataene), med
-  saksmapper (`arkivar_sak`) og journalposter (`arkivar_journalpost`, `Register`). Arkivets ID kommer aldri fra
+  mapper (`arkivar_sak`) og journalposter (`arkivar_journalpost`, `Register`). Arkivets ID kommer aldri fra
   nettleseren, og alle oppslag tar den med. Arkivstrukturen (`Grunndata`, `arkivar/data/sirevag.json`) er felles og
   kan ikke endres av studentene. Kodene følger Noark 5 (`Kodelister`); navnene står i språkfilene med små bokstaver
   (`arkivar.jptype.i`).
+- **Arkivdelene** har hver sin ordning (`Grunndata::ORDNINGER`), som sier hva primærklasseringen er: `emne`
+  (sakarkivet, en klasse i arkivnøkkelen), `eiendom` (gårds- og bruksnummer), `person` (fødselsdato og navn,
+  «14.03.2016 Måke, Mathias»: personal-, elev- og barnehagebarnarkivet) og `utvalg` (møtearkivet).
+  `arkivar_sak.klasse` er koden i ordningen, og `Grunndata::harKlasse($arkivdel, $kode)` avgjør om den kan brukes: i
+  sakarkivet en klasse på laveste nivå uten `henvisning`, ellers en post i arkivdelens register (`registre` i
+  `sirevag.json`). `arkivar_sak.skjerm_klasse` skjuler klasseringen i den offentlige journalen (alltid i
+  personarkivene). Arkivnøkkelen bygger på statens fellesnøkkel (klasse 0–2) med kommunens fagområder i 3–8.
+  Personene i registrene har også et oppdiktet fødselsnummer med feil kontrollsifre; `GrunndataTest` feiler hvis
+  ett består kontrollen.
+- **Navnene:** kommunens ansatte, elevene og barnehagebarna har dyrenavn med bokstavrim (Gunnar Grevling, Mathias
+  Måke); andre har vanlige navn. Navnene kan være vanlige ord, så kontrollen av om en tittel røper et navn
+  (`Vurdering::harOrd`) sammenlikner ord for ord, ikke delstrenger.
+- **Mappene som følger med** står i `saker` i `sirevag.json`, hver med journalposter som alle har et dokument
+  (`startdokument` «<nøkkel>#<nr>» på journalposten; `GET /api/arkiv/journalposter/{id}` gir dokumentet).
+  `Ovingsarkiv::fyll()` gir saksnummer etter saksdatoen og løpenummer etter journaldatoen. I dokumenttekstene står
+  `{{sak}}` og `{{sak:<nøkkel>}}` for saksnummeret i studentens arkiv (`Grunndata::medSaksnumre()`).
+- **Arbeidsgangen** er som i et sak- og arkivsystem: studenten søker etter mappen (`GET /api/arkiv/sok`,
+  `Register::sok()`), oppretter den hvis den ikke finnes (`POST /api/arkiv/saker`, `Mapper`, gjerne fra en saksmal:
+  `saksmaler` i `sirevag.json` med arkivdel, forslag til tittel med hakeparenteser, og søketips), og registrerer så
+  journalposter i mappen (`POST /api/arkiv/saker/{id}/journalposter`, `Postmottak::journalpost()`). En mappe kan stå
+  tom og få flere journalposter. Uten `oppgave` er journalposten studentens egen: den vurderes ikke og kan slettes.
+  Mappene og dokumentene som fulgte med (`nokkel`, `startdokument`), kan ikke slettes. Grensesnittet tar med
+  dokumentet som registreres, i adressen (`?dokument=…&handling=…`, `lesFlyt()` i `web/src/arkiv.ts`).
 - **Postmottaket** (`Postmottak`, `Oppgavesett`, `arkivar/data/oppgaver.json`): studenten er arkivtjenesten og
-  behandler eksempeldokumentene. Svaret vurderes av `Vurdering` (ren funksjon) og lagres i `arkivar_oppgavestatus`.
+  behandler eksempeldokumentene. Et dokument som ikke skal i arkivet, får bare valget registrert
+  (`POST /api/arkiv/postmottak/{id}`); et som skal i arkivet, registreres som journalpost i en mappe. Svaret vurderes
+  av `Vurdering` (ren funksjon) og lagres i `arkivar_oppgavestatus`. En ny sak skal ha sin egen mappe (`sak_alene`).
   **Fasiten sendes aldri til nettleseren før dokumentet er behandlet** (testen sjekker det). Skjerming krever en
-  tilgangskode (hjemmel), og gjelder journalpostens tittel, sakens tittel og avsenderen; den offentlige journalen
-  (`Register::visJournalpost(…, true)`) viser de offentlige titlene og `*****`.
-- **Nytt eksempeldokument:** legg det i `oppgaver.json` med fasit og forklaringer. `GrunndataTest` sjekker at kodene
-  finnes, og `ArkivTest::testFasitenGirFullUttellingForAlleDokumentene` at fasiten kan oppnås gjennom skjemaet.
-  Dokumentene er datert; dokumentdatoen kan ikke ligge frem i tid, så testen setter klokka. Navn som ikke må stå i
-  en offentlig tittel, står i `sensitive_ord`. Innholdet i `arkivar/data/` er norsk og oversettes ikke.
+  tilgangskode (hjemmel), og gjelder journalpostens tittel, mappens tittel og klassering, og avsenderen; den
+  offentlige journalen (`Register::visJournalpost(…, true)`) viser de offentlige titlene og `*****`.
+- **Nytt innhold** (mappe, dokument, saksmal eller eksempeldokument i postmottaket): følg `docs/innhold.md`
+  (regelverket per november 2026, praksisen i Sirevåg kommune, formatet og tittelreglene). `GrunndataTest` sjekker at
+  kodene finnes, at dokumentene er hele, og at ingenting i personarkivene røper navn i offentlig journal, og
+  `ArkivTest::testFasitenGirFullUttellingForAlleDokumentene` at fasiten kan oppnås gjennom API-et. Dokumentene er
+  datert; dokumentdatoen kan ikke ligge frem i tid, så testene setter klokka til 20.11.2026. Navn som ikke må stå i
+  en offentlig tittel, står i `sensitive_ord`. Innholdet i `arkivar/data/` er norsk og oversettes ikke. Hvert
+  dokument skal ha en naturlig mappe: ingen samlesaker.
 - **E-post** (`arkivar/src/Epost/`): `Epostsender` med `MailEpost` (drift) og `FilEpost` (tester og lokal utvikling).
 - **Logg:** hendelser skrives med `$kjerne->logg()->skriv('urn:arkivar:hendelse:<område>:<handling>', …)`, og
   klarteksten står i språkfilene som `arkivar.hendelse.<område>.<handling>`.

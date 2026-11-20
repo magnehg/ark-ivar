@@ -8,11 +8,12 @@ namespace ArkIvar\Arkiv;
  * Vurderingen av en registrering mot fasiten for et eksempeldokument. Gir en liste med kriterier, hvert med om
  * studentens valg stemmer, hva studenten valgte, hva fasiten sier, og forklaringen fra fasiten.
  *
- * Bare det som kan avgjøres sikkert, vurderes: behandlingen, saken, arkivdelen, klassen, journalposttypen,
- * tilgangskoden, skjermingen, dokumentdatoen og avsenderen. Titler er fritekst og vurderes ikke, bortsett fra at
- * de offentlige titlene (journalpostens, og sakens når studenten har opprettet den) ikke må inneholde navn
- * fasiten sier er sensitive. Er behandlingen feil (for eksempel
- * journalført noe som ikke skal i arkivet), vurderes ikke resten.
+ * Bare det som kan avgjøres sikkert, vurderes: behandlingen, mappen (en som finnes, eller en ny som dokumentet har
+ * for seg selv), arkivdelen, primærklasseringen, journalposttypen, tilgangskoden, skjermingen, dokumentdatoen og
+ * avsenderen. Titler er fritekst og vurderes ikke, bortsett fra at de offentlige titlene (journalpostens, og
+ * mappens når studenten har opprettet den) ikke må inneholde navn fasiten sier er sensitive. På en mappe studenten
+ * har opprettet, vurderes også om klasseringen er skjermet. Er behandlingen feil (for eksempel journalført noe som
+ * ikke skal i arkivet), vurderes ikke resten.
  *
  * @phpstan-import-type Oppgave from Oppgavesett
  * @phpstan-type Svar array{
@@ -21,8 +22,10 @@ namespace ArkIvar\Arkiv;
  *     sak_nokkel: ?string,
  *     sak_tekst: string,
  *     sak_offentlig: string,
+ *     sak_alene: bool,
  *     arkivdel: string,
  *     klasse: string,
+ *     skjerm_klasse: bool,
  *     type: string,
  *     tittel: string,
  *     offentlig_tittel: ?string,
@@ -51,8 +54,10 @@ final class Vurdering
             return $ut;
         }
         $ny = $sak['type'] === 'ny';
-        $riktigSak = $ny ? $svar['sak_ny'] : (!$svar['sak_ny'] && $svar['sak_nokkel'] === $sak['nokkel']);
-        $ut[] = self::kriterium('sak', $riktigSak, $svar['sak_ny'] ? 'ny' : $svar['sak_tekst'], $ny ? 'ny' : 'eksisterende', $forklaring['sak'] ?? '');
+        // En ny sak skal ha sin egen mappe, opprettet av studenten. En sak som finnes, skal i mappen som fulgte med.
+        $egenMappe = $svar['sak_ny'] && $svar['sak_alene'];
+        $riktigSak = $ny ? $egenMappe : (!$svar['sak_ny'] && $svar['sak_nokkel'] === $sak['nokkel']);
+        $ut[] = self::kriterium('sak', $riktigSak, $egenMappe ? 'ny' : $svar['sak_tekst'], $ny ? 'ny' : 'eksisterende', $forklaring['sak'] ?? '');
         $ut[] = self::kriterium(
             'arkivdel',
             $svar['arkivdel'] === $sak['arkivdel'],
@@ -63,13 +68,18 @@ final class Vurdering
         $ut[] = self::kriterium(
             'klasse',
             in_array($svar['klasse'], $sak['klasse'], true),
-            $grunndata->klassetekst($svar['klasse']),
-            implode(' / ', array_map($grunndata->klassetekst(...), $sak['klasse'])),
+            $grunndata->klassetekst($svar['arkivdel'], $svar['klasse']),
+            implode(' / ', array_map(static fn (string $kode): string => $grunndata->klassetekst($sak['arkivdel'], $kode), $sak['klasse'])),
             $forklaring['klasse'] ?? '',
         );
+        $skjerming = $forklaring['skjerming'] ?? '';
+        if ($svar['sak_ny'] && $sak['skjerm_klasse'] !== null) {
+            // Klasseringen på en mappe studenten har opprettet: fødselsdato og navn skal ikke vises i den offentlige journalen.
+            $ut[] = self::kriterium('skjerm_klasse', $svar['skjerm_klasse'] === $sak['skjerm_klasse'], $svar['skjerm_klasse'] ? 'ja' : 'nei', $sak['skjerm_klasse'] ? 'ja' : 'nei', $skjerming);
+        }
         $ut[] = self::kriterium('dokumentdato', $svar['dokumentdato'] === $oppgave['dokumentdato'], $svar['dokumentdato'], $oppgave['dokumentdato'], '');
         if ($fasit['handling'] !== Kodelister::JOURNALFOR) {
-            return $ut;
+            return self::enForklaringOmSkjerming($ut);
         }
         if ($fasit['type'] !== null) {
             $ut[] = self::kriterium('type', $svar['type'] === $fasit['type'], $svar['type'], $fasit['type'], '');
@@ -84,7 +94,6 @@ final class Vurdering
             implode(' / ', array_map($grunndata->tilgangstekst(...), $fasit['tilgangskode'])),
             $forklaring['tilgang'] ?? '',
         );
-        $skjerming = $forklaring['skjerming'] ?? '';
         if ($fasit['sensitive_ord'] !== [] && $svar['sak_ny']) {
             // En ny sak har studenten selv gitt tittel: heller ikke den kan røpe navnene i den offentlige journalen.
             $ut[] = self::kriterium('offentlig_sakstittel', !self::harOrd($svar['sak_offentlig'], $fasit['sensitive_ord']), $svar['sak_offentlig'], '', $skjerming);
@@ -112,7 +121,7 @@ final class Vurdering
      */
     private static function enForklaringOmSkjerming(array $kriterier): array
     {
-        $skjerming = ['offentlig_sakstittel', 'offentlig_tittel', 'skjerm_tittel', 'skjerm_part'];
+        $skjerming = ['skjerm_klasse', 'offentlig_sakstittel', 'offentlig_tittel', 'skjerm_tittel', 'skjerm_part'];
         $valgt = null;
         foreach ($kriterier as $nr => $k) {
             if (in_array($k['id'], $skjerming, true) && ($valgt === null || ($kriterier[$valgt]['ok'] && !$k['ok']))) {
@@ -143,12 +152,18 @@ final class Vurdering
         return mb_strlen($a, 'UTF-8') >= 3 && (str_contains($b, $a) || str_contains($a, $b));
     }
 
-    /** @param list<string> $ord */
+    /**
+     * Om et av ordene står i teksten som et eget ord, også med genitivs-s. Navnene i arkivet er korte dyrenavn, så
+     * det sammenliknes ord for ord: «Mår» skal ikke gi treff i «må regne».
+     *
+     * @param list<string> $ord
+     */
     private static function harOrd(string $tekst, array $ord): bool
     {
-        $forenklet = self::forenkle($tekst);
+        $ordene = preg_split('/[^\p{L}\p{N}]+/u', mb_strtolower($tekst, 'UTF-8'), -1, PREG_SPLIT_NO_EMPTY);
         foreach ($ord as $o) {
-            if (str_contains($forenklet, self::forenkle($o))) {
+            $o = self::forenkle($o);
+            if ($o !== '' && $ordene !== false && (in_array($o, $ordene, true) || in_array($o . 's', $ordene, true))) {
                 return true;
             }
         }

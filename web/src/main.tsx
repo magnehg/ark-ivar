@@ -35,7 +35,10 @@ const Postmottak = lastSide(() => import('./sider/arkiv/Postmottak'));
 const Dokument = lastSide(() => import('./sider/arkiv/Dokument'));
 const Saker = lastSide(() => import('./sider/arkiv/Saker').then((m) => ({ default: m.Saker })));
 const EnSak = lastSide(() => import('./sider/arkiv/Saker').then((m) => ({ default: m.EnSak })));
+const NyMappe = lastSide(() => import('./sider/arkiv/NyMappe'));
+const NyJournalpost = lastSide(() => import('./sider/arkiv/NyJournalpost'));
 const Journal = lastSide(() => import('./sider/arkiv/Journal'));
+const Journalpost = lastSide(() => import('./sider/arkiv/Journalpost'));
 const Struktur = lastSide(() => import('./sider/arkiv/Struktur'));
 const Installasjon = lazy(() => import('./sider/Installasjon'));
 
@@ -71,8 +74,11 @@ function App() {
               {student && <Route path="arkiv/postmottak" element={<Postmottak />} />}
               {student && <Route path="arkiv/postmottak/:id" element={<Dokument />} />}
               {student && <Route path="arkiv/saker" element={<Saker />} />}
+              {student && <Route path="arkiv/saker/ny" element={<NyMappe />} />}
               {student && <Route path="arkiv/saker/:id" element={<EnSak />} />}
+              {student && <Route path="arkiv/saker/:id/ny-journalpost" element={<NyJournalpost />} />}
               {student && <Route path="arkiv/journal" element={<Journal />} />}
+              {student && <Route path="arkiv/journalposter/:id" element={<Journalpost />} />}
               {student && <Route path="arkiv/struktur" element={<Struktur />} />}
               {laerer && <Route path="klasser" element={<Klasser />} />}
               {admin && <Route path="administrasjon/brukere" element={<Brukere />} />}

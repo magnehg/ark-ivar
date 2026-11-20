@@ -22,6 +22,7 @@ export default function Journal() {
     <>
       <Text block>{r.tittel}</Text>
       <span className={c.sak}>{t('arkivar.journal.sak')} <Ruterlenke to={`/arkiv/saker/${r.sak_id}`}>{r.saksnummer}-{r.postnr}</Ruterlenke> {r.sakstittel}</span>
+      <span className={c.sak}>{t('arkivar.journal.klassering', { klassering: r.klasse_tekst ?? '' })}</span>
     </>
   );
   const tilgang = (r: Journalpost) => (r.tilgangskode ? <Status slag="skjermet">{r.hjemmel}</Status> : t('arkivar.tilgang.offentlig'));

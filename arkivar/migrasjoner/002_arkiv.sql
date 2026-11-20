@@ -1,6 +1,6 @@
--- Ark-Ivar: øvingsarkivene. Hver bruker har sitt eget arkiv for Sirevåg kommune med saksmapper og journalposter, og
--- en status per eksempeldokument i postmottaket. Arkivstrukturen (arkivdeler, klasser, enheter, tilgangskoder) og
--- eksempeldokumentene er felles og ligger i arkivar/data/. Kan kjøres flere ganger (IF NOT EXISTS).
+-- Ark-Ivar: øvingsarkivene. Hver bruker har sitt eget arkiv for Sirevåg kommune med mapper og journalposter, og en
+-- status per eksempeldokument i postmottaket. Arkivstrukturen (arkivdeler, klasser, registre, saksmaler, enheter og
+-- tilgangskoder) og eksempeldokumentene er felles og ligger i arkivar/data/. Kan kjøres flere ganger (IF NOT EXISTS).
 
 CREATE TABLE IF NOT EXISTS arkivar_arkiv (
     id CHAR(36) NOT NULL PRIMARY KEY,
@@ -23,7 +23,9 @@ CREATE TABLE IF NOT EXISTS arkivar_sak (
     skjerm_tittel TINYINT(1) NOT NULL DEFAULT 0,
     tilgangskode VARCHAR(20) NULL,
     arkivdel VARCHAR(20) NOT NULL,
-    klasse VARCHAR(20) NOT NULL,
+    klasse VARCHAR(60) NOT NULL,
+    skjerm_klasse TINYINT(1) NOT NULL DEFAULT 0,
+    mal VARCHAR(40) NULL,
     enhet VARCHAR(20) NOT NULL,
     saksansvarlig VARCHAR(20) NOT NULL,
     status CHAR(1) NOT NULL DEFAULT 'B',
@@ -31,7 +33,7 @@ CREATE TABLE IF NOT EXISTS arkivar_sak (
     opprettet DATETIME(6) NOT NULL,
     UNIQUE KEY arkivar_sak_nummer (arkiv_id, saksaar, sekvens),
     KEY arkivar_sak_nokkel (arkiv_id, nokkel)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Saksmapper (Noark: mappe av typen saksmappe). nokkel er satt på sakene som fulgte med arkivet';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Mapper (saksmapper, personmapper, møtemapper). klasse er primærklasseringen i arkivdelens ordning: arkivnøkkel, gårds- og bruksnummer, fødselsdato og navn, eller utvalg; skjerm_klasse skjuler den i offentlig journal. mal er saksmalen mappen ble opprettet fra. nokkel er satt på mappene som fulgte med arkivet';
 
 CREATE TABLE IF NOT EXISTS arkivar_journalpost (
     id CHAR(36) NOT NULL PRIMARY KEY,
@@ -55,18 +57,17 @@ CREATE TABLE IF NOT EXISTS arkivar_journalpost (
     part_navn VARCHAR(300) NOT NULL DEFAULT '',
     part_adresse VARCHAR(300) NULL,
     oppgave_id VARCHAR(60) NULL,
-    innhold MEDIUMTEXT NULL,
+    startdokument VARCHAR(90) NULL,
     opprettet DATETIME(6) NOT NULL,
     KEY arkivar_journalpost_sak (sak_id, postnr),
     KEY arkivar_journalpost_arkiv (arkiv_id, journalaar, sekvens)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Registreringer i en sak (Noark: journalpost; journalfort = 0 er arkivert uten journalføring). Én korrespondansepart per post';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Registreringer i en mappe (Noark: journalpost; journalfort = 0 er arkivert uten journalføring). Én korrespondansepart per post. Dokumentet ligger i arkivar/data: oppgave_id (postmottaket) eller startdokument (fulgte med arkivet)';
 
 CREATE TABLE IF NOT EXISTS arkivar_oppgavestatus (
     arkiv_id CHAR(36) NOT NULL,
     oppgave_id VARCHAR(60) NOT NULL,
     handling VARCHAR(20) NOT NULL,
     journalpost_id CHAR(36) NULL,
-    sak_opprettet TINYINT(1) NOT NULL DEFAULT 0,
     svar JSON NOT NULL,
     vurdering JSON NOT NULL,
     poeng INT NOT NULL,

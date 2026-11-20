@@ -10,8 +10,8 @@ use Bivrost\Kjerne\Krypto\Tilfeldig;
 use Psr\Clock\ClockInterface;
 
 /**
- * Saksmappene og journalpostene i et øvingsarkiv (arkivar_sak og arkivar_journalpost). Alle oppslag tar arkivets
- * ID, så en bruker aldri kan lese eller endre noe i et annet arkiv.
+ * Mappene og journalpostene i et øvingsarkiv (arkivar_sak og arkivar_journalpost). Alle oppslag tar arkivets ID, så
+ * en bruker aldri kan lese eller endre noe i et annet arkiv.
  *
  * Saksnummeret er saksår og en fortløpende sekvens (2026/7), og hver journalpost har et dokumentnummer i saken
  * (2026/7-3) og et løpenummer i journalen. Tellerne står på arkivet.
@@ -32,9 +32,11 @@ final class Register
     }
 
     /**
-     * Oppretter en saksmappe og gir ID-en. $nokkel settes bare på sakene som følger med arkivet. Med
-     * $offentligTittel er sakstittelen skjermet: den offentlige journalen viser den offentlige tittelen, og
-     * $tilgangskode gir hjemmelen.
+     * Oppretter en mappe og gir ID-en. $nokkel settes bare på mappene som følger med arkivet. Med $offentligTittel
+     * er tittelen skjermet: den offentlige journalen viser den offentlige tittelen. $klasse er primærklasseringen i
+     * arkivdelens ordning (arkivnøkkel, gårds- og bruksnummer, fødselsdato og navn, eller utvalg), og med
+     * $skjermKlasse vises den ikke i den offentlige journalen. $tilgangskode gir hjemmelen for skjermingen. $mal er
+     * saksmalen studenten valgte.
      */
     public function opprettSak(
         string $arkivId,
@@ -47,15 +49,18 @@ final class Register
         ?string $nokkel = null,
         ?string $offentligTittel = null,
         ?string $tilgangskode = null,
+        string $status = 'B',
+        bool $skjermKlasse = false,
+        ?string $mal = null,
     ): string {
         $id = Tilfeldig::uuid();
         $this->db->utfor(
-            'INSERT INTO arkivar_sak (id, arkiv_id, nokkel, saksaar, sekvens, tittel, offentlig_tittel, skjerm_tittel, tilgangskode, arkivdel, klasse, enhet,
-                saksansvarlig, status, saksdato, opprettet)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            'INSERT INTO arkivar_sak (id, arkiv_id, nokkel, saksaar, sekvens, tittel, offentlig_tittel, skjerm_tittel, tilgangskode, arkivdel, klasse, skjerm_klasse, mal,
+                enhet, saksansvarlig, status, saksdato, opprettet)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [
                 $id, $arkivId, $nokkel, (int) substr($saksdato, 0, 4), $this->neste($arkivId, 'sak'), $tittel, $offentligTittel, $offentligTittel !== null ? 1 : 0, $tilgangskode,
-                $arkivdel, $klasse, $enhet, $saksansvarlig, 'B', $saksdato, Db::tid($this->klokke->now()),
+                $arkivdel, $klasse, $skjermKlasse ? 1 : 0, $mal, $enhet, $saksansvarlig, $status, $saksdato, Db::tid($this->klokke->now()),
             ],
         );
 
@@ -81,7 +86,7 @@ final class Register
      *     part_adresse?: ?string,
      *     journalfort?: bool,
      *     oppgave_id?: ?string,
-     *     innhold?: ?string,
+     *     startdokument?: ?string,
      * } $felt
      */
     public function opprettJournalpost(string $arkivId, string $sakId, array $felt): string
@@ -90,14 +95,14 @@ final class Register
         $postnr = Felt::tall($this->db->verdi('SELECT COALESCE(MAX(postnr), 0) + 1 FROM arkivar_journalpost WHERE sak_id = ?', [$sakId]));
         $this->db->utfor(
             'INSERT INTO arkivar_journalpost (id, arkiv_id, sak_id, postnr, journalaar, sekvens, journalfort, type, status, tittel, offentlig_tittel, dokumentdato, journaldato,
-                saksbehandler, enhet, tilgangskode, skjerm_tittel, skjerm_part, part_navn, part_adresse, oppgave_id, innhold, opprettet)
+                saksbehandler, enhet, tilgangskode, skjerm_tittel, skjerm_part, part_navn, part_adresse, oppgave_id, startdokument, opprettet)
              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [
                 $id, $arkivId, $sakId, $postnr, (int) substr($felt['journaldato'], 0, 4), $this->neste($arkivId, 'journal'),
                 ($felt['journalfort'] ?? true) ? 1 : 0, $felt['type'], $felt['status'], $felt['tittel'], $felt['offentlig_tittel'] ?? null,
                 $felt['dokumentdato'], $felt['journaldato'], $felt['saksbehandler'], $felt['enhet'], $felt['tilgangskode'] ?? null,
                 ($felt['skjerm_tittel'] ?? false) ? 1 : 0, ($felt['skjerm_part'] ?? false) ? 1 : 0, $felt['part_navn'] ?? '', $felt['part_adresse'] ?? null,
-                $felt['oppgave_id'] ?? null, $felt['innhold'] ?? null, Db::tid($this->klokke->now()),
+                $felt['oppgave_id'] ?? null, $felt['startdokument'] ?? null, Db::tid($this->klokke->now()),
             ],
         );
 
@@ -116,6 +121,21 @@ final class Register
                FROM arkivar_sak s WHERE s.arkiv_id = ? ORDER BY s.saksaar DESC, s.sekvens DESC',
             [$arkivId],
         );
+    }
+
+    /**
+     * Saksnumrene til mappene som fulgte med arkivet, etter nøkkelen. Dokumentene viser til dem («Vår ref.»).
+     *
+     * @return array<string, string>
+     */
+    public function saksnumre(string $arkivId): array
+    {
+        $ut = [];
+        foreach ($this->db->alle('SELECT nokkel, saksaar, sekvens FROM arkivar_sak WHERE arkiv_id = ? AND nokkel IS NOT NULL', [$arkivId]) as $rad) {
+            $ut[Felt::tekst($rad['nokkel'])] = Felt::tall($rad['saksaar']) . '/' . Felt::tall($rad['sekvens']);
+        }
+
+        return $ut;
     }
 
     /** @return array<string, mixed>|null */
@@ -145,7 +165,8 @@ final class Register
     public function journal(string $arkivId): array
     {
         return $this->db->alle(
-            'SELECT j.*, s.saksaar, s.sekvens AS sakssekvens, s.tittel AS sakstittel, s.skjerm_tittel AS sak_skjermet, s.offentlig_tittel AS sak_offentlig_tittel
+            'SELECT j.*, s.saksaar, s.sekvens AS sakssekvens, s.tittel AS sakstittel, s.skjerm_tittel AS sak_skjermet, s.offentlig_tittel AS sak_offentlig_tittel,
+                    s.arkivdel AS sak_arkivdel, s.klasse AS sak_klasse, s.skjerm_klasse AS sak_skjerm_klasse
                FROM arkivar_journalpost j JOIN arkivar_sak s ON s.id = j.sak_id
               WHERE j.arkiv_id = ? AND j.journalfort = 1 ORDER BY j.journaldato DESC, j.sekvens DESC',
             [$arkivId],
@@ -157,13 +178,89 @@ final class Register
         $this->db->utfor('DELETE FROM arkivar_journalpost WHERE arkiv_id = ? AND id = ?', [$arkivId, $id]);
     }
 
-    /** Sletter saken når den ikke har noen registreringer (brukes når en registrering angres). */
-    public function slettTomSak(string $arkivId, string $sakId): void
+    /** Sletter en mappe studenten har opprettet selv, når den er tom. Gir om den ble slettet. */
+    public function slettTomSak(string $arkivId, string $sakId): bool
     {
-        $this->db->utfor(
-            'DELETE FROM arkivar_sak WHERE arkiv_id = ? AND id = ? AND NOT EXISTS (SELECT 1 FROM arkivar_journalpost j WHERE j.sak_id = arkivar_sak.id)',
+        return $this->db->utfor(
+            'DELETE FROM arkivar_sak WHERE arkiv_id = ? AND id = ? AND nokkel IS NULL AND NOT EXISTS (SELECT 1 FROM arkivar_journalpost j WHERE j.sak_id = arkivar_sak.id)',
             [$arkivId, $sakId],
-        );
+        ) > 0;
+    }
+
+    /**
+     * Dokumentene fra postmottaket som er registrert i mappen (ID-ene til oppgavene), uten $unntatt.
+     *
+     * @return list<string>
+     */
+    public function oppgaverISak(string $arkivId, string $sakId, ?string $unntatt = null): array
+    {
+        $ut = [];
+        foreach ($this->db->alle('SELECT oppgave_id FROM arkivar_journalpost WHERE arkiv_id = ? AND sak_id = ? AND oppgave_id IS NOT NULL', [$arkivId, $sakId]) as $rad) {
+            $id = Felt::tekst($rad['oppgave_id']);
+            if ($id !== $unntatt) {
+                $ut[] = $id;
+            }
+        }
+
+        return $ut;
+    }
+
+    /**
+     * Søk i mappene: alle ordene i søket må finnes i mappen (saksnummeret, tittelen, klasseringen eller
+     * arkivdelen) eller i dokumentene som ligger i den (tittel og avsender eller mottaker). Store og små bokstaver
+     * teller ikke. Mapper der selve mappen har alle ordene, kommer først; ellers nyeste først. Hvert treff har
+     * mappen og høyst tre dokumenter som har et av ordene.
+     *
+     * @return list<array{sak: array<string, mixed>, journalposter: list<array<string, mixed>>}>
+     */
+    public function sok(string $arkivId, string $sok): array
+    {
+        $liten = static fn (string $tekst): string => mb_strtolower($tekst, 'UTF-8');
+        $ord = preg_split('/\s+/u', trim($liten($sok)), -1, PREG_SPLIT_NO_EMPTY);
+        if ($ord === false || mb_strlen(implode('', $ord), 'UTF-8') < 2) {
+            return [];
+        }
+        $poster = [];
+        foreach ($this->db->alle('SELECT sak_id, postnr, tittel, part_navn FROM arkivar_journalpost WHERE arkiv_id = ? ORDER BY postnr', [$arkivId]) as $post) {
+            $poster[Felt::tekst($post['sak_id'])][] = $post;
+        }
+        $harAlle = static function (string $tekst) use ($ord): bool {
+            foreach ($ord as $o) {
+                if (!str_contains($tekst, $o)) {
+                    return false;
+                }
+            }
+
+            return true;
+        };
+        $treff = [];
+        foreach ($this->saker($arkivId) as $rad) {
+            $sak = $this->visSak($rad);
+            $egen = $liten(implode(' ', [Felt::tekst($sak['saksnummer']), Felt::tekst($sak['tittel']), Felt::tekst($sak['klasse_tekst']), Felt::tekst($sak['arkivdel_tekst'])]));
+            $dokumenter = $poster[Felt::tekst($sak['id'])] ?? [];
+            $alt = $egen;
+            foreach ($dokumenter as $post) {
+                $alt .= ' ' . $liten(Felt::tekst($post['tittel']) . ' ' . Felt::tekst($post['part_navn']));
+            }
+            if (!$harAlle($alt)) {
+                continue;
+            }
+            $viste = [];
+            foreach ($dokumenter as $post) {
+                $tekst = $liten(Felt::tekst($post['tittel']) . ' ' . Felt::tekst($post['part_navn']));
+                foreach ($ord as $o) {
+                    if (str_contains($tekst, $o) && !str_contains($egen, $o)) {
+                        $viste[] = ['postnr' => Felt::tall($post['postnr']), 'tittel' => Felt::tekst($post['tittel']), 'part_navn' => Felt::tekst($post['part_navn'])];
+                        break;
+                    }
+                }
+            }
+            $treff[] = ['sak' => $sak, 'journalposter' => array_slice($viste, 0, 3), 'egen' => $harAlle($egen)];
+        }
+        // saker() gir nyeste først, og usort er stabil: mappene der selve mappen har alle ordene, flyttes foran.
+        usort($treff, static fn (array $a, array $b): int => (int) $b['egen'] <=> (int) $a['egen']);
+
+        return array_map(static fn (array $t): array => ['sak' => $t['sak'], 'journalposter' => $t['journalposter']], $treff);
     }
 
     /**
@@ -185,7 +282,11 @@ final class Register
             'arkivdel' => Felt::tekst($rad['arkivdel']),
             'arkivdel_tekst' => $this->grunndata->arkivdeltekst(Felt::tekst($rad['arkivdel'])),
             'klasse' => Felt::tekst($rad['klasse']),
-            'klasse_tekst' => $this->grunndata->klassetekst(Felt::tekst($rad['klasse'])),
+            'klasse_tekst' => $this->grunndata->klassetekst(Felt::tekst($rad['arkivdel']), Felt::tekst($rad['klasse'])),
+            'skjerm_klasse' => Felt::tall($rad['skjerm_klasse']) === 1,
+            'tilgangskode' => Felt::valgfriTekst($rad['tilgangskode']),
+            'hjemmel' => $this->grunndata->tilgangstekst(Felt::valgfriTekst($rad['tilgangskode'])),
+            'mal' => Felt::valgfriTekst($rad['mal']),
             'enhet' => Felt::tekst($rad['enhet']),
             'saksansvarlig' => Felt::tekst($rad['saksansvarlig']),
             'saksansvarlig_navn' => $ansvarlig['navn'] ?? Felt::tekst($rad['saksansvarlig']),
@@ -229,16 +330,22 @@ final class Register
             'skjerm_tittel' => $skjermTittel,
             'skjerm_part' => $skjermPart,
             'part_navn' => $offentlig && $skjermPart ? '*****' : Felt::tekst($rad['part_navn']),
-            'oppgave_id' => Felt::valgfriTekst($rad['oppgave_id']),
+            // Dokumentet kan åpnes i arkivet, men aldri fra den offentlige journalen.
+            'har_dokument' => !$offentlig && ($rad['oppgave_id'] !== null || $rad['startdokument'] !== null),
+            // Dokumentet fra postmottaket registreringen gjelder. En registrering uten dokument fra postmottaket som
+            // studenten har laget selv, kan slettes.
+            'oppgave' => $offentlig ? null : Felt::valgfriTekst($rad['oppgave_id']),
+            'kan_slettes' => !$offentlig && $rad['oppgave_id'] === null && $rad['startdokument'] === null,
         ];
-        if (!$offentlig) {
-            $ut['innhold'] = Felt::valgfriTekst($rad['innhold']);
-        }
         if ($saksaar > 0) {
             $ut['saksnummer'] = $saksaar . '/' . Felt::tall($rad['sakssekvens'] ?? 0);
             // En skjermet sakstittel vises aldri i den offentlige journalen, heller ikke på en åpen journalpost.
             $sakSkjermet = Felt::tall($rad['sak_skjermet'] ?? 0) === 1;
             $ut['sakstittel'] = $offentlig && $sakSkjermet ? (Felt::valgfriTekst($rad['sak_offentlig_tittel'] ?? null) ?? '*****') : Felt::tekst($rad['sakstittel'] ?? '');
+            // Klasseringen til mappen. Er den skjermet (fødselsdato og navn), vises den ikke i den offentlige journalen.
+            $klasseSkjermet = Felt::tall($rad['sak_skjerm_klasse'] ?? 0) === 1;
+            $ut['klasse_tekst'] = $offentlig && $klasseSkjermet ? '*****' : $this->grunndata->klassetekst(Felt::tekst($rad['sak_arkivdel'] ?? ''), Felt::tekst($rad['sak_klasse'] ?? ''));
+            $ut['skjerm_klasse'] = $klasseSkjermet;
         }
 
         return $ut;

@@ -18,3 +18,28 @@
   tilgangskode og skjerming, og får en vurdering mot fasiten med forklaring per kriterium. Kan angres.
 - Journalen kan vises som offentlig journal, med skjermede titler og navn.
 - Læreren ser hvor mange dokumenter hver student i klassen har behandlet, og hvor mange valg som var riktige.
+- Arkivet har seks arkivdeler med hver sin primærklassering: sakarkiv (arkivnøkkel), eiendomsarkiv (gårds- og
+  bruksnummer), personalarkiv, elevarkiv og barnehagebarnarkiv (fødselsdato og navn) og møtearkiv (utvalg).
+  Registrene (eiendommer, ansatte, elever, barnehagebarn og utvalg) står på siden Arkivstruktur.
+- Ny arkivnøkkel bygd på statens fellesnøkkel: klasse 0–2 følger den siste utgaven av fellesnøkkelen, klasse 3–8 er
+  kommunens fagområder. 302 klasser med merknader, henvisninger til de andre arkivdelene og søk.
+- Arkivet har 33 mapper med dokumenter fra start (brev, e-poster, skjemaer, notater, saksframlegg, protokoller,
+  vedtak og avtaler). Alle kan åpnes og leses. Dokumentene viser til saksnummeret mappen har i studentens arkiv.
+- Ny arbeidsgang, som i et sak- og arkivsystem: studenten søker etter mappen, oppretter den hvis den ikke finnes, og
+  registrerer så journalposter i mappen. En mappe kan stå tom og kan få flere journalposter, også studentens egne
+  uten dokument fra postmottaket. Tomme mapper og egne journalposter kan slettes.
+- Søk i mappene (tittel, klassering, saksnummer og dokumentene i mappen), med søketips.
+- Saksmaler: arkivdelen og et forslag til tittel er fylt inn når mappen opprettes («Elevmappe – [etternavn,
+  fornavn]»), og hver mal har et søketips. Forslaget må fylles ut før mappen kan opprettes.
+- Klasseringen kan skjermes med en avkrysning. Den offentlige journalen viser da ***** i stedet, og vurderingen
+  sjekker at klasseringen på en ny mappe i et personarkiv er skjermet.
+- Vurderingen krever at en ny sak får sin egen mappe: to saker i samme mappe er feil for den andre.
+- Kommunens ansatte, elevene og barnehagebarna har dyrenavn med bokstavrim, etter mønster av Pelle Parafins
+  Bøljeband (Gunnar Grevling på byggesak, Stian Stokkand, Frida Frosk, Sandra Salamander).
+- Postmottaket har 24 dokumenter. Hvert dokument har en naturlig mappe: en som finnes i arkivet, eller en ny for
+  saken eller personen. Alle arkivdelene og alle fire behandlingsmåtene er med.
+- Fasiten og dokumentene følger arkivlova og arkivforskrifta som gjelder fra 1. januar 2026, blant annet at
+  innsynskrav ikke er omfattet av journalføringsplikten. Tilgangskodene har fått fullstendige hjemler.
+- Mappene får saksnummer etter saksdatoen og journalpostene løpenummer etter journaldatoen. Listen over mapper kan
+  avgrenses til én arkivdel og viser om mappen er avsluttet.
+- Reglene for innholdet står i `docs/innhold.md`.

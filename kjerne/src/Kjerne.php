@@ -37,6 +37,7 @@ use Bivrost\Kjerne\Oidc\OidcFeil;
 use Bivrost\Kjerne\Oidc\OidcKlient;
 use Bivrost\Kjerne\Oidc\OidcOppsett;
 use Bivrost\Kjerne\Oidc\StandardOidcKlient;
+use Bivrost\Kjerne\Okt\Appbrukere;
 use Bivrost\Kjerne\Okt\Innlogget;
 use Bivrost\Kjerne\Okt\Okt;
 use Bivrost\Kjerne\Oppdatering\GithubUtgivelser;
@@ -88,6 +89,7 @@ final class Kjerne
     private ?Kopilager $kopilager = null;
     private ?OidcKlient $oidc = null;
     private bool $oidcSatt = false;
+    private ?Appbrukere $appbrukere = null;
     private ?SentralPreferanser $sentralPref = null;
     private bool $sentralPrefSatt = false;
     private ?Utgivelseskilde $kilde = null;
@@ -181,7 +183,11 @@ final class Kjerne
         return $this->okt ??= new Okt($this->db(), $this->klokke, $this->app->oktInaktivMinutter * 60, $this->app->oktMaksTimer * 3600, $this->https);
     }
 
-    private function forsok(): Forsok
+    /**
+     * Begrensningen av forsøk (BIV-AUT-06). Offentlig i Ark-Ivars kopi, så appens egen innlogging og registrering
+     * bruker den samme tabellen og de samme nøklene som nødinnloggingen.
+     */
+    public function forsok(): Forsok
     {
         return $this->forsok ??= new Forsok($this->db(), $this->klokke, $this->env()->krev('BIVROST_HMAC_NOKKEL'));
     }
@@ -195,7 +201,7 @@ final class Kjerne
     public function pakker(): array
     {
         $env = $this->env();
-        $ut = [new Pakke(self::PAKKE, 'Bivrost Kjerne', $env->hent('BIVROST_REPO', 'magnehg/bivrost') ?? 'magnehg/bivrost', 'bivrost-kjerne-v', self::MAPPE, dirname(__DIR__) . '/migrasjoner')];
+        $ut = [new Pakke(self::PAKKE, 'Bivrost Kjerne', $env->hent('BIVROST_REPO', 'magnehg/ark-ivar') ?? 'magnehg/ark-ivar', 'bivrost-kjerne-v', self::MAPPE, dirname(__DIR__) . '/migrasjoner')];
         if ($this->app->pakke !== null) {
             $ut[] = new Pakke($this->app->app, $this->app->appnavn, $this->app->pakke['repo'], $this->app->pakke['tagprefiks'], $this->app->pakke['mappe'], $this->app->migreringer);
         } elseif ($this->app->migreringer !== null) {
@@ -267,6 +273,15 @@ final class Kjerne
     public function oppdateringsApi(): OppdateringsApi
     {
         return new OppdateringsApi($this->db(), $this->oppdaterer(), $this->forsok(), $this->logg(), $this->kontekst);
+    }
+
+    /**
+     * Appens egne brukere (Ark-Ivars tillegg): uten denne er en økt med metoden «app» aldri gyldig. Settes før
+     * handter().
+     */
+    public function settAppbrukere(?Appbrukere $appbrukere): void
+    {
+        $this->appbrukere = $appbrukere;
     }
 
     public function settOidcKlient(?OidcKlient $k): void
@@ -499,9 +514,16 @@ final class Kjerne
         throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
     }
 
-    /** En lokal bruker må fortsatt være aktiv og ha samme passordgenerasjon (passordbytte avslutter eldre økter). */
+    /**
+     * En lokal bruker må fortsatt være aktiv og ha samme passordgenerasjon (passordbytte avslutter eldre økter). Det
+     * samme gjelder appens egne brukere, som appen selv kontrollerer (Appbrukere).
+     */
     private function gyldig(Innlogget $i): bool
     {
+        if ($i->metode === 'app') {
+            // Appens egne brukere kontrolleres av appen. Uten tjenesten gjelder ingen slik økt (feil på den trygge siden).
+            return $this->appbrukere !== null && $this->appbrukere->gyldig($i);
+        }
         if ($i->metode !== 'lokal') {
             return true;
         }
@@ -813,7 +835,7 @@ final class Kjerne
         $ut = [
             'innlogget' => null,
             'csrf' => Csrf::nokkel($okt),
-            'metoder' => ['sentral' => $this->oidc() !== null, 'lokal' => true],
+            'metoder' => ['sentral' => $this->oidc() !== null, 'lokal' => true, 'app' => $this->appbrukere !== null],
         ];
         if ($i !== null) {
             $eff = $this->rbac()->effektive($i->urner);

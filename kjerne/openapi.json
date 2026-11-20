@@ -2507,6 +2507,10 @@
               },
               "lokal": {
                 "type": "boolean"
+              },
+              "app": {
+                "type": "boolean",
+                "description": "Om appen har egne brukere (Ark-Ivars tillegg)."
               }
             }
           }

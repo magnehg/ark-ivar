@@ -9,6 +9,9 @@ use Bivrost\Kjerne\Logg\Aktor;
 /**
  * Den som er logget inn i en økt: aktøren (navn og tittel i klartekst), URN-ene for rollene og tilgangene i denne
  * appen (fra tokenet fra Bivrost Sentral, eller drift for nødinnloggingen), metoden og når.
+ *
+ * Metodene: «oidc» (Bivrost Sentral), «lokal» (nødinnloggingen) og «app» (appens egne brukere, Ark-Ivars tillegg,
+ * se Appbrukere).
  */
 final class Innlogget
 {
@@ -22,7 +25,7 @@ final class Innlogget
         public readonly int $generasjon = 0,
         public readonly ?string $epost = null,
     ) {
-        if (!in_array($metode, ['oidc', 'lokal'], true)) {
+        if (!in_array($metode, ['oidc', 'lokal', 'app'], true)) {
             throw new \InvalidArgumentException('Ukjent innloggingsmetode.');
         }
     }

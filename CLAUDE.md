@@ -47,8 +47,10 @@ uttrekk eller avlevere.
   `arkivar.dokstatus.`, `arkivar.variantformat.`); `KodelisterTest` krever begge på alle språk, og `useKode()` viser
   «J – Journalført». Dokumentfilen (`arkivar_journalpost.dokumentstatus` og `variantformat`, NULL uten dokument) er
   ferdigstilt, og i arkivformat når journalposten har status A (`Kodelister::variantformat()`).
-- **Kommunevåpenet** (`web/src/bilder/sirevag-kommunevapen.svg`, `Kommunevapen`) er oppdiktet. Det er et bilde med
-  sine egne heraldiske farger og følger ikke fargetemaet.
+- **Kommunevåpenet** (`web/src/bilder/sirevag-kommunevapen.svg`, `Kommunevapen`) er oppdiktet: «I blått en gull bjelke som på
+  midten er bøyd ned i en nesten sluttet ring (en våg)». Det er valgt blant tre forslag og sjekket mot virkelige
+  kommunevåpen på Jæren og sørvestkysten (ikke uttømmende). Det er et bilde med sine egne heraldiske farger og
+  følger ikke fargetemaet. Det samme gjelder det skannede arket (`Ark`, inngående brev og skjemaer på papir).
 - **Arkivdelene** har hver sin ordning (`Grunndata::ORDNINGER`), som sier hva primærklasseringen er: `emne`
   (sakarkivet, en klasse i arkivnøkkelen), `eiendom` (gårds- og bruksnummer), `person` (fødselsdato og navn,
   «14.03.2016 Måke, Mathias»: personal-, elev- og barnehagebarnarkivet) og `utvalg` (møtearkivet).

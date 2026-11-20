@@ -16,7 +16,7 @@ saksgangen, i hvert sitt øvingsarkiv. Systemet lager ikke uttrekk og avleverer 
 | Seks arkivdeler: sakarkiv, eiendomsarkiv, personalarkiv, elevarkiv, barnehagebarnarkiv og møtearkiv | På plass |
 | Primærklassering per arkivdel: arkivnøkkel, gårds- og bruksnummer, fødselsdato og navn, eller utvalg. Klasseringen kan skjermes | På plass |
 | Arkivnøkkel bygd på statens fellesnøkkel, med søk | På plass |
-| Mapper med dokumenter som kan åpnes og leses (33 mapper fra start) | På plass |
+| Mapper med dokumenter som kan åpnes og leses (33 mapper med 148 dokumenter fra start) | På plass |
 | Arbeidsgangen: søk etter mappen, opprett den fra en saksmal hvis den ikke finnes, registrer journalposter i mappen | På plass |
 | Postmottaket: 24 eksempeldokumenter som vurderes, registreres og journalføres, med skjerming | På plass |
 | Fasit og tilbakemelding per kriterium, og lærerens oversikt over fremdriften i klassen | På plass |
@@ -37,7 +37,8 @@ Arkivstrukturen og dokumentene ligger i `arkivar/data/`, og reglene for dem stå
 Arkivnøkkelen er oppdiktet for Sirevåg kommune og bygger på statens fellesnøkkel: klasse 0–2 følger fellesnøkkelen,
 klasse 3–8 er kommunens fagområder. Den er ikke KS' K-koder (de er lisensbelagt). Alle personer, firmaer og lag er
 oppdiktet. Kommunens ansatte, elevene og barnehagebarna har dyrenavn med bokstavrim (Gunnar Grevling, Frida Frosk,
-Mathias Måke), og fødselsnumrene i registrene har feil kontrollsifre.
+Mathias Måke), og fødselsnumrene i registrene har feil kontrollsifre. Kommunevåpenet er også oppdiktet: i blått en gull
+bjelke som på midten er bøyd ned i en nesten sluttet ring (en våg).
 
 Regelverket i fasiten og dokumentene er kontrollert mot Lovdata 20. november 2026: arkivlova og arkivforskrifta som
 gjelder fra 1. januar 2026 (Arkivverket heter nå Nasjonalarkivet), offentleglova, forvaltningsloven av 1967,

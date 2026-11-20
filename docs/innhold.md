@@ -200,15 +200,35 @@ Dette er kontrollert mot Lovdata. Bruk bare disse hjemlene, og bare der de passe
 |---|---|---|
 | 13-1 | Offl. § 13 første ledd, jf. fvl. § 13 første ledd nr. 1 | Personlige forhold: helse, familie, privatøkonomi, elev- og barneopplysninger, personalopplysninger |
 | 13-2 | Offl. § 13 første ledd, jf. fvl. § 13 første ledd nr. 2 | Forretningshemmeligheter, for eksempel enhetspriser i et tilbud etter at leverandør er valgt |
+| 13-3 | Offl. § 13 første ledd, jf. særlov | Taushetsplikt etter særlov (barnevern, helse, sosiale tjenester, skatt og annet) |
 | 14 | Offl. § 14 første ledd | Kommunens egne notater til intern saksforberedelse. Ikke saksframlegg og saklister til folkevalgte organer |
+| 15-1 | Offl. § 15 første ledd | Dokumenter innhentet fra underordnet organ til intern saksforberedelse |
 | 15-2 | Offl. § 15 andre ledd | Råd og vurderinger kommunen har hentet inn utenfra, for eksempel fra advokat |
+| 15-3 | Offl. § 15 tredje ledd | Dokumenter om innhenting, og innkallinger og referater fra møter om slike råd |
+| 17 | Offl. § 17 | Taler og reiseprogram for kongehuset |
+| 18 | Offl. § 18 | Rettssaksdokumenter |
+| 19 | Offl. § 19 | Konsultasjoner med Sametinget og andre samiske interesser |
+| 20 | Offl. § 20 | Norges utenrikspolitiske interesser |
+| 21 | Offl. § 21 | Nasjonale forsvars- og sikkerhetsinteresser |
+| 22 | Offl. § 22 | Statlige budsjettsaker og foreløpige budsjettrammer |
 | 23-1 | Offl. § 23 første ledd | Opplysninger som må skjermes av hensyn til forhandlinger og økonomi-, lønns- og personalforvaltningen |
+| 23-2 | Offl. § 23 andre ledd | Forhandlinger om rammeavtaler med landbruks-, fiskeri- og reindriftsorganisasjonene |
 | 23-3 | Offl. § 23 tredje ledd | Tilbud og anskaffelsesprotokoll til leverandør er valgt |
+| 23-4 | Offl. § 23 fjerde ledd | Eierstyring av selskaper kommunen har eierinteresser i |
 | 24-1 | Offl. § 24 første ledd | Kontroll- og reguleringstiltak som ellers ville bli motvirket |
 | 24-2 | Offl. § 24 andre ledd første punktum | Melding eller tips om lovbrudd fra private |
+| 24-2b | Offl. § 24 andre ledd andre punktum | Andre dokumenter om lovbrudd, til saken er avgjort |
+| 24-3 | Offl. § 24 tredje ledd | Opplysninger som kan lette straffbare handlinger, utsette noen for fare eller skade sårbar natur |
 | 25 | Offl. § 25 første ledd | Søknader, innstilling og andre dokumenter i en tilsettingssak. Den offentlige søkerlisten er offentlig |
+| 25-3 | Offl. § 25 tredje ledd | Lønnsoppgaver |
 | 26-1 | Offl. § 26 første ledd | Eksamenssvar, karakterer og vitnemål |
+| 26-2 | Offl. § 26 andre ledd | Hvem som skal få pris eller hedersbevisning |
+| 26-3 | Offl. § 26 tredje ledd | Personbilder i personregister og opplysninger fra personovervåking |
+| 26-4 | Offl. § 26 fjerde ledd | Forskningsideer og forskningsprosjekter |
 | 26-5 | Offl. § 26 femte ledd | Fødselsnummer |
+| 26-6 | Offl. § 26 sjette ledd | Sammenstillinger laget etter innsynskrav etter personvernforordningen |
+
+Listen har en kode for hvert unntak i offentleglova §§ 13–26. Flere av dem (17, 19, 20, 22, 23-2) er sjelden eller aldri aktuelle i en kommune, men står der så studenten må velge riktig hjemmel.
 
 De fleste dokumenter i en kommune er offentlige og har ingen tilgangskode. Sett bare tilgangskode der det finnes en
 grunn. Et dokument med tilgangskode kan ha åpen tittel og åpen part når de ikke røper noe.
@@ -336,6 +356,8 @@ Hvert dokument har feltene `id`, `kanal` (brev, epost eller skjema), `dokumentda
 Postmottaket skal øve på alle arkivdelene og alle fire behandlingsmåtene. Hvert dokument skal ha en naturlig mappe:
 finnes saken eller personen i arkivet, skal dokumentet dit, ellers opprettes en ny mappe med en tittel som bare
 gjelder den saken. Ingen samlesaker som «Innsynskrav 2026» eller «Diverse henvendelser».
+Det eneste unntaket er samlemappen «Høringer 2026» (klasse 008): der legges høringer kommunen har mottatt, men ikke
+uttaler seg til. En høring kommunen skal behandle, får sin egen sak på emnet.
 
 ## Det som må følges med på
 

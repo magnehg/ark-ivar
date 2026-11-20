@@ -128,7 +128,8 @@ uttrekk eller avlevere.
   `ArkivTest::testFasitenGirFullUttellingForAlleDokumentene` at fasiten kan oppnås gjennom API-et. Dokumentene er
   datert; dokumentdatoen kan ikke ligge frem i tid, så testene setter klokka til 20.11.2026. Navn som ikke må stå i
   en offentlig tittel, står i `sensitive_ord`. Innholdet i `arkivar/data/` er norsk og oversettes ikke. Hvert
-  dokument skal ha en naturlig mappe: ingen samlesaker.
+  dokument skal ha en naturlig mappe: ingen samlesaker, bortsett fra «Høringer 2026» (klasse 008) for høringer kommunen
+  ikke uttaler seg til. Tilgangskodene dekker alle unntakene i offentleglova §§ 13–26.
 - **E-post** (`arkivar/src/Epost/`): `Epostsender` med `MailEpost` (drift) og `FilEpost` (tester og lokal utvikling).
 - **Logg:** hendelser skrives med `$kjerne->logg()->skriv('urn:arkivar:hendelse:<område>:<handling>', …)`, og
   klarteksten står i språkfilene som `arkivar.hendelse.<område>.<handling>`.

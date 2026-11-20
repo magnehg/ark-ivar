@@ -23,7 +23,7 @@
   Registrene (eiendommer, ansatte, elever, barnehagebarn og utvalg) står på siden Arkivstruktur.
 - Ny arkivnøkkel bygd på statens fellesnøkkel: klasse 0–2 følger den siste utgaven av fellesnøkkelen, klasse 3–8 er
   kommunens fagområder. 302 klasser med merknader, henvisninger til de andre arkivdelene og søk.
-- Arkivet har 33 mapper med dokumenter fra start (brev, e-poster, skjemaer, notater, saksframlegg, protokoller,
+- Arkivet har 34 mapper med dokumenter fra start (brev, e-poster, skjemaer, notater, saksframlegg, protokoller,
   vedtak og avtaler). Alle kan åpnes og leses. Dokumentene viser til saksnummeret mappen har i studentens arkiv.
 - Ny arbeidsgang, som i et sak- og arkivsystem: studenten søker etter mappen, oppretter den hvis den ikke finnes, og
   registrerer så journalposter i mappen. En mappe kan stå tom og kan få flere journalposter, også studentens egne
@@ -74,3 +74,5 @@
 - Menyen under Arkivet har en lenke til arkivplanen, som ligger i undermappen `arkivplan/` ved siden av appen
   (`arkivar/public/arkivplan/index.html`).
 - Reglene for innholdet står i `docs/innhold.md`.
+- Tilgangskoder for alle unntakene i offentleglova §§ 13–26 (29 koder), og en samlemappe «Høringer 2026» (klasse 008)
+  for høringer kommunen ikke uttaler seg til.

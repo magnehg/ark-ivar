@@ -700,7 +700,7 @@
           "handling": "Kommunen er bedt om å uttale seg, og saken skal behandles. Høringsbrevet skal journalføres.",
           "sak": "Kommunen har ingen sak om denne høringen fra før. Det opprettes en ny, der også kommunens uttalelse skal ligge.",
           "arkivdel": "Høringen er en vanlig sak i sakarkivet. Den gjelder et stort område og ikke én eiendom, så den hører ikke hjemme i eiendomsarkivet.",
-          "klasse": "En høring legges på emnet den gjelder, her naturforvaltning og vern (641). Klassen 008 er bare for oversikter over høringer.",
+          "klasse": "En høring legges på emnet den gjelder, her naturforvaltning og vern (641). Samlemappen «Høringer 2026» (008) er bare for høringer kommunen ikke uttaler seg til.",
           "tilgang": "Et høringsbrev fra en offentlig myndighet er offentlig.",
           "skjerming": "Ingenting skal skjermes."
         }

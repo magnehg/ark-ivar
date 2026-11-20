@@ -85,7 +85,7 @@
       "kode": "008",
       "tittel": "Høringer og utredninger – oversikt",
       "forelder": "00",
-      "merknad": "Høringer legges på emnet de gjelder. Her ligger bare oversikter."
+      "merknad": "Høringer kommunen uttaler seg til, legges på emnet de gjelder. Her ligger oversikter og årets samlemappe for høringer kommunen ikke uttaler seg til."
     },
     {
       "kode": "009",
@@ -2076,9 +2076,19 @@
       "hjemmel": "Offl. § 13 første ledd, jf. fvl. § 13 første ledd nr. 2"
     },
     {
+      "kode": "13-3",
+      "navn": "Taushetsplikt etter særlov (barnevern, helse, sosiale tjenester, skatt og annet)",
+      "hjemmel": "Offl. § 13 første ledd, jf. særlov"
+    },
+    {
       "kode": "14",
       "navn": "Organinterne dokumenter",
       "hjemmel": "Offl. § 14 første ledd"
+    },
+    {
+      "kode": "15-1",
+      "navn": "Dokumenter innhentet fra underordnet organ til intern saksforberedelse",
+      "hjemmel": "Offl. § 15 første ledd"
     },
     {
       "kode": "15-2",
@@ -2086,14 +2096,59 @@
       "hjemmel": "Offl. § 15 andre ledd"
     },
     {
+      "kode": "15-3",
+      "navn": "Dokumenter om innhenting, og innkallinger og referater fra møter om slike råd",
+      "hjemmel": "Offl. § 15 tredje ledd"
+    },
+    {
+      "kode": "17",
+      "navn": "Taler og reiseprogram for kongehuset",
+      "hjemmel": "Offl. § 17"
+    },
+    {
+      "kode": "18",
+      "navn": "Rettssaksdokumenter",
+      "hjemmel": "Offl. § 18"
+    },
+    {
+      "kode": "19",
+      "navn": "Konsultasjoner med Sametinget og andre samiske interesser",
+      "hjemmel": "Offl. § 19"
+    },
+    {
+      "kode": "20",
+      "navn": "Norges utenrikspolitiske interesser",
+      "hjemmel": "Offl. § 20"
+    },
+    {
+      "kode": "21",
+      "navn": "Nasjonale forsvars- og sikkerhetsinteresser",
+      "hjemmel": "Offl. § 21"
+    },
+    {
+      "kode": "22",
+      "navn": "Statlige budsjettsaker og foreløpige budsjettrammer",
+      "hjemmel": "Offl. § 22"
+    },
+    {
       "kode": "23-1",
       "navn": "Økonomi-, lønns- og personalforvaltning",
       "hjemmel": "Offl. § 23 første ledd"
     },
     {
+      "kode": "23-2",
+      "navn": "Forhandlinger om rammeavtaler med landbruks-, fiskeri- og reindriftsorganisasjonene",
+      "hjemmel": "Offl. § 23 andre ledd"
+    },
+    {
       "kode": "23-3",
       "navn": "Tilbud og protokoll i anskaffelser, til leverandør er valgt",
       "hjemmel": "Offl. § 23 tredje ledd"
+    },
+    {
+      "kode": "23-4",
+      "navn": "Eierstyring av selskaper kommunen har eierinteresser i",
+      "hjemmel": "Offl. § 23 fjerde ledd"
     },
     {
       "kode": "24-1",
@@ -2106,9 +2161,24 @@
       "hjemmel": "Offl. § 24 andre ledd første punktum"
     },
     {
+      "kode": "24-2b",
+      "navn": "Andre dokumenter om lovbrudd, til saken er avgjort",
+      "hjemmel": "Offl. § 24 andre ledd andre punktum"
+    },
+    {
+      "kode": "24-3",
+      "navn": "Opplysninger som kan lette straffbare handlinger, utsette noen for fare eller skade sårbar natur",
+      "hjemmel": "Offl. § 24 tredje ledd"
+    },
+    {
       "kode": "25",
       "navn": "Dokumenter i tilsettingssaker",
       "hjemmel": "Offl. § 25 første ledd"
+    },
+    {
+      "kode": "25-3",
+      "navn": "Lønnsoppgaver",
+      "hjemmel": "Offl. § 25 tredje ledd"
     },
     {
       "kode": "26-1",
@@ -2116,9 +2186,29 @@
       "hjemmel": "Offl. § 26 første ledd"
     },
     {
+      "kode": "26-2",
+      "navn": "Hvem som skal få pris eller hedersbevisning",
+      "hjemmel": "Offl. § 26 andre ledd"
+    },
+    {
+      "kode": "26-3",
+      "navn": "Personbilder i personregister og opplysninger fra personovervåking",
+      "hjemmel": "Offl. § 26 tredje ledd"
+    },
+    {
+      "kode": "26-4",
+      "navn": "Forskningsideer og forskningsprosjekter",
+      "hjemmel": "Offl. § 26 fjerde ledd"
+    },
+    {
       "kode": "26-5",
       "navn": "Fødselsnummer",
       "hjemmel": "Offl. § 26 femte ledd"
+    },
+    {
+      "kode": "26-6",
+      "navn": "Sammenstillinger laget etter innsynskrav etter personvernforordningen",
+      "hjemmel": "Offl. § 26 sjette ledd"
     }
   ],
   "saksmaler": [
@@ -4712,6 +4802,203 @@
             ],
             "vedlegg": [
               "Evalueringsrapport fra Sirevåg kommune etter øvelsen Mørk kyst 2026"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "nokkel": "horinger-2026",
+      "tittel": "Høringer 2026 – høringer kommunen ikke uttaler seg til",
+      "offentlig_tittel": null,
+      "tilgangskode": null,
+      "arkivdel": "SAK",
+      "klasse": "008",
+      "enhet": "DOK",
+      "saksansvarlig": "EEK",
+      "saksdato": "2026-01-05",
+      "status": "B",
+      "journalposter": [
+        {
+          "type": "X",
+          "tittel": "Samlemappe for høringer 2026 – rutine og oversikt",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-01-05",
+          "part": "Ellen Ekorn",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "notat",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Dokumentsenteret",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Samlemappe for høringer 2026 – rutine og oversikt",
+            "tekst": [
+              "Notat fra arkivleder Ellen Ekorn. Arkivsak {{sak}}.",
+              "## Hva mappen er til",
+              "Kommunen får hvert år mange høringer fra departementer, direktorater, fylkeskommunen og nabokommuner. De fleste uttaler kommunen seg ikke til. Slike høringsbrev journalføres i denne samlemappen, så de står i journalen og kan finnes igjen, uten at det opprettes en sak for hver.",
+              "## Hva som ikke skal hit",
+              "En høring kommunen skal uttale seg til, får sin egen sak på emnet høringen gjelder. Det avgjør kommunedirektørens stab når høringsbrevet kommer inn. Er dokumentsenteret i tvil, journalføres brevet her, og flyttes til en egen sak hvis kommunen likevel uttaler seg. Høringer i kommunens egne saker (reguleringsplaner, budsjett, forskrifter) ligger alltid i saken de hører til.",
+              "## Avslutning",
+              "Mappen avsluttes ved årsskiftet, og det opprettes en ny for 2027."
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Høring – regional plan for kulturminner og kulturmiljø i Rogaland 2027–2038",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-02-03",
+          "part": "Rogaland fylkeskommune",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": "2026-02-05",
+            "avsender": {
+              "navn": "Rogaland fylkeskommune",
+              "adresse": "Postboks 130 Sentrum, 4001 Stavanger",
+              "epost": null
+            },
+            "mottaker": null,
+            "emne": "Høring – regional plan for kulturminner og kulturmiljø i Rogaland 2027–2038",
+            "tekst": [
+              "Fylkesutvalget har vedtatt å legge forslag til regional plan for kulturminner og kulturmiljø 2027–2038 ut på høring og offentlig ettersyn.",
+              "Planen har mål og strategier for arbeidet med kulturminner i fylket og en liste over kulturmiljøer av regional verdi. Ingen av kulturmiljøene på listen ligger i Sirevåg kommune.",
+              "Høringsfristen er 20. april 2026. Uttalelser sendes til fylkeskommunen."
+            ],
+            "vedlegg": [
+              "Forslag til regional plan",
+              "Kart over kulturmiljøer av regional verdi"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Høring – forslag til endringer i forskrift om brannforebygging",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-03-12",
+          "part": "Direktoratet for samfunnssikkerhet og beredskap",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": "2026-03-13",
+            "avsender": {
+              "navn": "Direktoratet for samfunnssikkerhet og beredskap",
+              "adresse": "Postboks 2014, 3103 Tønsberg",
+              "epost": null
+            },
+            "mottaker": null,
+            "emne": "Høring – forslag til endringer i forskrift om brannforebygging",
+            "tekst": [
+              "Direktoratet sender på høring et forslag til endringer i forskrift om brannforebygging. Forslaget gjelder krav til dokumentasjon av tilsyn med fyringsanlegg i fritidsboliger.",
+              "Høringen går til alle kommuner og brann- og redningsvesen. Brannvesenet Sør-Jæren IKS, som Sirevåg kommune er med i, har fått høringen direkte.",
+              "Høringsfristen er 12. juni 2026."
+            ],
+            "vedlegg": [
+              "Høringsnotat"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Høring – forslag til endringer i forskrift om kommunale råd for eldre, personer med funksjonsnedsettelse og ungdom",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-05-20",
+          "part": "Kommunal- og distriktsdepartementet",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": "2026-05-21",
+            "avsender": {
+              "navn": "Kommunal- og distriktsdepartementet",
+              "adresse": "Postboks 8112 Dep, 0032 Oslo",
+              "epost": null
+            },
+            "mottaker": null,
+            "emne": "Høring – forslag til endringer i forskrift om kommunale råd for eldre, personer med funksjonsnedsettelse og ungdom",
+            "tekst": [
+              "Departementet sender på høring et forslag til endringer i forskriften om de kommunale medvirkningsrådene. Forslaget gjelder blant annet valgperioden for ungdomsrådet og rådenes rett til å få saker i god tid.",
+              "Høringen går til alle kommuner og fylkeskommuner. Høringsfristen er 1. september 2026. Uttalelser gis i departementets høringsportal."
+            ],
+            "vedlegg": [
+              "Høringsnotat",
+              "Liste over høringsinstanser"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Høring – forslag til ny håndbok for skilting av turistveger og serviceanlegg",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-08-25",
+          "part": "Statens vegvesen",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": "2026-08-27",
+            "avsender": {
+              "navn": "Statens vegvesen",
+              "adresse": "Postboks 1010 Nordre Ål, 2605 Lillehammer",
+              "epost": null
+            },
+            "mottaker": null,
+            "emne": "Høring – forslag til ny håndbok for skilting av turistveger og serviceanlegg",
+            "tekst": [
+              "Statens vegvesen sender på høring et forslag til ny håndbok for skilting av turistveger og serviceanlegg langs riks- og fylkesveg. Håndboken skal erstatte dagens veiledning og gir felles regler for brune skilt til severdigheter, rasteplasser og utsiktspunkter.",
+              "Forslaget endrer ikke hvem som betaler for skiltene. Virksomheter som ønsker skilting, søker som før til vegeieren.",
+              "Høringen går til alle kommuner, fylkeskommuner og reiselivsorganisasjoner. Høringsfristen er 15. november 2026. Uttalelser sendes til Statens vegvesen."
+            ],
+            "vedlegg": [
+              "Forslag til håndbok"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Høring – kommunedelplan for idrett og friluftsliv i Kvassheim kommune 2027–2034",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-10-14",
+          "part": "Kvassheim kommune",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": "2026-10-15",
+            "avsender": {
+              "navn": "Kvassheim kommune",
+              "adresse": "Rådhusvegen 2, 4398 Kvassheim",
+              "epost": null
+            },
+            "mottaker": null,
+            "emne": "Høring – kommunedelplan for idrett og friluftsliv i Kvassheim kommune 2027–2034",
+            "tekst": [
+              "Formannskapet i Kvassheim kommune har lagt forslag til kommunedelplan for idrett og friluftsliv 2027–2034 ut på høring og offentlig ettersyn. Nabokommunene får planen til uttalelse.",
+              "Planen prioriterer rehabilitering av idrettshallen i Kvassheim sentrum, ny kunstgressbane og merking av turstier i heiområdene øst i kommunen. Planen har ingen tiltak nær kommunegrensen mot Sirevåg.",
+              "Høringsfristen er 1. desember 2026. Uttalelser sendes til Kvassheim kommune."
+            ],
+            "vedlegg": [
+              "Forslag til kommunedelplan"
             ]
           }
         }

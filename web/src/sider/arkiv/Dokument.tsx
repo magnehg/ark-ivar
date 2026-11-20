@@ -111,12 +111,13 @@ function Vurdering({ id, b, angret }: { id: string; b: Behandling; angret: () =>
         </div>
       ))}
       {b.forslag && (
-        <div className={c.forslag} lang="nb">
+        <div className={c.forslag}>
           <Text weight="semibold">{t('arkivar.vurdering.forslag')}</Text>
-          {b.forslag.sak && <span>{t('arkivar.vurdering.forslag.sak', { tittel: b.forslag.sak })}</span>}
-          {b.forslag.sak_offentlig && <span>{t('arkivar.vurdering.forslag.sak_offentlig', { tittel: b.forslag.sak_offentlig })}</span>}
-          {b.forslag.tittel && <span>{t('arkivar.vurdering.forslag.tittel', { tittel: b.forslag.tittel })}</span>}
-          {b.forslag.offentlig_tittel && <span>{t('arkivar.vurdering.forslag.offentlig', { tittel: b.forslag.offentlig_tittel })}</span>}
+          {/* Ledetekstene er på språket i grensesnittet; titlene kommer fra fasiten og er norske. */}
+          {b.forslag.sak && <span>{t('arkivar.vurdering.forslag.sak')} <span lang="nb">{b.forslag.sak}</span></span>}
+          {b.forslag.sak_offentlig && <span>{t('arkivar.vurdering.forslag.sak_offentlig')} <span lang="nb">{b.forslag.sak_offentlig}</span></span>}
+          {b.forslag.tittel && <span>{t('arkivar.vurdering.forslag.tittel')} <span lang="nb">{b.forslag.tittel}</span></span>}
+          {b.forslag.offentlig_tittel && <span>{t('arkivar.vurdering.forslag.offentlig')} <span lang="nb">{b.forslag.offentlig_tittel}</span></span>}
         </div>
       )}
       <div className={c.knapper}>

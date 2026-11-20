@@ -22,25 +22,28 @@ const MELLOMTITTEL = '## ';
 export function Ark({ dok }: { dok: Dokument }) {
   const c = s(); const t = useT(); const dato = useDato(); const { sprak } = useSprak();
   return (
-    <article className={c.ark} aria-label={t('arkivar.dokument.arket')} lang="nb">
-      <div className={c.hode}>
-        <div className={c.kolonne}>
-          <Text weight="semibold">{dok.avsender.navn}</Text>
-          {dok.avsender.adresse && <span>{dok.avsender.adresse}</span>}
-          {dok.avsender.epost && <span>{dok.avsender.epost}</span>}
+    <article className={c.ark} aria-label={t('arkivar.dokument.arket')}>
+      {/* Navnet på arket er fra grensesnittet; innholdet er norsk. */}
+      <div lang="nb">
+        <div className={c.hode}>
+          <div className={c.kolonne}>
+            <Text weight="semibold">{dok.avsender.navn}</Text>
+            {dok.avsender.adresse && <span>{dok.avsender.adresse}</span>}
+            {dok.avsender.epost && <span>{dok.avsender.epost}</span>}
+          </div>
+          <div className={c.kolonne} lang={sprak}>
+            <span>{t(`arkivar.kanal.${dok.kanal}`)}</span>
+            <span>{t('arkivar.dokument.datert', { dato: dato(dok.dokumentdato) })}</span>
+            {dok.mottatt && <span>{t('arkivar.dokument.mottatt', { dato: dato(dok.mottatt) })}</span>}
+          </div>
         </div>
-        <div className={c.kolonne} lang={sprak}>
-          <span>{t(`arkivar.kanal.${dok.kanal}`)}</span>
-          <span>{t('arkivar.dokument.datert', { dato: dato(dok.dokumentdato) })}</span>
-          {dok.mottatt && <span>{t('arkivar.dokument.mottatt', { dato: dato(dok.mottatt) })}</span>}
-        </div>
+        {dok.mottaker && <div className={c.mottaker}><span lang={sprak}>{t('arkivar.dokument.til')}</span> {dok.mottaker}</div>}
+        <h2 className={c.emne}>{dok.emne}</h2>
+        {dok.tekst.map((avsnitt, nr) => (avsnitt.startsWith(MELLOMTITTEL)
+          ? <h3 key={nr} className={c.mellomtittel}>{avsnitt.slice(MELLOMTITTEL.length)}</h3>
+          : <p key={nr} className={c.avsnitt}>{avsnitt}</p>))}
+        {dok.vedlegg.length > 0 && <div className={c.vedlegg}><Text weight="semibold" lang={sprak}>{t('arkivar.dokument.vedlegg')}</Text> {dok.vedlegg.join(', ')}</div>}
       </div>
-      {dok.mottaker && <div className={c.mottaker}><span lang={sprak}>{t('arkivar.dokument.til')}</span> {dok.mottaker}</div>}
-      <h2 className={c.emne}>{dok.emne}</h2>
-      {dok.tekst.map((avsnitt, nr) => (avsnitt.startsWith(MELLOMTITTEL)
-        ? <h3 key={nr} className={c.mellomtittel}>{avsnitt.slice(MELLOMTITTEL.length)}</h3>
-        : <p key={nr} className={c.avsnitt}>{avsnitt}</p>))}
-      {dok.vedlegg.length > 0 && <div className={c.vedlegg}><Text weight="semibold" lang={sprak}>{t('arkivar.dokument.vedlegg')}</Text> {dok.vedlegg.join(', ')}</div>}
     </article>
   );
 }

@@ -46,10 +46,18 @@ final class Ovingsarkiv
 
         return $this->db->transaksjon(function () use ($brukerId): string {
             $ny = Tilfeldig::uuid();
-            $this->db->utfor('INSERT INTO arkivar_arkiv (id, eier_id, opprettet) VALUES (?, ?, ?)', [$ny, $brukerId, Db::tid($this->klokke->now())]);
-            $this->fyll($ny);
+            // En side kan hente flere ting samtidig første gang arkivet åpnes. Den som kommer sist, venter her til
+            // den første har fylt arkivet, og bruker så det: brukeren får aldri to arkiver eller en feil.
+            $this->db->utfor(
+                'INSERT INTO arkivar_arkiv (id, eier_id, opprettet) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE eier_id = eier_id',
+                [$ny, $brukerId, Db::tid($this->klokke->now())],
+            );
+            $id = Felt::tekst($this->db->verdi('SELECT id FROM arkivar_arkiv WHERE eier_id = ?', [$brukerId]));
+            if ($id === $ny) {
+                $this->fyll($ny);
+            }
 
-            return $ny;
+            return $id;
         });
     }
 
@@ -57,6 +65,8 @@ final class Ovingsarkiv
     public function nullstill(string $arkivId): void
     {
         $this->db->transaksjon(function () use ($arkivId): void {
+            // Samme lås som registreringen bruker: ingenting kan bli registrert i arkivet mens det tømmes.
+            $this->register->laas($arkivId);
             if ($this->db->verdi('SELECT 1 FROM arkivar_arkiv WHERE id = ?', [$arkivId]) === null) {
                 throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
             }

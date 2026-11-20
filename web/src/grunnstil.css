@@ -1,0 +1,7 @@
+/* Grunnstil for Ark-Ivar. Fargene, skriften og målene kommer fra designpakken (/bivrost/ressurser/stil/bivrost.css og
+   temaets stilfil), aldri faste farger her. */
+body { margin: 0; }
+
+/* Vanlige lenker (fra react-router) får lenkefargen fra temaet, også i mørk modus. */
+.fui-FluentProvider a:not([class]), .fui-FluentProvider a:not([class]):visited { color: var(--colorBrandForegroundLink); }
+.fui-FluentProvider a:not([class]):hover { color: var(--colorBrandForegroundLinkHover); }

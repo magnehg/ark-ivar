@@ -18,11 +18,13 @@ use Bivrost\Kjerne\Feil\HttpFeil;
 use Bivrost\Kjerne\Http\Csrf;
 use Bivrost\Kjerne\Http\Foresporsel;
 use Bivrost\Kjerne\Http\Ruter;
+use Bivrost\Kjerne\Http\Sikkerhetshoder;
 use Bivrost\Kjerne\Http\Svar;
 use Bivrost\Kjerne\Innlogging\Passordhash;
 use Bivrost\Kjerne\Innlogging\Passordregler;
 use Bivrost\Kjerne\Kjerne;
 use Bivrost\Kjerne\Klokke;
+use Bivrost\Kjerne\Krypto\Tilfeldig;
 use Bivrost\Kjerne\Logg\LoggObjekt;
 use Bivrost\Kjerne\Okt\Innlogget;
 use Bivrost\Kjerne\Tilgang\Urn;
@@ -51,12 +53,14 @@ final class App
     /**
      * @param Epostsender|null $epost Byttes ut i tester; ellers etter .env (epost()).
      * @param (callable(): void)|null $vent Forsinkelsen ved feil innlogging (byttes ut i tester).
+     * @param string|null $grensesnittfil Siden grensesnittet starter fra; standard public/app/index.html (bygget av web/).
      */
     public function __construct(
         private readonly Kjerne $kjerne,
         private readonly ClockInterface $klokke = new Klokke(),
         private readonly ?Epostsender $epost = null,
         ?callable $vent = null,
+        private readonly ?string $grensesnittfil = null,
     ) {
         $this->vent = $vent;
         // Kjerne spør om appens innlogginger fortsatt gjelder før rutene kjøres. Brukerne lages først da, så
@@ -144,25 +148,46 @@ final class App
      */
     public function ruter(Foresporsel $f, Kjerne $kjerne): ?Svar
     {
+        $side = in_array($f->metode, ['GET', 'HEAD'], true) && !str_starts_with($f->sti, '/api/');
+        if (!$kjerne->installert()) {
+            // Før installasjonen finnes ingen database: bare grensesnittet, som da viser installasjonssiden.
+            return $side ? $this->grensesnitt($f) : null;
+        }
         $ruter = new Ruter();
         $this->kontoruter($ruter);
         $this->klasseruter($ruter);
         $this->adminruter($ruter);
         $svar = $ruter->handter($f);
-        if ($svar !== null || str_starts_with($f->sti, '/api/')) {
+        if ($svar !== null) {
             return $svar;
         }
 
-        return in_array($f->metode, ['GET', 'HEAD'], true) ? $this->grensesnitt() : null;
+        return $side ? $this->grensesnitt($f) : null;
     }
 
-    /** Siden grensesnittet starter fra (bygget av web/ til public/app/). */
-    private function grensesnitt(): ?Svar
-    {
-        $fil = dirname(__DIR__) . '/public/app/index.html';
-        $html = is_file($fil) ? file_get_contents($fil) : false;
+    /** Plassholderen i index.html som byttes med engangsverdien for stilene (web/index.html). */
+    private const NONCE_PLASSHOLDER = 'ARKIVAR-STIL-NONCE';
 
-        return $html === false ? null : Svar::html($html)->settHode('Cache-Control', 'no-cache');
+    /**
+     * Siden grensesnittet starter fra (bygget av web/ til public/app/).
+     *
+     * Fluent UI lager stilene sine i nettleseren, i <style>-elementer. Kjernens CSP (style-src 'self') stopper
+     * dem, så siden får en engangsverdi (nonce) som bare gjelder dette svaret: den står i CSP-hodet og i en
+     * meta-tagg som grensesnittet leser og setter på stilelementene. Skript er fortsatt bare filer fra egen server.
+     */
+    private function grensesnitt(Foresporsel $f): ?Svar
+    {
+        $fil = $this->grensesnittfil ?? dirname(__DIR__) . '/public/app/index.html';
+        $html = is_file($fil) ? file_get_contents($fil) : false;
+        if ($html === false) {
+            return null;
+        }
+        $nonce = Tilfeldig::token(16);
+        $csp = str_replace("style-src 'self'", "style-src 'self' 'nonce-$nonce'", Sikkerhetshoder::CSP);
+
+        return Svar::html(str_replace(self::NONCE_PLASSHOLDER, $nonce, $html))
+            ->settHode('Cache-Control', 'no-store')
+            ->settHode('Content-Security-Policy', $f->https ? $csp : str_replace('; upgrade-insecure-requests', '', $csp));
     }
 
     // ---------------------------------------------------------------- konto

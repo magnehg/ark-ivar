@@ -3,3 +3,8 @@ arkivar.hendelse.
 arkivar.rolle.
 arkivar.epost.
 arkivar.objekttype.
+arkivar.utseende.tema.
+arkivar.utseende.modus.
+arkivar.utseende.bredde.
+arkivar.sprak.
+arkivar.felles.

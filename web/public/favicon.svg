@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Ark-Ivar">
+  <path d="M57.35 9.6Q64 5.76 70.65 9.6L107.79 31.04Q114.44 34.88 114.44 42.56L114.44 85.44Q114.44 93.12 107.79 96.96L70.65 118.4Q64 122.24 57.35 118.4L20.21 96.96Q13.56 93.12 13.56 85.44L13.56 42.56Q13.56 34.88 20.21 31.04Z" fill="#003366" stroke="#003366" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M40 46h48v10H40z" fill="#33CCFF"/>
+  <path d="M44 60h40v26a4 4 0 0 1-4 4H48a4 4 0 0 1-4-4z" fill="#FFFFFF"/>
+  <path d="M56 68h16" stroke="#003366" stroke-width="5" stroke-linecap="round"/>
+</svg>

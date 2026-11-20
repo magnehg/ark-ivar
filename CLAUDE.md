@@ -23,6 +23,7 @@ uttrekk eller avlevere.
   `arkivar/migrasjoner/NNN_navn.sql` (neste nummer, `IF NOT EXISTS`). En migrering som er lagt ut, endres aldri.
   Kjernens tabeller (`bivrost_`) endres ikke av appen.
 - **Utseendet:** bruk tokenene fra designpakken, aldri faste farger.
+- **Ingen mobilversjon i første omgang** (brukerens valg 2026-11-20): bygg for PC-skjerm. Sidene skal ikke gå i stykker på smale skjermer, men bruk ikke tid på egne mobiloppsett eller mobiltester.
 - **Fiktivt innhold:** virksomheten er Sirevåg kommune. Personer, saker og dokumenter i eksempeldataene er oppdiktet
   og skal ikke kunne forveksles med virkelige personer eller saker.
 
@@ -37,5 +38,14 @@ uttrekk eller avlevere.
 - **E-post** (`arkivar/src/Epost/`): `Epostsender` med `MailEpost` (drift) og `FilEpost` (tester og lokal utvikling).
 - **Logg:** hendelser skrives med `$kjerne->logg()->skriv('urn:arkivar:hendelse:<område>:<handling>', …)`, og
   klarteksten står i språkfilene som `arkivar.hendelse.<område>.<handling>`.
+- **Grensesnittet** (`web/`): React, Fluent UI v9 og react-router, bygget med Vite til `arkivar/public/app/`.
+  `api.ts` (CSRF-nøkkelen tas vare på fra svarene), `i18n.tsx` (de samme språkfilene som serveren, `useT()`),
+  `tema.tsx` (Fluent-temaet fra designtokenene, valgene i `localStorage` med designpakkens `preferanser.ts`),
+  `komponenter/Skall.tsx` (menyene i `useModuser()`), `komponenter/Tabell.tsx` og sidene i `sider/`. Tekstnøkler har
+  bare små bokstaver, tall, punktum og understrek. Språkkontrollen leser `web/src` også: en pil fulgt av en generisk
+  type på samme linje (`=> Promise<…>`) blir lest som tekst, så skriv typen som `{ (): Promise<…> }`.
+- **CSP:** Kjerne setter `style-src 'self'`. Fluent lager stilene i nettleseren, så `App::grensesnitt()` gir hvert
+  svar en engangsverdi (nonce) i CSP-hodet og i `<meta name="arkivar-stil-nonce">`, som `tema.tsx` setter på
+  stilelementene. Ingen innebygde skript eller stiler i `web/index.html`.
 - **Tester:** `arkivar/tester/Stotte/AppTestCase` installerer appen i en ny database per test og gir nettlesere med
   egne informasjonskapsler (`Nettleser`).

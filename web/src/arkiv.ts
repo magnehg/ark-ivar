@@ -25,6 +25,8 @@ export type Journalpost = {
   sak_skjermet?: boolean; sak_hjemmel?: string;
   /** Dokumentet fra postmottaket registreringen gjelder. Uten er den studentens egen, og kan slettes. */
   oppgave: string | null; kan_slettes: boolean;
+  /** Statusen på dokumentfilen (Noark: dokumentstatus og variantformat). Null når registreringen ikke har noe dokument. */
+  dokumentstatus: string | null; variantformat: string | null;
 };
 export type Behandling = {
   dokument: Dokument; behandlet: boolean; handling?: Handling; vurdering?: Kriterium[]; poeng?: number; maks?: number;
@@ -50,7 +52,15 @@ export type Struktur = {
   tilgangskoder: { kode: string; navn: string; hjemmel: string }[];
   journalposttyper: string[];
   handlinger: Handling[];
+  /** Statuskodene fra Noark 5 for mappen, journalposten og dokumentfilen. Navnene står i språkfilene. */
+  saksstatuser: string[];
+  journalstatuser: string[];
+  dokumentstatuser: string[];
+  variantformater: string[];
 };
+
+/** Kodelistene med status: tekstnøklene er arkivar.<liste>.<kode> (navnet) og arkivar.<liste>.<kode>.bruk (når koden brukes). */
+export type Statusliste = 'saksstatus' | 'jpstatus' | 'dokstatus' | 'variantformat';
 /** utdatert: arkivet ble fylt med en eldre utgave av mappene og oppgavene, og bør nullstilles. */
 export type Oversikt = { saker: number; journalposter: number; behandlet: number; poeng: number; maks: number; dokumenter: number; utdatert: boolean };
 

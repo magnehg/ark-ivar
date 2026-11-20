@@ -4,11 +4,15 @@
 import { Text, makeStyles, tokens } from '@fluentui/react-components';
 import { Dokument } from '../arkiv';
 import { useDato, useSprak, useT } from '../i18n';
+import { useOkt } from './Felles';
+import { Kommunevapen } from './Kommunevapen';
 
 const s = makeStyles({
   ark: { background: tokens.colorNeutralBackground1, border: `1px solid ${tokens.colorNeutralStroke2}`, borderRadius: tokens.borderRadiusMedium, boxShadow: tokens.shadow4, padding: '32px', minWidth: 0 },
   hode: { display: 'flex', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap', marginBottom: '24px', color: tokens.colorNeutralForeground2 },
   kolonne: { display: 'flex', flexDirection: 'column', minWidth: 0 },
+  // Brevhodet til kommunens egne dokumenter: våpenet står foran navnet og adressen.
+  avsender: { display: 'flex', gap: '12px', alignItems: 'flex-start', minWidth: 0 },
   mottaker: { marginBottom: '16px', color: tokens.colorNeutralForeground2 },
   emne: { fontSize: tokens.fontSizeBase400, fontWeight: tokens.fontWeightSemibold, margin: '0 0 12px' },
   mellomtittel: { fontSize: tokens.fontSizeBase300, fontWeight: tokens.fontWeightSemibold, margin: '16px 0 6px' },
@@ -20,16 +24,20 @@ const s = makeStyles({
 const MELLOMTITTEL = '## ';
 
 export function Ark({ dok }: { dok: Dokument }) {
-  const c = s(); const t = useT(); const dato = useDato(); const { sprak } = useSprak();
+  const c = s(); const t = useT(); const dato = useDato(); const { sprak } = useSprak(); const { oppsett } = useOkt();
+  const fraKommunen = dok.avsender.navn.startsWith(oppsett.virksomhet);
   return (
     <article className={c.ark} aria-label={t('arkivar.dokument.arket')}>
       {/* Navnet på arket er fra grensesnittet; innholdet er norsk. */}
       <div lang="nb">
         <div className={c.hode}>
-          <div className={c.kolonne}>
-            <Text weight="semibold">{dok.avsender.navn}</Text>
-            {dok.avsender.adresse && <span>{dok.avsender.adresse}</span>}
-            {dok.avsender.epost && <span>{dok.avsender.epost}</span>}
+          <div className={c.avsender}>
+            {fraKommunen && <Kommunevapen hoyde={48} />}
+            <div className={c.kolonne}>
+              <Text weight="semibold">{dok.avsender.navn}</Text>
+              {dok.avsender.adresse && <span>{dok.avsender.adresse}</span>}
+              {dok.avsender.epost && <span>{dok.avsender.epost}</span>}
+            </div>
           </div>
           <div className={c.kolonne} lang={sprak}>
             <span>{t(`arkivar.kanal.${dok.kanal}`)}</span>

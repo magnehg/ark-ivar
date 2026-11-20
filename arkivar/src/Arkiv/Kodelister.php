@@ -5,21 +5,52 @@ declare(strict_types=1);
 namespace ArkIvar\Arkiv;
 
 /**
- * Kodelistene Ark-Ivar bruker, med kodene fra Noark 5. Navnene til visning står i språkfilene
- * (arkivar.jptype.<kode>, arkivar.jpstatus.<kode>, arkivar.saksstatus.<kode> og arkivar.handling.<kode>).
+ * Kodelistene Ark-Ivar bruker, med kodene fra Noark 5. Navnene til visning og forklaringen av når hver kode brukes,
+ * står i språkfilene (arkivar.jptype.<kode>, arkivar.saksstatus.<kode>, arkivar.jpstatus.<kode>,
+ * arkivar.dokstatus.<kode>, arkivar.variantformat.<kode> og arkivar.handling.<kode>; forklaringen har «.bruk» etter
+ * koden). Statuskodene er hele kodelisten fra standarden, også kodene Ark-Ivar ikke setter selv: studentene skal
+ * kjenne dem igjen fra et sak- og arkivsystem. Siden Arkivstruktur viser listene.
  */
 final class Kodelister
 {
     /** Journalposttype: inngående, utgående, organinternt for oppfølging, organinternt uten oppfølging, saksframlegg. */
     public const JOURNALPOSTTYPER = ['I', 'U', 'N', 'X', 'S'];
 
-    /** Journalstatus: journalført, ferdigstilt fra saksbehandler, ekspedert, arkivert, midlertidig registrert. */
-    public const JOURNALSTATUSER = ['J', 'F', 'E', 'A', 'M'];
-
-    /** Saksstatus: under behandling, avsluttet. */
+    /**
+     * Saksstatus (på mappen): under behandling, avsluttet, utgår, opprettet av saksbehandler, avsluttet av
+     * saksbehandler, unntatt prosesstyring, ferdig fra saksbehandler.
+     */
     public const SAK_UNDER_BEHANDLING = 'B';
     public const SAK_AVSLUTTET = 'A';
-    public const SAKSSTATUSER = [self::SAK_UNDER_BEHANDLING, self::SAK_AVSLUTTET];
+    public const SAKSSTATUSER = [self::SAK_UNDER_BEHANDLING, self::SAK_AVSLUTTET, 'U', 'R', 'S', 'P', 'F'];
+
+    /**
+     * Journalstatus (på journalposten): journalført, ferdigstilt fra saksbehandler, godkjent av leder, ekspedert,
+     * arkivert, utgår, midlertidig registrering av innkommet dokument, saksbehandler har registrert innkommet
+     * dokument, reservert dokument.
+     */
+    public const JP_JOURNALFORT = 'J';
+    public const JP_ARKIVERT = 'A';
+    public const JOURNALSTATUSER = [self::JP_JOURNALFORT, 'F', 'G', 'E', self::JP_ARKIVERT, 'U', 'M', 'S', 'R'];
+
+    /** Dokumentstatus (på dokumentfilen): under redigering, ferdigstilt. */
+    public const DOK_UNDER_REDIGERING = 'B';
+    public const DOK_FERDIGSTILT = 'F';
+    public const DOKUMENTSTATUSER = [self::DOK_UNDER_REDIGERING, self::DOK_FERDIGSTILT];
+
+    /** Variantformat (på dokumentfilen): produksjonsformat, arkivformat, dokument der deler av innholdet er skjermet. */
+    public const VARIANT_PRODUKSJON = 'P';
+    public const VARIANT_ARKIV = 'A';
+    public const VARIANTFORMATER = [self::VARIANT_PRODUKSJON, self::VARIANT_ARKIV, 'O'];
+
+    /**
+     * Variantformatet til dokumentfilen i en journalpost med denne statusen: når journalposten er arkivert, er
+     * dokumentet gjort om til arkivformat. Før det ligger det i produksjonsformat.
+     */
+    public static function variantformat(string $journalstatus): string
+    {
+        return $journalstatus === self::JP_ARKIVERT ? self::VARIANT_ARKIV : self::VARIANT_PRODUKSJON;
+    }
 
     /** Det arkivtjenesten kan gjøre med et dokument i postmottaket. */
     public const JOURNALFOR = 'journalfor';

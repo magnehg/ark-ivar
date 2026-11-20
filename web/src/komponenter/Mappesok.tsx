@@ -6,7 +6,7 @@ import { Field, SearchBox, Text, makeStyles, tokens } from '@fluentui/react-comp
 import { Lightbulb20Regular } from '@fluentui/react-icons';
 import { api } from '../api';
 import { Flyt, Sak, Sokestreff, flytSok } from '../arkiv';
-import { useT } from '../i18n';
+import { useKode, useT } from '../i18n';
 import { Feil, useFeiltekst } from './Felles';
 import { Status } from './Status';
 
@@ -36,7 +36,7 @@ type Egenskaper = {
 };
 
 export function Mappesok({ tips, tipsSprak, handling, sokt, flyt = null }: Egenskaper) {
-  const c = s(); const t = useT(); const feiltekst = useFeiltekst();
+  const c = s(); const t = useT(); const kode = useKode(); const feiltekst = useFeiltekst();
   const [sok, settSok] = useState('');
   // null betyr at det ikke er søkt ennå.
   const [treff, settTreff] = useState<Sokestreff[] | null>(null);
@@ -77,7 +77,7 @@ export function Mappesok({ tips, tipsSprak, handling, sokt, flyt = null }: Egens
                 <span>{handling?.(sak)}</span>
                 <span className={c.dempet}>
                   <span lang="nb">{sak.arkivdel_tekst} · {sak.klasse_tekst}</span>{sak.skjerm_klasse && <> <Status slag="skjermet">{t('arkivar.sak.skjermet_klasse')}</Status></>}
-                  {' · '}{t(`arkivar.saksstatus.${sak.status.toLowerCase()}`)} · {t('arkivar.sok.dokumenter', { antall: sak.antall })}
+                  {' · '}{kode('saksstatus', sak.status)} · {t('arkivar.sok.dokumenter', { antall: sak.antall })}
                 </span>
                 {journalposter.map((p) => (
                   <span key={p.postnr} className={c.dokument}>{t('arkivar.sok.dokument', { nr: p.postnr })}: <span lang="nb">{p.tittel}{p.part_navn && ` (${p.part_navn})`}</span></span>

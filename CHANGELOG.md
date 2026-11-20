@@ -63,4 +63,10 @@
   innsynskrav ikke er omfattet av journalføringsplikten. Tilgangskodene har fått fullstendige hjemler.
 - Mappene får saksnummer etter saksdatoen og journalpostene løpenummer etter journaldatoen. Listen over mapper kan
   avgrenses til én arkivdel og viser om mappen er avsluttet.
+- Statuskodene fra Noark 5 for sak (saksstatus), journalpost (journalstatus) og dokumentfil (dokumentstatus og
+  variantformat) er lagt inn. Hele kodelisten står på siden Arkivstruktur med forklaring av når hver kode brukes,
+  og mapper, journalposter og dokumentfiler vises med kode og navn («J – Journalført»). Dokumentfilen er ferdigstilt
+  (F) og ligger i arkivformat (A) når journalposten er arkivert, ellers i produksjonsformat (P).
+- Sirevåg kommune har fått et oppdiktet kommunevåpen, som står i toppfeltet, i brevhodet på kommunens dokumenter og
+  på forsiden.
 - Reglene for innholdet står i `docs/innhold.md`.

@@ -15,3 +15,6 @@ arkivar.saksstatus.
 arkivar.kanal.
 arkivar.kriterium.
 arkivar.ordning.
+arkivar.dokstatus.
+arkivar.variantformat.
+arkivar.struktur.statuskoder.

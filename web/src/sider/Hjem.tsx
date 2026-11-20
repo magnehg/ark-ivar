@@ -5,6 +5,7 @@ import { Body1, MessageBar, MessageBarBody, makeStyles, tokens } from '@fluentui
 import { erDrift, harRolle } from '../api';
 import { useT } from '../i18n';
 import { Kort, Sidehode, useHent, useOkt } from '../komponenter/Felles';
+import { Kommunevapen } from '../komponenter/Kommunevapen';
 import type { Klasse } from '../api';
 import { glemStruktur } from '../arkiv';
 import type { Oversikt } from '../arkiv';
@@ -13,6 +14,8 @@ const s = makeStyles({
   tekst: { display: 'block', maxWidth: '72ch', marginBottom: '8px' },
   liste: { margin: 0, paddingLeft: '20px', color: tokens.colorNeutralForeground2 },
   utdatert: { marginBottom: '12px' },
+  kommune: { display: 'flex', gap: '16px', alignItems: 'flex-start' },
+  kommunetekst: { minWidth: 0, flex: 1 },
 });
 
 export default function Hjem() {
@@ -30,19 +33,24 @@ export default function Hjem() {
       {erDrift(innlogget) && !student && <Kort tittel={t('arkivar.hjem.drift.tittel')} id="hjem-drift"><Body1 className={c.tekst}>{t('arkivar.hjem.drift.tekst')}</Body1></Kort>}
       {student && (
         <Kort tittel={t('arkivar.hjem.arkivet.tittel', { virksomhet: oppsett.virksomhet })} id="hjem-arkivet">
-          <Body1 className={c.tekst}>{t('arkivar.hjem.arkivet.tekst')}</Body1>
-          {o?.utdatert && (
-            <MessageBar className={c.utdatert} intent="warning" id="hjem-utdatert">
-              <MessageBarBody>{t('arkivar.hjem.arkivet.utdatert')} <Ruterlenke to="/min-side">{t('arkivar.hjem.arkivet.utdatert.lenke')}</Ruterlenke></MessageBarBody>
-            </MessageBar>
-          )}
-          {o && (
-            <ul className={c.liste}>
-              <li><Ruterlenke to="/arkiv/postmottak">{t('arkivar.hjem.arkivet.postmottak', { venter: o.dokumenter - o.behandlet, alle: o.dokumenter })}</Ruterlenke></li>
-              {o.maks > 0 && <li>{t('arkivar.hjem.arkivet.poeng', { poeng: o.poeng, maks: o.maks })}</li>}
-              <li><Ruterlenke to="/arkiv/saker">{t('arkivar.hjem.arkivet.saker', { saker: o.saker, journalposter: o.journalposter })}</Ruterlenke></li>
-            </ul>
-          )}
+          <div className={c.kommune}>
+            <Kommunevapen hoyde={72} tekst={t('arkivar.virksomhet.vapen', { virksomhet: oppsett.virksomhet })} />
+            <div className={c.kommunetekst}>
+              <Body1 className={c.tekst}>{t('arkivar.hjem.arkivet.tekst')}</Body1>
+              {o?.utdatert && (
+                <MessageBar className={c.utdatert} intent="warning" id="hjem-utdatert">
+                  <MessageBarBody>{t('arkivar.hjem.arkivet.utdatert')} <Ruterlenke to="/min-side">{t('arkivar.hjem.arkivet.utdatert.lenke')}</Ruterlenke></MessageBarBody>
+                </MessageBar>
+              )}
+              {o && (
+                <ul className={c.liste}>
+                  <li><Ruterlenke to="/arkiv/postmottak">{t('arkivar.hjem.arkivet.postmottak', { venter: o.dokumenter - o.behandlet, alle: o.dokumenter })}</Ruterlenke></li>
+                  {o.maks > 0 && <li>{t('arkivar.hjem.arkivet.poeng', { poeng: o.poeng, maks: o.maks })}</li>}
+                  <li><Ruterlenke to="/arkiv/saker">{t('arkivar.hjem.arkivet.saker', { saker: o.saker, journalposter: o.journalposter })}</Ruterlenke></li>
+                </ul>
+              )}
+            </div>
+          </div>
         </Kort>
       )}
       {student && (

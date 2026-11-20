@@ -48,6 +48,12 @@ export function useT() {
   return useCallback((id: string, verdier?: Record<string, string | number | null | undefined>) => intl.formatMessage({ id }, (verdier ?? {}) as never), [intl]);
 }
 
+/** En kode fra en kodeliste med navnet etter, slik sak- og arkivsystemer viser den: «J – Journalført». */
+export function useKode() {
+  const t = useT();
+  return useCallback((liste: string, kode: string) => `${kode} – ${t(`arkivar.${liste}.${kode.toLowerCase()}`)}`, [t]);
+}
+
 /** Dato og klokkeslett på brukerens språk, eller tom tekst. */
 export function useTidspunkt() {
   const intl = useIntl();

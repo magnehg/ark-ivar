@@ -161,7 +161,7 @@ final class Postmottak
         }
         $felt = [
             'type' => $type,
-            'status' => $journalfor ? 'J' : 'A',
+            'status' => $journalfor ? Kodelister::JP_JOURNALFORT : Kodelister::JP_ARKIVERT,
             'tittel' => $tittel,
             'offentlig_tittel' => $skjermTittel ? ($offentlig !== '' ? $offentlig : '*****') : null,
             'dokumentdato' => $dokumentdato,
@@ -365,6 +365,8 @@ final class Postmottak
         if ($oppgaveId !== null && $this->oppgaver->hent($oppgaveId) === null) {
             $ut['oppgave'] = null;
             $ut['har_dokument'] = false;
+            $ut['dokumentstatus'] = null;
+            $ut['variantformat'] = null;
             $ut['kan_slettes'] = !$offentlig;
         }
 

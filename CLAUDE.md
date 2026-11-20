@@ -41,6 +41,14 @@ uttrekk eller avlevere.
   nettleseren, og alle oppslag tar den med. Arkivstrukturen (`Grunndata`, `arkivar/data/sirevag.json`) er felles og
   kan ikke endres av studentene. Kodene følger Noark 5 (`Kodelister`); navnene står i språkfilene med små bokstaver
   (`arkivar.jptype.i`).
+- **Statuskodene** (`Kodelister`) er hele kodelisten fra Noark 5 tjenestegrensesnitt (kontrollert 20.11.2026):
+  saksstatus (B, A, U, R, S, P, F), journalstatus (J, F, G, E, A, U, M, S, R), dokumentstatus (B, F) og variantformat
+  (P, A, O). Navnet og forklaringen («.bruk») står i språkfilene (`arkivar.saksstatus.`, `arkivar.jpstatus.`,
+  `arkivar.dokstatus.`, `arkivar.variantformat.`); `KodelisterTest` krever begge på alle språk, og `useKode()` viser
+  «J – Journalført». Dokumentfilen (`arkivar_journalpost.dokumentstatus` og `variantformat`, NULL uten dokument) er
+  ferdigstilt, og i arkivformat når journalposten har status A (`Kodelister::variantformat()`).
+- **Kommunevåpenet** (`web/src/bilder/sirevag-kommunevapen.svg`, `Kommunevapen`) er oppdiktet. Det er et bilde med
+  sine egne heraldiske farger og følger ikke fargetemaet.
 - **Arkivdelene** har hver sin ordning (`Grunndata::ORDNINGER`), som sier hva primærklasseringen er: `emne`
   (sakarkivet, en klasse i arkivnøkkelen), `eiendom` (gårds- og bruksnummer), `person` (fødselsdato og navn,
   «14.03.2016 Måke, Mathias»: personal-, elev- og barnehagebarnarkivet) og `utvalg` (møtearkivet).

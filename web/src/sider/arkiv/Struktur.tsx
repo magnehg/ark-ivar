@@ -1,7 +1,7 @@
 // Arkivstrukturen til Sirevåg kommune: arkivdelene med ordningen sin, arkivnøkkelen, registrene mappene klassifiseres
 // på, tilgangskodene, og enhetene med de ansatte.
 import { makeStyles, tokens } from '@fluentui/react-components';
-import { Arkivdel, Registerpost, Saksmal, Struktur as Strukturdata, useStruktur } from '../../arkiv';
+import { Arkivdel, Registerpost, Saksmal, Statusliste, Struktur as Strukturdata, useStruktur } from '../../arkiv';
 import { useSprak, useT } from '../../i18n';
 import { Hentefeil, Kort, Laster, Sidehode } from '../../komponenter/Felles';
 import { Arkivnokkel } from './Arkivnokkel';
@@ -9,6 +9,7 @@ import { Kolonne, SorterbarTabell } from '../../komponenter/Tabell';
 
 const s = makeStyles({
   dempet: { color: tokens.colorNeutralForeground2, margin: '0 0 8px', maxWidth: '72ch' },
+  listetittel: { fontSize: tokens.fontSizeBase300, fontWeight: tokens.fontWeightSemibold, margin: '16px 0 4px' },
 });
 
 type Tilgangskode = Strukturdata['tilgangskoder'][number];
@@ -54,6 +55,18 @@ export default function Struktur() {
     { id: 'tittel', overskrift: t('arkivar.struktur.stilling'), celle: (r) => r.tittel, sorter: (r) => r.tittel },
     { id: 'initialer', overskrift: t('arkivar.struktur.initialer'), stil: { width: '100px' }, celle: (r) => r.initialer, sorter: (r) => r.initialer },
   ];
+  // Statuskodene: koden, navnet og når koden brukes. Navnene og forklaringene står i språkfilene.
+  const statuskoder = (liste: Statusliste): Kolonne<string>[] => [
+    { id: 'kode', overskrift: t('arkivar.struktur.kode'), stil: { width: '90px' }, celle: (kode) => kode, sorter: (kode) => kode },
+    { id: 'navn', overskrift: t('arkivar.struktur.navn'), stil: { width: '34%' }, celle: (kode) => t(`arkivar.${liste}.${kode.toLowerCase()}`) },
+    { id: 'bruk', overskrift: t('arkivar.struktur.statuskoder.bruk'), celle: (kode) => t(`arkivar.${liste}.${kode.toLowerCase()}.bruk`) },
+  ];
+  const statuslister: { liste: Statusliste; koder: string[] }[] = [
+    { liste: 'saksstatus', koder: struktur.saksstatuser },
+    { liste: 'jpstatus', koder: struktur.journalstatuser },
+    { liste: 'dokstatus', koder: struktur.dokumentstatuser },
+    { liste: 'variantformat', koder: struktur.variantformater },
+  ];
   // Innholdet i tabellene kommer fra arkivet og er norsk; overskriftene og tekstene rundt er oversatt.
   return (
     <>
@@ -76,6 +89,15 @@ export default function Struktur() {
       ))}
       <Kort tittel={t('arkivar.struktur.tilgangskoder')} id="tilgangskoder">
         <SorterbarTabell rader={struktur.tilgangskoder} kolonner={tilgangskoder} nokkel={(r) => r.kode} aria-labelledby="tilgangskoder" kroppSprak="nb" />
+      </Kort>
+      <Kort tittel={t('arkivar.struktur.statuskoder')} id="statuskoder">
+        <p className={c.dempet}>{t('arkivar.struktur.statuskoder.om')}</p>
+        {statuslister.map(({ liste, koder }) => (
+          <section key={liste}>
+            <h3 className={c.listetittel} id={`statuskoder-${liste}`}>{t(`arkivar.struktur.statuskoder.${liste}`)}</h3>
+            <SorterbarTabell rader={koder} kolonner={statuskoder(liste)} nokkel={(kode) => kode} aria-labelledby={`statuskoder-${liste}`} />
+          </section>
+        ))}
       </Kort>
       <Kort tittel={t('arkivar.struktur.ansatte')} id="ansatte">
         <SorterbarTabell rader={struktur.ansatte} kolonner={ansatte} nokkel={(r) => r.initialer} aria-labelledby="ansatte" startSortering={{ id: 'enhet', retning: 'ascending' }} kroppSprak="nb" />

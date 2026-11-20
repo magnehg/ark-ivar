@@ -6,7 +6,7 @@ import { Link as Ruterlenke, useNavigate, useParams, useSearchParams } from 'rea
 import { Button, Caption1, Checkbox, Field, Input, MessageBar, MessageBarBody, Radio, RadioGroup, Select, Text, makeStyles, tokens } from '@fluentui/react-components';
 import { api } from '../../api';
 import { Behandling, Journalpost, Postmottaksrad, Sak, del, lesFlyt, useStruktur } from '../../arkiv';
-import { useDato, useT } from '../../i18n';
+import { useDato, useKode, useT } from '../../i18n';
 import { Ark } from '../../komponenter/Ark';
 import { Feil, Hentefeil, Kort, Laster, Sidehode, useFeiltekst, useHent } from '../../komponenter/Felles';
 import { Status } from '../../komponenter/Status';
@@ -28,7 +28,7 @@ type Verdier = { type: string; tittel: string; dokumentdato: string; part: strin
 const TOMT: Verdier = { type: '', tittel: '', dokumentdato: '', part: '', tilgangskode: '', skjermTittel: false, offentlig: '', skjermPart: false };
 
 export default function NyJournalpost() {
-  const c = s(); const t = useT(); const dato = useDato(); const feiltekst = useFeiltekst(); const naviger = useNavigate();
+  const c = s(); const t = useT(); const dato = useDato(); const kode = useKode(); const feiltekst = useFeiltekst(); const naviger = useNavigate();
   const { id = '' } = useParams();
   const [sok] = useSearchParams();
   const flyt = lesFlyt(sok);
@@ -101,6 +101,8 @@ export default function NyJournalpost() {
                 <Radio key={h} value={h} label={<><Text>{t(`arkivar.handling.${h}`)}</Text><Caption1 className={c.valgtekst}>{t(`arkivar.handling.${h}.hjelp`)}</Caption1></>} />
               ))}
             </RadioGroup>
+            {/* Statusen journalposten får: journalført (J), eller arkivert (A) når dokumentet ikke journalføres. */}
+            <Caption1 className={c.dempet}>{t('arkivar.nyjp.status', { status: kode('jpstatus', journalfores ? 'J' : 'A') })}</Caption1>
             <Field label={t('arkivar.journalpost.tittel')} required hint={t('arkivar.nyjp.tittel.hjelp')}><Input value={v.tittel} onChange={(_, d) => endre({ tittel: d.value })} /></Field>
             <div className={c.rad}>
               {(journalfores || !oppgave) && (

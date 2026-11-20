@@ -1,0 +1,61 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ArkIvar\Tester\Enhet;
+
+use ArkIvar\Arkiv\Grunndata;
+use ArkIvar\Arkiv\Kodelister;
+use PHPUnit\Framework\TestCase;
+
+/**
+ * Kodelistene fra Noark 5: hver kode har et navn og en forklaring på alle språkene, og dokumentfilen får
+ * variantformat etter statusen på journalposten.
+ */
+final class KodelisterTest extends TestCase
+{
+    /** Tekstnøklene for hver kodeliste (arkivar.<liste>.<kode> og arkivar.<liste>.<kode>.bruk). */
+    private const LISTER = [
+        'saksstatus' => Kodelister::SAKSSTATUSER,
+        'jpstatus' => Kodelister::JOURNALSTATUSER,
+        'dokstatus' => Kodelister::DOKUMENTSTATUSER,
+        'variantformat' => Kodelister::VARIANTFORMATER,
+    ];
+
+    public function testHverStatuskodeHarNavnOgForklaringPaaAlleSpraak(): void
+    {
+        foreach (['nb', 'nn', 'en'] as $sprak) {
+            $tekster = Grunndata::les(dirname(__DIR__, 2) . "/i18n/$sprak/grensesnitt.json");
+            foreach (self::LISTER as $liste => $koder) {
+                self::assertSame($koder, array_values(array_unique($koder)), "$liste: hver kode står én gang.");
+                foreach ($koder as $kode) {
+                    self::assertMatchesRegularExpression('/^[A-Z]$/', $kode, "$liste: kodene er én stor bokstav.");
+                    $nokkel = "arkivar.$liste." . strtolower($kode);
+                    foreach ([$nokkel, $nokkel . '.bruk'] as $n) {
+                        self::assertIsString($tekster[$n] ?? null, "$sprak: $n mangler.");
+                        self::assertNotSame('', trim($tekster[$n]), "$sprak: $n er tom.");
+                    }
+                }
+            }
+        }
+    }
+
+    public function testKodeneArkIvarSetterSelvStaarIListene(): void
+    {
+        self::assertContains(Kodelister::SAK_UNDER_BEHANDLING, Kodelister::SAKSSTATUSER);
+        self::assertContains(Kodelister::SAK_AVSLUTTET, Kodelister::SAKSSTATUSER);
+        self::assertContains(Kodelister::JP_JOURNALFORT, Kodelister::JOURNALSTATUSER);
+        self::assertContains(Kodelister::JP_ARKIVERT, Kodelister::JOURNALSTATUSER);
+        self::assertContains(Kodelister::DOK_FERDIGSTILT, Kodelister::DOKUMENTSTATUSER);
+        self::assertContains(Kodelister::VARIANT_PRODUKSJON, Kodelister::VARIANTFORMATER);
+        self::assertContains(Kodelister::VARIANT_ARKIV, Kodelister::VARIANTFORMATER);
+    }
+
+    public function testDokumentfilenErIArkivformatNaarJournalpostenErArkivert(): void
+    {
+        self::assertSame(Kodelister::VARIANT_ARKIV, Kodelister::variantformat(Kodelister::JP_ARKIVERT));
+        foreach (array_diff(Kodelister::JOURNALSTATUSER, [Kodelister::JP_ARKIVERT]) as $status) {
+            self::assertSame(Kodelister::VARIANT_PRODUKSJON, Kodelister::variantformat($status), "Journalstatus $status: dokumentet er ikke gjort om til arkivformat ennå.");
+        }
+    }
+}

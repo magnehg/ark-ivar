@@ -6,6 +6,7 @@ import { Avatar, Button, Menu, MenuDivider, MenuGroup, MenuGroupHeader, MenuItem
 import { AlignStretchHorizontal20Regular, ArrowAutofitWidthDotted20Regular, Desktop20Regular, DocumentBulletList20Regular, Folder20Regular, Globe20Regular, Home20Regular, MailInbox20Regular, TextBulletListTree20Regular, People20Regular, PeopleTeam20Regular, Person20Regular, SignOut20Regular, WeatherMoon20Regular, WeatherSunny20Regular } from '@fluentui/react-icons';
 import { Innlogget, api, harRolle, kanAdministrere } from '../api';
 import { SPRAK, Sprakkode, useSprak, useT } from '../i18n';
+import { Kommunevapen } from './Kommunevapen';
 import { Fargeprove, Logo, useTema } from '../tema';
 import { TEMA_REKKEFOLGE, type TemaId } from '../../../grensesnitt/src/temaer.ts';
 import { Feilgrense, Laster, useOkt } from './Felles';
@@ -18,7 +19,7 @@ const s = makeStyles({
   hopp: { position: 'absolute', left: '-9999px', top: '8px', zIndex: 100, background: tokens.colorNeutralBackground1, padding: '8px 12px', ':focus': { left: '8px' } },
   topp: { display: 'flex', alignItems: 'center', gap: '12px', padding: '0 12px', height: '48px', boxSizing: 'border-box', background: 'var(--bivrost-farge-toppfelt-bakgrunn)', color: 'var(--bivrost-farge-toppfelt-tekst)', borderBottom: '1px solid var(--bivrost-farge-toppfelt-kant)' },
   logo: { display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--bivrost-farge-toppfelt-tekst)', textDecoration: 'none', fontWeight: tokens.fontWeightSemibold, fontSize: '16px' },
-  virksomhet: { whiteSpace: 'nowrap', '@media (max-width: 600px)': { display: 'none' } },
+  virksomhet: { whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center', gap: '8px', '@media (max-width: 600px)': { display: 'none' } },
   fyll: { flex: 1, minWidth: 0 },
   modus: { display: 'flex', gap: '4px', padding: '0 16px', background: tokens.colorNeutralBackground1, borderBottom: `1px solid ${tokens.colorNeutralStroke2}`, overflowX: 'auto' },
   modusLenke: { padding: '12px', color: tokens.colorNeutralForeground2, textDecoration: 'none', borderBottom: '3px solid transparent', whiteSpace: 'nowrap', ':hover': { background: tokens.colorNeutralBackground3 } },
@@ -105,7 +106,7 @@ export function Skall() {
         <div className={mergeClasses(c.topp, begrenset && c.toppBegrenset)} style={{ '--colorStrokeFocus2': 'var(--bivrost-farge-toppfelt-tekst)', '--colorStrokeFocus1': 'var(--bivrost-farge-toppfelt-bakgrunn)' } as CSSProperties}>
           <NavLink to="/" className={c.logo} aria-label={t('arkivar.topp.hjem', { appnavn: oppsett.appnavn })}><Logo /><span>{oppsett.appnavn}</span></NavLink>
           <span className={c.fyll} />
-          <Text size={200} className={c.virksomhet}>{oppsett.virksomhet}</Text>
+          <Text size={200} className={c.virksomhet}><Kommunevapen hoyde={24} />{oppsett.virksomhet}</Text>
           <Menu checkedValues={{ tema: [tema.tema], modus: [modus], bredde: [bredde], sprak: [sprak] }} onCheckedValueChange={velg}>
             <MenuTrigger disableButtonEnhancement>
               <Button appearance="transparent" aria-label={t('arkivar.topp.brukermeny', { navn: innlogget?.navn ?? '' })} icon={<Avatar name={innlogget?.navn} size={28} color="neutral" />} />

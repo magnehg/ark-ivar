@@ -59,10 +59,12 @@ CREATE TABLE IF NOT EXISTS arkivar_journalpost (
     part_adresse VARCHAR(300) NULL,
     oppgave_id VARCHAR(60) NULL,
     startdokument VARCHAR(90) NULL,
+    dokumentstatus CHAR(1) NULL,
+    variantformat CHAR(1) NULL,
     opprettet DATETIME(6) NOT NULL,
     UNIQUE KEY arkivar_journalpost_sak (sak_id, postnr),
     KEY arkivar_journalpost_arkiv (arkiv_id, journalaar, sekvens)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Registreringer i en mappe (Noark: journalpost; journalfort = 0 er arkivert uten journalføring). Én korrespondansepart per post. Dokumentet ligger i arkivar/data: oppgave_id (postmottaket) eller startdokument (fulgte med arkivet)';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Registreringer i en mappe (Noark: journalpost; journalfort = 0 er arkivert uten journalføring). Én korrespondansepart per post. Dokumentet ligger i arkivar/data: oppgave_id (postmottaket) eller startdokument (fulgte med arkivet). dokumentstatus og variantformat (Noark) gjelder dokumentfilen og er NULL når registreringen ikke har noe dokument';
 
 CREATE TABLE IF NOT EXISTS arkivar_oppgavestatus (
     arkiv_id CHAR(36) NOT NULL,

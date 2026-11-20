@@ -97,6 +97,10 @@ final class Register
      *     oppgave_id?: ?string,
      *     startdokument?: ?string,
      * } $felt
+     *
+     * En journalpost med et dokument (fra postmottaket eller et som fulgte med) får status på dokumentfilen:
+     * dokumentet er ferdigstilt, og det ligger i arkivformat når journalposten er arkivert, ellers i
+     * produksjonsformat. En registrering uten dokument har ingen dokumentfil.
      */
     public function opprettJournalpost(string $arkivId, string $sakId, array $felt): string
     {
@@ -104,16 +108,18 @@ final class Register
         // Løpenummeret først: oppdateringen av telleren låser arkivet, så dokumentnummeret i mappen leses etter låsen.
         $sekvens = $this->neste($arkivId, 'journal');
         $postnr = Felt::tall($this->db->verdi('SELECT COALESCE(MAX(postnr), 0) + 1 FROM arkivar_journalpost WHERE sak_id = ?', [$sakId]));
+        $harDokument = ($felt['oppgave_id'] ?? null) !== null || ($felt['startdokument'] ?? null) !== null;
         $this->db->utfor(
             'INSERT INTO arkivar_journalpost (id, arkiv_id, sak_id, postnr, journalaar, sekvens, journalfort, type, status, tittel, offentlig_tittel, dokumentdato, journaldato,
-                saksbehandler, enhet, tilgangskode, skjerm_tittel, skjerm_part, part_navn, part_adresse, oppgave_id, startdokument, opprettet)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                saksbehandler, enhet, tilgangskode, skjerm_tittel, skjerm_part, part_navn, part_adresse, oppgave_id, startdokument, dokumentstatus, variantformat, opprettet)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [
                 $id, $arkivId, $sakId, $postnr, (int) substr($felt['journaldato'], 0, 4), $sekvens,
                 ($felt['journalfort'] ?? true) ? 1 : 0, $felt['type'], $felt['status'], $felt['tittel'], $felt['offentlig_tittel'] ?? null,
                 $felt['dokumentdato'], $felt['journaldato'], $felt['saksbehandler'], $felt['enhet'], $felt['tilgangskode'] ?? null,
                 ($felt['skjerm_tittel'] ?? false) ? 1 : 0, ($felt['skjerm_part'] ?? false) ? 1 : 0, $felt['part_navn'] ?? '', $felt['part_adresse'] ?? null,
-                $felt['oppgave_id'] ?? null, $felt['startdokument'] ?? null, Db::tid($this->klokke->now()),
+                $felt['oppgave_id'] ?? null, $felt['startdokument'] ?? null,
+                $harDokument ? Kodelister::DOK_FERDIGSTILT : null, $harDokument ? Kodelister::variantformat($felt['status']) : null, Db::tid($this->klokke->now()),
             ],
         );
 
@@ -358,6 +364,9 @@ final class Register
             'har_dokument' => !$offentlig && ($rad['oppgave_id'] !== null || $rad['startdokument'] !== null),
             // Dokumentet fra postmottaket registreringen gjelder. En registrering uten dokument fra postmottaket som
             // studenten har laget selv, kan slettes.
+            // Statusen på dokumentfilen (dokumentstatus og variantformat). Den offentlige journalen har ikke dokumentene.
+            'dokumentstatus' => $offentlig ? null : Felt::valgfriTekst($rad['dokumentstatus'] ?? null),
+            'variantformat' => $offentlig ? null : Felt::valgfriTekst($rad['variantformat'] ?? null),
             'oppgave' => $offentlig ? null : Felt::valgfriTekst($rad['oppgave_id']),
             'kan_slettes' => !$offentlig && $rad['oppgave_id'] === null && $rad['startdokument'] === null,
         ];

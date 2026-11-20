@@ -127,6 +127,9 @@ final class Arkivruter
             return Svar::json([
                 'arkivdeler' => $g->arkivdeler(), 'klasser' => $g->klasser(), 'registre' => $registre, 'saksmaler' => $g->saksmaler(), 'enheter' => $g->enheter(),
                 'ansatte' => $g->ansatte(), 'tilgangskoder' => $g->tilgangskoder(), 'journalposttyper' => Kodelister::JOURNALPOSTTYPER, 'handlinger' => Kodelister::HANDLINGER,
+                // Statuskodene fra Noark 5 for mappen, journalposten og dokumentfilen. Navnene står i språkfilene.
+                'saksstatuser' => Kodelister::SAKSSTATUSER, 'journalstatuser' => Kodelister::JOURNALSTATUSER,
+                'dokumentstatuser' => Kodelister::DOKUMENTSTATUSER, 'variantformater' => Kodelister::VARIANTFORMATER,
             ]);
         });
         $r->legg('GET', '/api/arkiv/postmottak', fn (): Svar => Svar::json(['dokumenter' => $this->postmottak()->liste($this->arkiv())]));

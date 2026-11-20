@@ -5,7 +5,7 @@ import { Button, Field, MessageBar, MessageBarBody, Select, Text, makeStyles, to
 import { Add20Regular, Delete20Regular } from '@fluentui/react-icons';
 import { api } from '../../api';
 import { Behandling, Journalpost, Sak, del, flytSok, lesFlyt, useStruktur } from '../../arkiv';
-import { useDato, useT } from '../../i18n';
+import { useDato, useKode, useT } from '../../i18n';
 import { Feil, Kort, Laster, Sidehode, useFeiltekst, useHent } from '../../komponenter/Felles';
 import { Mappesok } from '../../komponenter/Mappesok';
 import { Status } from '../../komponenter/Status';
@@ -23,7 +23,7 @@ const s = makeStyles({
 const sorterbart = (nummer: string) => nummer.split('/').map((del) => del.padStart(6, '0')).join('/');
 
 export function Saker() {
-  const t = useT(); const dato = useDato(); const naviger = useNavigate();
+  const t = useT(); const dato = useDato(); const kode = useKode(); const naviger = useNavigate();
   const c = s();
   const liste = useHent<{ saker: Sak[] }>('/api/arkiv/saker');
   const struktur = useStruktur();
@@ -41,7 +41,7 @@ export function Saker() {
     { id: 'klasse', overskrift: t('arkivar.sak.primaer'), stil: { width: '17%' }, sprak: 'nb', celle: (r) => r.klasse_tekst, sorter: (r) => r.klasse_tekst },
     { id: 'ansvarlig', overskrift: t('arkivar.sak.ansvarlig'), stil: { width: '12%' }, sprak: 'nb', celle: (r) => r.saksansvarlig_navn, sorter: (r) => r.saksansvarlig_navn },
     { id: 'dato', overskrift: t('arkivar.sak.dato'), stil: { width: '100px' }, celle: (r) => dato(r.saksdato), sorter: (r) => r.saksdato },
-    { id: 'status', overskrift: t('arkivar.sak.status'), stil: { width: '136px' }, celle: (r) => t(`arkivar.saksstatus.${r.status.toLowerCase()}`), sorter: (r) => r.status },
+    { id: 'status', overskrift: t('arkivar.sak.status'), stil: { width: '150px' }, celle: (r) => kode('saksstatus', r.status), sorter: (r) => r.status },
     { id: 'antall', overskrift: t('arkivar.sak.antall'), stil: { width: '96px' }, celle: (r) => r.antall, sorter: (r) => r.antall },
   ];
   return (
@@ -70,7 +70,7 @@ export function Saker() {
 }
 
 export function EnSak() {
-  const c = s(); const t = useT(); const dato = useDato(); const feiltekst = useFeiltekst(); const naviger = useNavigate();
+  const c = s(); const t = useT(); const dato = useDato(); const kode = useKode(); const feiltekst = useFeiltekst(); const naviger = useNavigate();
   const { id = '' } = useParams();
   const [sok] = useSearchParams();
   // Dokumentet fra postmottaket studenten holder på å registrere (kom hit fra søket).
@@ -96,7 +96,7 @@ export function EnSak() {
     { id: 'tittel', overskrift: t('arkivar.journalpost.tittel'), sprak: 'nb', celle: (r) => <Ruterlenke to={`/arkiv/saker/${d.id}/journalposter/${r.id}`}>{r.tittel}</Ruterlenke>, sorter: (r) => r.tittel },
     { id: 'part', overskrift: t('arkivar.journalpost.part'), stil: { width: '15%' }, sprak: 'nb', celle: (r) => r.part_navn, sorter: (r) => r.part_navn },
     { id: 'dato', overskrift: t('arkivar.journalpost.dokumentdato'), stil: { width: '110px' }, celle: (r) => dato(r.dokumentdato), sorter: (r) => r.dokumentdato },
-    { id: 'status', overskrift: t('arkivar.journalpost.status'), stil: { width: '120px' }, celle: (r) => t(r.journalfort ? `arkivar.jpstatus.${r.status.toLowerCase()}` : 'arkivar.jpstatus.uten'), sorter: (r) => r.status },
+    { id: 'status', overskrift: t('arkivar.journalpost.status'), stil: { width: '150px' }, celle: (r) => (r.journalfort ? kode('jpstatus', r.status) : `${r.status} – ${t('arkivar.jpstatus.uten')}`), sorter: (r) => r.status },
     { id: 'tilgang', overskrift: t('arkivar.journalpost.tilgang'), stil: { width: '18%' }, celle: tilgang, sorter: (r) => r.tilgangskode ?? '' },
   ];
   const nyJournalpost = (
@@ -119,7 +119,7 @@ export function EnSak() {
           <dt>{t('arkivar.sak.primaer')}</dt><dd><span lang="nb">{d.klasse_tekst}</span>{d.skjerm_klasse && <> <Status slag="skjermet">{t('arkivar.sak.skjermet_klasse')}</Status></>}</dd>
           <dt>{t('arkivar.sak.ansvarlig')}</dt><dd lang="nb">{d.saksansvarlig_navn} ({d.enhet})</dd>
           <dt>{t('arkivar.sak.dato')}</dt><dd>{dato(d.saksdato)}</dd>
-          <dt>{t('arkivar.sak.status')}</dt><dd>{t(`arkivar.saksstatus.${d.status.toLowerCase()}`)}</dd>
+          <dt>{t('arkivar.sak.status')}</dt><dd>{kode('saksstatus', d.status)}</dd>
           {d.skjerm_tittel && <><dt>{t('arkivar.journalpost.offentlig_tittel')}</dt><dd lang="nb">{d.offentlig_tittel}</dd></>}
           {d.tilgangskode && <><dt>{t('arkivar.sak.hjemmel')}</dt><dd lang="nb"><Status slag="skjermet">{d.hjemmel}</Status></dd></>}
         </dl>

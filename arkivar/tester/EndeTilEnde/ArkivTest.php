@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ArkIvar\Tester\EndeTilEnde;
 
 use ArkIvar\Arkiv\Grunndata;
+use ArkIvar\Arkiv\Kodelister;
 use ArkIvar\Arkiv\Mapper;
 use ArkIvar\Arkiv\Oppgavesett;
 use ArkIvar\Arkiv\Ovingsarkiv;
@@ -60,6 +61,17 @@ final class ArkivTest extends AppTestCase
         }
 
         return ['poeng' => Felt::tall($j['poeng']), 'maks' => Felt::tall($j['maks']), 'kriterier' => $kriterier];
+    }
+
+    /**
+     * De ulike verdiene et felt har i radene.
+     *
+     * @param list<array<string, mixed>> $rader
+     * @return list<string>
+     */
+    private static function ulike(array $rader, string $felt): array
+    {
+        return array_values(array_unique(array_map(static fn (array $r): string => Felt::tekst($r[$felt] ?? null), $rader)));
     }
 
     /** Koden i registeret til arkivdelen for den som heter dette («Etternavn, Fornavn»). */
@@ -207,6 +219,19 @@ final class ArkivTest extends AppTestCase
         self::assertSame(array_column($startsak['journalposter'], 'type'), array_column($poster, 'type'));
         self::assertNotContains(false, array_column($poster, 'har_dokument'), 'Alle dokumentene i arkivet kan åpnes.');
         self::assertNotContains(true, array_column($poster, 'kan_slettes'));
+        // Statuskodene: mappen er under behandling, og dokumentfilene er ferdigstilt og ligger i produksjonsformat.
+        self::assertSame(Kodelister::SAK_UNDER_BEHANDLING, $bygg['status']);
+        self::assertSame(array_column($startsak['journalposter'], 'status'), array_column($poster, 'status'));
+        self::assertSame([Kodelister::DOK_FERDIGSTILT], self::ulike($poster, 'dokumentstatus'));
+        self::assertSame([Kodelister::VARIANT_PRODUKSJON], self::ulike($poster, 'variantformat'));
+        // I en avsluttet mappe er journalpostene arkivert, og dokumentene er gjort om til arkivformat.
+        [, $j] = $this->kari->kall('GET', '/api/arkiv/saker/' . $this->sakId($this->kari, 'Byggesak – garasje – Strandveien 16'));
+        self::assertIsArray($j['sak']);
+        self::assertSame(Kodelister::SAK_AVSLUTTET, $j['sak']['status']);
+        $arkiverte = self::rader($j['journalposter']);
+        self::assertSame([Kodelister::JP_ARKIVERT], self::ulike($arkiverte, 'status'));
+        self::assertSame([Kodelister::VARIANT_ARKIV], self::ulike($arkiverte, 'variantformat'));
+        self::assertSame([Kodelister::DOK_FERDIGSTILT], self::ulike($arkiverte, 'dokumentstatus'));
 
         // Dokumentet til en journalpost, med saksnummeret til mappen satt inn i teksten.
         $utgaende = array_values(array_filter($poster, static fn (array $p): bool => $p['type'] === 'U'))[0];
@@ -240,6 +265,11 @@ final class ArkivTest extends AppTestCase
         self::assertSame(['EIENDOM', 'PERSONAL', 'ELEV', 'BARNEHAGE', 'MOTE'], array_keys($j['registre']));
         self::assertContains('Offl. § 25 første ledd', array_column(self::rader($j['tilgangskoder']), 'hjemmel'));
         self::assertContains('elevmappe', array_column(self::rader($j['saksmaler']), 'kode'));
+        // Statuskodene fra Noark 5 for mappen, journalposten og dokumentfilen.
+        self::assertSame(Kodelister::SAKSSTATUSER, $j['saksstatuser']);
+        self::assertSame(Kodelister::JOURNALSTATUSER, $j['journalstatuser']);
+        self::assertSame(Kodelister::DOKUMENTSTATUSER, $j['dokumentstatuser']);
+        self::assertSame(Kodelister::VARIANTFORMATER, $j['variantformater']);
     }
 
     public function testSoketFinnerMappenPaaTittelKlasseringOgDokumentene(): void
@@ -535,6 +565,7 @@ final class ArkivTest extends AppTestCase
         self::assertSame($sakId, $j['sak']['id']);
         self::assertIsArray($j['journalpost']);
         self::assertSame('J', $j['journalpost']['status']);
+        self::assertSame(['F', 'P'], [$j['journalpost']['dokumentstatus'], $j['journalpost']['variantformat']], 'Dokumentfilen er ferdigstilt og ligger i produksjonsformat.');
         self::assertSame('2026-11-20', $j['journalpost']['journaldato']);
         self::assertTrue($j['journalpost']['har_dokument']);
         self::assertSame('innmelding-lerke', $j['journalpost']['oppgave']);
@@ -586,6 +617,7 @@ final class ArkivTest extends AppTestCase
         self::assertNull($j['dokument']);
         self::assertIsArray($j['journalpost']);
         self::assertFalse($j['journalpost']['har_dokument']);
+        self::assertSame([null, null], [$j['journalpost']['dokumentstatus'], $j['journalpost']['variantformat']], 'En registrering uten dokument har ingen dokumentfil.');
 
         // En elev som har mappe fra før: søknaden legges i den.
         $oppgave = $this->oppgaver->hent('tilrettelegging-elev');
@@ -677,6 +709,7 @@ final class ArkivTest extends AppTestCase
         self::assertSame($j['maks'], $j['poeng'], json_encode($j['vurdering'], JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE));
         self::assertIsArray($j['journalpost']);
         self::assertFalse($j['journalpost']['journalfort']);
+        self::assertSame(['A', 'F', 'A'], [$j['journalpost']['status'], $j['journalpost']['dokumentstatus'], $j['journalpost']['variantformat']], 'Arkivert uten journalføring: dokumentet ligger i arkivformat.');
 
         // Reklamen journalføres: bare behandlingen vurderes. Og et dokument som skal i arkivet, kan ikke bare få valget registrert.
         $kurs = $this->nyMappe($this->kari, ['tittel' => 'Kurs i dokumenthåndtering', 'arkivdel' => 'SAK', 'klasse' => '274', 'enhet' => 'DOK']);

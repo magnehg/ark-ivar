@@ -36,10 +36,10 @@ export function Saker() {
   // Tittelen får mest plass. Uten en bredde på den klemmer de andre kolonnene den sammen.
   const kolonner: Kolonne<Sak>[] = [
     { id: 'nummer', overskrift: t('arkivar.sak.nummer'), stil: { width: '84px' }, celle: (r) => r.saksnummer, sorter: (r) => sorterbart(r.saksnummer) },
-    { id: 'tittel', overskrift: t('arkivar.sak.tittel'), stil: { width: '32%' }, celle: (r) => (<Ruterlenke to={`/arkiv/saker/${r.id}`}>{r.tittel}</Ruterlenke>), sorter: (r) => r.tittel },
-    { id: 'arkivdel', overskrift: t('arkivar.sak.arkivdel'), stil: { width: '11%' }, celle: (r) => r.arkivdel_tekst, sorter: (r) => r.arkivdel_tekst },
-    { id: 'klasse', overskrift: t('arkivar.sak.primaer'), stil: { width: '17%' }, celle: (r) => r.klasse_tekst, sorter: (r) => r.klasse_tekst },
-    { id: 'ansvarlig', overskrift: t('arkivar.sak.ansvarlig'), stil: { width: '12%' }, celle: (r) => r.saksansvarlig_navn, sorter: (r) => r.saksansvarlig_navn },
+    { id: 'tittel', overskrift: t('arkivar.sak.tittel'), stil: { width: '32%' }, sprak: 'nb', celle: (r) => (<Ruterlenke to={`/arkiv/saker/${r.id}`}>{r.tittel}</Ruterlenke>), sorter: (r) => r.tittel },
+    { id: 'arkivdel', overskrift: t('arkivar.sak.arkivdel'), stil: { width: '11%' }, sprak: 'nb', celle: (r) => r.arkivdel_tekst, sorter: (r) => r.arkivdel_tekst },
+    { id: 'klasse', overskrift: t('arkivar.sak.primaer'), stil: { width: '17%' }, sprak: 'nb', celle: (r) => r.klasse_tekst, sorter: (r) => r.klasse_tekst },
+    { id: 'ansvarlig', overskrift: t('arkivar.sak.ansvarlig'), stil: { width: '12%' }, sprak: 'nb', celle: (r) => r.saksansvarlig_navn, sorter: (r) => r.saksansvarlig_navn },
     { id: 'dato', overskrift: t('arkivar.sak.dato'), stil: { width: '100px' }, celle: (r) => dato(r.saksdato), sorter: (r) => r.saksdato },
     { id: 'status', overskrift: t('arkivar.sak.status'), stil: { width: '136px' }, celle: (r) => t(`arkivar.saksstatus.${r.status.toLowerCase()}`), sorter: (r) => r.status },
     { id: 'antall', overskrift: t('arkivar.sak.antall'), stil: { width: '96px' }, celle: (r) => r.antall, sorter: (r) => r.antall },
@@ -77,8 +77,9 @@ export function EnSak() {
   const flyt = lesFlyt(sok);
   const sak = useHent<{ sak: Sak; journalposter: Journalpost[]; kan_slettes: boolean }>(`/api/arkiv/saker/${del(id)}`);
   const venter = useHent<Behandling>(flyt ? `/api/arkiv/postmottak/${del(flyt.dokument)}` : null);
-  // Dokumentet følger bare med videre når det finnes og ikke er behandlet (mens det hentes, følger det med).
-  const aktivFlyt = flyt && (venter.laster || (venter.data !== null && !venter.data.behandlet)) ? flyt : null;
+  // Dokumentet følger med videre så lenge det ikke er behandlet. Lot det seg ikke hente her, følger det også med:
+  // siden for ny journalpost henter det selv og sier fra om det ikke går.
+  const aktivFlyt = flyt && venter.data?.behandlet !== true ? flyt : null;
   const struktur = useStruktur();
   const [feil, settFeil] = useState<string | null>(null);
   if (sak.feil) return <Feil melding={sak.feil} />;
@@ -88,12 +89,12 @@ export function EnSak() {
   const slett = () => { settFeil(null); api.slett(`/api/arkiv/saker/${del(id)}`).then(() => naviger('/arkiv/saker')).catch((e: unknown) => settFeil(feiltekst(e))); };
   // I mappen står det korte navnet på tilgangskoden. Hele hjemmelen står på journalposten og i journalen.
   const tilgangsnavn = (kode: string) => struktur.data?.tilgangskoder.find((k) => k.kode === kode)?.navn ?? kode;
-  const tilgang = (r: Journalpost) => (r.tilgangskode ? <Status slag="skjermet">{tilgangsnavn(r.tilgangskode)}</Status> : t('arkivar.tilgang.offentlig'));
+  const tilgang = (r: Journalpost) => (r.tilgangskode ? <Status slag="skjermet"><span lang="nb">{tilgangsnavn(r.tilgangskode)}</span></Status> : t('arkivar.tilgang.offentlig'));
   const kolonner: Kolonne<Journalpost>[] = [
     { id: 'nr', overskrift: t('arkivar.journalpost.nr'), stil: { width: '70px' }, celle: (r) => r.postnr, sorter: (r) => r.postnr },
     { id: 'type', overskrift: t('arkivar.journalpost.type'), stil: { width: '70px' }, celle: (r) => (<abbr title={t(`arkivar.jptype.${r.type.toLowerCase()}`)}>{r.type}</abbr>), sorter: (r) => r.type },
-    { id: 'tittel', overskrift: t('arkivar.journalpost.tittel'), celle: (r) => <Ruterlenke to={`/arkiv/saker/${d.id}/journalposter/${r.id}`}>{r.tittel}</Ruterlenke>, sorter: (r) => r.tittel },
-    { id: 'part', overskrift: t('arkivar.journalpost.part'), stil: { width: '15%' }, celle: (r) => r.part_navn, sorter: (r) => r.part_navn },
+    { id: 'tittel', overskrift: t('arkivar.journalpost.tittel'), sprak: 'nb', celle: (r) => <Ruterlenke to={`/arkiv/saker/${d.id}/journalposter/${r.id}`}>{r.tittel}</Ruterlenke>, sorter: (r) => r.tittel },
+    { id: 'part', overskrift: t('arkivar.journalpost.part'), stil: { width: '15%' }, sprak: 'nb', celle: (r) => r.part_navn, sorter: (r) => r.part_navn },
     { id: 'dato', overskrift: t('arkivar.journalpost.dokumentdato'), stil: { width: '110px' }, celle: (r) => dato(r.dokumentdato), sorter: (r) => r.dokumentdato },
     { id: 'status', overskrift: t('arkivar.journalpost.status'), stil: { width: '120px' }, celle: (r) => t(r.journalfort ? `arkivar.jpstatus.${r.status.toLowerCase()}` : 'arkivar.jpstatus.uten'), sorter: (r) => r.status },
     { id: 'tilgang', overskrift: t('arkivar.journalpost.tilgang'), stil: { width: '18%' }, celle: tilgang, sorter: (r) => r.tilgangskode ?? '' },
@@ -103,7 +104,7 @@ export function EnSak() {
   );
   return (
     <>
-      <Sidehode tittel={`${d.saksnummer} ${d.tittel}`} />
+      <Sidehode tittel={`${d.saksnummer} ${d.tittel}`} tittelSprak="nb" />
       {feil && <Feil melding={feil} />}
       {venter.data && !venter.data.behandlet && flyt && (
         <MessageBar className={c.venter} intent="info">
@@ -114,13 +115,13 @@ export function EnSak() {
       )}
       <Kort tittel={t('arkivar.sak.opplysninger')} id="sak-opplysninger">
         <dl className={c.fakta}>
-          <dt>{t('arkivar.sak.arkivdel')}</dt><dd>{d.arkivdel_tekst}</dd>
-          <dt>{t('arkivar.sak.primaer')}</dt><dd>{d.klasse_tekst}{d.skjerm_klasse && <> <Status slag="skjermet">{t('arkivar.sak.skjermet_klasse')}</Status></>}</dd>
-          <dt>{t('arkivar.sak.ansvarlig')}</dt><dd>{d.saksansvarlig_navn} ({d.enhet})</dd>
+          <dt>{t('arkivar.sak.arkivdel')}</dt><dd lang="nb">{d.arkivdel_tekst}</dd>
+          <dt>{t('arkivar.sak.primaer')}</dt><dd><span lang="nb">{d.klasse_tekst}</span>{d.skjerm_klasse && <> <Status slag="skjermet">{t('arkivar.sak.skjermet_klasse')}</Status></>}</dd>
+          <dt>{t('arkivar.sak.ansvarlig')}</dt><dd lang="nb">{d.saksansvarlig_navn} ({d.enhet})</dd>
           <dt>{t('arkivar.sak.dato')}</dt><dd>{dato(d.saksdato)}</dd>
           <dt>{t('arkivar.sak.status')}</dt><dd>{t(`arkivar.saksstatus.${d.status.toLowerCase()}`)}</dd>
-          {d.skjerm_tittel && <><dt>{t('arkivar.journalpost.offentlig_tittel')}</dt><dd>{d.offentlig_tittel}</dd></>}
-          {d.tilgangskode && <><dt>{t('arkivar.sak.hjemmel')}</dt><dd><Status slag="skjermet">{d.hjemmel}</Status></dd></>}
+          {d.skjerm_tittel && <><dt>{t('arkivar.journalpost.offentlig_tittel')}</dt><dd lang="nb">{d.offentlig_tittel}</dd></>}
+          {d.tilgangskode && <><dt>{t('arkivar.sak.hjemmel')}</dt><dd lang="nb"><Status slag="skjermet">{d.hjemmel}</Status></dd></>}
         </dl>
       </Kort>
       <Kort tittel={t('arkivar.sak.journalposter')} id="sak-journalposter" handlinger={nyJournalpost}>

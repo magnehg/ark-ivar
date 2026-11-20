@@ -1,6 +1,6 @@
 // Språk: alle tekster ligger i språkfilene (ICU MessageFormat), de samme filene som serveren bruker
 // (arkivar/i18n og kjerne/i18n). Ingen tekst i komponentene. Tekster som mangler på et språk, vises på bokmål.
-import { ReactNode, createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { ReactNode, createContext, useCallback, useContext, useMemo, useState, useEffect } from 'react';
 import { IntlProvider, useIntl } from 'react-intl';
 import { slaSammen, velgSprak } from '../../grensesnitt/src/i18n.ts';
 import { husk, les } from '../../grensesnitt/src/preferanser.ts';
@@ -30,6 +30,8 @@ export function Sprak({ children }: { children: ReactNode }) {
     husk(lager(), { ...les(lager()), preferredLanguage: s });
     document.documentElement.setAttribute('lang', s);
   }, []);
+  // Språket på siden er alltid språket i grensesnittet, også ved første besøk (før noe er valgt og lagret).
+  useEffect(() => { document.documentElement.setAttribute('lang', sprak); }, [sprak]);
   const { meldinger } = useMemo(() => slaSammen(filer, sprak, 'nb'), [sprak]);
   return (
     <SprakCtx.Provider value={{ sprak, settSprak }}>

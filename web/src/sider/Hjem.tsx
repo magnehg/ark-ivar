@@ -1,10 +1,12 @@
 // Forsiden etter innlogging. Arkivet til Sirevåg kommune kommer her; foreløpig forteller siden hva som er klart.
+import { useEffect } from 'react';
 import { Link as Ruterlenke } from 'react-router-dom';
 import { Body1, MessageBar, MessageBarBody, makeStyles, tokens } from '@fluentui/react-components';
 import { erDrift, harRolle } from '../api';
 import { useT } from '../i18n';
 import { Kort, Sidehode, useHent, useOkt } from '../komponenter/Felles';
 import type { Klasse } from '../api';
+import { glemStruktur } from '../arkiv';
 import type { Oversikt } from '../arkiv';
 
 const s = makeStyles({
@@ -20,6 +22,8 @@ export default function Hjem() {
   const meg = useHent<{ klasser: Klasse[] }>(student ? '/api/meg' : null);
   const arkiv = useHent<{ oversikt: Oversikt }>(student ? '/api/arkiv' : null);
   const o = arkiv.data?.oversikt;
+  // Innholdet på tjeneren er byttet: strukturen som er husket i nettleseren (saksmaler, klasser, registre), er også gammel.
+  useEffect(() => { if (o?.utdatert) glemStruktur(); }, [o?.utdatert]);
   return (
     <>
       <Sidehode tittel={t('arkivar.hjem.tittel', { navn: innlogget?.navn ?? '' })} ingress={t('arkivar.hjem.ingress', { appnavn: oppsett.appnavn, virksomhet: oppsett.virksomhet })} />

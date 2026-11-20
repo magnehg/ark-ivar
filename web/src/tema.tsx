@@ -49,7 +49,11 @@ export function TemaTilbyder({ children }: { children: ReactNode }) {
   const hoy = utseende.hoyKontrast === 'ja' || ((utseende.hoyKontrast ?? 'system') === 'system' && systemKontrast);
   const [fluent, settFluent] = useState<Theme>(mork ? webDarkTheme : webLightTheme);
 
-  useEffect(() => { bruk(document.documentElement, utseende, document); }, [utseende]);
+  // Språket eies av Sprak (i18n.tsx), ikke av utseendet: lang på siden blir stående slik Sprak har satt det.
+  useEffect(() => {
+    const sprak = document.documentElement.getAttribute('lang');
+    bruk(document.documentElement, { ...utseende, preferredLanguage: sprak ?? utseende.preferredLanguage }, document);
+  }, [utseende]);
   useEffect(() => {
     let aktiv = true;
     const navn = tokenfil(tema, mork ? 'mork' : 'lys', hoy ? 'hoy' : 'normal');
@@ -67,7 +71,10 @@ export function TemaTilbyder({ children }: { children: ReactNode }) {
 
   const endre = (endring: Partial<Utseende>) => sett((forrige) => {
     const ny = { ...forrige, ...endring };
-    husk(lager(), { ...les(lager()), ...ny });
+    // Språkvalget lagres av Sprak. Det som ligger i lageret, står: utseendet her kan ha et eldre valg.
+    const lagres: Utseende = { ...ny };
+    delete lagres.preferredLanguage;
+    husk(lager(), { ...les(lager()), ...lagres });
     return ny;
   });
   return (

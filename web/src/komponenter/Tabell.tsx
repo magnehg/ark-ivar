@@ -22,6 +22,8 @@ export type Kolonne<T> = {
   /** Verdien det sorteres på. Kolonner uten verdi (f.eks. knapper) kan ikke sorteres. Datoer gis som ISO-tekst. */
   sorter?: (rad: T, indeks: number) => Sorteringsverdi;
   stil?: CSSProperties;
+  /** Språket cellene står på, når innholdet kommer fra arkivet (norsk) og ikke fra grensesnittet. */
+  sprak?: string;
 };
 
 type Sortering = { id: string; retning: 'ascending' | 'descending' };
@@ -106,7 +108,7 @@ export function SorterbarTabell<T>({ rader, kolonner, nokkel, size = 'small', st
       <TableBody lang={kroppSprak}>
         {sortert.map(({ rad, indeks }) => (
           <TableRow key={nokkel(rad, indeks)} {...radEgenskaper?.(rad, indeks)}>
-            {kolonner.map((k) => <TableCell key={k.id} style={k.stil}>{k.celle(rad, indeks)}</TableCell>)}
+            {kolonner.map((k) => <TableCell key={k.id} style={k.stil} lang={k.sprak}>{k.celle(rad, indeks)}</TableCell>)}
           </TableRow>
         ))}
       </TableBody>

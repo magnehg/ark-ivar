@@ -100,7 +100,7 @@ function Vurdering({ id, b, angret }: { id: string; b: Behandling; angret: () =>
     <div>
       {feil && <Feil melding={feil} />}
       <p className={c.poeng}>{t('arkivar.vurdering.poeng', { poeng: b.poeng ?? 0, maks: b.maks ?? 0 })}</p>
-      {b.sak && b.journalpost && <Text block>{t('arkivar.vurdering.registrert', { nummer: `${b.sak.saksnummer}-${b.journalpost.postnr}` })} <Ruterlenke to={`/arkiv/saker/${b.sak.id}`}>{b.sak.tittel}</Ruterlenke></Text>}
+      {b.sak && b.journalpost && <Text block>{t('arkivar.vurdering.registrert', { nummer: `${b.sak.saksnummer}-${b.journalpost.postnr}` })} <Ruterlenke to={`/arkiv/saker/${b.sak.id}`} lang="nb">{b.sak.tittel}</Ruterlenke></Text>}
       {(b.vurdering ?? []).map((k) => (
         <div key={k.id} className={c.kriterium}>
           <span className={c.kriterienavn}>{t(`arkivar.kriterium.${k.id}`)}</span>
@@ -139,7 +139,9 @@ export default function Dokument() {
   const b = behandling.data;
   return (
     <>
-      <Sidehode tittel={b.dokument.emne} ingress={t(b.behandlet ? 'arkivar.dokument.ingress.behandlet' : 'arkivar.dokument.ingress')} />
+      <Sidehode tittel={b.dokument.emne} tittelSprak="nb" ingress={t(b.behandlet ? 'arkivar.dokument.ingress.behandlet' : 'arkivar.dokument.ingress')} />
+      {/* Hentingen etter en registrering eller angring kan feile: da står det gamle innholdet, og studenten må få vite det. */}
+      {behandling.feil && <Hentefeil melding={behandling.feil} last={behandling.last} />}
       <div className={c.to}>
         <div className={c.fast}><Ark dok={b.dokument} /></div>
         <Kort tittel={t(b.behandlet ? 'arkivar.vurdering.tittel' : 'arkivar.behandling.tittel')} id="registrering">

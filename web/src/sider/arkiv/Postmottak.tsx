@@ -17,8 +17,8 @@ export default function Postmottak() {
   const kolonner: Kolonne<Postmottaksrad>[] = [
     { id: 'mottatt', overskrift: t('arkivar.postmottak.mottatt'), stil: { width: '110px' }, celle: (r) => dato(r.mottatt), sorter: (r) => r.mottatt },
     { id: 'kanal', overskrift: t('arkivar.postmottak.kanal'), stil: { width: '90px' }, celle: (r) => t(`arkivar.kanal.${r.kanal}`), sorter: (r) => r.kanal },
-    { id: 'avsender', overskrift: t('arkivar.postmottak.avsender'), stil: { width: '24%' }, celle: (r) => r.avsender, sorter: (r) => r.avsender },
-    { id: 'emne', overskrift: t('arkivar.postmottak.emne'), celle: (r) => (<Ruterlenke to={`/arkiv/postmottak/${r.id}`}>{r.emne}</Ruterlenke>), sorter: (r) => r.emne },
+    { id: 'avsender', overskrift: t('arkivar.postmottak.avsender'), stil: { width: '24%' }, sprak: 'nb', celle: (r) => r.avsender, sorter: (r) => r.avsender },
+    { id: 'emne', overskrift: t('arkivar.postmottak.emne'), sprak: 'nb', celle: (r) => (<Ruterlenke to={`/arkiv/postmottak/${r.id}`}>{r.emne}</Ruterlenke>), sorter: (r) => r.emne },
     { id: 'status', overskrift: t('arkivar.postmottak.status'), stil: { width: '170px' }, celle: status, sorter: (r) => (r.behandlet ? 1 : 0) },
   ];
   return (

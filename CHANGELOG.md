@@ -51,6 +51,8 @@
 - Innholdet fra arkivet er merket som norsk, og tekstene fra grensesnittet følger språket som er valgt. Knappene i
   søkefeltene og klassevelgeren har navn på alle tre språkene.
 - Siden for en journalpost ligger under mappen i adressen, så «Mapper» er aktiv i menyen.
+- Språket på siden følger alltid språket som er valgt, også ved første besøk og etter bytte av tema eller modus.
+- Journalen beholder sorteringen når den byttes til offentlig journal.
 - Kommunens ansatte, elevene og barnehagebarna har dyrenavn med bokstavrim, etter mønster av Pelle Parafins
   Bøljeband (Gunnar Grevling på byggesak, Stian Stokkand, Frida Frosk, Sandra Salamander).
 - Postmottaket har 24 dokumenter. Hvert dokument har en naturlig mappe: en som finnes i arkivet, eller en ny for

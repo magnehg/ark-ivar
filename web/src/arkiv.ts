@@ -60,6 +60,11 @@ let lagret: Struktur | null = null;
  * Arkivstrukturen (arkivdeler, arkivnøkkel, enheter, ansatte og tilgangskoder). Hentes første gang den trengs og
  * huskes til siden lastes på nytt. Lar den seg ikke hente, har siden feilen og kan prøve igjen med last().
  */
+/** Glemmer strukturen, så den hentes på nytt: etter en nullstilling, og når arkivet er fylt med en eldre utgave. */
+export function glemStruktur(): void {
+  lagret = null;
+}
+
 export function useStruktur(): { data: Struktur | null; feil: string | null; last: () => void } {
   const hent = useHent<Struktur>(lagret ? null : '/api/arkiv/struktur');
   if (hent.data) lagret = hent.data;

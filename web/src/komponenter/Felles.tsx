@@ -31,13 +31,14 @@ const s = makeStyles({
   korttittel: { margin: 0, fontSize: tokens.fontSizeBase400, fontWeight: tokens.fontWeightSemibold },
 });
 
-export function Sidehode({ tittel, ingress, handlinger }: { tittel: string; ingress?: string; handlinger?: ReactNode }) {
+/** tittelSprak: språket tittelen står på, når den kommer fra arkivet (norsk) og ikke fra grensesnittet. */
+export function Sidehode({ tittel, ingress, handlinger, tittelSprak }: { tittel: string; ingress?: string; handlinger?: ReactNode; tittelSprak?: string }) {
   const c = s();
   const { oppsett } = useOkt();
   useEffect(() => { document.title = `${tittel} – ${oppsett.appnavn}`; }, [tittel, oppsett.appnavn]);
   return (
     <div className={c.hode}>
-      <div><Title2 as="h1">{tittel}</Title2>{ingress && <Body1 className={c.ingress}>{ingress}</Body1>}</div>
+      <div><Title2 as="h1" lang={tittelSprak}>{tittel}</Title2>{ingress && <Body1 className={c.ingress}>{ingress}</Body1>}</div>
       {handlinger && <div className={c.handlinger}>{handlinger}</div>}
     </div>
   );
@@ -70,12 +71,19 @@ export function Hentefeil({ melding, last }: { melding: string; last: () => void
 /**
  * Henter data og håndterer lasting og feil. last() henter på nytt. Data og feil gjelder alltid adressen som er gitt
  * nå: byttes adressen, er data tom til det nye svaret kommer, så svaret fra den forrige adressen aldri vises som om
- * det hørte til den nye. Når samme adresse hentes på nytt, står det som vises, til det nye svaret er der.
+ * det hørte til den nye. Det gjelder også når adressen forlates og kommer tilbake (en feil fra forrige gang skal ikke
+ * gjelde for en ny henting). Når samme adresse hentes på nytt med last(), står det som vises, til svaret er der.
  */
 export function useHent<T>(sti: string | null): { data: T | null; feil: string | null; laster: boolean; last: () => void } {
   const feiltekst = useFeiltekst();
   const [svar, settSvar] = useState<{ sti: string; runde: number; data: T | null; feil: string | null } | null>(null);
   const [runde, settRunde] = useState(0);
+  // Svaret hører til adressen det ble hentet for. Byttes adressen (også til ingen), glemmes det.
+  const [forrigeSti, settForrigeSti] = useState(sti);
+  if (forrigeSti !== sti) {
+    settForrigeSti(sti);
+    settSvar(null);
+  }
   useEffect(() => {
     if (!sti) return;
     let aktiv = true;

@@ -28,23 +28,23 @@ export default function Journalpost() {
   const slett = () => { settFeil(null); api.slett(`/api/arkiv/journalposter/${del(id)}`).then(() => naviger(`/arkiv/saker/${sak.id}`)).catch((e: unknown) => settFeil(feiltekst(e))); };
   return (
     <>
-      <Sidehode tittel={p.tittel} ingress={t('arkivar.journalpost.ingress', { nummer: `${sak.saksnummer}-${p.postnr}` })} />
+      <Sidehode tittel={p.tittel} tittelSprak="nb" ingress={t('arkivar.journalpost.ingress', { nummer: `${sak.saksnummer}-${p.postnr}` })} />
       <div className={c.to}>
         {dokument ? <Ark dok={dokument} /> : <Kort><Text className={c.dempet}>{t(p.kan_slettes ? 'arkivar.journalpost.egen' : 'arkivar.journalpost.uten_dokument')}</Text></Kort>}
         <Kort tittel={t('arkivar.journalpost.opplysninger')} id="jp-opplysninger">
           <dl className={c.fakta}>
-            <dt>{t('arkivar.registrering.sak')}</dt><dd><Ruterlenke to={`/arkiv/saker/${sak.id}`}>{sak.saksnummer} {sak.tittel}</Ruterlenke></dd>
-            <dt>{t('arkivar.sak.arkivdel')}</dt><dd>{sak.arkivdel_tekst}</dd>
-            <dt>{t('arkivar.sak.primaer')}</dt><dd>{sak.klasse_tekst}{sak.skjerm_klasse && <> <Status slag="skjermet">{t('arkivar.sak.skjermet_klasse')}</Status></>}</dd>
+            <dt>{t('arkivar.registrering.sak')}</dt><dd lang="nb"><Ruterlenke to={`/arkiv/saker/${sak.id}`}>{sak.saksnummer} {sak.tittel}</Ruterlenke></dd>
+            <dt>{t('arkivar.sak.arkivdel')}</dt><dd lang="nb">{sak.arkivdel_tekst}</dd>
+            <dt>{t('arkivar.sak.primaer')}</dt><dd><span lang="nb">{sak.klasse_tekst}</span>{sak.skjerm_klasse && <> <Status slag="skjermet">{t('arkivar.sak.skjermet_klasse')}</Status></>}</dd>
             <dt>{t('arkivar.journalpost.type')}</dt><dd>{p.type} – {t(`arkivar.jptype.${p.type.toLowerCase()}`)}</dd>
             <dt>{t('arkivar.journalpost.status')}</dt><dd>{t(p.journalfort ? `arkivar.jpstatus.${p.status.toLowerCase()}` : 'arkivar.jpstatus.uten')}</dd>
-            <dt>{t('arkivar.journalpost.part')}</dt><dd>{p.part_navn}{p.skjerm_part && <> <Status slag="skjermet">{t('arkivar.journalpost.skjermet')}</Status></>}</dd>
+            <dt>{t('arkivar.journalpost.part')}</dt><dd><span lang="nb">{p.part_navn}</span>{p.skjerm_part && <> <Status slag="skjermet">{t('arkivar.journalpost.skjermet')}</Status></>}</dd>
             <dt>{t('arkivar.journalpost.dokumentdato')}</dt><dd>{dato(p.dokumentdato)}</dd>
             <dt>{t('arkivar.journal.journaldato')}</dt><dd>{dato(p.journaldato)}</dd>
             <dt>{t('arkivar.journal.lopenummer')}</dt><dd>{p.lopenummer}</dd>
-            <dt>{t('arkivar.sak.ansvarlig')}</dt><dd>{p.saksbehandler_navn} ({p.enhet})</dd>
-            <dt>{t('arkivar.journalpost.tilgang')}</dt><dd>{p.tilgangskode ? <Status slag="skjermet">{p.hjemmel}</Status> : t('arkivar.tilgang.offentlig')}</dd>
-            {p.skjerm_tittel && <><dt>{t('arkivar.journalpost.offentlig_tittel')}</dt><dd>{p.offentlig_tittel}</dd></>}
+            <dt>{t('arkivar.sak.ansvarlig')}</dt><dd lang="nb">{p.saksbehandler_navn} ({p.enhet})</dd>
+            <dt>{t('arkivar.journalpost.tilgang')}</dt><dd>{p.tilgangskode ? <Status slag="skjermet"><span lang="nb">{p.hjemmel}</span></Status> : t('arkivar.tilgang.offentlig')}</dd>
+            {p.skjerm_tittel && <><dt>{t('arkivar.journalpost.offentlig_tittel')}</dt><dd lang="nb">{p.offentlig_tittel}</dd></>}
           </dl>
           {feil && <Feil melding={feil} />}
           <div className={c.knapper}>

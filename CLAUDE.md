@@ -85,13 +85,20 @@ uttrekk eller avlevere.
   låser arkivet (`Register::laas()`), så sjekkene (dokumentet er ubehandlet, mappen finnes og er åpen) fortsatt
   gjelder når raden lagres, og saks- og dokumentnumre ikke kan bli like. Saksdato, journaldato og «ikke frem i
   tid» følger norsk tid (`Dato::idag()`), ikke UTC-klokka i Kjerne.
-- **Henting i grensesnittet:** `useHent(sti)` gir bare data og feil for adressen som er gitt nå; byttes adressen, er
-  data tom til svaret kommer (det gamle svaret vises aldri under en ny adresse). `useStruktur()` gir
-  `{ data, feil, last }`, og sidene viser `Hentefeil` med «Prøv igjen». ID-er fra adressen kodes med `del()` før de
-  settes i en sti til API-et, og `lesFlyt()` godtar bare ID-er på formen til dokumentene i postmottaket.
-- **Språkmerking:** innholdet fra arkivet (titler, dokumenttekst, registerposter, saksmaler) er norsk og merkes med
-  `lang="nb"` der det står (`kroppSprak="nb"` på tabeller, `tipsSprak` i `Mappesok`); tekst fra `t()` skal aldri
-  ligge under et `lang="nb"` uten å være merket med språket i grensesnittet (`useSprak()`).
+- **Henting i grensesnittet:** `useHent(sti)` gir bare data og feil for adressen som er gitt nå. Byttes adressen
+  (også til ingen), glemmes svaret: det gamle vises aldri under en ny adresse, og en feil fra forrige gang gjelder
+  ikke en ny henting. `last()` henter samme adresse på nytt, og da står det som vises, til svaret er der; en side som
+  har data, må derfor vise `feil` selv (`Hentefeil` med «Prøv igjen»). `useStruktur()` gir `{ data, feil, last }` og
+  husker strukturen til siden lastes på nytt; `glemStruktur()` kalles etter en nullstilling og når arkivet er
+  utdatert. ID-er fra adressen kodes med `del()` før de settes i en sti til API-et, og `lesFlyt()` godtar bare ID-er
+  på formen til dokumentene i postmottaket.
+- **Språkmerking:** `<html lang>` er språket i grensesnittet og settes av `Sprak` (`web/src/i18n.tsx`), ikke av
+  utseendet i `TemaTilbyder`. Innholdet fra arkivet (titler, navn, dokumenttekst, registerposter, saksmaler, hjemler)
+  er norsk og merkes med `lang="nb"` der det står: `sprak: 'nb'` på en kolonne (`Kolonne` i `Tabell.tsx`),
+  `kroppSprak="nb"` når hele tabellkroppen er fra arkivet, `tittelSprak="nb"` på `Sidehode`, `tipsSprak` i
+  `Mappesok`. Tekst fra `t()` skal aldri ligge under et `lang="nb"` uten selv å være merket med språket i
+  grensesnittet (`useSprak()`), og en tekstnøkkel skal ikke ha verdien fra arkivet som parameter: nøkkelen er
+  ledeteksten («Tittel:»), og verdien står ved siden av i et merket element.
 - **Migreringen `002_arkiv.sql`** er endret på stedet flere ganger før første utgivelse. Kjernen lagrer sjekksummen
   av hver kjørte fil og stopper på en endret fil, så en database installert fra en eldre commit må slettes og
   installeres på nytt. Fra første utgivelse fryses filen, og endringer kommer i en ny fil (`003_….sql`).

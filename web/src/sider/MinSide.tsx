@@ -5,6 +5,7 @@ import { Bruker, Klasse, api } from '../api';
 import { useT } from '../i18n';
 import { Feil, Kort, Laster, Ok, Sidehode, useFeiltekst, useHent, useOkt } from '../komponenter/Felles';
 
+import { glemStruktur } from '../arkiv';
 const s = makeStyles({
   skjema: { display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: '420px', alignItems: 'flex-start', '& .fui-Field': { width: '100%' } },
   liste: { margin: '0 0 12px', paddingLeft: '20px' },
@@ -24,7 +25,7 @@ export default function MinSide() {
   const [bekreft, settBekreft] = useState(false); const [nullstilt, settNullstilt] = useState(false); const [arkivfeil, settArkivfeil] = useState<string | null>(null);
   const nullstill = () => {
     settOpptatt(true); settArkivfeil(null);
-    api.post('/api/arkiv/nullstill').then(() => { settNullstilt(true); settBekreft(false); }).catch((e: unknown) => settArkivfeil(feiltekst(e))).finally(() => settOpptatt(false));
+    api.post('/api/arkiv/nullstill').then(() => { glemStruktur(); settNullstilt(true); settBekreft(false); }).catch((e: unknown) => settArkivfeil(feiltekst(e))).finally(() => settOpptatt(false));
   };
 
   const meldInn = () => {

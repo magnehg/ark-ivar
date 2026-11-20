@@ -15,6 +15,7 @@ use Psr\Clock\ClockInterface;
  * registreres bare valget (registrer). Skal det i arkivet, finner eller oppretter studenten mappen først og
  * registrerer så dokumentet som en journalpost i den (journalpost), journalført eller arkivert uten journalføring.
  * Svaret vurderes mot fasiten og lagres i arkivar_oppgavestatus. En behandling kan angres og gjøres på nytt.
+ * Arkivet låses mens en registrering lagres, så to forespørsler samtidig ikke gir dobbel registrering.
  *
  * I en mappe kan studenten også lage journalposter uten dokument fra postmottaket (egne registreringer). De
  * vurderes ikke, og kan slettes.
@@ -87,7 +88,6 @@ final class Postmottak
     public function registrer(string $arkivId, string $oppgaveId, array $inn): array
     {
         $oppgave = $this->oppgave($oppgaveId);
-        $this->krevUbehandlet($arkivId, $oppgaveId);
         $handling = Felt::tekst($inn['handling'] ?? null);
         if (!in_array($handling, Kodelister::HANDLINGER, true)) {
             throw new HttpFeil(422, 'ugyldig_felt', 'arkivar.feil.handling');
@@ -98,6 +98,8 @@ final class Postmottak
         }
 
         return $this->db->transaksjon(function () use ($arkivId, $oppgave, $handling): array {
+            $this->register->laas($arkivId);
+            $this->krevUbehandlet($arkivId, $oppgave['id']);
             $this->lagre($arkivId, $oppgave, $handling, null, self::tomtSvar($handling));
 
             return $this->vis($arkivId, $oppgave['id']);
@@ -115,17 +117,12 @@ final class Postmottak
      */
     public function journalpost(string $arkivId, string $sakId, array $inn): array
     {
-        $sak = $this->register->sak($arkivId, $sakId) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
-        if (Felt::tekst($sak['status']) === Kodelister::SAK_AVSLUTTET) {
-            throw new HttpFeil(409, 'mappe_avsluttet', 'arkivar.feil.mappe_avsluttet');
+        if ($this->register->sak($arkivId, $sakId) === null) {
+            throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
         }
         $oppgaveId = trim(Felt::tekst($inn['oppgave'] ?? null));
-        $oppgave = null;
-        if ($oppgaveId !== '') {
-            $oppgave = $this->oppgaver->hent($oppgaveId) ?? throw new HttpFeil(422, 'ugyldig_felt', 'arkivar.feil.oppgave');
-            $this->krevUbehandlet($arkivId, $oppgaveId);
-        }
-        $idag = $this->klokke->now()->format('Y-m-d');
+        $oppgave = $oppgaveId !== '' ? ($this->oppgaver->hent($oppgaveId) ?? throw new HttpFeil(422, 'ugyldig_felt', 'arkivar.feil.oppgave')) : null;
+        $idag = Dato::idag($this->klokke);
         $journalfor = ($inn['journalfores'] ?? true) !== false;
 
         $tittel = trim(Felt::tekst($inn['tittel'] ?? null));
@@ -138,8 +135,9 @@ final class Postmottak
         if ($dato === false || $dato->format('Y-m-d') !== $dokumentdato || $dokumentdato > $idag) {
             throw new HttpFeil(422, 'ugyldig_dato', 'arkivar.feil.dokumentdato');
         }
-        // Et dokument som arkiveres uten journalføring, har ingen journalposttype. Det kommer fra postmottaket og er inngående.
-        $type = $journalfor ? Felt::tekst($inn['type'] ?? null) : 'I';
+        // Et dokument fra postmottaket som arkiveres uten journalføring, har ingen journalposttype å velge: det er
+        // inngående. I en egen registrering velger studenten typen selv.
+        $type = $journalfor || $oppgave === null ? Felt::tekst($inn['type'] ?? null) : 'I';
         if (!in_array($type, Kodelister::JOURNALPOSTTYPER, true)) {
             throw new HttpFeil(422, 'ugyldig_felt', 'arkivar.feil.journalposttype');
         }
@@ -158,67 +156,45 @@ final class Postmottak
             throw new HttpFeil(422, 'skjerming_uten_hjemmel', 'arkivar.feil.skjerming_uten_hjemmel');
         }
         $offentlig = trim(Felt::tekst($inn['offentlig_tittel'] ?? null));
-        $offentligTittel = $skjermTittel ? ($offentlig !== '' ? mb_substr($offentlig, 0, 500, 'UTF-8') : '*****') : null;
+        if (mb_strlen($offentlig, 'UTF-8') > 500) {
+            throw new HttpFeil(422, 'ugyldig_felt', 'arkivar.feil.offentlig_tittel');
+        }
+        $felt = [
+            'type' => $type,
+            'status' => $journalfor ? 'J' : 'A',
+            'tittel' => $tittel,
+            'offentlig_tittel' => $skjermTittel ? ($offentlig !== '' ? $offentlig : '*****') : null,
+            'dokumentdato' => $dokumentdato,
+            'journaldato' => $idag,
+            'tilgangskode' => $tilgangskode !== '' ? $tilgangskode : null,
+            'skjerm_tittel' => $skjermTittel,
+            'skjerm_part' => $skjermPart,
+            'part_navn' => $part,
+            'journalfort' => $journalfor,
+            'oppgave_id' => $oppgave['id'] ?? null,
+        ];
 
-        return $this->db->transaksjon(function () use (
-            $arkivId,
-            $sak,
-            $oppgave,
-            $idag,
-            $journalfor,
-            $tittel,
-            $dokumentdato,
-            $type,
-            $part,
-            $tilgangskode,
-            $skjermTittel,
-            $skjermPart,
-            $offentligTittel,
-        ): array {
-            $sakId = Felt::tekst($sak['id']);
-            $journalpostId = $this->register->opprettJournalpost($arkivId, $sakId, [
-                'type' => $type,
-                'status' => $journalfor ? 'J' : 'A',
-                'tittel' => $tittel,
-                'offentlig_tittel' => $offentligTittel,
-                'dokumentdato' => $dokumentdato,
-                'journaldato' => $idag,
-                'saksbehandler' => Felt::tekst($sak['saksansvarlig']),
-                'enhet' => Felt::tekst($sak['enhet']),
-                'tilgangskode' => $tilgangskode !== '' ? $tilgangskode : null,
-                'skjerm_tittel' => $skjermTittel,
-                'skjerm_part' => $skjermPart,
-                'part_navn' => $part,
-                'journalfort' => $journalfor,
-                'oppgave_id' => $oppgave['id'] ?? null,
-            ]);
+        return $this->db->transaksjon(function () use ($arkivId, $sakId, $oppgave, $felt): array {
+            // Låsen gjør at to registreringer i samme arkiv går etter hverandre: sjekkene under gjelder da fortsatt
+            // når journalposten lagres (samme dokument sendt to ganger, mappen slettet i en annen fane).
+            $this->register->laas($arkivId);
+            $sak = $this->register->sak($arkivId, $sakId) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
+            if (Felt::tekst($sak['status']) === Kodelister::SAK_AVSLUTTET) {
+                throw new HttpFeil(409, 'mappe_avsluttet', 'arkivar.feil.mappe_avsluttet');
+            }
+            if ($oppgave !== null) {
+                $this->krevUbehandlet($arkivId, $oppgave['id']);
+            }
+            $journalpostId = $this->register->opprettJournalpost($arkivId, $sakId, $felt + ['saksbehandler' => Felt::tekst($sak['saksansvarlig']), 'enhet' => Felt::tekst($sak['enhet'])]);
+            $post = $this->register->journalpost($arkivId, $journalpostId) ?? throw new HttpFeil(500, 'intern_feil', 'bivrost.feil.intern');
             $poeng = null;
             $maks = null;
             if ($oppgave !== null) {
-                $handling = $journalfor ? Kodelister::JOURNALFOR : Kodelister::ARKIVER;
-                $svar = [
-                    'handling' => $handling,
-                    // En mappe uten nøkkel har studenten opprettet selv.
-                    'sak_ny' => $sak['nokkel'] === null,
-                    'sak_nokkel' => Felt::valgfriTekst($sak['nokkel']),
-                    'sak_tekst' => Felt::tall($sak['saksaar']) . '/' . Felt::tall($sak['sekvens']) . ' ' . Felt::tekst($sak['tittel']),
-                    'sak_offentlig' => Felt::tall($sak['skjerm_tittel']) === 1 ? Felt::tekst($sak['offentlig_tittel'], '*****') : Felt::tekst($sak['tittel']),
-                    'sak_alene' => $this->aleneIMappen($arkivId, $sakId, $oppgave),
-                    'arkivdel' => Felt::tekst($sak['arkivdel']),
-                    'klasse' => Felt::tekst($sak['klasse']),
-                    'skjerm_klasse' => Felt::tall($sak['skjerm_klasse']) === 1,
-                    'type' => $type,
-                    'tittel' => $tittel,
-                    'offentlig_tittel' => $offentligTittel,
-                    'tilgangskode' => $tilgangskode !== '' ? $tilgangskode : null,
-                    'skjerm_tittel' => $skjermTittel,
-                    'skjerm_part' => $skjermPart,
-                    'dokumentdato' => $dokumentdato,
-                    'part_navn' => $part,
-                ];
-                [$poeng, $maks] = $this->lagre($arkivId, $oppgave, $handling, $journalpostId, $svar);
+                $handling = $felt['journalfort'] ? Kodelister::JOURNALFOR : Kodelister::ARKIVER;
+                [$poeng, $maks] = $this->lagre($arkivId, $oppgave, $handling, $journalpostId, $this->svar($arkivId, $sak, $post, $oppgave));
+                // Dokumentet kan ha gjort mappen til en blanding av saker: da er mappen feil for de andre også.
+                $this->revurder($arkivId, $sakId, $oppgave['id']);
             }
-            $post = $this->register->journalpost($arkivId, $journalpostId) ?? throw new HttpFeil(500, 'intern_feil', 'bivrost.feil.intern');
 
             return ['journalpost' => $this->register->visJournalpost($post), 'oppgave' => $oppgave['id'] ?? null, 'poeng' => $poeng, 'maks' => $maks];
         });
@@ -240,18 +216,26 @@ final class Postmottak
         $this->register->slettJournalpost($arkivId, $id);
     }
 
-    /** Angrer behandlingen: journalposten slettes, og dokumentet kan behandles på nytt. Mappen blir stående. */
+    /**
+     * Angrer behandlingen: journalposten slettes, og dokumentet kan behandles på nytt. Mappen blir stående, og de
+     * andre dokumentene fra postmottaket i den vurderes på nytt (mappen kan ha blitt riktig for dem).
+     */
     public function angre(string $arkivId, string $oppgaveId): void
     {
         $this->db->transaksjon(function () use ($arkivId, $oppgaveId): void {
+            $this->register->laas($arkivId);
             $status = $this->db->en('SELECT * FROM arkivar_oppgavestatus WHERE arkiv_id = ? AND oppgave_id = ?', [$arkivId, $oppgaveId]);
             if ($status === null) {
                 return;
             }
-            if (is_string($status['journalpost_id'])) {
-                $this->register->slettJournalpost($arkivId, $status['journalpost_id']);
+            $post = is_string($status['journalpost_id']) ? $this->register->journalpost($arkivId, $status['journalpost_id']) : null;
+            if ($post !== null) {
+                $this->register->slettJournalpost($arkivId, Felt::tekst($post['id']));
             }
             $this->db->utfor('DELETE FROM arkivar_oppgavestatus WHERE arkiv_id = ? AND oppgave_id = ?', [$arkivId, $oppgaveId]);
+            if ($post !== null) {
+                $this->revurder($arkivId, Felt::tekst($post['sak_id']));
+            }
         });
     }
 
@@ -292,8 +276,71 @@ final class Postmottak
     }
 
     /**
-     * Om dokumentet er alene om mappen, eller deler den bare med dokumenter som hører til samme sak etter fasiten.
-     * Et dokument som starter en ny sak, skal ha sin egen mappe: en mappe der studenten samler ulike saker, er feil.
+     * Vurderer dokumentene fra postmottaket i mappen på nytt, uten $unntatt. Om mappen er riktig for et dokument,
+     * avhenger av hva som ellers ligger i den, så vurderingen må følge med når et dokument kommer til eller tas ut.
+     */
+    private function revurder(string $arkivId, string $sakId, ?string $unntatt = null): void
+    {
+        $sak = $this->register->sak($arkivId, $sakId);
+        if ($sak === null) {
+            return;
+        }
+        foreach ($this->register->journalposter($arkivId, $sakId) as $post) {
+            $oppgaveId = Felt::valgfriTekst($post['oppgave_id']);
+            $oppgave = $oppgaveId !== null && $oppgaveId !== $unntatt ? $this->oppgaver->hent($oppgaveId) : null;
+            if ($oppgave === null) {
+                continue;
+            }
+            $svar = $this->svar($arkivId, $sak, $post, $oppgave);
+            $vurdering = Vurdering::vurder($oppgave, $svar, $this->grunndata);
+            $this->db->utfor(
+                'UPDATE arkivar_oppgavestatus SET svar = ?, vurdering = ?, poeng = ?, maks = ? WHERE arkiv_id = ? AND oppgave_id = ?',
+                [
+                    json_encode($svar, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE), json_encode($vurdering, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE),
+                    count(array_filter($vurdering, static fn (array $k): bool => $k['ok'])), count($vurdering), $arkivId, $oppgave['id'],
+                ],
+            );
+        }
+    }
+
+    /**
+     * Svaret som vurderes: det studenten har registrert, lest fra mappen og journalposten.
+     *
+     * @param array<string, mixed> $sak
+     * @param array<string, mixed> $post
+     * @param Oppgave $oppgave
+     * @return Svar
+     */
+    private function svar(string $arkivId, array $sak, array $post, array $oppgave): array
+    {
+        $sakSkjermet = Felt::tall($sak['skjerm_tittel']) === 1;
+
+        return [
+            'handling' => Felt::tall($post['journalfort']) === 1 ? Kodelister::JOURNALFOR : Kodelister::ARKIVER,
+            // En mappe uten nøkkel har studenten opprettet selv.
+            'sak_ny' => $sak['nokkel'] === null,
+            'sak_nokkel' => Felt::valgfriTekst($sak['nokkel']),
+            'sak_tekst' => Felt::tall($sak['saksaar']) . '/' . Felt::tall($sak['sekvens']) . ' ' . Felt::tekst($sak['tittel']),
+            'sak_offentlig' => $sakSkjermet ? Felt::tekst($sak['offentlig_tittel'], '*****') : Felt::tekst($sak['tittel']),
+            'sak_skjermet' => $sakSkjermet,
+            'sak_alene' => $this->aleneIMappen($arkivId, Felt::tekst($sak['id']), $oppgave),
+            'arkivdel' => Felt::tekst($sak['arkivdel']),
+            'klasse' => Felt::tekst($sak['klasse']),
+            'skjerm_klasse' => Felt::tall($sak['skjerm_klasse']) === 1,
+            'type' => Felt::tekst($post['type']),
+            'tittel' => Felt::tekst($post['tittel']),
+            'offentlig_tittel' => Felt::valgfriTekst($post['offentlig_tittel']),
+            'tilgangskode' => Felt::valgfriTekst($post['tilgangskode']),
+            'skjerm_tittel' => Felt::tall($post['skjerm_tittel']) === 1,
+            'skjerm_part' => Felt::tall($post['skjerm_part']) === 1,
+            'dokumentdato' => Felt::tekst($post['dokumentdato']),
+            'part_navn' => Felt::tekst($post['part_navn']),
+        ];
+    }
+
+    /**
+     * Om dokumentet er alene om mappen blant dokumentene fra postmottaket. Et dokument som starter en ny sak, skal
+     * ha sin egen mappe: en mappe der studenten samler ulike saker, er feil for alle dokumentene i den.
      *
      * @param Oppgave $oppgave
      */
@@ -317,9 +364,9 @@ final class Postmottak
     private static function tomtSvar(string $handling): array
     {
         return [
-            'handling' => $handling, 'sak_ny' => false, 'sak_nokkel' => null, 'sak_tekst' => '', 'sak_offentlig' => '', 'sak_alene' => true, 'arkivdel' => '', 'klasse' => '',
-            'skjerm_klasse' => false, 'type' => '', 'tittel' => '', 'offentlig_tittel' => null, 'tilgangskode' => null, 'skjerm_tittel' => false, 'skjerm_part' => false,
-            'dokumentdato' => '', 'part_navn' => '',
+            'handling' => $handling, 'sak_ny' => false, 'sak_nokkel' => null, 'sak_tekst' => '', 'sak_offentlig' => '', 'sak_skjermet' => false, 'sak_alene' => true,
+            'arkivdel' => '', 'klasse' => '', 'skjerm_klasse' => false, 'type' => '', 'tittel' => '', 'offentlig_tittel' => null, 'tilgangskode' => null,
+            'skjerm_tittel' => false, 'skjerm_part' => false, 'dokumentdato' => '', 'part_navn' => '',
         ];
     }
 

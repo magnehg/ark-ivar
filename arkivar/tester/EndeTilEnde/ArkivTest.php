@@ -26,7 +26,7 @@ final class ArkivTest extends AppTestCase
     /**
      * Tallene på forsiden for et arkiv ingen har rørt: mappene og journalpostene som følger med, og postmottaket.
      *
-     * @return array<string, int>
+     * @return array{saker: int, journalposter: int, behandlet: int, poeng: int, maks: int, utdatert: bool, dokumenter: int}
      */
     private function urort(): array
     {
@@ -35,9 +35,26 @@ final class ArkivTest extends AppTestCase
         return [
             'saker' => count($this->grunndata->saker()),
             'journalposter' => count(array_filter($poster, static fn (array $p): bool => $p['journalfort'])),
-            'behandlet' => 0, 'poeng' => 0, 'maks' => 0,
+            'behandlet' => 0, 'poeng' => 0, 'maks' => 0, 'utdatert' => false,
             'dokumenter' => count($this->oppgaver->alle()),
         ];
+    }
+
+    /**
+     * Vurderingen av et behandlet dokument slik postmottaket viser den nå, etter kriterium.
+     *
+     * @return array{poeng: int, maks: int, kriterier: array<string, array<string, mixed>>}
+     */
+    private function vurdering(Nettleser $n, string $oppgaveId): array
+    {
+        [$svar, $j] = $n->kall('GET', '/api/arkiv/postmottak/' . $oppgaveId);
+        self::assertSame(200, $svar->status, $svar->kropp);
+        $kriterier = [];
+        foreach (self::rader($j['vurdering']) as $k) {
+            $kriterier[Felt::tekst($k['id'])] = $k;
+        }
+
+        return ['poeng' => Felt::tall($j['poeng']), 'maks' => Felt::tall($j['maks']), 'kriterier' => $kriterier];
     }
 
     /** Koden i registeret til arkivdelen for den som heter dette («Etternavn, Fornavn»). */
@@ -126,11 +143,12 @@ final class ArkivTest extends AppTestCase
         if ($sak['type'] === 'eksisterende') {
             $sakId = Felt::tekst($this->db->verdi('SELECT s.id FROM arkivar_sak s JOIN arkivar_arkiv a ON a.id = s.arkiv_id JOIN arkivar_bruker b ON b.id = a.eier_id WHERE s.nokkel = ? AND b.epost = ?', [$sak['nokkel'], 'kari@hogskolen.example']));
         } else {
-            $skjermes = $sak['offentlig_tittel'] !== null || $sak['skjerm_klasse'] === true;
+            // Klasseringen skjermes i personarkivene (fødselsdato og navn) og ellers ikke.
+            $person = ($this->grunndata->arkivdel($sak['arkivdel'])['ordning'] ?? '') === Grunndata::PERSON;
             $sakId = $this->nyMappe($n, [
                 'tittel' => (string) $sak['tittel'], 'arkivdel' => $sak['arkivdel'], 'klasse' => $sak['klasse'][0], 'enhet' => 'DOK',
-                'skjerm_tittel' => $sak['offentlig_tittel'] !== null, 'offentlig_tittel' => $sak['offentlig_tittel'], 'skjerm_klasse' => $sak['skjerm_klasse'] === true,
-                'tilgangskode' => $skjermes ? ($fasit['tilgangskode'][0] ?? '13-1') : '',
+                'skjerm_tittel' => $sak['offentlig_tittel'] !== null, 'offentlig_tittel' => $sak['offentlig_tittel'], 'skjerm_klasse' => $person,
+                'tilgangskode' => $sak['offentlig_tittel'] !== null || $person ? ($fasit['tilgangskode'][0] ?? '13-1') : '',
             ]);
         }
 
@@ -234,6 +252,14 @@ final class ArkivTest extends AppTestCase
         self::assertSame(['Elevmappe – Måke, Mathias'], $titler($sok('elevmappe måke')));
         self::assertSame(['Elevmappe – Måke, Mathias'], $titler($sok('  MATHIAS   Måke elevmappe ')));
         self::assertCount(count(array_filter($this->grunndata->saker(), static fn (array $s): bool => $s['arkivdel'] === 'ELEV')), $sok('elevmappe'));
+        // Tegnsetting rundt ordene teller ikke: navnet limt inn fra registeret, anførselstegn og en løs bindestrek.
+        self::assertSame(['Elevmappe – Måke, Mathias'], $titler($sok('Måke, Mathias')));
+        self::assertSame(['Elevmappe – Måke, Mathias'], $titler($sok('"elevmappe" - (Måke)')));
+        self::assertSame([], $sok('- , .'));
+        // Et søk som ikke er gyldig tekst, gir ingen treff og ingen feil.
+        [$svar, $j] = $this->kari->kall('GET', '/api/arkiv/sok?q=' . rawurlencode("m\xE5ke"));
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertSame([], $j['treff']);
         // Eleven som ikke har mappe: søket gir ingenting, og da kan mappen opprettes.
         self::assertSame([], $sok('elevmappe lerke'));
         // Klasseringen: gårds- og bruksnummer, fødselsdato og arkivnøkkel.
@@ -314,6 +340,17 @@ final class ArkivTest extends AppTestCase
         self::assertSame(201, $svar->status, $svar->kropp);
         self::assertIsArray($j['journalpost']);
         self::assertSame(2, $j['journalpost']['postnr']);
+        // En egen registrering som arkiveres uten journalføring, beholder typen studenten valgte, og må ha en.
+        $uten = ['journalfores' => false, 'type' => 'X', 'tittel' => 'Huskelapp til mappen', 'part_navn' => '', 'tilgangskode' => '', 'skjerm_tittel' => false, 'skjerm_part' => false];
+        [$svar] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/journalposter", ['type' => ''] + $uten + $post);
+        self::assertSame(422, $svar->status);
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/journalposter", $uten + $post);
+        self::assertSame(201, $svar->status, $svar->kropp);
+        self::assertIsArray($j['journalpost']);
+        self::assertSame('X', $j['journalpost']['type']);
+        self::assertFalse($j['journalpost']['journalfort']);
+        self::assertSame(3, $j['journalpost']['postnr']);
+        $this->kari->kall('DELETE', '/api/arkiv/journalposter/' . Felt::tekst($j['journalpost']['id']));
         [, $j] = $this->kari->kall('GET', "/api/arkiv/saker/$sakId");
         self::assertCount(2, self::rader($j['journalposter']));
         self::assertFalse($j['kan_slettes'], 'En mappe med dokumenter kan ikke slettes.');
@@ -321,7 +358,9 @@ final class ArkivTest extends AppTestCase
         self::assertSame(409, $svar->status);
         self::assertSame('mappe_ikke_tom', $j['kode']);
         // Ugyldige journalposter oppretter ingenting.
-        foreach ([['tittel' => ' '], ['dokumentdato' => '2026-11-21'], ['type' => 'Z'], ['tilgangskode' => '99'], ['tilgangskode' => ''], ['part_navn' => ''], ['oppgave' => 'finnes-ikke']] as $nr => $endring) {
+        $ugyldige = [['tittel' => ' '], ['dokumentdato' => '2026-11-21'], ['type' => 'Z'], ['tilgangskode' => '99'], ['tilgangskode' => ''], ['part_navn' => ''], ['oppgave' => 'finnes-ikke'],
+            ['offentlig_tittel' => str_repeat('a', 501)]];
+        foreach ($ugyldige as $nr => $endring) {
             [$svar] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/journalposter", $endring + $post);
             self::assertSame(422, $svar->status, "Ugyldig journalpost nr. $nr: " . $svar->kropp);
         }
@@ -478,6 +517,17 @@ final class ArkivTest extends AppTestCase
         self::assertSame('*****', $forst['klasse_tekst']);
         self::assertStringContainsString('Offl. § 13 første ledd', Felt::tekst($forst['hjemmel']));
         self::assertStringNotContainsString('Lerke', $svar->kropp, 'Navnet står ingen steder i den offentlige journalen.');
+        // En åpen journalpost i den skjermede mappen: journalen viser hjemmelen for skjermingen på mappen.
+        [$svar] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/journalposter", ['journalfores' => true, 'type' => 'X', 'tittel' => 'Notat om skolestart', 'dokumentdato' => '2026-11-20', 'part_navn' => '', 'tilgangskode' => '']);
+        self::assertSame(201, $svar->status, $svar->kropp);
+        [, $j] = $this->kari->kall('GET', '/api/arkiv/journal?offentlig=1');
+        $notat = self::rader($j['journalposter'])[0];
+        self::assertSame('Notat om skolestart', $notat['tittel']);
+        self::assertNull($notat['tilgangskode']);
+        self::assertSame('Elevmappe – *****', $notat['sakstittel']);
+        self::assertStringContainsString('Offl. § 13 første ledd', Felt::tekst($notat['sak_hjemmel']), 'Skjermingen på mappen har hjemmelen sin i journalen.');
+        $fyrveien = array_values(array_filter(self::rader($j['journalposter']), static fn (array $p): bool => str_contains(Felt::tekst($p['sakstittel']), 'Fyrveien 8')))[0];
+        self::assertSame('', $fyrveien['sak_hjemmel'], 'En åpen mappe har ingen hjemmel.');
 
         // En elev som har mappe fra før: søknaden legges i den.
         $oppgave = $this->oppgaver->hent('tilrettelegging-elev');
@@ -503,7 +553,8 @@ final class ArkivTest extends AppTestCase
         }
         self::assertTrue($vurdering['part']['ok']);
         self::assertTrue($vurdering['skjerm_part']['ok']);
-        self::assertArrayNotHasKey('skjerm_klasse', $vurdering, 'Fasiten er en mappe som finnes, så klasseringen på den nye vurderes ikke.');
+        self::assertTrue($vurdering['skjerm_klasse']['ok'], 'Mappen er studentens egen, og klasseringen i sakarkivet står riktig åpent.');
+        self::assertArrayNotHasKey('skjerm_sakstittel', $vurdering, 'Fasiten er en mappe som finnes, så tittelen på den nye vurderes ikke.');
         self::assertStringContainsString('samme mappen', Felt::tekst($vurdering['sak']['forklaring']));
         self::assertSame('ny', $vurdering['sak']['ditt']);
         self::assertSame('eksisterende', $vurdering['sak']['riktig']);
@@ -511,8 +562,8 @@ final class ArkivTest extends AppTestCase
         self::assertSame('Eiendomsarkiv', $vurdering['arkivdel']['riktig']);
         self::assertSame('512 Reguleringsplaner', $vurdering['klasse']['ditt']);
         self::assertSame('9/112 Fyrveien 8', $vurdering['klasse']['riktig']);
-        self::assertSame(3, $j['poeng']);
-        self::assertSame(10, $j['maks']);
+        self::assertSame(4, $j['poeng']);
+        self::assertSame(11, $j['maks']);
         // Forklaringen om skjerming står én gang, ved kriteriet som avviker.
         self::assertStringContainsString('Ingenting skal skjermes', Felt::tekst($vurdering['skjerm_tittel']['forklaring']));
         self::assertSame('', $vurdering['skjerm_part']['forklaring']);
@@ -527,7 +578,9 @@ final class ArkivTest extends AppTestCase
         self::assertStringStartsWith('2026/', Felt::tekst($vurdering['sak']['ditt']));
         self::assertFalse($vurdering['klasse']['ok']);
         self::assertTrue($vurdering['skjerm_klasse']['ok'], 'Klasseringen i sakarkivet skal ikke skjermes.');
+        self::assertTrue($vurdering['skjerm_sakstittel']['ok'], 'Tittelen på mappen står åpent.');
         self::assertFalse($vurdering['offentlig_tittel']['ok'], 'Den offentlige tittelen røper et navn.');
+        self::assertTrue($vurdering['skjerm_tittel']['ok'], 'Tittelen røper et navn, så det er ikke skjermingen som mangler grunn.');
         self::assertTrue($vurdering['skjerm_part']['ok']);
         self::assertTrue($vurdering['tilgang']['ok'], 'Unntaket for organinterne dokumenter godtas for et varsel fra en ansatt.');
 
@@ -539,6 +592,8 @@ final class ArkivTest extends AppTestCase
         $vurdering = array_column(self::rader($j['vurdering']), null, 'id');
         self::assertFalse($vurdering['sak']['ok'], 'Eleven har en mappe fra før.');
         self::assertTrue($vurdering['klasse']['ok']);
+        self::assertFalse($vurdering['skjerm_klasse']['ok'], 'Fødselsdato og navn står åpent på den nye mappen.');
+        self::assertSame('ja', $vurdering['skjerm_klasse']['riktig']);
         self::assertFalse($vurdering['offentlig_sakstittel']['ok'], 'Sakstittelen røper navnet.');
         self::assertTrue($vurdering['offentlig_tittel']['ok']);
 
@@ -578,6 +633,83 @@ final class ArkivTest extends AppTestCase
         self::assertSame(422, $svar->status);
     }
 
+    public function testVurderingenFolgerMedNaarMappenEndres(): void
+    {
+        // Høringen får sin egen mappe: alt riktig.
+        $horing = $this->oppgaver->hent('horing-verneplan');
+        self::assertNotNull($horing);
+        $j = $this->folgFasiten($this->kari, $horing);
+        self::assertSame($j['maks'], $j['poeng']);
+        self::assertIsArray($j['sak']);
+        $sakId = Felt::tekst($j['sak']['id']);
+        $maks = Felt::tall($j['maks']);
+
+        // Innkallingen til representantskapet legges i samme mappe. Da er mappen en samlemappe, og den er feil for
+        // begge dokumentene, også det som ble registrert først.
+        $j = $this->registrer($this->kari, $sakId, 'representantskap-renovasjon', ['journalfores' => true, 'type' => 'I', 'tittel' => 'Innkalling til representantskapsmøte 08.12.2026',
+            'dokumentdato' => '2026-11-17', 'part_navn' => 'Jæren Renovasjon', 'tilgangskode' => '']);
+        $ny = array_column(self::rader($j['vurdering']), null, 'id');
+        self::assertFalse($ny['sak']['ok']);
+        self::assertTrue($ny['part']['ok'], 'Selskapsformen (IKS) trenger ikke stå i avsenderen.');
+        $forste = $this->vurdering($this->kari, 'horing-verneplan');
+        self::assertFalse($forste['kriterier']['sak']['ok'], 'Dokumentet deler nå mappen med en annen sak.');
+        self::assertStringStartsWith('2026/', Felt::tekst($forste['kriterier']['sak']['ditt']));
+        self::assertSame([$maks - 1, $maks], [$forste['poeng'], $forste['maks']]);
+        [, $o] = $this->kari->kall('GET', '/api/arkiv');
+        self::assertIsArray($o['oversikt']);
+        self::assertSame($forste['poeng'] + Felt::tall($j['poeng']), $o['oversikt']['poeng'], 'Poengene på forsiden følger vurderingen.');
+
+        // Innkallingen angres: høringen er alene i mappen igjen, og vurderingen er som før.
+        [$svar] = $this->kari->kall('DELETE', '/api/arkiv/postmottak/representantskap-renovasjon');
+        self::assertSame(200, $svar->status, $svar->kropp);
+        $forste = $this->vurdering($this->kari, 'horing-verneplan');
+        self::assertTrue($forste['kriterier']['sak']['ok']);
+        self::assertSame('ny', $forste['kriterier']['sak']['ditt']);
+        self::assertSame([$maks, $maks], [$forste['poeng'], $forste['maks']]);
+
+        // En egen registrering i mappen er ikke en annen sak fra postmottaket, og endrer ingenting.
+        [$svar] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/journalposter", ['journalfores' => true, 'type' => 'X', 'tittel' => 'Notat til saken', 'dokumentdato' => '2026-11-20', 'part_navn' => '', 'tilgangskode' => '']);
+        self::assertSame(201, $svar->status, $svar->kropp);
+        self::assertTrue($this->vurdering($this->kari, 'horing-verneplan')['kriterier']['sak']['ok']);
+    }
+
+    public function testSkjermingUtenGrunnGirAvvik(): void
+    {
+        // Mappen til høringen skjermes uten grunn: tittelen røper ingenting, og klasseringen er en klasse i arkivnøkkelen.
+        $sakId = $this->nyMappe($this->kari, ['tittel' => 'Høring – utvidelse av Ognasanden landskapsvernområde', 'arkivdel' => 'SAK', 'klasse' => '641', 'enhet' => 'TEK',
+            'skjerm_tittel' => true, 'offentlig_tittel' => 'Høring – *****', 'skjerm_klasse' => true, 'tilgangskode' => '13-1']);
+        $post = ['journalfores' => true, 'type' => 'I', 'tittel' => 'Høring – utvidelse av Ognasanden landskapsvernområde', 'dokumentdato' => '2026-11-09', 'part_navn' => 'Statsforvalteren', 'tilgangskode' => ''];
+        $j = $this->registrer($this->kari, $sakId, 'horing-verneplan', $post);
+        $vurdering = array_column(self::rader($j['vurdering']), null, 'id');
+        self::assertTrue($vurdering['sak']['ok']);
+        self::assertTrue($vurdering['part']['ok'], 'Kortformen av avsenderen godtas.');
+        self::assertFalse($vurdering['skjerm_klasse']['ok']);
+        self::assertSame(['ja', 'nei'], [$vurdering['skjerm_klasse']['ditt'], $vurdering['skjerm_klasse']['riktig']]);
+        self::assertFalse($vurdering['skjerm_sakstittel']['ok']);
+        self::assertTrue($vurdering['skjerm_tittel']['ok']);
+        self::assertSame(Felt::tall($j['maks']) - 2, $j['poeng']);
+        // Forklaringen om skjerming står ved det første avviket.
+        self::assertStringContainsString('Ingenting skal skjermes', Felt::tekst($vurdering['skjerm_klasse']['forklaring']));
+        self::assertSame('', $vurdering['skjerm_sakstittel']['forklaring']);
+
+        // Varselet: tittelen skal stå åpent når den ikke nevner navn. Skjermet uten navn i tittelen er et avvik;
+        // skjermet fordi studenten skrev navnet i tittelen, er riktig.
+        $varsel = $this->nyMappe($this->kari, ['tittel' => 'Varsling – arbeidsmiljøet ved Sirevåg omsorgssenter', 'arkivdel' => 'SAK', 'klasse' => '256', 'enhet' => 'HR']);
+        $post = ['journalfores' => true, 'type' => 'I', 'tittel' => 'Varsel om arbeidsmiljøet ved omsorgssenteret', 'offentlig_tittel' => 'Varsel', 'dokumentdato' => '2026-11-14',
+            'part_navn' => 'Hegre, Hilde', 'tilgangskode' => '13-1', 'skjerm_tittel' => true, 'skjerm_part' => true];
+        $j = $this->registrer($this->kari, $varsel, 'varsel-arbeidsmiljo', $post);
+        $vurdering = array_column(self::rader($j['vurdering']), null, 'id');
+        self::assertFalse($vurdering['skjerm_tittel']['ok'], 'Tittelen røper ingenting og skal stå åpent.');
+        self::assertTrue($vurdering['offentlig_tittel']['ok']);
+        self::assertTrue($vurdering['part']['ok'], 'Etternavnet først er samme navn.');
+        $this->kari->kall('DELETE', '/api/arkiv/postmottak/varsel-arbeidsmiljo');
+        $j = $this->registrer($this->kari, $varsel, 'varsel-arbeidsmiljo', ['tittel' => 'Varsel fra Hilde Hegre om arbeidsmiljøet', 'offentlig_tittel' => 'Varsel om arbeidsmiljøet ved omsorgssenteret'] + $post);
+        $vurdering = array_column(self::rader($j['vurdering']), null, 'id');
+        self::assertTrue($vurdering['skjerm_tittel']['ok'], 'Navnet står i tittelen, så den må skjermes.');
+        self::assertTrue($vurdering['offentlig_tittel']['ok']);
+        self::assertSame($j['maks'], $j['poeng'], json_encode($j['vurdering'], JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE));
+    }
+
     public function testMappeskjemaetValideres(): void
     {
         $gyldig = ['tittel' => 'Byggesak – garasje – Strandveien 14', 'arkivdel' => 'EIENDOM', 'klasse' => '12/45', 'enhet' => 'PBE'];
@@ -602,6 +734,8 @@ final class ArkivTest extends AppTestCase
             ['tilgangskode' => '99'],
             ['skjerm_tittel' => true],
             ['skjerm_klasse' => true],
+            // En for lang offentlig tittel avvises, den kuttes ikke.
+            ['skjerm_tittel' => true, 'tilgangskode' => '13-1', 'offentlig_tittel' => str_repeat('a', 501)],
         ];
         foreach ($ugyldige as $nr => $endring) {
             [$svar] = $this->kari->kall('POST', '/api/arkiv/saker', $endring + $gyldig);
@@ -688,7 +822,13 @@ final class ArkivTest extends AppTestCase
         [, $j] = $this->kari->kall('GET', "/api/arkiv/saker/$fyrveien");
         self::assertCount($for, self::rader($j['journalposter']));
 
-        // Nullstilling: arkivet er som da studenten fikk det.
+        // Arkivet husker utgaven av innholdet det ble fylt med. Er datafilene byttet siden, sier forsiden fra.
+        $this->db->utfor("UPDATE arkivar_arkiv SET innhold = 'eldre-utgave'");
+        [, $j] = $this->kari->kall('GET', '/api/arkiv');
+        self::assertIsArray($j['oversikt']);
+        self::assertTrue($j['oversikt']['utdatert']);
+
+        // Nullstilling: arkivet er som da studenten fikk det, med innholdet som gjelder nå.
         [$svar] = $this->kari->kall('POST', '/api/arkiv/nullstill', []);
         self::assertSame(200, $svar->status, $svar->kropp);
         [, $j] = $this->kari->kall('GET', '/api/arkiv');

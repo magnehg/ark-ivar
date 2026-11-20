@@ -315,14 +315,18 @@ Hvert dokument har feltene `id`, `kanal` (brev, epost eller skjema), `dokumentda
 `tekst`, `vedlegg` og `fasit`. Fasiten:
 
 - `handling`: `journalfor`, `arkiver` (arkiveres uten journalføring), `fagsystem` eller `ikke_arkiver`.
-- `sak` (når dokumentet arkiveres): `type` `ny` (med `tittel`, `skjerm_klasse`, og `offentlig_tittel` i
-  personarkivene) eller `eksisterende` (med `nokkel`), `arkivdel` og `klasse` (en liste med primærklasseringer: alle
-  godtas, den beste står først). To dokumenter som starter samme nye sak, får samme `felles`.
+- `sak` (når dokumentet arkiveres): `type` `ny` (med `tittel`, og `offentlig_tittel` i personarkivene) eller
+  `eksisterende` (med `nokkel`), `arkivdel` og `klasse` (en liste med primærklasseringer: alle godtas, den beste
+  står først). Hvert dokument som starter en ny sak, starter sin egen: en mappe der studenten samler flere av dem,
+  er feil for alle dokumentene i den. Klasseringen på en ny mappe skal skjermes i personarkivene og ellers ikke,
+  og tittelen skal bare skjermes når fasiten har en `offentlig_tittel`.
 - `type` (alltid `I`), `tittel`, `offentlig_tittel`, `tilgangskode` (en liste: alle godtas, tom = ingen),
-  `skjerm_tittel` og `skjerm_part` (`null` = vurderes ikke), og `sensitive_ord` (navn som ikke kan stå i en
-  offentlig tittel).
+  `skjerm_tittel` og `skjerm_part` (`null` = vurderes ikke), `sensitive_ord` (navn som ikke kan stå i en offentlig
+  tittel) og `part` (andre navn på avsenderen som godtas, for eksempel «Statsforvalteren»). Avsenderen sammenliknes
+  ord for ord uten hensyn til rekkefølge, småord og selskapsform.
 - `forklaring` med nøklene `handling`, `sak`, `arkivdel`, `klasse`, `tilgang` og `skjerming`. Forklaringen skal si
-  hvorfor, og gjerne hva som ville vært feil og hvorfor.
+  hvorfor, og gjerne hva som ville vært feil og hvorfor. `skjerming` skal stå på alle dokumenter som journalføres,
+  og på alle som starter en ny mappe.
 
 Postmottaket skal øve på alle arkivdelene og alle fire behandlingsmåtene. Hvert dokument skal ha en naturlig mappe:
 finnes saken eller personen i arkivet, skal dokumentet dit, ellers opprettes en ny mappe med en tittel som bare

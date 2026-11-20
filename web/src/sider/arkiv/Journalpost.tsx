@@ -42,7 +42,7 @@ export default function Journalpost() {
             <dt>{t('arkivar.journalpost.dokumentdato')}</dt><dd>{dato(p.dokumentdato)}</dd>
             <dt>{t('arkivar.journal.journaldato')}</dt><dd>{dato(p.journaldato)}</dd>
             <dt>{t('arkivar.journal.lopenummer')}</dt><dd>{p.lopenummer}</dd>
-            <dt>{t('arkivar.sak.ansvarlig')}</dt><dd>{p.saksbehandler} ({p.enhet})</dd>
+            <dt>{t('arkivar.sak.ansvarlig')}</dt><dd>{p.saksbehandler_navn} ({p.enhet})</dd>
             <dt>{t('arkivar.journalpost.tilgang')}</dt><dd>{p.tilgangskode ? <Status slag="skjermet">{p.hjemmel}</Status> : t('arkivar.tilgang.offentlig')}</dd>
             {p.skjerm_tittel && <><dt>{t('arkivar.journalpost.offentlig_tittel')}</dt><dd>{p.offentlig_tittel}</dd></>}
           </dl>

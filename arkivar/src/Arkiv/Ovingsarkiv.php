@@ -14,6 +14,10 @@ use Psr\Clock\ClockInterface;
  * Øvingsarkivet til en bruker (arkivar_arkiv). Hver bruker har sitt eget arkiv for Sirevåg kommune. Det lages
  * første gang brukeren åpner arkivet, fylt med sakene fra grunndataene, og kan nullstilles: da slettes alt
  * brukeren har registrert, og arkivet fylles på nytt.
+ *
+ * Arkivet husker hvilken utgave av mappene og oppgavene det ble fylt med (innhold). Er datafilene byttet siden
+ * (en ny versjon av Ark-Ivar), er arkivet utdatert: dokumentene leses fra filene, så de kan ha endret seg under
+ * mappene i arkivet. Studenten får da beskjed om å nullstille.
  */
 final class Ovingsarkiv
 {
@@ -22,7 +26,14 @@ final class Ovingsarkiv
         private readonly ClockInterface $klokke,
         private readonly Grunndata $grunndata,
         private readonly Register $register,
+        private readonly Oppgavesett $oppgaver,
     ) {
+    }
+
+    /** Utgaven av innholdet: mappene som følger med, og oppgavene i postmottaket. */
+    private function utgave(): string
+    {
+        return substr(hash('sha256', $this->grunndata->utgave() . $this->oppgaver->utgave()), 0, 32);
     }
 
     /** ID-en til brukerens arkiv. Lager og fyller arkivet når brukeren ikke har noe. */
@@ -63,6 +74,7 @@ final class Ovingsarkiv
      */
     private function fyll(string $arkivId): void
     {
+        $this->db->utfor('UPDATE arkivar_arkiv SET innhold = ? WHERE id = ?', [$this->utgave(), $arkivId]);
         $saker = $this->grunndata->saker();
         usort($saker, static fn (array $a, array $b): int => [$a['saksdato'], $a['nokkel']] <=> [$b['saksdato'], $b['nokkel']]);
         $poster = [];
@@ -108,9 +120,10 @@ final class Ovingsarkiv
     }
 
     /**
-     * Tall til forsiden: saker, journalposter og hvor mange dokumenter i postmottaket som er behandlet.
+     * Tall til forsiden: saker, journalposter og hvor mange dokumenter i postmottaket som er behandlet. «utdatert»
+     * er sann når arkivet ble fylt med en eldre utgave av innholdet.
      *
-     * @return array{saker: int, journalposter: int, behandlet: int, poeng: int, maks: int}
+     * @return array{saker: int, journalposter: int, behandlet: int, poeng: int, maks: int, utdatert: bool}
      */
     public function oversikt(string $arkivId): array
     {
@@ -122,6 +135,7 @@ final class Ovingsarkiv
             'behandlet' => Felt::tall($status['antall'] ?? 0),
             'poeng' => Felt::tall($status['poeng'] ?? 0),
             'maks' => Felt::tall($status['maks'] ?? 0),
+            'utdatert' => $this->db->verdi('SELECT innhold FROM arkivar_arkiv WHERE id = ?', [$arkivId]) !== $this->utgave(),
         ];
     }
 }

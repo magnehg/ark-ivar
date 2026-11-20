@@ -30,6 +30,7 @@
   "arkivar.feil.mappe_fulgte_med": "Mappen fulgte med arkivet og kan ikke slettes.",
   "arkivar.feil.mappe_ikke_tom": "Mappen har dokumenter og kan ikke slettes.",
   "arkivar.feil.navn": "Skriv navnet ditt (minst to tegn).",
+  "arkivar.feil.offentlig_tittel": "Den offentlige tittelen kan ha høyst 500 tegn.",
   "arkivar.feil.oppgave": "Dokumentet finnes ikke i postmottaket.",
   "arkivar.feil.part": "Skriv hvem dokumentet er fra eller til (høyst 300 tegn).",
   "arkivar.feil.saksmal": "Saksmalen finnes ikke.",

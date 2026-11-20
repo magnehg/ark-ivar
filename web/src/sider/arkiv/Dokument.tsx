@@ -83,10 +83,16 @@ function Vurdering({ id, b, angret }: { id: string; b: Behandling; angret: () =>
     if (k.id === 'sak') return v === 'ny' ? t('arkivar.registrering.sak.ny') : fasit ? (b.forslag?.sak ?? t('arkivar.registrering.sak.eksisterende')) : v;
     if (k.id === 'type') return `${v} – ${t(`arkivar.jptype.${v.toLowerCase()}`)}`;
     if (k.id === 'tilgang') return v === '' ? ingen : v;
-    if (k.id === 'skjerm_tittel' || k.id === 'skjerm_part' || k.id === 'skjerm_klasse') return t(`arkivar.felles.${v}`);
+    if (k.id === 'skjerm_tittel' || k.id === 'skjerm_part' || k.id === 'skjerm_klasse' || k.id === 'skjerm_sakstittel') return t(`arkivar.felles.${v}`);
     if (k.id === 'dokumentdato') return dato(v);
     if (k.id === 'offentlig_tittel' || k.id === 'offentlig_sakstittel') return fasit ? t('arkivar.vurdering.uten_navn') : v;
     return v;
+  };
+  // Fasiten har én forklaring om skjerming per dokument. Et avvik på mappen uten egen forklaring får regelen som gjelder.
+  const forklaring = (k: Kriterium): string => {
+    if (k.forklaring || k.ok) return k.forklaring;
+    if (k.id === 'skjerm_klasse') return t('arkivar.vurdering.hjelp.skjerm_klasse');
+    return k.id === 'skjerm_sakstittel' ? t('arkivar.vurdering.hjelp.skjerm_sakstittel') : '';
   };
   const angre = () => { settFeil(null); api.slett(`/api/arkiv/postmottak/${id}`).then(angret).catch((e: unknown) => settFeil(feiltekst(e))); };
   return (
@@ -99,7 +105,8 @@ function Vurdering({ id, b, angret }: { id: string; b: Behandling; angret: () =>
           <span className={c.kriterienavn}>{t(`arkivar.kriterium.${k.id}`)}</span>
           <Status slag={k.ok ? 'ok' : 'feil'}>{t(k.ok ? 'arkivar.vurdering.riktig' : 'arkivar.vurdering.avvik')}</Status>
           <span className={c.verdier}>{t('arkivar.vurdering.ditt', { verdi: verdi(k, k.ditt, false) })}{!k.ok && <> · {t('arkivar.vurdering.fasit', { verdi: verdi(k, k.riktig, true) })}</>}</span>
-          {k.forklaring && <p className={c.forklaring} lang="nb">{k.forklaring}</p>}
+          {k.id === 'sak' && !k.ok && k.riktig === 'ny' && b.sak && !b.sak.fulgte_med && <p className={c.forklaring}>{t('arkivar.vurdering.hjelp.samlemappe')}</p>}
+          {forklaring(k) && <p className={c.forklaring} lang={k.forklaring ? 'nb' : undefined}>{forklaring(k)}</p>}
         </div>
       ))}
       {b.forslag && (

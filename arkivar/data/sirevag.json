@@ -4564,38 +4564,111 @@
       "journalposter": [
         {
           "type": "I",
-          "tittel": "Brev til kommunen (midlertidig) – Måke, Mathias",
-          "offentlig_tittel": "Brev til kommunen (midlertidig) – *****",
-          "dokumentdato": "2022-02-07",
-          "part": "Måke, foresatt",
+          "tittel": "Innskriving til 1. trinn – Sirevåg skole – Mathias Måke",
+          "offentlig_tittel": "Innskriving til 1. trinn – Sirevåg skole – *****",
+          "dokumentdato": "2022-02-04",
+          "part": "Marit og Rune Måke",
           "skjerm_part": true,
           "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
-            "kanal": "brev",
+            "kanal": "skjema",
             "mottatt": "2022-02-07",
             "avsender": {
-              "navn": "Måke, foresatt",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
+              "navn": "Marit og Rune Måke",
+              "adresse": "Bakkevegen 3, 4399 Sirevåg",
+              "epost": "marit.maake@epost.example"
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Innskriving til 1. trinn ved Sirevåg skole, skoleåret 2022/2023",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Innskriving til 1. trinn, skoleåret 2022/2023\nSkole: Sirevåg skole",
+              "Barnets navn: Mathias Måke\nFødselsdato: 14. mars 2016\nAdresse: Bakkevegen 3, 4399 Sirevåg\nMorsmål: Norsk\nBarnehage nå: Fyrlykta barnehage, avdeling Naustet",
+              "Foresatt 1: Marit Måke\nE-post: marit.maake@epost.example\nForesatt 2: Rune Måke\nE-post: rune.maake@epost.example\nForeldreansvar: Felles\nBarnet bor fast hos: Begge foresatte",
+              "Søsken ved skolen: Nei\nØnsker plass i skolefritidsordningen: Ja, hel plass\nAvstand til skolen: Om lag 900 meter\nØnsker skoleskyss: Nei",
+              "Opplysninger skolen bør kjenne til: Mathias er en glad og aktiv gutt som liker å bygge og tegne. Han kom sent i gang med å snakke og fikk hjelp med uttalen i barnehagen, men snakker godt nå. Han kjenner noen bokstaver og skriver navnet sitt.\nHelse, allergier og medisiner: Ingen",
+              "Samtykke til overgangssamtale: Vi samtykker til at Fyrlykta barnehage gir Sirevåg skole opplysninger om Mathias i overgangssamtalen før skolestart.\nSamtykke til fotografering: Ja, til bruk i klasserommet og på skolens lukkede læringsplattform. Nei til bilder på åpne nettsider.",
+              "Sted og dato: Sirevåg, 4. februar 2022\nUnderskrift: Marit Måke og Rune Måke"
             ],
             "vedlegg": []
           }
         },
         {
           "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
-          "offentlig_tittel": null,
-          "dokumentdato": "2022-02-14",
-          "part": "Måke, foresatt",
+          "tittel": "Vedtak om skoleplass ved Sirevåg skole – Mathias Måke",
+          "offentlig_tittel": "Vedtak om skoleplass ved Sirevåg skole – *****",
+          "dokumentdato": "2022-03-10",
+          "part": "Marit og Rune Måke",
           "skjerm_part": true,
+          "status": "E",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "vedtak",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Oppvekst",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "Marit og Rune Måke, Bakkevegen 3, 4399 Sirevåg",
+            "emne": "Vedtak om skoleplass ved Sirevåg skole fra skoleåret 2022/2023",
+            "tekst": [
+              "Vi viser til innskrivingen av Mathias Måke, født 14. mars 2016, som Sirevåg skole mottok 7. februar 2022. Vår ref.: {{sak}}",
+              "## Vedtak",
+              "Mathias Måke får skoleplass i 1. trinn ved Sirevåg skole fra skoleåret 2022/2023. Første skoledag er torsdag 18. august 2022.",
+              "## Begrunnelse",
+              "Barn begynner på skolen det året de fyller seks år, og de har etter opplæringslova rett til å gå på den skolen som ligger nærmest hjemmet. Mathias fyller seks år i 2022. Bakkevegen 3 ligger i nærområdet til Sirevåg skole, og Sirevåg skole er derfor nærskolen hans. Dere har ikke søkt om plass ved en annen skole eller om utsatt skolestart.",
+              "## Skolefritidsordningen",
+              "I innskrivingsskjemaet har dere krysset av for at dere ønsker hel plass i skolefritidsordningen. Dette vedtaket gjelder bare skoleplassen. Søknad om plass i skolefritidsordningen sender dere i kommunens oppvekstportal innen 1. april 2022. Plassen tildeles der, og dere får eget svar.",
+              "## Før skolestart",
+              "Skolen inviterer de nye elevene og foresatte til førskoledag onsdag 8. juni 2022 klokka 09.00 til 11.00. Da møter Mathias kontaktlæreren og gruppen sin. Invitasjon med program blir sendt i mai. Sirevåg skole og Fyrlykta barnehage har overgangssamtale om de nye elevene i mai, slik dere har samtykket til. Opplysningene dere har gitt om språkutviklingen til Mathias, blir tatt med til kontaktlæreren.",
+              "## Klageadgang",
+              "Dette er et enkeltvedtak. Dere kan klage på vedtaket etter forvaltningsloven § 28, og klagefristen er tre uker fra dere mottok dette brevet, jf. forvaltningsloven § 29. Klagen sendes til Sirevåg kommune, Rådhusgata 1, 4399 Sirevåg. Dersom kommunen ikke endrer vedtaket, sender vi klagen til Statsforvalteren i Rogaland, som avgjør saken. Dere har rett til å se dokumentene i saken.",
+              "Med hilsen Tora Trane, rektor ved Sirevåg skole"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Samtykke til henvisning til PP-tjenesten – Mathias Måke",
+          "offentlig_tittel": "Samtykke til henvisning til PP-tjenesten – *****",
+          "dokumentdato": "2026-05-12",
+          "part": "Marit og Rune Måke",
+          "skjerm_part": true,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "skjema",
+            "mottatt": "2026-05-13",
+            "avsender": {
+              "navn": "Marit og Rune Måke",
+              "adresse": "Bakkevegen 3, 4399 Sirevåg",
+              "epost": null
+            },
+            "mottaker": null,
+            "emne": "Samtykke til henvisning til PP-tjenesten for Mathias Måke",
+            "tekst": [
+              "Samtykke til henvisning til pedagogisk-psykologisk tjeneste\nTjeneste: PP-tjenesten for Sirevåg og Kvassheim\nSkole: Sirevåg skole",
+              "Elevens navn: Mathias Måke\nFødselsdato: 14. mars 2016\nTrinn: 4. trinn\nForesatte: Marit Måke og Rune Måke\nAdresse: Bakkevegen 3, 4399 Sirevåg\nForeldreansvar: Felles",
+              "Hva henvisningen gjelder: Skolen og vi foresatte er bekymret for lese- og skriveutviklingen til Mathias. Skolen ønsker at PP-tjenesten utreder om han har lese- og skrivevansker, og vurderer om han har behov for individuelt tilrettelagt opplæring.",
+              "Samtykke til henvisning og utredning: Ja. Vi samtykker til at Sirevåg skole henviser Mathias til PP-tjenesten, og til at PP-tjenesten utreder ham og skriver en sakkyndig vurdering.\nSamtykke til at skolen sender pedagogisk rapport og resultater fra kartleggingsprøver til PP-tjenesten: Ja\nSamtykke til at skolen og PP-tjenesten utveksler de opplysningene som er nødvendige for utredningen: Ja\nSamtykke til at PP-tjenesten henter inn opplysninger fra helsestasjonen: Ja\nSamtykke til at PP-tjenesten henter inn opplysninger fra fastlegen: Nei, ikke uten at vi blir spurt først",
+              "Eleven er hørt: Ja. Mathias sier at han gjerne vil ha hjelp til å bli bedre til å lese.\nInformasjon til foresatte: Vi er kjent med at samtykket er frivillig og kan trekkes tilbake når som helst, at vi har rett til å se dokumentene i saken, og at vi får kopi av henvisningen og den pedagogiske rapporten.",
+              "Sted og dato: Sirevåg, 12. mai 2026\nUnderskrift: Marit Måke og Rune Måke"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Henvisning til PP-tjenesten med pedagogisk rapport – Mathias Måke",
+          "offentlig_tittel": "Henvisning til PP-tjenesten med pedagogisk rapport – *****",
+          "dokumentdato": "2026-05-20",
+          "part": "PP-tjenesten for Sirevåg og Kvassheim",
+          "skjerm_part": false,
           "status": "E",
           "journalfort": true,
           "tilgangskode": "13-1",
@@ -4603,17 +4676,75 @@
             "kanal": "brev",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Oppvekst",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Måke, foresatt",
-            "emne": "Svar fra kommunen",
+            "mottaker": "PP-tjenesten for Sirevåg og Kvassheim, Kvassheim kommune, Rådhusvegen 1, 4398 Kvassheim",
+            "emne": "Henvisning til PP-tjenesten – Mathias Måke, født 14. mars 2016",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Sirevåg skole henviser med dette Mathias Måke, født 14. mars 2016, til PP-tjenesten for Sirevåg og Kvassheim. Mathias går i 4. trinn og begynner i 5. trinn i august 2026. Foresatte er Marit og Rune Måke, Bakkevegen 3, 4399 Sirevåg. De samtykket skriftlig til henvisningen 12. mai 2026, og samtykket ligger ved. Vår ref.: {{sak}}",
+              "## Hva skolen ber om",
+              "Skolen ber PP-tjenesten utrede lese- og skriveferdighetene til Mathias og vurdere om han har spesifikke lese- og skrivevansker. Vi ber også om en sakkyndig vurdering av om han har behov for individuelt tilrettelagt opplæring etter opplæringslova § 11-6, jf. § 11-7. Skolen ønsker i tillegg råd om hjelpemidler og arbeidsmåter som lærerne kan bruke i den ordinære opplæringen.",
+              "## Pedagogisk rapport",
+              "Mathias er en omgjengelig og nysgjerrig elev. Han har gode venner i klassen, er aktiv i friminuttene og deltar gjerne muntlig. Han har et godt ordforråd, husker godt det han hører, og forklarer sammenhenger i naturfag og samfunnsfag på nivå med klassen. I matematikk regner han sikkert med tall, men får vansker når oppgavene har mye tekst.",
+              "Lesingen har vært strevsom siden 2. trinn. Mathias leser sakte og lyderer seg gjennom de fleste ord, også korte og vanlige ord som han har møtt mange ganger. Han forveksler bokstaver som b og d og ø og å, og han gjetter ofte ut fra den første bokstaven. Når han leser høyt, bruker han så mye krefter på å avkode ordene at han ikke får med seg innholdet. Når en voksen leser den samme teksten for ham, svarer han godt på spørsmål om den.",
+              "Mathias skriver korte tekster med mange feil også i lydrette ord. Han utelater bokstaver og blander store og små bokstaver. Muntlig forteller han lange og sammenhengende historier. På kartleggingsprøven i lesing på 3. trinn våren 2025 lå han under bekymringsgrensen på fire av fem delprøver. På skolens leseprøve i april 2026 leste han 38 ord riktig i minuttet, mens de fleste i klassen leste mellom 80 og 110. Resultatene ligger ved.",
+              "De siste månedene har Mathias begynt å vegre seg. Han ber om å få gå på toalettet når klassen skal lese høyt, og foresatte forteller at han gruer seg til leseleksene og sier at han er dum. Skolen mener det er viktig at han får hjelp før mismotet fester seg.",
+              "## Tiltak skolen har prøvd",
+              "Mathias fikk intensiv opplæring i lesing i en gruppe på fire elever, fire økter i uka i ti uker høsten 2024 og på nytt i åtte uker høsten 2025. Han ble sikrere på bokstavene, men lesehastigheten økte lite. Siden januar 2026 har han hatt nettbrett med opplest tekst og tale til tekst i norsk, lydbøker til leseleksene, kortere skriveoppgaver og en avtale om at han ikke leser høyt for hele klassen uten å ha øvd på teksten først. Leseleksene er tilpasset i samarbeid med foresatte. Helsesykepleieren undersøkte synet og hørselen i februar 2026, uten funn.",
+              "Skolen vurderer at tiltakene innenfor den ordinære opplæringen ikke er nok til at Mathias får tilfredsstillende utbytte av opplæringen i norsk. Den pedagogiske rapporten er skrevet av kontaktlæreren og gjennomgått med foresatte i møte 11. mai 2026. Foresatte har fått kopi av henvisningen.",
+              "Med hilsen Tora Trane, rektor ved Sirevåg skole"
             ],
-            "vedlegg": []
+            "vedlegg": [
+              "Samtykke fra foresatte, datert 12. mai 2026",
+              "Resultater fra kartleggingsprøven i lesing på 3. trinn, våren 2025",
+              "Resultater fra skolens leseprøver 2024–2026",
+              "Tre skriveprøver fra våren 2026"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Sakkyndig vurdering fra PP-tjenesten – Mathias Måke",
+          "offentlig_tittel": "Sakkyndig vurdering fra PP-tjenesten – *****",
+          "dokumentdato": "2026-10-30",
+          "part": "PP-tjenesten for Sirevåg og Kvassheim",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": "2026-11-02",
+            "avsender": {
+              "navn": "PP-tjenesten for Sirevåg og Kvassheim",
+              "adresse": "Kvassheim kommune, Rådhusvegen 1, 4398 Kvassheim",
+              "epost": "postmottak@kvassheim.example"
+            },
+            "mottaker": null,
+            "emne": "Sakkyndig vurdering – Mathias Måke, født 14. mars 2016",
+            "tekst": [
+              "PP-tjenesten for Sirevåg og Kvassheim viser til henvisningen fra Sirevåg skole av 20. mai 2026, deres ref. {{sak}}. Mathias Måke, født 14. mars 2016, går i 5. trinn ved Sirevåg skole. Dette er PP-tjenestens sakkyndige vurdering etter opplæringslova § 11-7. Foresatte, Marit og Rune Måke, har samtykket til utredningen og har fått kopi av vurderingen.",
+              "## Bakgrunn",
+              "Skolen henviste Mathias på grunn av vedvarende vansker med lesing og skriving. Skolen har gitt intensiv opplæring i lesing i to perioder og har tilpasset den ordinære opplæringen med opplest tekst, lydbøker og kortere skriveoppgaver. Skolen vurderer at tiltakene ikke har gitt nok framgang. Foresatte forteller at Mathias var sen med språket og fikk hjelp med uttalen i barnehagen, og at faren hadde lignende vansker med lesing da han gikk på skolen.",
+              "## Utredning",
+              "PP-tjenesten hadde samtale med foresatte 9. september 2026. Vi observerte Mathias i to norsktimer 16. september og hadde samtale med kontaktlæreren samme dag. Mathias ble utredet 23. september og 14. oktober 2026 med testen LOGOS, som kartlegger leseflyt, avkoding og rettskriving, og med evnetesten WISC-V. Vi har også gått gjennom den pedagogiske rapporten, resultatene fra skolens kartlegginger og resultatet fra den nasjonale prøven i lesing i september 2026.",
+              "Evnetesten viser at Mathias har generelle evner i normalområdet, med god språkforståelse og godt resonnement. Arbeidsminnet og arbeidstempoet ligger noe lavere enn de andre resultatene. På LOGOS skårer han svært svakt på leseflyt og på avkoding av både ord og tulleord, og resultatene ligger blant de svakeste fem prosentene for alderen. Han bruker lang tid på å lese enkeltord, og han har store vansker med å skille språklyder fra hverandre og med raskt å sette navn på kjente symboler. Lytteforståelsen er god og ligger over gjennomsnittet for alderen. I rettskriving har han mange feil også i lydrette ord. På den nasjonale prøven i lesing ligger han på det laveste mestringsnivået.",
+              "## Vurdering",
+              "Mathias har store og vedvarende vansker med ordavkoding og rettskriving, samtidig som evner, ordforråd og lytteforståelse er gode. Vanskene har vart til tross for systematisk og intensiv opplæring. PP-tjenesten vurderer at Mathias har spesifikke lese- og skrivevansker, dysleksi. Vanskene skyldes ikke syn, hørsel, mangelfull opplæring eller generelle lærevansker.",
+              "Mathias har gode forutsetninger for å lære når han slipper å hente kunnskapen gjennom egen lesing. I norsk får han likevel ikke tilfredsstillende utbytte av den ordinære opplæringen, fordi avkodingen krever så mye at lite blir igjen til forståelse og skriving. Han har begynt å unngå lesing og omtaler seg selv negativt som elev. I de andre fagene kan han følge den ordinære opplæringen når skolen legger til rette med opplest tekst, tale til tekst og muntlige vurderingsformer. Slik tilpasning skal skolen gi uten vedtak.",
+              "## Tilråding",
+              "PP-tjenesten tilrår at Mathias får individuelt tilrettelagt opplæring i norsk etter opplæringslova § 11-6, med et omfang på 4 timer i uka. Det tilsvarer 152 årstimer i et skoleår på 38 uker. Tilrådingen gjelder for resten av skoleåret 2026/2027 og for skoleåret 2027/2028.",
+              "Opplæringen bør være strukturert og direkte lese- og skriveopplæring med vekt på sammenhengen mellom lyd og bokstav, ordbilder for de vanligste ordene, gjentatt lesing og stavemønstre. Den bør gis til Mathias alene eller i en gruppe på høyst tre elever, i korte økter fordelt på minst fire dager i uka, og av en lærer med spesialpedagogisk kompetanse eller videreutdanning i lese- og skrivevansker. To av timene kan legges til klassens norsktimer, slik at Mathias mister minst mulig av de andre fagene.",
+              "Realistiske mål er at Mathias innen utgangen av skoleåret 2027/2028 leser tilpassede tekster med flyt og forståelse, staver de 300 vanligste ordene riktig, og bruker tale til tekst, opplest tekst og stavekontroll selvstendig i alle fag. Han bør følge kompetansemålene i læreplanen i norsk for trinnet, bortsett fra målene som gjelder håndskrift og rettskriving, der målene bør tilpasses. Skolen skal utarbeide en individuell opplæringsplan, jf. opplæringslova § 11-10.",
+              "## Videre saksgang",
+              "Den sakkyndige vurderingen er en tilråding. Det er Sirevåg kommune ved rektor som avgjør om Mathias skal få individuelt tilrettelagt opplæring, i et enkeltvedtak etter opplæringslova § 11-7. Dersom vedtaket avviker fra tilrådingen, må kommunen begrunne det. PP-tjenesten deltar gjerne i et møte med skolen og foresatte om gjennomføringen, og vi kan veilede lærerne i bruk av hjelpemidlene.",
+              "Med hilsen Randi Voll, PP-rådgiver, PP-tjenesten for Sirevåg og Kvassheim"
+            ],
+            "vedlegg": [
+              "Oversikt over testresultater"
+            ]
           }
         }
       ]
@@ -4632,37 +4763,73 @@
       "journalposter": [
         {
           "type": "I",
-          "tittel": "Brev til kommunen (midlertidig) – Rype, Runa",
-          "offentlig_tittel": "Brev til kommunen (midlertidig) – *****",
-          "dokumentdato": "2018-02-05",
-          "part": "Rype, foresatt",
+          "tittel": "Innskriving til 1. trinn – Sirevåg skole – Runa Rype",
+          "offentlig_tittel": "Innskriving til 1. trinn – Sirevåg skole – *****",
+          "dokumentdato": "2018-02-02",
+          "part": "Anita og Stein Rype",
           "skjerm_part": true,
           "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
-            "kanal": "brev",
+            "kanal": "skjema",
             "mottatt": "2018-02-05",
             "avsender": {
-              "navn": "Rype, foresatt",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
+              "navn": "Anita og Stein Rype",
+              "adresse": "Raunesvegen 48, 4399 Sirevåg",
+              "epost": "anita.rype@epost.example"
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Innskriving til 1. trinn ved Sirevåg skole, skoleåret 2018/2019",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Innskriving til 1. trinn, skoleåret 2018/2019\nSkole: Sirevåg skole",
+              "Barnets navn: Runa Rype\nFødselsdato: 5. januar 2012\nAdresse: Raunesvegen 48, 4399 Sirevåg\nMorsmål: Norsk\nBarnehage nå: Tjørnhaugen barnehage, avdeling Lyngen",
+              "Foresatt 1: Anita Rype\nE-post: anita.rype@epost.example\nForesatt 2: Stein Rype\nE-post: stein.rype@epost.example\nForeldreansvar: Felles\nBarnet bor fast hos: Begge foresatte",
+              "Søsken ved skolen: Ja, en bror i 3. trinn\nØnsker plass i skolefritidsordningen: Ja, tre dager i uka\nAvstand til skolen: Om lag 3,5 kilometer\nØnsker skoleskyss: Ja",
+              "Opplysninger skolen bør kjenne til: Runa er forsiktig i nye situasjoner og trenger litt tid før hun tar kontakt med barn hun ikke kjenner. Når hun er trygg, er hun pratsom og leken. Hun har to venninner fra barnehagen som også skal begynne ved Sirevåg skole, og vi ønsker at hun kommer i gruppe med minst én av dem. Hun kan alle bokstavene og leser enkle ord.\nHelse, allergier og medisiner: Runa bruker briller. Ellers ingen.",
+              "Samtykke til overgangssamtale: Vi samtykker til at Tjørnhaugen barnehage gir Sirevåg skole opplysninger om Runa i overgangssamtalen før skolestart.\nSamtykke til fotografering: Ja, til bruk i klasserommet og i klassens lukkede gruppe for foresatte.",
+              "Sted og dato: Sirevåg, 2. februar 2018\nUnderskrift: Anita Rype og Stein Rype"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Melding om skolemiljø – Runa Rype",
+          "offentlig_tittel": "Melding om skolemiljø – *****",
+          "dokumentdato": "2026-09-14",
+          "part": "Anita og Stein Rype",
+          "skjerm_part": true,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": "2026-09-14",
+            "avsender": {
+              "navn": "Anita og Stein Rype",
+              "adresse": null,
+              "epost": "anita.rype@epost.example"
+            },
+            "mottaker": null,
+            "emne": "Runa i 9B har det ikke trygt og godt på skolen",
+            "tekst": [
+              "Til rektor Ivar Ilder. Vi skriver fordi datteren vår, Runa Rype i klasse 9B, ikke har det bra på skolen. Vi har ventet for å se om det gikk over, men det har blitt verre siden skolestart i august, og nå må vi be skolen om hjelp.",
+              "Runa blir holdt utenfor av jentene hun pleide å være sammen med. Ingen slår eller roper stygge ting, og derfor er det kanskje ikke så lett for lærerne å se det. Men hun blir ikke spurt når de andre lager grupper, de flytter seg når hun setter seg ved bordet i kantina, og hun er tatt ut av gruppepraten til klassen. Forrige uke fikk hun vite at nesten alle jentene i klassen hadde vært i en bursdag som hun ikke var bedt i. Vi vil ikke nevne navn på de andre elevene i en e-post, men vi kan fortelle mer i et møte.",
+              "Vi merker det godt hjemme. Runa har vondt i magen om morgenen, hun var borte fra skolen to dager forrige uke, og hun har sluttet på håndballtreningene fordi de samme jentene går der. Hun gråter om kvelden og sier at hun er usynlig. Runa har alltid likt skolen og gjort det godt i fagene, så dette er ikke likt henne.",
+              "Runa sa fra til kontaktlæreren før sommerferien om at hun følte seg utenfor, men hun opplever ikke at det skjedde noe etter det. Hun er redd for at det skal bli verre hvis de andre får vite at hun har sagt fra. Vi ber derfor om at skolen går varsomt fram og snakker med henne først.",
+              "Vi ber om at skolen undersøker saken og setter inn tiltak, slik skolen har plikt til etter reglene om skolemiljø i opplæringslova. Vi ber også om et møte med rektor og kontaktlæreren så snart som mulig, helst denne uka. Vi kan komme på kort varsel.",
+              "Vennlig hilsen Anita og Stein Rype, foresatte til Runa"
             ],
             "vedlegg": []
           }
         },
         {
           "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
-          "offentlig_tittel": null,
-          "dokumentdato": "2018-02-12",
-          "part": "Rype, foresatt",
+          "tittel": "Aktivitetsplan – skolemiljø – Runa Rype",
+          "offentlig_tittel": "Aktivitetsplan – skolemiljø – *****",
+          "dokumentdato": "2026-09-21",
+          "part": "Anita og Stein Rype",
           "skjerm_part": true,
           "status": "E",
           "journalfort": true,
@@ -4671,15 +4838,127 @@
             "kanal": "brev",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Oppvekst",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Rype, foresatt",
-            "emne": "Svar fra kommunen",
+            "mottaker": "Anita og Stein Rype, Raunesvegen 48, 4399 Sirevåg",
+            "emne": "Aktivitetsplan for å sikre Runa Rype et trygt og godt skolemiljø",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Vi viser til meldingen deres 14. september 2026 og til møtet på skolen 16. september, der dere, Runa, kontaktlæreren og rektor deltok. Alle elever har rett til et trygt og godt skolemiljø, og det er elevens egen opplevelse som avgjør. Runa opplever ikke at hun har det trygt og godt, og skolen har derfor plikt til å sette inn tiltak etter opplæringslova kapittel 12. Denne planen beskriver hva skolen gjør. Vår ref.: {{sak}}",
+              "## Hva saken gjelder",
+              "Runa forteller at hun siden våren 2026 er blitt holdt utenfor av en gruppe medelever i klassen. Hun blir ikke valgt når elevene lager grupper selv, hun blir sittende alene i kantina, og hun er fjernet fra en gruppeprat der det meste av klassen er med. Hun gruer seg til friminuttene og har hatt fravær de siste ukene. Runa ønsker at utestengingen skal ta slutt uten at hun blir pekt ut som den som har sagt fra.",
+              "## Hva skolen har undersøkt",
+              "Kontaktlæreren og miljøterapeuten observerte klassen i timer, friminutt og kantine 15.–18. september. Rektor og kontaktlæreren hadde samtaler med Runa 15. og 17. september, og kontaktlæreren har snakket med elevene i klassen én og én som en del av de vanlige elevsamtalene. Observasjonene bekrefter det Runa forteller: hun er lite sammen med andre i friminuttene, og enkelte elever vender seg bort når hun kommer. Skolen har ikke opplysninger om trusler eller vold. Runa sa fra til kontaktlæreren i juni, og skolen beklager at det ikke ble fulgt godt nok opp før sommerferien.",
+              "## Tiltak",
+              "Tiltak 1: Kontaktlæreren bestemmer grupper og læringspartnere i alle fag i 9B fra 21. september. Klassen får faste plasser i klasserommet, og plassene byttes hver tredje uke. Ansvarlig: kontaktlæreren og faglærerne.",
+              "Tiltak 2: En voksen er til stede i kantina i hvert langfriminutt og følger særlig med på samspillet rundt Runa. Miljøterapeuten starter en åpen aktivitet i biblioteket to dager i uka fra 23. september. Ansvarlig: miljøterapeuten.",
+              "Tiltak 3: Runa har en fast samtale med kontaktlæreren hver fredag, og hun kan når som helst gå til miljøterapeuten. Ansvarlig: kontaktlæreren.",
+              "Tiltak 4: Rektor og kontaktlæreren har samtaler med elevene som holder Runa utenfor, og med de foresatte til disse elevene, innen 25. september. Samtalene bygger på skolens egne observasjoner, slik Runa har bedt om. Ansvarlig: rektor.",
+              "Tiltak 5: Hele 9. trinn arbeider med klassemiljø og bruk av gruppeprater i uke 39 og 40, sammen med helsesykepleieren. Ansvarlig: trinnlederen.",
+              "## Evaluering",
+              "Tiltakene gjelder fra 21. september og til Runa selv opplever at hun har det trygt og godt. Skolen evaluerer planen sammen med Runa og dere i møte mandag 19. oktober 2026 klokka 14.30 på rektors kontor. Fram til da gir kontaktlæreren dere en kort tilbakemelding hver fredag. Virker ikke tiltakene, endrer vi dem.",
+              "## Dersom dere mener skolen ikke gjør nok",
+              "Mener dere eller Runa at skolen ikke oppfyller plikten til å sørge for at hun har det trygt og godt, kan dere melde saken til Statsforvalteren i Rogaland. Saken må først være tatt opp med rektor, og det må ha gått minst en uke siden da. Ta gjerne kontakt med rektor eller kontaktlæreren hvis noe skjer før neste møte.",
+              "Med hilsen Ivar Ilder, rektor ved Sirevåg ungdomsskole"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Evaluering av aktivitetsplan – skolemiljø – Runa Rype",
+          "offentlig_tittel": "Evaluering av aktivitetsplan – skolemiljø – *****",
+          "dokumentdato": "2026-10-20",
+          "part": "Anita og Stein Rype",
+          "skjerm_part": true,
+          "status": "E",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Oppvekst",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "Anita og Stein Rype, Raunesvegen 48, 4399 Sirevåg",
+            "emne": "Evaluering av aktivitetsplanen for Runa Rype etter møtet 19. oktober 2026",
+            "tekst": [
+              "Vi viser til aktivitetsplanen av 21. september 2026 og til evalueringsmøtet på skolen 19. oktober, der Runa, dere, kontaktlæreren og rektor deltok. Her er skolens oppsummering av møtet og tiltakene som gjelder videre. Vår ref.: {{sak}}",
+              "Runa forteller at det er blitt bedre i timene. Hun synes det er en lettelse at læreren bestemmer gruppene, og hun har fått en læringspartner hun trives med. Hun har vært i biblioteket i de fleste langfriminuttene og har blitt kjent med to elever fra parallellklassen der. Fraværet har gått ned, og hun har ikke vært borte fra skolen siden 25. september. Dere forteller at hun sover bedre og sjeldnere har vondt i magen.",
+              "Runa forteller også at kantina fortsatt er vanskelig de dagene det ikke er aktivitet i biblioteket, og at hun ikke er tatt inn igjen i gruppepraten. Skolen har hatt samtaler med elevene det gjelder, og med de foresatte til disse elevene. Observasjonene våre viser at den åpne avvisningen har tatt slutt, men at Runa fortsatt er lite sammen med klassen i friminuttene.",
+              "Skolen vurderer at Runa ennå ikke har et trygt og godt skolemiljø, og tiltakene fortsetter derfor. Tiltak 1, 2 og 3 i planen videreføres uendret. Aktiviteten i biblioteket utvides til fire dager i uka fra 26. oktober. Kontaktlæreren følger opp samtalene i tiltak 4 med nye samtaler med elevene i uke 45. Arbeidet med klassemiljøet på 9. trinn fortsetter i klassens time hver uke fram til jul.",
+              "Tilbakemeldingen fra kontaktlæreren til dere går fra hver fredag til annenhver fredag, slik dere ønsket. Neste evalueringsmøte er mandag 30. november 2026 klokka 14.30 på rektors kontor. Ta kontakt før det dersom noe endrer seg.",
+              "Med hilsen Ivar Ilder, rektor ved Sirevåg ungdomsskole"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Søknad om permisjon fra opplæringen 23.–27. november 2026 – Runa Rype",
+          "offentlig_tittel": "Søknad om permisjon fra opplæringen 23.–27. november 2026 – *****",
+          "dokumentdato": "2026-11-02",
+          "part": "Anita og Stein Rype",
+          "skjerm_part": true,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": "2026-11-02",
+            "avsender": {
+              "navn": "Anita og Stein Rype",
+              "adresse": null,
+              "epost": "anita.rype@epost.example"
+            },
+            "mottaker": null,
+            "emne": "Søknad om permisjon for Runa Rype, 9B, 23.–27. november 2026",
+            "tekst": [
+              "Vi søker om permisjon fra opplæringen for datteren vår, Runa Rype i klasse 9B, fra mandag 23. november til og med fredag 27. november 2026. Det er fem skoledager.",
+              "Bakgrunnen er at farmoren til Runa fyller 80 år 25. november. Hun bor i Tromsø og reiser ikke lenger så langt, og hele familien samles hos henne den uka. Det er første gang på fire år at alle søskenbarna er samlet, og det betyr mye for Runa å være med. Vi reiser søndag 22. november og er hjemme igjen lørdag 28. november. Etter en tung høst tror vi også at en uke sammen med søskenbarna vil gjøre henne godt.",
+              "Runa har ikke hatt permisjon tidligere i dette skoleåret. Vi vet at hun hadde en del fravær i august og september, men siden slutten av september har hun vært på skolen hver dag. Vi har sett på prøveplanen, og 9B har en matematikkprøve torsdag 26. november. Runa spør om hun kan ta den en annen dag.",
+              "Runa tar med seg skolearbeid og følger ukeplanen så godt hun kan. Vi ber om at faglærerne legger ut arbeidsoppgavene på læringsplattformen, så sørger vi for at hun gjør dem. Vi er kjent med at vi selv har ansvaret for at hun tar igjen det hun går glipp av.",
+              "Vi kommer som avtalt på evalueringsmøtet 30. november, som er første skoledag etter reisen.",
+              "Vennlig hilsen Anita og Stein Rype"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Vedtak om permisjon fra opplæringen 23.–27. november 2026 – innvilget – Runa Rype",
+          "offentlig_tittel": "Vedtak om permisjon fra opplæringen 23.–27. november 2026 – innvilget – *****",
+          "dokumentdato": "2026-11-05",
+          "part": "Anita og Stein Rype",
+          "skjerm_part": true,
+          "status": "E",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "vedtak",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Oppvekst",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "Anita og Stein Rype, Raunesvegen 48, 4399 Sirevåg",
+            "emne": "Vedtak om permisjon fra opplæringen for Runa Rype 23.–27. november 2026",
+            "tekst": [
+              "Vi viser til søknaden deres 2. november 2026 om permisjon fra opplæringen for Runa Rype, født 5. januar 2012, klasse 9B ved Sirevåg ungdomsskole. Vår ref.: {{sak}}",
+              "## Vedtak",
+              "Runa Rype får permisjon fra opplæringen fra og med mandag 23. november til og med fredag 27. november 2026, i alt fem skoledager. Søknaden er innvilget fullt ut.",
+              "## Begrunnelse",
+              "Etter opplæringslova kan kommunen gi en elev permisjon fra opplæringen i inntil to uker når det er forsvarlig. I Sirevåg kommune er det rektor som avgjør søknadene. Skolen legger vekt på hvor mye fravær eleven har, hvordan eleven ligger an i fagene, hva eleven går glipp av, og om de foresatte kan sørge for at eleven tar igjen arbeidet.",
+              "Runa ligger godt an i fagene. Hun har hatt ni dager fravær i høst, alle før slutten av september, og skolen kjenner årsaken til fraværet. Permisjonen gjelder en familiebegivenhet som ikke kan legges til en ferie, og dere har opplyst at Runa tar med skolearbeid. Skolen mener også at en uke sammen med familien kan være bra for Runa nå. Vi vurderer derfor permisjonen som forsvarlig.",
+              "## Praktiske opplysninger",
+              "Faglærerne legger arbeidsoppgavene for uka på læringsplattformen innen fredag 20. november. Runa tar matematikkprøven torsdag 3. desember sammen med andre elever som har vært borte. Dere har ansvaret for at Runa arbeider med fagene i permisjonstiden, og hun har ikke krav på ekstra undervisning for å ta igjen det hun har gått glipp av. Permisjonsdagene føres som dokumentert fravær. Evalueringsmøtet om aktivitetsplanen går som avtalt mandag 30. november klokka 14.30.",
+              "## Klageadgang",
+              "Dette er et enkeltvedtak. Dere kan klage på vedtaket etter forvaltningsloven § 28, og klagefristen er tre uker fra dere mottok dette brevet, jf. forvaltningsloven § 29. Klagen sendes til Sirevåg kommune, Rådhusgata 1, 4399 Sirevåg. Dersom kommunen ikke endrer vedtaket, sender vi klagen til Statsforvalteren i Rogaland, som avgjør saken. Dere har rett til å se dokumentene i saken.",
+              "Med hilsen Ivar Ilder, rektor ved Sirevåg ungdomsskole"
             ],
             "vedlegg": []
           }
@@ -4700,37 +4979,114 @@
       "journalposter": [
         {
           "type": "I",
-          "tittel": "Brev til kommunen (midlertidig) – Alke, Aksel",
-          "offentlig_tittel": "Brev til kommunen (midlertidig) – *****",
-          "dokumentdato": "2024-02-05",
-          "part": "Alke, foresatt",
+          "tittel": "Innskriving til 1. trinn – Sirevåg skole – Aksel Alke",
+          "offentlig_tittel": "Innskriving til 1. trinn – Sirevåg skole – *****",
+          "dokumentdato": "2024-02-02",
+          "part": "Kristin og Morten Alke",
           "skjerm_part": true,
           "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
-            "kanal": "brev",
+            "kanal": "skjema",
             "mottatt": "2024-02-05",
             "avsender": {
-              "navn": "Alke, foresatt",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
+              "navn": "Kristin og Morten Alke",
+              "adresse": "Stadionveien 14, 4399 Sirevåg",
+              "epost": "kristin.alke@epost.example"
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Innskriving til 1. trinn ved Sirevåg skole, skoleåret 2024/2025",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Innskriving til 1. trinn, skoleåret 2024/2025\nSkole: Sirevåg skole",
+              "Barnets navn: Aksel Alke\nFødselsdato: 22. august 2018\nAdresse: Stadionveien 14, 4399 Sirevåg\nMorsmål: Norsk\nBarnehage nå: Fyrlykta barnehage, avdeling Fyret",
+              "Foresatt 1: Kristin Alke\nE-post: kristin.alke@epost.example\nForesatt 2: Morten Alke\nE-post: morten.alke@epost.example\nForeldreansvar: Felles\nBarnet bor fast hos: Begge foresatte",
+              "Søsken ved skolen: Ja, en søster i 3. trinn\nØnsker plass i skolefritidsordningen: Ja, hel plass\nAvstand til skolen: Om lag 1,2 kilometer\nØnsker skoleskyss: Nei",
+              "Opplysninger skolen bør kjenne til: Aksel fyller seks år rett etter skolestart og er blant de yngste i kullet. Han er trygg, blid og glad i å være ute, men blir fort sliten utpå dagen og trenger pauser. Han kjenner igjen navnet sitt og teller til tjue.\nHelse, allergier og medisiner: Aksel har atopisk eksem og bruker fuktighetskrem hver dag. Han smører seg selv, men må minnes på det etter gymtimer og bading. Ingen kjente allergier.",
+              "Samtykke til overgangssamtale: Vi samtykker til at Fyrlykta barnehage gir Sirevåg skole opplysninger om Aksel i overgangssamtalen før skolestart.\nSamtykke til fotografering: Ja, til bruk i klasserommet og på skolens lukkede læringsplattform. Nei til bilder på åpne nettsider.",
+              "Sted og dato: Sirevåg, 2. februar 2024\nUnderskrift: Kristin Alke og Morten Alke"
             ],
             "vedlegg": []
           }
         },
         {
           "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
-          "offentlig_tittel": null,
-          "dokumentdato": "2024-02-12",
-          "part": "Alke, foresatt",
+          "tittel": "Vedtak om skoleplass ved Sirevåg skole – Aksel Alke",
+          "offentlig_tittel": "Vedtak om skoleplass ved Sirevåg skole – *****",
+          "dokumentdato": "2024-03-11",
+          "part": "Kristin og Morten Alke",
+          "skjerm_part": true,
+          "status": "E",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "vedtak",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Oppvekst",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "Kristin og Morten Alke, Stadionveien 14, 4399 Sirevåg",
+            "emne": "Vedtak om skoleplass ved Sirevåg skole fra skoleåret 2024/2025",
+            "tekst": [
+              "Vi viser til innskrivingen av Aksel Alke, født 22. august 2018, som Sirevåg skole mottok 5. februar 2024. Vår ref.: {{sak}}",
+              "## Vedtak",
+              "Aksel Alke får skoleplass i 1. trinn ved Sirevåg skole fra skoleåret 2024/2025. Første skoledag er torsdag 15. august 2024.",
+              "## Begrunnelse",
+              "Barn begynner på skolen det året de fyller seks år, og de har etter opplæringslova rett til å gå på den skolen som ligger nærmest hjemmet. Aksel fyller seks år i august 2024. Stadionveien 14 ligger i nærområdet til Sirevåg skole, og Sirevåg skole er derfor nærskolen hans. Dere har ikke søkt om plass ved en annen skole eller om utsatt skolestart.",
+              "I innskrivingsskjemaet skriver dere at Aksel er blant de yngste i kullet og blir fort sliten. Skolen tar hensyn til det når gruppene på 1. trinn settes sammen, og kontaktlæreren tar det opp med dere i den første samtalen i høst. Opplysningene om eksemet blir gitt videre til kontaktlæreren og til skolefritidsordningen, slik at de voksne kan minne ham på å smøre seg.",
+              "## Skolefritidsordningen",
+              "Dere har krysset av for at dere ønsker hel plass i skolefritidsordningen. Dette vedtaket gjelder bare skoleplassen. Søknad om plass i skolefritidsordningen sender dere i kommunens oppvekstportal innen 1. april 2024. Plassen tildeles der, og dere får eget svar. Elever på 1. trinn har tolv timer gratis skolefritidsordning i uka.",
+              "## Før skolestart",
+              "Skolen inviterer de nye elevene og foresatte til førskoledag onsdag 5. juni 2024 klokka 09.00 til 11.00. Da møter Aksel kontaktlæreren og gruppen sin. Invitasjon med program blir sendt i mai. Sirevåg skole og Fyrlykta barnehage har overgangssamtale om de nye elevene i mai, slik dere har samtykket til.",
+              "## Klageadgang",
+              "Dette er et enkeltvedtak. Dere kan klage på vedtaket etter forvaltningsloven § 28, og klagefristen er tre uker fra dere mottok dette brevet, jf. forvaltningsloven § 29. Klagen sendes til Sirevåg kommune, Rådhusgata 1, 4399 Sirevåg. Dersom kommunen ikke endrer vedtaket, sender vi klagen til Statsforvalteren i Rogaland, som avgjør saken. Dere har rett til å se dokumentene i saken.",
+              "Med hilsen Tora Trane, rektor ved Sirevåg skole"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Melding om nøtteallergi og behov for tilrettelegging – Aksel Alke",
+          "offentlig_tittel": "Melding om behov for tilrettelegging – *****",
+          "dokumentdato": "2026-08-24",
+          "part": "Kristin og Morten Alke",
+          "skjerm_part": true,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": "2026-08-26",
+            "avsender": {
+              "navn": "Kristin og Morten Alke",
+              "adresse": "Stadionveien 14, 4399 Sirevåg",
+              "epost": null
+            },
+            "mottaker": null,
+            "emne": "Melding om nøtteallergi hos Aksel Alke, 3. trinn, og behov for tilrettelegging",
+            "tekst": [
+              "Til rektor ved Sirevåg skole. Vi er foreldrene til Aksel Alke i 3. trinn. Vi skriver for å melde fra om at Aksel i sommer har fått påvist alvorlig allergi mot nøtter, og for å be om at skolen og skolefritidsordningen legger til rette slik at han er trygg.",
+              "Aksel fikk en kraftig allergisk reaksjon 18. juli 2026 etter å ha spist en kjeks med hasselnøtter. Han fikk utslett over hele kroppen, hovnet opp i ansiktet og fikk pustevansker. Han ble kjørt til legevakta og lagt inn på sykehuset til observasjon over natten. Utredningen etterpå viser at han er allergisk mot hasselnøtter, valnøtter og cashewnøtter. Legen sier at også svært små mengder kan gi en alvorlig reaksjon. Legeerklæringen ligger ved.",
+              "Aksel har fått adrenalinpenn, som han må ha tilgjengelig hele tiden. Han er åtte år og kan ikke sette den selv. Vi ber derfor om at de voksne som har ansvar for ham på skolen og i skolefritidsordningen, får opplæring i å kjenne igjen en reaksjon og i å bruke pennen. Vi leverer to penner til skolen, en til klasserommet og en til skolefritidsordningen, og vi tar ansvaret for å bytte dem før de går ut på dato.",
+              "Vi ber også om at skolen tenker gjennom mat og måltider. Aksel har egen matpakke og vet at han ikke skal smake på maten til andre, men han er liten og kan glemme seg. Vi er særlig bekymret for bursdagsfeiringer i klassen, matlaging på skolekjøkkenet, frukt og mellommåltider i skolefritidsordningen og turer der det er langt til hjelp. Vi ønsker ikke at Aksel skal sitte for seg selv når han spiser, og vi håper skolen kan be de andre foreldrene i klassen om å la være å sende med nøtter.",
+              "Vi samtykker til at skolen informerer de ansatte som trenger det, og til at foreldrene og elevene i klassen får vite at Aksel har nøtteallergi. Vi kommer gjerne til et møte med kontaktlæreren, skolefritidsordningen og helsesykepleieren så snart det passer.",
+              "Vennlig hilsen Kristin og Morten Alke"
+            ],
+            "vedlegg": [
+              "Legeerklæring fra fastlegen, datert 20. august 2026",
+              "Bruksanvisning for adrenalinpenn"
+            ]
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Plan for tilrettelegging ved allergi – Aksel Alke",
+          "offentlig_tittel": "Plan for tilrettelegging – *****",
+          "dokumentdato": "2026-09-01",
+          "part": "Kristin og Morten Alke",
           "skjerm_part": true,
           "status": "E",
           "journalfort": true,
@@ -4739,17 +5095,32 @@
             "kanal": "brev",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Oppvekst",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Alke, foresatt",
-            "emne": "Svar fra kommunen",
+            "mottaker": "Kristin og Morten Alke, Stadionveien 14, 4399 Sirevåg",
+            "emne": "Plan for tilrettelegging ved nøtteallergi – Aksel Alke, 3. trinn",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Vi viser til meldingen deres 24. august 2026 om at Aksel Alke, født 22. august 2018, har alvorlig nøtteallergi, og til møtet på skolen 28. august. I møtet deltok dere, kontaktlæreren, lederen for skolefritidsordningen, helsesykepleieren og rektor. Denne planen beskriver hvordan Sirevåg skole og skolefritidsordningen legger til rette for at Aksel er trygg. Planen gjelder fra 1. september 2026. Vår ref.: {{sak}}",
+              "## Opplæring av ansatte",
+              "Kontaktlæreren og lederen for skolefritidsordningen fikk opplæring av helsesykepleieren i møtet 28. august. Torsdag 3. september gir helsesykepleieren opplæring i å kjenne igjen en allergisk reaksjon og i å bruke adrenalinpenn til faglærerne og assistentene på 3. trinn, alle ansatte i skolefritidsordningen og lærerne som har inspeksjon i friminuttene. Vikarer på 3. trinn får beskjed om allergien og om hvor pennen ligger, før de tar klassen. Opplæringen gjentas ved skolestart hvert år.",
+              "## Adrenalinpenn og beredskap",
+              "Dere har levert to adrenalinpenner. Den ene ligger i en merket rød boks på hylla ved døra i klasserommet til 3. trinn, den andre i førstehjelpsskapet i skolefritidsordningen. Pennen i klasserommet følger Aksel til gymsalen, skolekjøkkenet og på turer, og den voksne som har klassen, har ansvaret for å ta den med. Får Aksel en reaksjon, setter den voksne som er nærmest, pennen straks, ringer medisinsk nødtelefon og deretter dere. En voksen blir hos Aksel hele tiden. Dere har ansvaret for å bytte pennene før de går ut på dato, og skolen kontrollerer datoen 1. februar og 1. september hvert år.",
+              "## Mat og måltider",
+              "Klasserommet til 3. trinn er nøttefritt. Foreldrene i klassen blir bedt om ikke å sende med nøtter eller mat med nøtter i matpakker og til bursdager. Aksel spiser sammen med klassen på den faste plassen sin. Før feiringer i klassen avtaler kontaktlæreren med dere hva som skal serveres, og dere kan sende med noe eget hvis det trengs. På skolekjøkkenet og i skolefritidsordningen brukes det ikke nøtter, og de ansatte leser innholdslisten på alle matvarer før servering. Skolefritidsordningen har en liste over maten Aksel kan få, og den har dere godkjent.",
+              "## Turer og aktiviteter utenfor skolen",
+              "På turer går Aksel i gruppen til en voksen som har fått opplæring, og denne voksne bærer pennen og en mobiltelefon. Før turer med overnatting eller lang reisevei tar kontaktlæreren kontakt med dere i god tid.",
+              "## Informasjon til ansatte, elever og foreldre",
+              "Dere har samtykket til at ansatte som har ansvar for Aksel, får vite om allergien, og til at klassen og foreldrene i klassen blir informert. Kontaktlæreren og helsesykepleieren snakker med elevene på 3. trinn om allergi tirsdag 8. september, og foreldrene får informasjon på foreldremøtet 10. september. Et ark med bilde av Aksel, tegn på reaksjon og framgangsmåte henger på innsiden av skapdøra på personalrommet og i skolefritidsordningen, der elever og besøkende ikke ser det.",
+              "## Evaluering",
+              "Planen gjennomgås med dere i utviklingssamtalen i januar 2027 og ellers ved skolestart hvert år. Den gjennomgås tidligere dersom Aksel får en reaksjon på skolen eller allergien endrer seg. Vi ber dere si fra straks dersom legen endrer medisineringen. Avtalen om oppbevaring og bruk av legemiddel i skoletiden, som dere underskrev i møtet 28. august, ligger ved i kopi. Ta kontakt med kontaktlæreren eller rektor dersom dere har spørsmål.",
+              "Med hilsen Tora Trane, rektor ved Sirevåg skole"
             ],
-            "vedlegg": []
+            "vedlegg": [
+              "Avtale om oppbevaring og bruk av legemiddel i skoletiden, underskrevet 28. august 2026",
+              "Framgangsmåte ved allergisk reaksjon"
+            ]
           }
         }
       ]
@@ -4768,38 +5139,115 @@
       "journalposter": [
         {
           "type": "I",
-          "tittel": "Brev til kommunen (midlertidig) – Spurv, Sander",
-          "offentlig_tittel": "Brev til kommunen (midlertidig) – *****",
-          "dokumentdato": "2020-02-03",
-          "part": "Spurv, foresatt",
+          "tittel": "Innskriving til 1. trinn – Sirevåg skole – Sander Spurv",
+          "offentlig_tittel": "Innskriving til 1. trinn – Sirevåg skole – *****",
+          "dokumentdato": "2020-01-31",
+          "part": "Tone Spurv",
           "skjerm_part": true,
           "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
-            "kanal": "brev",
+            "kanal": "skjema",
             "mottatt": "2020-02-03",
             "avsender": {
-              "navn": "Spurv, foresatt",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
+              "navn": "Tone Spurv",
+              "adresse": "Strandveien 22, 4399 Sirevåg",
+              "epost": "tone.spurv@epost.example"
+            },
+            "mottaker": null,
+            "emne": "Innskriving til 1. trinn ved Sirevåg skole, skoleåret 2020/2021",
+            "tekst": [
+              "Innskriving til 1. trinn, skoleåret 2020/2021\nSkole: Sirevåg skole",
+              "Barnets navn: Sander Spurv\nFødselsdato: 9. november 2014\nAdresse: Strandveien 22, 4399 Sirevåg\nMorsmål: Norsk\nBarnehage nå: Tjørnhaugen barnehage, avdeling Røsslyngen",
+              "Foresatt 1: Tone Spurv\nE-post: tone.spurv@epost.example\nForesatt 2: Ingen\nForeldreansvar: Tone Spurv har foreldreansvaret alene\nBarnet bor fast hos: Tone Spurv",
+              "Søsken ved skolen: Nei\nØnsker plass i skolefritidsordningen: Ja, hel plass med morgenåpning\nAvstand til skolen: Om lag 1,5 kilometer\nØnsker skoleskyss: Nei",
+              "Opplysninger skolen bør kjenne til: Sander er aktiv, sosial og svært glad i ball. Han har lett for å få venner, men kan bli ivrig i lek og trenger noen ganger hjelp til å roe seg ned. Jeg arbeider turnus, og mormoren til Sander henter ham enkelte dager.\nHelse, allergier og medisiner: Ingen",
+              "Samtykke til overgangssamtale: Jeg samtykker til at Tjørnhaugen barnehage gir Sirevåg skole opplysninger om Sander i overgangssamtalen før skolestart.\nSamtykke til fotografering: Ja, til bruk i klasserommet og i klassens lukkede gruppe for foresatte.",
+              "Sted og dato: Sirevåg, 31. januar 2020\nUnderskrift: Tone Spurv"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "X",
+          "tittel": "Skademelding – uhell i friminuttet 05.10.2026 – Sander Spurv",
+          "offentlig_tittel": "Skademelding – uhell i friminuttet 05.10.2026 – *****",
+          "dokumentdato": "2026-10-06",
+          "part": "Tora Trane",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "notat",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Oppvekst",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Skademelding – uhell i friminuttet 5. oktober 2026 – Sander Spurv, 7. trinn",
+            "tekst": [
+              "Notat til elevmappen, arkivsak {{sak}}. Skademeldingen er skrevet av rektor 6. oktober 2026. Den bygger på rapporten fra læreren som hadde inspeksjon, og på samtaler med Sander og med eleven han støtte sammen med.",
+              "## Opplysninger om eleven og skaden",
+              "Elev: Sander Spurv, født 9. november 2014, 7. trinn ved Sirevåg skole\nForesatt: Tone Spurv\nTid: mandag 5. oktober 2026 om lag klokka 11.40, i langfriminuttet\nSted: ballbingen i skolegården\nSkade: slag mot munnen, skade på to fortenner i overkjeven og kutt i overleppa",
+              "## Hva som skjedde",
+              "Sander spilte fotball i ballbingen sammen med elever fra 6. og 7. trinn. I en duell om ballen støtte han sammen med en medelev, mistet balansen og falt med ansiktet mot kanten av vantet. Begge elevene sier at det var et uhell, og at ingen dyttet eller sparket. Læreren som hadde inspeksjon, sto om lag ti meter unna og så sammenstøtet. Hun bekrefter forklaringen. Den andre eleven ble ikke skadet.",
+              "## Hva skolen gjorde",
+              "Læreren fulgte Sander til kontoret og stanset blødningen fra leppa med kompress. En bit av den høyre fortannen var brukket av, og den venstre fortannen var løs. En medelev fant tannbiten i ballbingen, og den ble lagt i et glass melk. Kontoret ringte Tone Spurv klokka 11.50. Hun hentet Sander klokka 12.10 og kjørte ham til Sirevåg tannklinikk, der han fikk time med en gang. Tannbiten ble sendt med. Sander var klar og orientert hele tiden og hadde ikke slått hodet ellers.",
+              "## Vurdering",
+              "Skolen vurderer hendelsen som et uhell under vanlig lek. Det var to lærere på inspeksjon i skolegården, slik inspeksjonsplanen sier. Rektor og vaktmesteren gikk over ballbingen etter hendelsen og fant ingen feil eller mangler ved vantet eller underlaget. Kontaktlæreren snakket med klassen om det som hadde skjedd, tirsdag morgen.",
+              "## Oppfølging",
+              "Tone Spurv ringte skolen 6. oktober og fortalte at Sander har fått behandling, at han kommer tilbake på skolen onsdag 7. oktober, og at tannlegen sier at tennene må følges opp i flere år. Elevene i grunnskolen er dekket av kommunens ulykkesforsikring i skoletiden. Tone Spurv ber selv tannklinikken sende en erklæring om skaden til skolen, og rektor melder skaden til forsikringsselskapet når erklæringen er kommet. Tone Spurv har lest skademeldingen og fått kopi av den.",
+              "Tora Trane, rektor ved Sirevåg skole"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Erklæring fra tannlege etter tannskade – Sander Spurv",
+          "offentlig_tittel": "Erklæring fra tannlege – *****",
+          "dokumentdato": "2026-10-13",
+          "part": "Rogaland fylkeskommune, Sirevåg tannklinikk",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": "2026-10-14",
+            "avsender": {
+              "navn": "Rogaland fylkeskommune, Sirevåg tannklinikk",
+              "adresse": "Rådhusgata 8, 4399 Sirevåg",
               "epost": null
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Tannlegeerklæring etter tannskade 5. oktober 2026 – Sander Spurv, født 9. november 2014",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Erklæringen er skrevet etter anmodning fra pasientens mor, Tone Spurv. Hun har samtykket til at erklæringen sendes til Sirevåg skole og brukes når skaden meldes til forsikringsselskapet.",
+              "## Skaden",
+              "Sander Spurv kom til Sirevåg tannklinikk mandag 5. oktober 2026 klokka 12.30 sammen med moren. Han hadde samme dag falt og slått munnen mot en kant i skolegården. Undersøkelsen og røntgenbildene viste at høyre midtre fortann i overkjeven (tann 11) hadde et brudd i kronen som gikk inn til nerven i tannen. Venstre midtre fortann i overkjeven (tann 21) var løsnet, men sto på plass. Overleppa hadde et kutt på om lag en centimeter på innsiden, som ikke trengte sting. Det var ingen tegn til brudd i kjeven eller skade på andre tenner. Begge tennene var friske og uten fyllinger før skaden.",
+              "## Behandling",
+              "Den blottlagte nerven i høyre fortann ble behandlet og dekket til, og tannbiten, som moren hadde med i melk, ble limt på plass igjen. Venstre fortann ble festet til nabotennene med en skinne, som skal fjernes 19. oktober. Sander fikk råd om myk kost og godt renhold. Han var til kontroll 12. oktober. Tennene var da uten smerter, og tannbiten satt godt.",
+              "## Prognose og videre oppfølging",
+              "Begge tennene må kontrolleres med røntgen etter fire uker, tre måneder, seks måneder og ett år, og deretter hvert år i fem år. Det er usikkert om nerven i høyre fortann overlever. Dør nerven, må tannen rotfylles. Tannbiten som er limt på, kan løsne, og tannen kan senere måtte bygges opp med plast eller få en krone. Venstre fortann har god prognose, men også den kan få senskader, blant annet misfarging og skade på rota. Endelig behandling med krone kan tidligst gjøres når Sander er utvokst.",
+              "## Kostnader",
+              "Undersøkelsen og behandlingen i den offentlige tannhelsetjenesten er gratis for Sander, og familien har ikke hatt utgifter så langt. Behandling som må gjøres etter at retten til gratis tannbehandling er falt bort, må han betale selv. En krone på en fortann koster i dag mellom 8 000 og 12 000 kroner, og en rotfylling mellom 5 000 og 8 000 kroner. Vi anbefaler derfor at skaden meldes til forsikringsselskapet nå, slik at senere behandling kan dekkes som en følge av denne skaden.",
+              "Med hilsen Ingvild Herikstad, tannlege ved Sirevåg tannklinikk"
             ],
             "vedlegg": []
           }
         },
         {
           "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
-          "offentlig_tittel": null,
-          "dokumentdato": "2020-02-10",
-          "part": "Spurv, foresatt",
-          "skjerm_part": true,
+          "tittel": "Melding om skade på elev til forsikringsselskapet – Sander Spurv",
+          "offentlig_tittel": "Melding om skade på elev til forsikringsselskapet – *****",
+          "dokumentdato": "2026-10-15",
+          "part": "Jæren Forsikring AS",
+          "skjerm_part": false,
           "status": "E",
           "journalfort": true,
           "tilgangskode": "13-1",
@@ -4807,17 +5255,25 @@
             "kanal": "brev",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Oppvekst",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Spurv, foresatt",
-            "emne": "Svar fra kommunen",
+            "mottaker": "Jæren Forsikring AS, skadeavdelingen",
+            "emne": "Melding om skade på elev – kollektiv ulykkesforsikring for elever i Sirevåg kommune",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Sirevåg kommune melder med dette en skade på en elev under kommunens kollektive ulykkesforsikring for barn i barnehage og elever i grunnskolen. Vår ref.: {{sak}}",
+              "Forsikringstaker: Sirevåg kommune, Rådhusgata 1, 4399 Sirevåg\nSkadelidt: Sander Spurv, født 9. november 2014\nAdresse: Strandveien 22, 4399 Sirevåg\nForesatt: Tone Spurv, samme adresse\nSkole og trinn: Sirevåg skole, 7. trinn",
+              "Skaden skjedde mandag 5. oktober 2026 om lag klokka 11.40 i skolegården ved Sirevåg skole, i langfriminuttet. Sander spilte fotball i ballbingen, støtte sammen med en medelev og falt med ansiktet mot kanten av vantet. En lærer som hadde inspeksjon, så hendelsen. Skolen vurderer det som et uhell. Skaden skjedde i skoletiden og på skolens område.",
+              "Sander ble undersøkt og behandlet ved Sirevåg tannklinikk samme dag. Etter tannlegens erklæring av 13. oktober 2026 har han brudd i kronen på høyre midtre fortann i overkjeven, med skade inn til nerven, og venstre midtre fortann er løsnet. Tannlegen opplyser at tennene må følges opp i minst fem år, at det kan bli nødvendig med rotfylling og krone, og at endelig behandling tidligst kan gjøres når Sander er utvokst.",
+              "Familien har ikke hatt utgifter så langt, fordi behandlingen i den offentlige tannhelsetjenesten er gratis. Meldingen sendes for å sikre retten til å få dekket senere behandling som følger av skaden. Vi ber forsikringsselskapet bekrefte at skaden er registrert, og opplyse hvilke frister som gjelder for å kreve dekning av senere behandlingsutgifter. Vi ber om at bekreftelsen sendes både til kommunen og til Tone Spurv.",
+              "Tone Spurv har samtykket til at kommunen sender opplysningene om skaden og tannlegens erklæring til forsikringsselskapet. Krav om utbetaling kan hun senere rette direkte til selskapet. Spørsmål om hendelsen kan rettes til rektor ved Sirevåg skole.",
+              "Med hilsen Tora Trane, rektor ved Sirevåg skole"
             ],
-            "vedlegg": []
+            "vedlegg": [
+              "Skademelding fra Sirevåg skole, datert 6. oktober 2026",
+              "Tannlegeerklæring fra Sirevåg tannklinikk, datert 13. oktober 2026"
+            ]
           }
         }
       ]
@@ -4836,37 +5292,41 @@
       "journalposter": [
         {
           "type": "I",
-          "tittel": "Brev til kommunen (midlertidig) – Orrfugl, Oliver",
-          "offentlig_tittel": "Brev til kommunen (midlertidig) – *****",
-          "dokumentdato": "2023-02-20",
-          "part": "Orrfugl, foresatt",
+          "tittel": "Søknad om barnehageplass fra 15.08.2023 – Oliver Orrfugl",
+          "offentlig_tittel": "Søknad om barnehageplass fra 15.08.2023 – *****",
+          "dokumentdato": "2023-02-17",
+          "part": "Ida og Martin Orrfugl",
           "skjerm_part": true,
           "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
-            "kanal": "brev",
+            "kanal": "skjema",
             "mottatt": "2023-02-20",
             "avsender": {
-              "navn": "Orrfugl, foresatt",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
+              "navn": "Ida og Martin Orrfugl",
+              "adresse": "Stadionveien 11, 4399 Sirevåg",
+              "epost": "ida.orrfugl@epost.example"
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Søknad om barnehageplass – hovedopptaket 2023",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Søknaden gjelder: Hovedopptaket 2023\nØnsket oppstart: 15. august 2023\nPlasstype: Hel plass (100 prosent)\nØnsket barnehage: 1. Fyrlykta barnehage, 2. Tjørnhaugen barnehage",
+              "Barnets navn: Oliver Orrfugl\nFødselsdato: 9. mai 2022\nAdresse: Stadionveien 11, 4399 Sirevåg\nSpråk hjemme: Norsk",
+              "Foresatt 1: Ida Orrfugl, Stadionveien 11, 4399 Sirevåg\nE-post: ida.orrfugl@epost.example\nForesatt 2: Martin Orrfugl, Stadionveien 11, 4399 Sirevåg\nE-post: martin.orrfugl@epost.example\nForeldreansvar: Felles\nBarnet bor hos: Begge foresatte",
+              "Søsken i kommunal barnehage: Nei\nSøkes det om prioritet ved opptaket: Nei\nFaktura sendes til: Ida Orrfugl",
+              "Andre opplysninger: Oliver fyller ett år i mai. Ida er hjemme med ham fram til sommeren, og Martin har permisjon fra juni til midten av august. Vi er begge tilbake i arbeid fra 15. august. Vi bor fem minutter fra Fyrlykta og går forbi barnehagen hver dag, så vi håper på plass der. Vi har én bil, og Martin bruker den til arbeid i Kvassheim. Tjørnhaugen blir derfor tungvint for oss.",
+              "Erklæring: Vi bekrefter at opplysningene er riktige, og at vi melder fra til kommunen dersom noe endrer seg før opptaket.\nSted og dato: Sirevåg, 17. februar 2023\nUnderskrift: Ida Orrfugl og Martin Orrfugl"
             ],
             "vedlegg": []
           }
         },
         {
           "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
-          "offentlig_tittel": null,
-          "dokumentdato": "2023-02-27",
-          "part": "Orrfugl, foresatt",
+          "tittel": "Tilbud om barnehageplass fra 15.08.2023 – Oliver Orrfugl",
+          "offentlig_tittel": "Tilbud om barnehageplass fra 15.08.2023 – *****",
+          "dokumentdato": "2023-04-12",
+          "part": "Ida og Martin Orrfugl",
           "skjerm_part": true,
           "status": "E",
           "journalfort": true,
@@ -4875,15 +5335,127 @@
             "kanal": "brev",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Oppvekst",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Orrfugl, foresatt",
-            "emne": "Svar fra kommunen",
+            "mottaker": "Ida og Martin Orrfugl, Stadionveien 11, 4399 Sirevåg",
+            "emne": "Tilbud om barnehageplass i Fyrlykta barnehage fra 15. august 2023",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Vi viser til søknaden deres om barnehageplass, som kommunen mottok 20. februar 2023. Oliver Orrfugl, født 9. mai 2022, får tilbud om hel plass i Fyrlykta barnehage fra 15. august 2023. Vår ref.: {{sak}}",
+              "Fyrlykta var førstevalget deres. Oliver fyller ett år i mai og har etter barnehageloven rett til plass fra august. Plassen gjelder fram til han begynner på skolen, eller til dere sier den opp. Barna fordeles på avdelingene Fyret og Naustet i juni. På foreldremøtet for nye foreldre får dere vite hvilken avdeling Oliver skal gå på.",
+              "Dere må svare på tilbudet innen 26. april 2023. Svaret sendes skriftlig til Sirevåg kommune, Rådhusgata 1, 4399 Sirevåg, eller til postmottak@sirevag.example. Har vi ikke fått svar innen fristen, går plassen til neste barn på ventelisten.",
+              "Foreldrebetalingen følger maksprisen Stortinget har fastsatt, som nå er 3 000 kroner per måned for en hel plass. I tillegg kommer kostpenger på 300 kroner per måned. Det betales for elleve måneder i året, og juli er betalingsfri. Betalingen løper fra 15. august 2023, også om Oliver begynner noe senere. Husholdninger med lav inntekt kan søke om redusert foreldrebetaling, og skjemaet finner dere på www.sirevag.example.",
+              "Barnehagen er åpen fra klokka 06.45 til 16.30 på hverdager. Nye foreldre inviteres til foreldremøte onsdag 7. juni 2023 klokka 18.00 i barnehagen. Der avtaler vi også tilvenningen. Vi regner med at en av dere er sammen med Oliver de tre første dagene, og at dagene er korte den første uka.",
+              "Oppsigelsesfristen er to måneder, regnet fra den første i måneden etter at kommunen har mottatt oppsigelsen. Vedtektene for de kommunale barnehagene i Sirevåg ligger ved. Har dere spørsmål om plassen eller oppstarten, kan dere ta kontakt med undertegnede. Vi ønsker Oliver og dere velkommen til Fyrlykta.",
+              "Med hilsen Frida Frosk, styrer i Fyrlykta barnehage"
+            ],
+            "vedlegg": [
+              "Vedtekter for de kommunale barnehagene i Sirevåg"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Svar på tilbud om barnehageplass – takker ja – Oliver Orrfugl",
+          "offentlig_tittel": "Svar på tilbud om barnehageplass – takker ja – *****",
+          "dokumentdato": "2023-04-18",
+          "part": "Ida og Martin Orrfugl",
+          "skjerm_part": true,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": "2023-04-18",
+            "avsender": {
+              "navn": "Ida og Martin Orrfugl",
+              "adresse": null,
+              "epost": "ida.orrfugl@epost.example"
+            },
+            "mottaker": null,
+            "emne": "Svar på tilbud om barnehageplass – vi takker ja",
+            "tekst": [
+              "Vi viser til tilbudet datert 12. april 2023, deres ref. {{sak}}. Vi takker ja til hel plass for Oliver i Fyrlykta barnehage fra 15. august 2023, og vi er veldig glade for at han fikk plass der.",
+              "Vi har ett ønske om oppstarten. Vi er bortreist den første uka og vil gjerne at Oliver begynner tilvenningen mandag 21. august i stedet for 15. august. Vi er klar over at vi betaler fra 15. august likevel. Martin har fri hele den uka og kan være sammen med Oliver så lenge barnehagen mener det trengs.",
+              "Vi kommer begge på foreldremøtet 7. juni. Det er fint om vi der kan få snakke med dem som skal ta imot Oliver. Han sover fortsatt to ganger om dagen og er ikke vant til å sove andre steder enn hjemme, så vi vil gjerne høre hvordan dere pleier å legge opp soving og måltider de første ukene.",
+              "Fakturaen kan sendes til Ida. Si fra om dere trenger noe mer fra oss før sommeren.",
+              "Med vennlig hilsen Ida og Martin Orrfugl"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Søknad om redusert foreldrebetaling for barnehageåret 2026/2027 – Oliver Orrfugl",
+          "offentlig_tittel": "Søknad om redusert foreldrebetaling for barnehageåret 2026/2027 – *****",
+          "dokumentdato": "2026-06-15",
+          "part": "Ida og Martin Orrfugl",
+          "skjerm_part": true,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": "2026-06-17",
+            "avsender": {
+              "navn": "Ida og Martin Orrfugl",
+              "adresse": "Stadionveien 11, 4399 Sirevåg",
+              "epost": "ida.orrfugl@epost.example"
+            },
+            "mottaker": null,
+            "emne": "Søknad om redusert foreldrebetaling for barnehageåret 2026/2027",
+            "tekst": [
+              "Vi søker om redusert foreldrebetaling og gratis kjernetid for sønnen vår Oliver for barnehageåret 2026/2027. Oliver er født 9. mai 2022, går i Fyrlykta barnehage på avdeling Fyret og har hel plass.",
+              "Vi er to voksne og ett barn i husholdningen. Martin arbeider fullt som platearbeider i en mekanisk bedrift i Kvassheim. Ida har studert på heltid siden høsten 2024 og arbeider i butikk annenhver helg. Vi ble først i vår klar over at ordningen med redusert betaling også kan gjelde for oss.",
+              "Etter skattemeldingene for 2025 hadde Martin en personinntekt på 504 800 kroner og Ida 121 700 kroner. Til sammen er det 626 500 kroner. Vi har ingen kapitalinntekter, og studielånet til Ida er ikke regnet med. Vi venter at inntekten i 2026 blir omtrent den samme.",
+              "Skattemeldingene våre for 2025 ligger ved. Vi ber om at vedtaket gjelder fra 1. august 2026, og at fakturaen fortsatt sendes til Ida. Ta kontakt dersom dere trenger flere opplysninger.",
+              "Med vennlig hilsen Ida og Martin Orrfugl"
+            ],
+            "vedlegg": [
+              "Skattemelding for 2025 for Ida Orrfugl",
+              "Skattemelding for 2025 for Martin Orrfugl"
+            ]
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Vedtak om redusert foreldrebetaling for barnehageåret 2026/2027 – Oliver Orrfugl",
+          "offentlig_tittel": "Vedtak om redusert foreldrebetaling for barnehageåret 2026/2027 – *****",
+          "dokumentdato": "2026-06-29",
+          "part": "Ida og Martin Orrfugl",
+          "skjerm_part": true,
+          "status": "E",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "vedtak",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Oppvekst",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "Ida og Martin Orrfugl, Stadionveien 11, 4399 Sirevåg",
+            "emne": "Vedtak om redusert foreldrebetaling for barnehageåret 2026/2027",
+            "tekst": [
+              "Vi viser til søknaden deres datert 15. juni 2026 om redusert foreldrebetaling og gratis kjernetid for Oliver Orrfugl, født 9. mai 2022. Oliver har hel plass i Fyrlykta barnehage. Vår ref.: {{sak}}",
+              "## Vedtak",
+              "Dere får redusert foreldrebetaling ved at Oliver får 20 timer gratis oppholdstid i uka (gratis kjernetid) i barnehageåret 2026/2027. Foreldrebetalingen for plassen settes ned fra 1 200 kroner til 667 kroner per måned fra 1. august 2026 til 31. juli 2027. Vedtaket er gjort etter forskrift om foreldrebetaling i barnehager.",
+              "## Regelverket",
+              "Etter forskriften skal ingen husholdning betale mer enn seks prosent av den samlede skattepliktige person- og kapitalinntekten for en barnehageplass, og aldri mer enn maksprisen. Barn fra to år og fram til skolestart har i tillegg rett til 20 timer gratis oppholdstid i uka når husholdningens inntekt er lavere enn den inntektsgrensen Stortinget har fastsatt. Inntekten dokumenteres med siste skattemelding.",
+              "## Vurdering",
+              "Skattemeldingene for 2025 viser en samlet inntekt på 626 500 kroner: 504 800 kroner for Martin Orrfugl og 121 700 kroner for Ida Orrfugl. Det er ikke ført opp kapitalinntekter. Studielån regnes ikke som inntekt.",
+              "Seks prosent av inntekten er 37 590 kroner i året. Foreldrebetalingen for en hel plass er etter maksprisen 1 200 kroner per måned i elleve måneder, altså 13 200 kroner i året. Maksprisen er dermed lavere enn seks prosent av inntekten deres, og regelen om seks prosent gir ikke lavere pris.",
+              "Inntekten er lavere enn inntektsgrensen for gratis kjernetid i barnehageåret 2026/2027, og Oliver er fire år. Han har derfor rett til 20 timer gratis oppholdstid i uka. I kommunens betalingssatser regnes en hel plass som 45 timer i uka. Dere betaler for 25 av de 45 timene, og det gir 667 kroner per måned.",
+              "## Betaling og varighet",
+              "Den nye satsen gjelder fra og med fakturaen for august 2026. Juli er betalingsfri. Kostpengene på 350 kroner per måned kommer i tillegg og blir ikke redusert. Blir maksprisen endret i løpet av barnehageåret, regner kommunen betalingen om uten ny søknad. Vedtaket gjelder for ett barnehageår om gangen. Ønsker dere redusert betaling også i barnehageåret 2027/2028, må dere søke på nytt innen 1. juni 2027.",
+              "## Plikt til å melde fra",
+              "Dere må melde fra til kommunen dersom inntekten øker vesentlig, eller dersom det blir flere eller færre voksne i husholdningen. Går inntekten vesentlig og varig ned, kan dere søke på nytt i løpet av barnehageåret.",
+              "## Klage",
+              "Vedtaket kan påklages etter forvaltningsloven § 28. Klagefristen er tre uker fra dere mottok vedtaket, jf. § 29. Klagen sendes til Sirevåg kommune, Oppvekst, Rådhusgata 1, 4399 Sirevåg. Tar kommunen ikke klagen til følge, sender vi den til Statsforvalteren i Rogaland, som er klageinstans. Dere har rett til å se dokumentene i saken.",
+              "Fyrlykta barnehage og Økonomi og innkjøp har fått melding om den nye satsen.",
+              "Med hilsen Rakel Rådyr, rådgiver oppvekst"
             ],
             "vedlegg": []
           }
@@ -4904,37 +5476,41 @@
       "journalposter": [
         {
           "type": "I",
-          "tittel": "Brev til kommunen (midlertidig) – Erle, Emma",
-          "offentlig_tittel": "Brev til kommunen (midlertidig) – *****",
-          "dokumentdato": "2022-02-28",
-          "part": "Erle, foresatt",
+          "tittel": "Søknad om barnehageplass fra 15.08.2022 – Emma Erle",
+          "offentlig_tittel": "Søknad om barnehageplass fra 15.08.2022 – *****",
+          "dokumentdato": "2022-02-25",
+          "part": "Guro og Anders Erle",
           "skjerm_part": true,
           "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
-            "kanal": "brev",
+            "kanal": "skjema",
             "mottatt": "2022-02-28",
             "avsender": {
-              "navn": "Erle, foresatt",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
+              "navn": "Guro og Anders Erle",
+              "adresse": "Bakkevegen 34, 4399 Sirevåg",
+              "epost": "guro.erle@epost.example"
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Søknad om barnehageplass – hovedopptaket 2022",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Søknaden gjelder: Hovedopptaket 2022\nØnsket oppstart: 15. august 2022\nPlasstype: Hel plass (100 prosent)\nØnsket barnehage: 1. Tjørnhaugen barnehage, 2. Fyrlykta barnehage",
+              "Barnets navn: Emma Erle\nFødselsdato: 30. november 2021\nAdresse: Bakkevegen 34, 4399 Sirevåg\nSpråk hjemme: Norsk",
+              "Foresatt 1: Guro Erle, Bakkevegen 34, 4399 Sirevåg\nE-post: guro.erle@epost.example\nForesatt 2: Anders Erle, Bakkevegen 34, 4399 Sirevåg\nE-post: anders.erle@epost.example\nForeldreansvar: Felles\nBarnet bor hos: Begge foresatte",
+              "Søsken i kommunal barnehage: Nei\nSøkes det om prioritet ved opptaket: Nei\nFaktura sendes til: Anders Erle",
+              "Andre opplysninger: Emma fyller ett år først 30. november 2022. Vi søker likevel om plass fra barnehageåret begynner, dersom det er ledig. Guro driver frisørsalong og må tilbake i arbeid i august. Anders har permisjon til midten av oktober og kan følge Emma i en lang og rolig tilvenning. Vi vil helst ikke vente til november, for da vet vi ikke om det er plass i Tjørnhaugen, som ligger nærmest oss.",
+              "Erklæring: Vi bekrefter at opplysningene er riktige, og at vi melder fra til kommunen dersom noe endrer seg før opptaket.\nSted og dato: Sirevåg, 25. februar 2022\nUnderskrift: Guro Erle og Anders Erle"
             ],
             "vedlegg": []
           }
         },
         {
           "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
-          "offentlig_tittel": null,
-          "dokumentdato": "2022-03-07",
-          "part": "Erle, foresatt",
+          "tittel": "Tilbud om barnehageplass fra 15.08.2022 – Emma Erle",
+          "offentlig_tittel": "Tilbud om barnehageplass fra 15.08.2022 – *****",
+          "dokumentdato": "2022-04-08",
+          "part": "Guro og Anders Erle",
           "skjerm_part": true,
           "status": "E",
           "journalfort": true,
@@ -4943,17 +5519,209 @@
             "kanal": "brev",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Oppvekst",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Erle, foresatt",
-            "emne": "Svar fra kommunen",
+            "mottaker": "Guro og Anders Erle, Bakkevegen 34, 4399 Sirevåg",
+            "emne": "Tilbud om barnehageplass i Tjørnhaugen barnehage fra 15. august 2022",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Vi viser til søknaden deres om barnehageplass, som kommunen mottok 28. februar 2022. Emma Erle, født 30. november 2021, får tilbud om hel plass i Tjørnhaugen barnehage fra 15. august 2022. Vår ref.: {{sak}}",
+              "Tjørnhaugen var førstevalget deres. Emma fyller ett år i november og har etter barnehageloven rett til plass innen utgangen av den måneden. Barnehagen har ledig plass fra barnehageåret begynner, og dere får derfor tilbud fra den datoen dere har ønsket. Plassen gjelder fram til Emma begynner på skolen, eller til dere sier den opp.",
+              "Dere må svare på tilbudet innen 22. april 2022. Bruk svarslippen som ligger ved, eller send svaret til postmottak@sirevag.example. Har vi ikke fått svar innen fristen, går plassen til neste barn på ventelisten.",
+              "Foreldrebetalingen følger maksprisen Stortinget har fastsatt. Fra 1. august 2022 er den 3 050 kroner per måned for en hel plass. I tillegg kommer kostpenger på 300 kroner per måned. Det betales for elleve måneder i året, og juli er betalingsfri. Betalingen løper fra 15. august 2022, også om Emma er lite i barnehagen de første ukene. Husholdninger med lav inntekt kan søke om redusert foreldrebetaling, og skjemaet finner dere på www.sirevag.example.",
+              "Barnehagen er åpen fra klokka 06.45 til 16.30 på hverdager og har avdelingene Lyngen og Røsslyngen. Nye foreldre inviteres til foreldremøte onsdag 8. juni 2022 klokka 18.00. Der får dere vite hvilken avdeling Emma skal gå på, og vi avtaler tilvenningen. Emma er blant de yngste som begynner i høst. Vi setter derfor av god tid, og vi legger gjerne opp til korte dager så lenge en av dere er hjemme.",
+              "Oppsigelsesfristen er to måneder, regnet fra den første i måneden etter at kommunen har mottatt oppsigelsen. Vedtektene for de kommunale barnehagene i Sirevåg ligger ved. Har dere spørsmål om plassen eller oppstarten, kan dere ta kontakt med undertegnede.",
+              "Med hilsen Lise Lemen, styrer i Tjørnhaugen barnehage"
+            ],
+            "vedlegg": [
+              "Svarslipp",
+              "Vedtekter for de kommunale barnehagene i Sirevåg"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Svar på tilbud om barnehageplass – takker ja – Emma Erle",
+          "offentlig_tittel": "Svar på tilbud om barnehageplass – takker ja – *****",
+          "dokumentdato": "2022-04-19",
+          "part": "Guro og Anders Erle",
+          "skjerm_part": true,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "skjema",
+            "mottatt": "2022-04-21",
+            "avsender": {
+              "navn": "Guro og Anders Erle",
+              "adresse": "Bakkevegen 34, 4399 Sirevåg",
+              "epost": null
+            },
+            "mottaker": null,
+            "emne": "Svarslipp – tilbud om barnehageplass i Tjørnhaugen barnehage",
+            "tekst": [
+              "Svaret gjelder: Tilbud om barnehageplass datert 8. april 2022, deres ref. {{sak}}\nBarnets navn: Emma Erle\nFødselsdato: 30. november 2021\nTilbudet gjelder: Hel plass i Tjørnhaugen barnehage fra 15. august 2022",
+              "Vi tar imot plassen: Ja\nVi ønsker å stå på venteliste til en annen barnehage: Nei\nFaktura sendes til: Anders Erle, anders.erle@epost.example",
+              "Merknader: Anders er hjemme med Emma til midten av oktober. Vi ønsker korte dager fram til da og full tid fra uke 42. Vi kommer begge på foreldremøtet 8. juni.",
+              "Sted og dato: Sirevåg, 19. april 2022\nUnderskrift: Guro Erle og Anders Erle"
             ],
             "vedlegg": []
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Samtykke til henvisning til PP-tjenesten – språkutvikling – Emma Erle",
+          "offentlig_tittel": "Samtykke til henvisning til PP-tjenesten – språkutvikling – *****",
+          "dokumentdato": "2026-09-07",
+          "part": "Guro og Anders Erle",
+          "skjerm_part": true,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "skjema",
+            "mottatt": "2026-09-07",
+            "avsender": {
+              "navn": "Guro og Anders Erle",
+              "adresse": "Bakkevegen 34, 4399 Sirevåg",
+              "epost": "guro.erle@epost.example"
+            },
+            "mottaker": null,
+            "emne": "Samtykke til henvisning til PP-tjenesten",
+            "tekst": [
+              "Barnets navn: Emma Erle\nFødselsdato: 30. november 2021\nBarnehage: Tjørnhaugen barnehage, avdeling Lyngen\nForesatte: Guro Erle og Anders Erle, Bakkevegen 34, 4399 Sirevåg",
+              "Samtykket gjelder: Henvisning til PP-tjenesten for Sirevåg og Kvassheim for sakkyndig vurdering av behovet for spesialpedagogisk hjelp\nÅrsak til henvisningen: Bekymring for språkutviklingen (ordforråd, setninger og uttale)\nInformasjon gitt av: Styrer Lise Lemen og pedagogisk leder på avdeling Lyngen i foreldresamtale 7. september 2026",
+              "Vi samtykker i at barnehagen henviser Emma til PP-tjenesten: Ja\nVi samtykker i at barnehagen sender den pedagogiske rapporten og kartleggingen av språket til PP-tjenesten: Ja\nVi samtykker i at PP-tjenesten observerer og undersøker Emma i barnehagen: Ja\nVi samtykker i at PP-tjenesten henter opplysninger om hørselsundersøkelsen fra helsestasjonen: Ja\nVi samtykker i at barnehagen og PP-tjenesten utveksler opplysninger om Emma så lenge saken varer: Ja",
+              "Vi samtykker i at kommunen gjør vedtak om spesialpedagogisk hjelp når den sakkyndige vurderingen er klar: Ja, etter at vi har fått lese vurderingen og uttale oss",
+              "Merknader fra foresatte: Vi har selv lagt merke til at Emma snakker mindre og med kortere setninger enn andre barn på samme alder, og at hun blir lei seg når de andre ikke forstår henne. Vi vil gjerne ha råd om hva vi kan gjøre hjemme.",
+              "Samtykket er frivillig og kan trekkes helt eller delvis tilbake ved å gi beskjed til styreren.\nSted og dato: Sirevåg, 7. september 2026\nUnderskrift: Guro Erle og Anders Erle"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Henvisning til PP-tjenesten med pedagogisk rapport – språkutvikling – Emma Erle",
+          "offentlig_tittel": "Henvisning til PP-tjenesten med pedagogisk rapport – språkutvikling – *****",
+          "dokumentdato": "2026-09-10",
+          "part": "PP-tjenesten for Sirevåg og Kvassheim",
+          "skjerm_part": false,
+          "status": "E",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Oppvekst",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "PP-tjenesten for Sirevåg og Kvassheim, Kvassheim kommune, Rådhusvegen 2, 4398 Kvassheim",
+            "emne": "Henvisning til PP-tjenesten for sakkyndig vurdering – Emma Erle, født 30. november 2021",
+            "tekst": [
+              "Tjørnhaugen barnehage henviser Emma Erle, født 30. november 2021, til PP-tjenesten for sakkyndig vurdering av behovet for spesialpedagogisk hjelp etter barnehageloven § 31. Emma går på avdeling Lyngen og begynner på skolen høsten 2027. Foresatte er Guro og Anders Erle, Bakkevegen 34, 4399 Sirevåg, og de samtykket i henvisningen 7. september 2026. Vår ref.: {{sak}}",
+              "Personalet har over tid vært urolige for språkutviklingen til Emma. Hun har et lite ordforråd for alderen, snakker for det meste i setninger på to til tre ord og er vanskelig å forstå for voksne og barn som ikke kjenner henne godt. Hun bytter ut flere lyder, blant annet k med t og r med j. Emma forstår enkle beskjeder i kjente situasjoner, men faller ofte ut når en beskjed har flere ledd, og når det blir lest eller fortalt i samlingsstunden.",
+              "Pedagogisk leder kartla språket hennes med TRAS i mars og i august 2026. Kartleggingen viser at Emma mestrer det som ventes av to- til treåringer i uttale, ordproduksjon og setningsproduksjon, mens språkforståelsen ligger noe høyere. Framgangen fra mars til august er liten. I leken velger hun helst aktiviteter som krever lite språk, og hun trekker seg ofte ut av rolleleken. Vi ser at hun stadig oftere blir frustrert eller gir opp når de andre barna ikke forstår henne.",
+              "Siden januar 2026 har Emma vært med i en språkgruppe med tre andre barn to ganger i uka. Personalet på avdelingen bruker bilder og konkreter i samlingsstunder og ved måltider, gjentar og utvider det hun sier, og leser fast med henne i en liten gruppe. Foresatte har fått råd om lesing og samtale hjemme og følger dem opp. Tiltakene har gjort hverdagen lettere for Emma, men vi vurderer at de ikke er nok til at hun tar igjen jevnaldrende før skolestart.",
+              "Helsestasjonen undersøkte hørselen hennes i april 2026 uten å finne noe galt. Familien snakker norsk hjemme. Emma er ellers en blid og aktiv jente. Hun trives ute, er motorisk sterk og har to faste lekevenner på avdelingen.",
+              "Vi ber PP-tjenesten vurdere om Emma har behov for spesialpedagogisk hjelp, hva hjelpen i så fall bør inneholde, og hvor stort omfang den bør ha. Vi ber også om veiledning til personalet på avdelingen. Emma er i barnehagen alle hverdager fra klokka 08.00 til 15.30, og pedagogisk leder og styrer kan møte PP-tjenesten når det passer.",
+              "Med hilsen Lise Lemen, styrer i Tjørnhaugen barnehage"
+            ],
+            "vedlegg": [
+              "Pedagogisk rapport fra avdeling Lyngen, datert 9. september 2026",
+              "TRAS-kartlegging fra mars og august 2026",
+              "Samtykke fra foresatte, datert 7. september 2026"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Sakkyndig vurdering av behovet for spesialpedagogisk hjelp – Emma Erle",
+          "offentlig_tittel": "Sakkyndig vurdering av behovet for spesialpedagogisk hjelp – *****",
+          "dokumentdato": "2026-10-26",
+          "part": "PP-tjenesten for Sirevåg og Kvassheim",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": "2026-10-28",
+            "avsender": {
+              "navn": "PP-tjenesten for Sirevåg og Kvassheim",
+              "adresse": "Kvassheim kommune, Rådhusvegen 2, 4398 Kvassheim",
+              "epost": "ppt@kvassheim.example"
+            },
+            "mottaker": null,
+            "emne": "Sakkyndig vurdering av behovet for spesialpedagogisk hjelp – Emma Erle, født 30. november 2021",
+            "tekst": [
+              "PP-tjenesten viser til henvisningen fra Tjørnhaugen barnehage datert 10. september 2026, deres ref. {{sak}}. Vi gir med dette sakkyndig vurdering etter barnehageloven § 34 av om Emma Erle, født 30. november 2021, har behov for spesialpedagogisk hjelp. Emma går på avdeling Lyngen, og foresatte er Guro og Anders Erle.",
+              "## Grunnlaget for vurderingen",
+              "Vurderingen bygger på henvisningen og den pedagogiske rapporten fra barnehagen, på TRAS-kartleggingen fra mars og august 2026 og på opplysninger fra helsestasjonen om hørselsundersøkelsen i april 2026. PP-tjenesten observerte Emma i lek, måltid og samlingsstund 22. og 29. september 2026. Den 29. september undersøkte vi også språkforståelsen, ordforrådet og uttalen hennes med standardiserte prøver. Vi hadde samtale med foresatte 13. oktober 2026.",
+              "## Hva undersøkelsene viser",
+              "Emma har normal hørsel. Hun er nå fire år og ti måneder. Prøvene viser at hun forstår språk omtrent som barn på tre og et halvt år, mens det hun selv sier, svarer til det som er vanlig for barn på rundt tre år. Ordforrådet er lite. Hun bruker for det meste setninger på to til fire ord og utelater ofte småord og bøyningsendelser. I uttalen erstatter hun lyder som lages bak i munnen, med lyder som lages foran, og hun forenkler ord med flere konsonanter etter hverandre. Fremmede forstår under halvparten av det hun sier.",
+              "I barnehagen så vi en jente som gjerne vil være med, men som ofte blir stående utenfor når leken krever at barna forklarer og forhandler. Hun bruker peking, lyder og kroppsspråk for å gjøre seg forstått, og hun gir fort opp når det ikke lykkes. Sammen med en voksen som gir henne tid og gjentar det hun sier, snakker hun mer og med lengre setninger. Foresatte beskriver det samme hjemme.",
+              "## Vurdering",
+              "PP-tjenesten vurderer at Emma har en forsinket språkutvikling som gjelder forståelse, ordforråd, setningsbygning og uttale. Vanskene hemmer henne i lek og samspill. De gir også risiko for at hun møter skolen høsten 2027 uten det språket hun trenger for å følge opplæringen og lære å lese. Barnehagen har arbeidet systematisk med språkgruppe og bildestøtte siden januar 2026, men framgangen har vært liten. Vi vurderer derfor at behovene ikke kan dekkes innenfor det ordinære barnehagetilbudet alene, og at Emma har et særlig behov for spesialpedagogisk hjelp, jf. barnehageloven § 31.",
+              "## Realistiske mål",
+              "Innen utgangen av barnehageåret 2026/2027 bør Emma kunne bruke setninger på fem til seks ord i samtale og fortelle om noe hun har opplevd, slik at en voksen som ikke var til stede, forstår det. Hun bør kunne uttale lydene k og g riktig i enkeltord og følge en beskjed med to ledd uten støtte. Hun bør også kunne delta i rollelek med jevnaldrende når en voksen støtter henne.",
+              "## Tilråding",
+              "PP-tjenesten tilrår at Emma får spesialpedagogisk hjelp i 3 timer i uka ut barnehageåret 2026/2027. Timene skal brukes til direkte arbeid med Emma, dels alene og dels i en liten gruppe med to til tre barn hun leker med. Hjelpen bør gis av en spesialpedagog eller en barnehagelærer med fordypning i språkvansker. Foreldrerådgivning og veiledning av personalet på avdelingen kommer i tillegg til de tre timene.",
+              "Arbeidet bør legge vekt på ordforråd og begreper knyttet til det avdelingen arbeider med, på setningsbygning gjennom samtale om bilder og opplevelser og på korte, daglige økter med lydene hun strever med. Hjelpen bør så langt som mulig gis inne på avdelingen, slik at Emma får bruke det hun lærer, i lek med andre barn. Barnehagen bør fortsette med språkgruppa og bildestøtten som en del av det ordinære tilbudet.",
+              "## Videre oppfølging",
+              "PP-tjenesten veileder spesialpedagogen og avdelingen og kan være med når planen for hjelpen lages. Vi undersøker språket til Emma på nytt i mai 2027 og gir en ny vurdering før skolestart. Vi tilrår at barnehagen, med samtykke fra foresatte, inviterer Sirevåg skole til et overgangsmøte våren 2027.",
+              "Foresatte har fått kopi av den sakkyndige vurderingen. De har rett til å uttale seg til kommunen før det blir gjort vedtak.",
+              "Med hilsen Kjersti Herikstad, PP-rådgiver"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Vedtak om spesialpedagogisk hjelp for barnehageåret 2026/2027 – Emma Erle",
+          "offentlig_tittel": "Vedtak om spesialpedagogisk hjelp for barnehageåret 2026/2027 – *****",
+          "dokumentdato": "2026-11-10",
+          "part": "Guro og Anders Erle",
+          "skjerm_part": true,
+          "status": "E",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "vedtak",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Oppvekst",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "Guro og Anders Erle, Bakkevegen 34, 4399 Sirevåg",
+            "emne": "Vedtak om spesialpedagogisk hjelp for barnehageåret 2026/2027",
+            "tekst": [
+              "Vi viser til henvisningen fra Tjørnhaugen barnehage datert 10. september 2026 og til den sakkyndige vurderingen fra PP-tjenesten for Sirevåg og Kvassheim datert 26. oktober 2026. Saken gjelder spesialpedagogisk hjelp til Emma Erle, født 30. november 2021, som går på avdeling Lyngen i Tjørnhaugen barnehage. Vår ref.: {{sak}}",
+              "## Vedtak",
+              "Emma får spesialpedagogisk hjelp i 3 timer i uka fra 16. november 2026 til 31. juli 2027. Hjelpen gis av spesialpedagog i Tjørnhaugen barnehage. Vedtaket er gjort etter barnehageloven § 35, jf. § 31, og er i samsvar med tilrådingen fra PP-tjenesten.",
+              "## Bakgrunn",
+              "Barnehagen henviste Emma til PP-tjenesten fordi personalet over tid hadde vært urolige for språkutviklingen hennes, og fordi tiltakene i det ordinære tilbudet ikke hadde gitt den framgangen de håpet på. Dere samtykket 7. september 2026 i henvisningen og i at kommunen gjør vedtak når den sakkyndige vurderingen er klar. Dere har fått kopi av vurderingen, og i samtalen med styrer Lise Lemen 3. november 2026 sa dere at dere støtter tilrådingen.",
+              "## Den sakkyndige vurderingen",
+              "PP-tjenesten har observert Emma i barnehagen, undersøkt språket hennes og snakket med dere. Konklusjonen er at Emma har en forsinket språkutvikling som gjelder forståelse, ordforråd, setningsbygning og uttale, og at behovene ikke kan dekkes innenfor det ordinære barnehagetilbudet alene. PP-tjenesten tilrår 3 timer spesialpedagogisk hjelp i uka ut barnehageåret, gitt av en spesialpedagog eller en barnehagelærer med fordypning i språkvansker. Den sakkyndige vurderingen er gitt etter barnehageloven § 34 og ligger ved.",
+              "## Kommunens vurdering",
+              "Kommunen legger den sakkyndige vurderingen til grunn. Den bygger på observasjon, undersøkelser og samtaler, og den stemmer med det barnehagen og dere har beskrevet. Kommunen finner at Emma har et særlig behov for spesialpedagogisk hjelp, og at omfanget PP-tjenesten tilrår, er nødvendig for at hun skal få et godt grunnlag før skolestart. Vedtaket avviker ikke fra tilrådingen.",
+              "## Innhold og organisering",
+              "Hjelpen skal bygge på målene i den sakkyndige vurderingen. De tre timene brukes til direkte arbeid med Emma, dels alene og dels i en liten gruppe med to til tre barn fra avdelingen. Arbeidet skal legge vekt på ordforråd og begreper, setningsbygning og uttale. Hjelpen gis i barnehagens åpningstid og så langt som mulig inne på avdelingen. Veiledning av personalet på avdelingen kommer i tillegg til de tre timene. Timer som faller bort fordi spesialpedagogen er borte, skal tas igjen. Timer som faller bort fordi Emma er borte, blir ikke tatt igjen.",
+              "## Foreldrerådgivning, plan og rapport",
+              "Dere får tilbud om foreldrerådgivning fra spesialpedagogen. Den kommer i tillegg til timene Emma får. Spesialpedagogen lager en plan for hjelpen sammen med dere og pedagogisk leder innen 1. desember 2026. Innen 15. juni 2027 får dere en skriftlig oversikt over hjelpen Emma har fått, og en vurdering av utviklingen hennes.",
+              "## Overgangen til skolen",
+              "Emma begynner på skolen høsten 2027, og vedtaket gjelder ikke etter skolestart. PP-tjenesten undersøker språket hennes på nytt i mai 2027. Med samtykke fra dere inviterer barnehagen Sirevåg skole til et overgangsmøte våren 2027. Trenger Emma tilrettelegging i skolen, er det skolen som vurderer det etter opplæringslova.",
+              "## Klage",
+              "Vedtaket kan påklages etter forvaltningsloven § 28. Klagefristen er tre uker fra dere mottok vedtaket, jf. § 29. Klagen sendes til Sirevåg kommune, Oppvekst, Rådhusgata 1, 4399 Sirevåg. Tar kommunen ikke klagen til følge, sender vi den til Statsforvalteren i Rogaland, som er klageinstans. Dere har rett til å se dokumentene i saken, og undertegnede kan hjelpe dere med å sette opp en klage.",
+              "Kopi av vedtaket er sendt til Tjørnhaugen barnehage og til PP-tjenesten for Sirevåg og Kvassheim.",
+              "Med hilsen Rakel Rådyr, rådgiver oppvekst"
+            ],
+            "vedlegg": [
+              "Sakkyndig vurdering fra PP-tjenesten for Sirevåg og Kvassheim, datert 26. oktober 2026"
+            ]
           }
         }
       ]
@@ -4972,37 +5740,41 @@
       "journalposter": [
         {
           "type": "I",
-          "tittel": "Brev til kommunen (midlertidig) – Nise, Nora",
-          "offentlig_tittel": "Brev til kommunen (midlertidig) – *****",
-          "dokumentdato": "2022-02-21",
-          "part": "Nise, foresatt",
+          "tittel": "Søknad om barnehageplass fra 15.08.2022 – Nora Nise",
+          "offentlig_tittel": "Søknad om barnehageplass fra 15.08.2022 – *****",
+          "dokumentdato": "2022-02-18",
+          "part": "Hege og Thomas Nise",
           "skjerm_part": true,
           "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
-            "kanal": "brev",
+            "kanal": "skjema",
             "mottatt": "2022-02-21",
             "avsender": {
-              "navn": "Nise, foresatt",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
+              "navn": "Hege og Thomas Nise",
+              "adresse": "Skolevegen 27, 4399 Sirevåg",
+              "epost": "hege.nise@epost.example"
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Søknad om barnehageplass – hovedopptaket 2022",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Søknaden gjelder: Hovedopptaket 2022\nØnsket oppstart: 15. august 2022\nPlasstype: 80 prosent plass (fire dager i uka)\nØnskede dager: Mandag til torsdag\nØnsket barnehage: 1. Tjørnhaugen barnehage, 2. Fyrlykta barnehage",
+              "Barnets navn: Nora Nise\nFødselsdato: 2. september 2021\nAdresse: Skolevegen 27, 4399 Sirevåg\nSpråk hjemme: Norsk",
+              "Foresatt 1: Hege Nise, Skolevegen 27, 4399 Sirevåg\nE-post: hege.nise@epost.example\nForesatt 2: Thomas Nise, Skolevegen 27, 4399 Sirevåg\nE-post: thomas.nise@epost.example\nForeldreansvar: Felles\nBarnet bor hos: Begge foresatte",
+              "Søsken i kommunal barnehage: Nei\nSøkes det om prioritet ved opptaket: Nei\nFaktura sendes til: Hege Nise",
+              "Andre opplysninger: Nora fyller ett år 2. september 2022. Hege begynner i arbeid igjen 22. august i 80 prosent stilling og har fri på fredager. Thomas arbeider skift og kan følge og hente de fleste dagene. Vi ønsker 80 prosent plass så lenge Hege har redusert stilling, og sier fra dersom det endrer seg.",
+              "Erklæring: Vi bekrefter at opplysningene er riktige, og at vi melder fra til kommunen dersom noe endrer seg før opptaket.\nSted og dato: Sirevåg, 18. februar 2022\nUnderskrift: Hege Nise og Thomas Nise"
             ],
             "vedlegg": []
           }
         },
         {
           "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
-          "offentlig_tittel": null,
-          "dokumentdato": "2022-02-28",
-          "part": "Nise, foresatt",
+          "tittel": "Tilbud om barnehageplass fra 15.08.2022 – Nora Nise",
+          "offentlig_tittel": "Tilbud om barnehageplass fra 15.08.2022 – *****",
+          "dokumentdato": "2022-04-08",
+          "part": "Hege og Thomas Nise",
           "skjerm_part": true,
           "status": "E",
           "journalfort": true,
@@ -5011,15 +5783,122 @@
             "kanal": "brev",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Oppvekst",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Nise, foresatt",
-            "emne": "Svar fra kommunen",
+            "mottaker": "Hege og Thomas Nise, Skolevegen 27, 4399 Sirevåg",
+            "emne": "Tilbud om barnehageplass i Tjørnhaugen barnehage fra 15. august 2022",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Vi viser til søknaden deres om barnehageplass, som kommunen mottok 21. februar 2022. Nora Nise, født 2. september 2021, får tilbud om 80 prosent plass i Tjørnhaugen barnehage fra 15. august 2022. Vår ref.: {{sak}}",
+              "Tjørnhaugen var førstevalget deres. Plassen gjelder fire dager i uka, mandag til torsdag, slik dere har søkt om. Nora fyller ett år i september og har etter barnehageloven rett til plass innen utgangen av den måneden. Barnehagen har ledig plass fra barnehageåret begynner, og dere får derfor tilbud fra 15. august. Plassen gjelder fram til Nora begynner på skolen, eller til dere sier den opp.",
+              "Dere må svare på tilbudet innen 22. april 2022. Bruk svarslippen som ligger ved, eller send svaret til postmottak@sirevag.example. Har vi ikke fått svar innen fristen, går plassen til neste barn på ventelisten.",
+              "Foreldrebetalingen følger kommunens betalingssatser, som bygger på maksprisen Stortinget har fastsatt. Fra 1. august 2022 er satsen 2 440 kroner per måned for en plass på 80 prosent, og kostpengene er 240 kroner per måned. Det betales for elleve måneder i året, og juli er betalingsfri. Betalingen løper fra 15. august 2022. Husholdninger med lav inntekt kan søke om redusert foreldrebetaling, og skjemaet finner dere på www.sirevag.example.",
+              "Barnehagen er åpen fra klokka 06.45 til 16.30 på hverdager og har avdelingene Lyngen og Røsslyngen. Nye foreldre inviteres til foreldremøte onsdag 8. juni 2022 klokka 18.00. Der får dere vite hvilken avdeling Nora skal gå på, og vi avtaler tilvenningen. Vi regner med at en av dere er sammen med Nora de tre første dagene.",
+              "Ønsker dere senere å endre oppholdstiden eller dagene, søker dere skriftlig til styreren. Oppsigelsesfristen er to måneder, regnet fra den første i måneden etter at kommunen har mottatt oppsigelsen. Vedtektene for de kommunale barnehagene i Sirevåg ligger ved.",
+              "Med hilsen Lise Lemen, styrer i Tjørnhaugen barnehage"
+            ],
+            "vedlegg": [
+              "Svarslipp",
+              "Vedtekter for de kommunale barnehagene i Sirevåg"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Svar på tilbud om barnehageplass – takker ja – Nora Nise",
+          "offentlig_tittel": "Svar på tilbud om barnehageplass – takker ja – *****",
+          "dokumentdato": "2022-04-11",
+          "part": "Hege og Thomas Nise",
+          "skjerm_part": true,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": "2022-04-11",
+            "avsender": {
+              "navn": "Hege og Thomas Nise",
+              "adresse": null,
+              "epost": "hege.nise@epost.example"
+            },
+            "mottaker": null,
+            "emne": "Svar på tilbud om barnehageplass – vi takker ja",
+            "tekst": [
+              "Vi viser til tilbudet datert 8. april 2022, deres ref. {{sak}}. Vi takker ja til 80 prosent plass for Nora i Tjørnhaugen barnehage fra 15. august 2022.",
+              "Dagene mandag til torsdag passer godt for oss. Hege begynner i arbeid igjen 22. august, så vi kan bruke hele den første uka på tilvenningen. Vi vil gjerne begynne mandag 15. august dersom det passer for avdelingen.",
+              "Vi kommer på foreldremøtet 8. juni. Nora spiser vanlig mat og sover én gang midt på dagen. Si fra om det er noe dere vil at vi skal øve på før hun begynner.",
+              "Fakturaen kan sendes til Hege på denne e-postadressen.",
+              "Med vennlig hilsen Hege og Thomas Nise"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Søknad om utvidet oppholdstid fra 80 til 100 prosent plass – Nora Nise",
+          "offentlig_tittel": "Søknad om utvidet oppholdstid fra 80 til 100 prosent plass – *****",
+          "dokumentdato": "2026-08-31",
+          "part": "Hege og Thomas Nise",
+          "skjerm_part": true,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": "2026-08-31",
+            "avsender": {
+              "navn": "Hege og Thomas Nise",
+              "adresse": null,
+              "epost": "hege.nise@epost.example"
+            },
+            "mottaker": null,
+            "emne": "Søknad om utvidet oppholdstid fra 80 til 100 prosent plass",
+            "tekst": [
+              "Vi søker om at datteren vår Nora, født 2. september 2021, får utvidet plassen sin i Tjørnhaugen barnehage fra 80 til 100 prosent. Hun går på avdeling Røsslyngen og har i dag plass mandag til torsdag.",
+              "Bakgrunnen er at Hege går opp fra 80 til 100 prosent stilling 1. oktober 2026 og ikke lenger har fri på fredager. Thomas arbeider skift og kan bare være hjemme med Nora enkelte fredager.",
+              "Nora begynner på skolen høsten 2027. Vi har fått vite at førskolegruppa på Røsslyngen skal ha samlingene sine på fredager i år, og vi vil gjerne at hun får være med der sammen med de andre som skal begynne på Sirevåg skole. Hun har flere ganger spurt hvorfor hun ikke får være med i «skoleklubben».",
+              "Vi ønsker at endringen gjelder fra 1. oktober 2026 og ut barnehagetiden. Har avdelingen plass til henne på fredagene i september også, tar vi gjerne imot det. Vi er kjent med at foreldrebetalingen øker til satsen for hel plass.",
+              "Med vennlig hilsen Hege og Thomas Nise"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Vedtak om endret oppholdstid – hel plass fra 01.10.2026 – Nora Nise",
+          "offentlig_tittel": "Vedtak om endret oppholdstid – hel plass fra 01.10.2026 – *****",
+          "dokumentdato": "2026-09-08",
+          "part": "Hege og Thomas Nise",
+          "skjerm_part": true,
+          "status": "E",
+          "journalfort": true,
+          "tilgangskode": "13-1",
+          "dokument": {
+            "kanal": "vedtak",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Oppvekst",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "Hege og Thomas Nise, Skolevegen 27, 4399 Sirevåg",
+            "emne": "Vedtak om endret oppholdstid – hel plass fra 1. oktober 2026",
+            "tekst": [
+              "Vi viser til søknaden deres 31. august 2026 om å utvide barnehageplassen til Nora Nise, født 2. september 2021, fra 80 til 100 prosent. Vår ref.: {{sak}}",
+              "## Vedtak",
+              "Nora får hel plass (100 prosent) i Tjørnhaugen barnehage, avdeling Røsslyngen, fra 1. oktober 2026. Plassen gjelder til 31. juli 2027, siden Nora begynner på skolen høsten 2027. Søknaden er innvilget.",
+              "## Begrunnelse",
+              "Etter vedtektene for de kommunale barnehagene i Sirevåg kan styreren innvilge endret oppholdstid i løpet av barnehageåret når barnehagen har kapasitet til det. Fra 1. oktober har avdeling Røsslyngen bemanning til at Nora kan være der fem dager i uka, og utvidelsen krever ikke flere ansatte. Nora har allerede plass på avdelingen, og endringen går ikke ut over barn som står på venteliste.",
+              "Vi har også lagt vekt på at Nora begynner på skolen neste høst. Førskolegruppa på Røsslyngen har samlingene sine på fredager, og det er en fordel at hun er med der fra første samling fredag 2. oktober 2026.",
+              "## Fredagene i september",
+              "Dere spurte om Nora kan begynne å gå på fredager allerede i september. Det kan vi ikke tilby. Vaktlistene for september er lagt etter de plassene barna har i dag, og på fredagene er avdelingen bemannet for færre barn.",
+              "## Foreldrebetaling",
+              "Foreldrebetalingen øker fra 960 kroner til 1 200 kroner per måned fra og med oktober 2026. Kostpengene øker fra 280 kroner til 350 kroner per måned. Juli er betalingsfri. Satsene følger kommunens betalingssatser og kan bli endret fra 1. januar 2027. Fakturaen sendes som før til Hege Nise.",
+              "## Klage",
+              "Vedtaket kan påklages etter forvaltningsloven § 28. Klagefristen er tre uker fra dere mottok vedtaket, jf. § 29. Klagen sendes til Sirevåg kommune, Oppvekst, Rådhusgata 1, 4399 Sirevåg, eller til postmottak@sirevag.example.",
+              "Avdeling Røsslyngen og Økonomi og innkjøp har fått melding om endringen.",
+              "Med hilsen Lise Lemen, styrer i Tjørnhaugen barnehage"
             ],
             "vedlegg": []
           }
@@ -5039,55 +5918,108 @@
       "status": "B",
       "journalposter": [
         {
-          "type": "I",
-          "tittel": "Brev til kommunen (midlertidig)",
+          "type": "X",
+          "tittel": "Innkalling og sakliste – kommunestyret 29.10.2026",
           "offentlig_tittel": null,
           "dokumentdato": "2026-10-22",
-          "part": "Kari Avsender",
+          "part": "Petra Pinnsvin",
           "skjerm_part": false,
           "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
-            "kanal": "brev",
-            "mottatt": "2026-10-22",
-            "avsender": {
-              "navn": "Kari Avsender",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
-            },
-            "mottaker": null,
-            "emne": "Brev til kommunen",
-            "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
-            ],
-            "vedlegg": []
-          }
-        },
-        {
-          "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
-          "offentlig_tittel": null,
-          "dokumentdato": "2026-10-29",
-          "part": "Kari Avsender",
-          "skjerm_part": false,
-          "status": "E",
-          "journalfort": true,
-          "tilgangskode": null,
-          "dokument": {
-            "kanal": "brev",
+            "kanal": "innkalling",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Kommunedirektørens stab",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Kari Avsender",
-            "emne": "Svar fra kommunen",
+            "mottaker": null,
+            "emne": "Innkalling til møte i kommunestyret 29. oktober 2026",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Kommunestyret i Sirevåg innkalles til møte torsdag 29. oktober 2026 klokka 18.00 i kommunestyresalen i rådhuset, Rådhusgata 1. Arkivsak {{sak}}.",
+              "Innkallingen sendes til de 25 representantene og til første vararepresentant på hver liste, jf. kommuneloven § 11-3. Vararepresentanter møter bare når de blir kalt inn særskilt. Forfall og spørsmål om habilitet meldes så snart som mulig til politisk sekretær Petra Pinnsvin på petra.pinnsvin@sirevag.example, slik at vararepresentant kan kalles inn.",
+              "Møtet er åpent for publikum og blir overført direkte på www.sirevag.example. Saksframleggene med vedlegg er lagt ut samme sted og ligger til gjennomsyn i servicetorget i rådhuset. Partigruppene kan bruke møterommene i rådhuset fra klokka 17.00.",
+              "## Sakliste",
+              "PS 58/26 Godkjenning av protokoll fra møtet 24.09.2026\nPS 59/26 Tertialrapport 2 – 2026\nPS 60/26 Driftsavtale for Sirevåg idrettspark 2027–2031 med Sirevåg idrettslag, arkivsak {{sak:idrettsparken-driftsavtale}}\nPS 61/26 Interkommunalt legevaktsamarbeid med Kvassheim kommune – avtale 2027–2030, arkivsak {{sak:legevaktsamarbeid-2027-2030}}\nPS 62/26 Interpellasjon fra Turid Malmin (Ap) om ventetid på sykehjemsplass",
+              "## PS 58/26 Godkjenning av protokoll fra møtet 24.09.2026",
+              "Protokollen fra kommunestyrets møte 24. september 2026 ble sendt til representantene dagen etter møtet og har ligget på kommunens nettsted siden. Det er ikke kommet merknader. Forslag til vedtak: Protokollen fra møtet 24. september 2026 godkjennes.",
+              "## PS 59/26 Tertialrapport 2 – 2026",
+              "Kommunedirektøren legger fram rapporten om økonomi, sykefravær og investeringer per 31. august 2026. Formannskapet behandlet rapporten 20. oktober 2026 og innstiller på at kommunestyret tar den til orientering. Økonomisjef Bodil Bever orienterer i møtet.",
+              "## PS 60/26 Driftsavtale for Sirevåg idrettspark 2027–2031 med Sirevåg idrettslag",
+              "Gjeldende driftsavtale med Sirevåg idrettslag gjelder for årene 2022–2026. Kommunedirektøren legger fram forslag til ny avtale for årene 2027–2031, med et årlig driftstilskudd på 420 000 kroner. Saksframlegget med utkastet til avtale ligger i arkivsak {{sak:idrettsparken-driftsavtale}}. Saksbehandler er kulturkonsulent Stian Stokkand.",
+              "## PS 61/26 Interkommunalt legevaktsamarbeid med Kvassheim kommune – avtale 2027–2030",
+              "Kommunestyret skal ta stilling til ny avtale om legevaktsamarbeid med Kvassheim kommune for årene 2027–2030. Kvassheim kommune er vertskommune for Jæren sør legevakt, og Sirevåg betaler etter folketall, om lag 3,1 millioner kroner i året. Saksframlegget med avtalen ligger i arkivsak {{sak:legevaktsamarbeid-2027-2030}}. Saksbehandler er rådgiver helse og omsorg Jon Jerv.",
+              "## PS 62/26 Interpellasjon fra Turid Malmin (Ap) om ventetid på sykehjemsplass",
+              "Turid Malmin (Ap) har levert en interpellasjon til ordføreren, datert 19. oktober 2026. Hun spør hvor mange som står på venteliste for langtidsplass ved Sirevåg omsorgssenter, hvor lenge de må vente, og hva ordføreren vil gjøre for å korte ned ventetiden. Interpellasjonen ligger ved innkallingen. Ordføreren svarer i møtet, og behandlingen følger kommunestyrets reglement.",
+              "## Orienteringer",
+              "Kommunedirektøren orienterer om framdriften i arbeidet med budsjett 2027 og økonomiplan 2027–2030. Forslaget blir lagt fram 6. november 2026.",
+              "Sirevåg, 22. oktober 2026\nGunnhild Søyland, ordfører\nPetra Pinnsvin, politisk sekretær"
+            ],
+            "vedlegg": [
+              "Protokoll fra kommunestyrets møte 24. september 2026",
+              "Saksframlegg PS 59/26 med tertialrapport 2 – 2026",
+              "Saksframlegg PS 60/26 med utkast til driftsavtale",
+              "Saksframlegg PS 61/26 med samarbeidsavtale",
+              "Interpellasjon fra Turid Malmin (Ap) datert 19. oktober 2026"
+            ]
+          }
+        },
+        {
+          "type": "X",
+          "tittel": "Møteprotokoll – kommunestyret 29.10.2026",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-10-30",
+          "part": "Petra Pinnsvin",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "protokoll",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Kommunedirektørens stab",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Møteprotokoll – kommunestyret 29. oktober 2026",
+            "tekst": [
+              "Møteprotokoll for kommunestyret i Sirevåg, torsdag 29. oktober 2026 klokka 18.00–20.40 i kommunestyresalen i rådhuset. Møtet var åpent og ble overført direkte på kommunens nettsted. Protokollen er møteboken etter kommuneloven § 11-4. Arkivsak {{sak}}.",
+              "## Frammøte",
+              "Ordfører Gunnhild Søyland (Sp) ledet møtet. Ved navneoppropet var 24 av 25 representanter til stede. Else Marie Hobberstad (Sp) hadde meldt forfall, og vararepresentant Tor Arne Nesheim (Sp) møtte for henne. Kommunestyret hadde dermed 25 stemmeberettigede og var vedtaksført.",
+              "Fra administrasjonen møtte kommunedirektør Ulla Ugle, økonomisjef Bodil Bever, rådgiver helse og omsorg Jon Jerv, kulturkonsulent Stian Stokkand og politisk sekretær Petra Pinnsvin, som førte protokollen.",
+              "Innkallingen datert 22. oktober 2026 og saklisten ble godkjent uten merknader. Ingen meldte spørsmål om habilitet. Protokollen blir lagt fram til godkjenning i kommunestyrets neste møte.",
+              "## PS 58/26 Godkjenning av protokoll fra møtet 24.09.2026",
+              "Forslag til vedtak: Protokollen fra møtet 24. september 2026 godkjennes.",
+              "Behandling: Ingen hadde merknader til protokollen. Forslaget ble enstemmig vedtatt.",
+              "Vedtak: Protokollen fra møtet 24. september 2026 godkjennes.",
+              "## PS 59/26 Tertialrapport 2 – 2026",
+              "Formannskapets innstilling: Kommunestyret tar tertialrapport 2 – 2026 til orientering.",
+              "Behandling: Økonomisjef Bodil Bever orienterte. Rapporten per 31. august 2026 viser en prognose for året med et merforbruk i driften på 3,8 millioner kroner. Helse og omsorg ligger an til et merforbruk på 5,1 millioner kroner, først og fremst på grunn av overtid og vikarbruk i hjemmetjenesten. Høyere skatteinntekter og lavere pensjonskostnader enn budsjettert trekker den andre veien. Sykefraværet var 7,4 prosent i andre tertial, mot 7,9 prosent i samme periode i 2025.",
+              "Turid Malmin (Ap) spurte hva som er gjort for å få ned overtidsbruken i hjemmetjenesten. Kjell Inge Madland (H) ba om at prognosen for investeringene blir tydeligere i neste rapport. Kommunedirektør Ulla Ugle svarte at enhetene er bedt om å holde ledige stillinger tilbake der det er forsvarlig, og at merforbruket blir fulgt opp i arbeidet med budsjett 2027.",
+              "Votering: Innstillingen ble enstemmig vedtatt.",
+              "Vedtak: Kommunestyret tar tertialrapport 2 – 2026 til orientering.",
+              "## PS 60/26 Driftsavtale for Sirevåg idrettspark 2027–2031 med Sirevåg idrettslag",
+              "Arkivsak {{sak:idrettsparken-driftsavtale}}. Kommunedirektørens forslag til vedtak: Kommunestyret godkjenner driftsavtalen for Sirevåg idrettspark 2027–2031 mellom Sirevåg kommune og Sirevåg idrettslag. Det årlige driftstilskuddet er 420 000 kroner.",
+              "Behandling: Kulturkonsulent Stian Stokkand svarte på spørsmål om hva driftstilskuddet skal dekke, og om hvordan kommunen følger opp avtalen. Mona Tunheim (Ap) og Torstein Ege (H) framhevet dugnadsinnsatsen i idrettslaget og sa at avtalen gir laget forutsigbare rammer i fem år. Det ble ikke satt fram andre forslag.",
+              "Votering: Kommunedirektørens forslag ble enstemmig vedtatt.",
+              "Vedtak: Kommunestyret godkjenner driftsavtalen for Sirevåg idrettspark 2027–2031 mellom Sirevåg kommune og Sirevåg idrettslag. Det årlige driftstilskuddet er 420 000 kroner.",
+              "## PS 61/26 Interkommunalt legevaktsamarbeid med Kvassheim kommune – avtale 2027–2030",
+              "Arkivsak {{sak:legevaktsamarbeid-2027-2030}}. Kommunedirektørens forslag til vedtak: Kommunestyret godkjenner avtalen om interkommunalt legevaktsamarbeid med Kvassheim kommune for årene 2027–2030. Kvassheim kommune er vertskommune for Jæren sør legevakt.",
+              "Behandling: Rådgiver helse og omsorg Jon Jerv orienterte om hovedpunktene i avtalen og svarte på spørsmål om kostnadsfordelingen. Sirevåg betaler etter folketall, om lag 3,1 millioner kroner i året.",
+              "I ordskiftet la flertallet vekt på at samarbeidet gir innbyggerne en faglig trygg legevakt hele døgnet, og at Sirevåg er for liten til å drive legevakt alene. Mindretallet mente at reiseveien til legevakten i Kvassheim er for lang for mange innbyggere, og at avtalen binder kommunen for lenge. Det ble ikke satt fram andre forslag.",
+              "Votering: Kommunedirektørens forslag ble vedtatt med 21 mot 4 stemmer.",
+              "Vedtak: Kommunestyret godkjenner avtalen om interkommunalt legevaktsamarbeid med Kvassheim kommune for årene 2027–2030. Kvassheim kommune er vertskommune for Jæren sør legevakt.",
+              "## PS 62/26 Interpellasjon fra Turid Malmin (Ap) om ventetid på sykehjemsplass",
+              "Turid Malmin (Ap) la fram interpellasjonen, som er datert 19. oktober 2026. Hun viste til at flere pårørende har tatt kontakt med henne fordi eldre som står på venteliste for langtidsplass, må vente hjemme eller på korttidsplass. Hun spurte hvor mange som venter, hvor lenge de må vente, og hva ordføreren vil gjøre for å korte ned ventetiden.",
+              "Ordfører Gunnhild Søyland svarte at ni personer sto på venteliste for langtidsplass ved Sirevåg omsorgssenter 1. oktober 2026, og at ventetiden hittil i år har vært elleve uker i gjennomsnitt. Alle som venter, får hjemmetjenester eller korttidsopphold i ventetiden. Ordføreren opplyste at kommunedirektøren vil gjøre rede for kapasiteten i heldøgns omsorg i forslaget til budsjett 2027 og økonomiplan 2027–2030.",
+              "Interpellanten takket for svaret og sa at hun vil følge opp saken i budsjettbehandlingen. Ingunn Haarr (KrF) og Jostein Obrestad (Frp) hadde ordet i det korte ordskiftet. Det ble ikke satt fram forslag, og interpellasjonen ble ansett som besvart.",
+              "## Orienteringer",
+              "Kommunedirektør Ulla Ugle orienterte om framdriften i arbeidet med budsjett 2027 og økonomiplan 2027–2030. Forslaget blir lagt fram 6. november 2026, formannskapet gir innstilling 17. november, og kommunestyret behandler saken 10. desember 2026.",
+              "Sirevåg, 30. oktober 2026\nGunnhild Søyland, ordfører\nPetra Pinnsvin, politisk sekretær"
             ],
             "vedlegg": []
           }
@@ -5107,57 +6039,96 @@
       "status": "B",
       "journalposter": [
         {
-          "type": "I",
-          "tittel": "Brev til kommunen (midlertidig)",
+          "type": "X",
+          "tittel": "Innkalling og sakliste – plan- og teknisk utvalg 04.11.2026",
           "offentlig_tittel": null,
           "dokumentdato": "2026-10-28",
-          "part": "Kari Avsender",
+          "part": "Petra Pinnsvin",
           "skjerm_part": false,
           "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
-            "kanal": "brev",
-            "mottatt": "2026-10-28",
-            "avsender": {
-              "navn": "Kari Avsender",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
-            },
-            "mottaker": null,
-            "emne": "Brev til kommunen",
-            "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
-            ],
-            "vedlegg": []
-          }
-        },
-        {
-          "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
-          "offentlig_tittel": null,
-          "dokumentdato": "2026-11-04",
-          "part": "Kari Avsender",
-          "skjerm_part": false,
-          "status": "E",
-          "journalfort": true,
-          "tilgangskode": null,
-          "dokument": {
-            "kanal": "brev",
+            "kanal": "innkalling",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Kommunedirektørens stab",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Kari Avsender",
-            "emne": "Svar fra kommunen",
+            "mottaker": null,
+            "emne": "Innkalling til møte i plan- og teknisk utvalg 4. november 2026",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Plan- og teknisk utvalg innkalles til møte onsdag 4. november 2026 klokka 16.00 i kommunestyresalen i rådhuset, Rådhusgata 1. Arkivsak {{sak}}.",
+              "Før møtet er det befaring i Havneområdet nord (PS 41/26) og på Raunesvegen 120 (PS 42/26). Utvalget reiser samlet fra rådhuset klokka 14.00. På befaringen blir det bare gitt opplysninger om stedene. Ordskiftet og avstemningene skjer i møtet.",
+              "Innkallingen sendes til de sju medlemmene og til varamedlemmene til orientering, jf. kommuneloven § 11-3. Varamedlemmer møter bare når de blir kalt inn særskilt. Forfall og spørsmål om habilitet meldes så snart som mulig til politisk sekretær Petra Pinnsvin på petra.pinnsvin@sirevag.example.",
+              "Møtet er åpent for publikum. Saksframleggene med vedlegg er lagt ut på www.sirevag.example og ligger til gjennomsyn i servicetorget i rådhuset.",
+              "## Sakliste",
+              "PS 41/26 Detaljregulering for Havneområdet nord, planID 2026002 – første gangs behandling, arkivsak {{sak:detaljregulering-havneomradet-nord}}\nPS 42/26 Deling av grunneiendom – Raunesvegen 120, gnr. 14 bnr. 3 – dispensasjon fra LNF-formålet i kommuneplanen, arkivsak {{sak:deling-raunesvegen-120}}\nPS 43/26 Delegerte vedtak i byggesaker oktober 2026",
+              "## PS 41/26 Detaljregulering for Havneområdet nord, planID 2026002 – første gangs behandling",
+              "Sirevåg Fiskemottak AS har lagt fram forslag til detaljregulering for Havneområdet nord. Planforslaget er utarbeidet av Jæren Plan og Landskap AS og åpner for servering og småbåthavn. Utvalget skal ta stilling til om forslaget skal sendes på høring og legges ut til offentlig ettersyn, jf. plan- og bygningsloven § 12-10. Saksframlegget med planforslaget ligger i arkivsak {{sak:detaljregulering-havneomradet-nord}}. Saksbehandler er arealplanlegger Viktor Vipe.",
+              "## PS 42/26 Deling av grunneiendom – Raunesvegen 120, gnr. 14 bnr. 3 – dispensasjon fra LNF-formålet i kommuneplanen",
+              "Oddvar Rauneset søker om å dele fra en boligtomt på om lag 1,2 dekar fra landbrukseiendommen gnr. 14 bnr. 3. Fradelingen krever dispensasjon fra LNF-formålet i kommuneplanens arealdel, jf. plan- og bygningsloven § 19-2. Statsforvalteren i Rogaland har uttalt seg til søknaden. Saksframlegget datert 21. oktober 2026 ligger i arkivsak {{sak:deling-raunesvegen-120}}. Saksbehandler er oppmålingsingeniør Ole Oter.",
+              "## PS 43/26 Delegerte vedtak i byggesaker oktober 2026",
+              "Utvalget får hver måned en oversikt over vedtak som administrasjonen har gjort på delegert myndighet etter plan- og bygningsloven. Oversikten for oktober 2026 omfatter vedtak til og med 31. oktober og blir sendt til utvalget mandag 2. november 2026. Saksbehandler er byggesaksbehandler Gunnar Grevling.",
+              "Sirevåg, 28. oktober 2026\nArvid Kvinnesland, leder av plan- og teknisk utvalg\nPetra Pinnsvin, politisk sekretær"
             ],
-            "vedlegg": []
+            "vedlegg": [
+              "Saksframlegg PS 41/26 med planforslag",
+              "Saksframlegg PS 42/26 med søknad, kart og uttalelse fra Statsforvalteren i Rogaland"
+            ]
+          }
+        },
+        {
+          "type": "X",
+          "tittel": "Møteprotokoll – plan- og teknisk utvalg 04.11.2026",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-11-05",
+          "part": "Petra Pinnsvin",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "protokoll",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Kommunedirektørens stab",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Møteprotokoll – plan- og teknisk utvalg 4. november 2026",
+            "tekst": [
+              "Møteprotokoll for plan- og teknisk utvalg, onsdag 4. november 2026 klokka 16.00–18.15 i kommunestyresalen i rådhuset. Møtet var åpent. Før møtet var utvalget på befaring i Havneområdet nord og på Raunesvegen 120. Protokollen er møteboken etter kommuneloven § 11-4. Arkivsak {{sak}}.",
+              "## Frammøte",
+              "Alle sju medlemmene var til stede: Arvid Kvinnesland (H), leder, Synnøve Reime (Sp), nestleder, Magne Salte (Sp), Sverre Erga (H), Berit Horpestad (Ap), Solfrid Undheim (KrF) og Roar Friestad (Frp). Utvalget var vedtaksført.",
+              "Fra administrasjonen møtte arealplanlegger Viktor Vipe, oppmålingsingeniør Ole Oter, byggesaksbehandler Gunnar Grevling og politisk sekretær Petra Pinnsvin, som førte protokollen.",
+              "Innkallingen datert 28. oktober 2026 og saklisten ble godkjent uten merknader. Ingen meldte spørsmål om habilitet. Synnøve Reime (Sp) ble valgt til å godkjenne og underskrive protokollen sammen med lederen.",
+              "## PS 41/26 Detaljregulering for Havneområdet nord, planID 2026002 – første gangs behandling",
+              "Arkivsak {{sak:detaljregulering-havneomradet-nord}}. Kommunedirektørens forslag til vedtak: Plan- og teknisk utvalg sender forslaget til detaljregulering for Havneområdet nord, planID 2026002, på høring og legger det ut til offentlig ettersyn i seks uker, jf. plan- og bygningsloven § 12-10.",
+              "Behandling: Arealplanlegger Viktor Vipe orienterte om planforslaget. Forslagsstiller er Sirevåg Fiskemottak AS, som eier Havnegata 12, og planen er utarbeidet av Jæren Plan og Landskap AS. Planforslaget åpner for servering og småbåthavn. Vipe gjorde rede for hvordan forslaget svarer på uttalelsen fra Statsforvalteren i Rogaland til varselet om oppstart, som gjaldt strandsonen, støy og flomfare.",
+              "Medlemmene stilte spørsmål om parkering, om allmennhetens ferdsel langs kaien og om sikkerheten mot stormflo. Flere understreket at naboer og næringsdrivende i havna må få god anledning til å uttale seg i høringen. Det ble ikke satt fram andre forslag.",
+              "Votering: Kommunedirektørens forslag ble enstemmig vedtatt.",
+              "Vedtak: Plan- og teknisk utvalg sender forslaget til detaljregulering for Havneområdet nord, planID 2026002, på høring og legger det ut til offentlig ettersyn i seks uker, jf. plan- og bygningsloven § 12-10.",
+              "## PS 42/26 Deling av grunneiendom – Raunesvegen 120, gnr. 14 bnr. 3 – dispensasjon fra LNF-formålet i kommuneplanen",
+              "Arkivsak {{sak:deling-raunesvegen-120}}. Kommunedirektørens forslag til vedtak står i saksframlegget datert 21. oktober 2026 og er likt med vedtaket under.",
+              "Behandling: Oppmålingsingeniør Ole Oter orienterte om søknaden og om uttalelsen fra Statsforvalteren i Rogaland, og han svarte på spørsmål om grensen mot den dyrka marka og om atkomsten.",
+              "I ordskiftet la flertallet vekt på at tomten ligger på udyrkbar mark inntil to boliger, at Statsforvalteren ikke fraråder dispensasjon, og at vilkårene sikrer at dyrka mark ikke blir berørt. Mindretallet mente at boligbygging i LNF-områdene bør avklares i kommuneplanen, og at en dispensasjon kan gjøre det vanskeligere å si nei til senere søknader om fradeling fra gårdsbruk. Det ble ikke satt fram andre forslag.",
+              "Votering: Kommunedirektørens forslag ble vedtatt med 5 mot 2 stemmer.",
+              "Vedtak:\n1. Plan- og teknisk utvalg gir dispensasjon fra LNF-formålet i kommuneplanens arealdel for fradeling av en boligtomt på inntil 1,2 dekar fra gnr. 14 bnr. 3, Raunesvegen 120, jf. plan- og bygningsloven § 19-2.\n2. Utvalget gir tillatelse til deling etter plan- og bygningsloven § 20-1 første ledd bokstav m og samtykke til deling etter jordlova.\n3. Tillatelsen gis på disse vilkårene:\na) Tomten skal ha de grensene som er vist på kartet som fulgte søknaden. Grensen mot sør legges minst tre meter fra kanten av den fulldyrka jorda. De endelige grensene fastsettes i oppmålingsforretningen.\nb) Dyrka mark skal ikke berøres. Atkomsten skal gå fra gårdsvegen, og ledninger for vann og avløp skal legges utenom dyrka mark.\nc) Vegrett over gnr. 14 bnr. 3 skal tinglyses samtidig med at tomten blir opprettet.\nd) Utvidet bruk av avkjørselen til Raunesvegen skal være avklart med vegmyndigheten før det gis byggetillatelse på tomten.\n4. Tillatelsen faller bort dersom det ikke er rekvirert oppmålingsforretning innen tre år.",
+              "## PS 43/26 Delegerte vedtak i byggesaker oktober 2026",
+              "Kommunedirektørens forslag til vedtak: Plan- og teknisk utvalg tar oversikten over delegerte vedtak i byggesaker i oktober 2026 til orientering.",
+              "Behandling: Byggesaksbehandler Gunnar Grevling la fram oversikten over vedtak som er gjort på delegert myndighet etter plan- og bygningsloven i oktober 2026. Oversikten ble sendt til utvalget 2. november 2026 og har sju vedtak:",
+              "2. oktober 2026: Tillatelse til tiltak – garasje – Bakkevegen 15, gnr. 10 bnr. 64\n6. oktober 2026: Ferdigattest – enebolig – Stadionveien 7, gnr. 21 bnr. 19\n9. oktober 2026: Tillatelse til tiltak – fasadeendring – Skolevegen 27, gnr. 20 bnr. 48\n15. oktober 2026: Igangsettingstillatelse – lagerbygg – Industrivegen 9, gnr. 33 bnr. 12\n20. oktober 2026: Tillatelse til tiltak – støttemur – Raunesvegen 31, gnr. 13 bnr. 27\n22. oktober 2026: Ferdigattest – påbygg til bolig – Skolevegen 9, gnr. 20 bnr. 15\n28. oktober 2026: Tillatelse til tiltak – tilbygg til bolig – Fyrveien 8, gnr. 9 bnr. 112",
+              "Berit Horpestad (Ap) spurte om saken i Fyrveien 8, der en nabo hadde merknad til nabovarselet. Gunnar Grevling opplyste at tiltakshaverne senket mønehøyden etter merknaden, at tilbygget holder seg innenfor reguleringsplanen, og at naboen har fått kopi av vedtaket med opplysning om klageadgangen. Saken ligger i arkivsak {{sak:byggesak-fyrveien-8}}. Utvalget hadde ellers ingen merknader til oversikten.",
+              "Votering: Kommunedirektørens forslag ble enstemmig vedtatt.",
+              "Vedtak: Plan- og teknisk utvalg tar oversikten over delegerte vedtak i byggesaker i oktober 2026 til orientering.",
+              "Sirevåg, 5. november 2026\nArvid Kvinnesland, leder\nSynnøve Reime, nestleder\nPetra Pinnsvin, politisk sekretær"
+            ],
+            "vedlegg": [
+              "Oversikt over delegerte vedtak i byggesaker oktober 2026"
+            ]
           }
         }
       ]
@@ -5175,55 +6146,94 @@
       "status": "B",
       "journalposter": [
         {
-          "type": "I",
-          "tittel": "Brev til kommunen (midlertidig)",
+          "type": "X",
+          "tittel": "Innkalling og sakliste – utvalg for oppvekst og kultur 11.11.2026",
           "offentlig_tittel": null,
           "dokumentdato": "2026-11-04",
-          "part": "Kari Avsender",
+          "part": "Petra Pinnsvin",
           "skjerm_part": false,
           "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
-            "kanal": "brev",
-            "mottatt": "2026-11-04",
-            "avsender": {
-              "navn": "Kari Avsender",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
-            },
-            "mottaker": null,
-            "emne": "Brev til kommunen",
-            "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
-            ],
-            "vedlegg": []
-          }
-        },
-        {
-          "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
-          "offentlig_tittel": null,
-          "dokumentdato": "2026-11-11",
-          "part": "Kari Avsender",
-          "skjerm_part": false,
-          "status": "E",
-          "journalfort": true,
-          "tilgangskode": null,
-          "dokument": {
-            "kanal": "brev",
+            "kanal": "innkalling",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Kommunedirektørens stab",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Kari Avsender",
-            "emne": "Svar fra kommunen",
+            "mottaker": null,
+            "emne": "Innkalling til møte i utvalg for oppvekst og kultur 11. november 2026",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Utvalg for oppvekst og kultur innkalles til møte onsdag 11. november 2026 klokka 17.00 i kommunestyresalen i rådhuset, Rådhusgata 1. Arkivsak {{sak}}.",
+              "Innkallingen sendes til de sju medlemmene og til varamedlemmene til orientering, jf. kommuneloven § 11-3. Varamedlemmer møter bare når de blir kalt inn særskilt. Forfall og spørsmål om habilitet meldes så snart som mulig til politisk sekretær Petra Pinnsvin på petra.pinnsvin@sirevag.example. Medlemmer som har verv i lag som har søkt om kulturmidler, bes melde fra før møtet.",
+              "Møtet er åpent for publikum. Saksframleggene med vedlegg er lagt ut på www.sirevag.example og ligger til gjennomsyn i servicetorget i rådhuset.",
+              "## Sakliste",
+              "PS 31/26 Tilstandsrapport for grunnskolen 2025/2026\nPS 32/26 Tildeling av kulturmidler høsten 2026\nPS 33/26 Barnehagebruksplan 2027–2030 – høringsutkast",
+              "## PS 31/26 Tilstandsrapport for grunnskolen 2025/2026",
+              "Tilstandsrapporten er kommunens årlige gjennomgang av læringsresultatene og læringsmiljøet i grunnskolen. Rapporten for skoleåret 2025/2026 gjelder Sirevåg skole og Sirevåg ungdomsskole. Kommunedirektøren tilrår at utvalget tar rapporten til orientering. Saksbehandler er rådgiver oppvekst Rakel Rådyr. Rektorene Tora Trane og Ivar Ilder møter for å svare på spørsmål.",
+              "## PS 32/26 Tildeling av kulturmidler høsten 2026",
+              "Søknadsfristen for kulturmidler var 1. oktober 2026. Det kom tolv søknader med en samlet søknadssum på 296 000 kroner. Rammen for tildelingen i høst er 180 000 kroner. Kommunedirektøren foreslår å fordele midlene på ni lag og å avslå tre søknader som faller utenfor retningslinjene. Saksbehandler er kulturkonsulent Stian Stokkand.",
+              "## PS 33/26 Barnehagebruksplan 2027–2030 – høringsutkast",
+              "Utkastet til barnehagebruksplan viser forventet barnetall og behovet for plasser i Fyrlykta barnehage og Tjørnhaugen barnehage fram til 2030. Kommunedirektøren tilrår at utvalget sender utkastet på høring med frist 15. januar 2027. Saksbehandler er rådgiver oppvekst Rakel Rådyr. Styrerne Frida Frosk og Lise Lemen møter for å svare på spørsmål.",
+              "Sirevåg, 4. november 2026\nMona Tunheim, leder av utvalg for oppvekst og kultur\nPetra Pinnsvin, politisk sekretær"
+            ],
+            "vedlegg": [
+              "Saksframlegg PS 31/26 med tilstandsrapport for grunnskolen 2025/2026",
+              "Saksframlegg PS 32/26 med oversikt over søknadene",
+              "Saksframlegg PS 33/26 med høringsutkast til barnehagebruksplan 2027–2030"
+            ]
+          }
+        },
+        {
+          "type": "X",
+          "tittel": "Møteprotokoll – utvalg for oppvekst og kultur 11.11.2026",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-11-12",
+          "part": "Petra Pinnsvin",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "protokoll",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Kommunedirektørens stab",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Møteprotokoll – utvalg for oppvekst og kultur 11. november 2026",
+            "tekst": [
+              "Møteprotokoll for utvalg for oppvekst og kultur, onsdag 11. november 2026 klokka 17.00–19.20 i kommunestyresalen i rådhuset. Møtet var åpent. Protokollen er møteboken etter kommuneloven § 11-4. Arkivsak {{sak}}.",
+              "## Frammøte",
+              "Seks av sju medlemmer var til stede: Mona Tunheim (Ap), leder, Helge Lode (Sp), nestleder, Anne Kari Bore (Sp), Henriette Grødem (H), Trygve Høyland (H) og Marte Aarsland (KrF). Arne Serigstad (Frp) hadde meldt forfall, og varamedlem Jorunn Hetland (Frp) møtte for ham. Utvalget hadde dermed sju stemmeberettigede og var vedtaksført.",
+              "Fra administrasjonen møtte rådgiver oppvekst Rakel Rådyr, kulturkonsulent Stian Stokkand, rektor Tora Trane ved Sirevåg skole, rektor Ivar Ilder ved Sirevåg ungdomsskole, styrer Frida Frosk i Fyrlykta barnehage, styrer Lise Lemen i Tjørnhaugen barnehage og politisk sekretær Petra Pinnsvin, som førte protokollen.",
+              "Innkallingen datert 4. november 2026 og saklisten ble godkjent uten merknader. Henriette Grødem (H) ble valgt til å godkjenne og underskrive protokollen sammen med lederen.",
+              "## PS 31/26 Tilstandsrapport for grunnskolen 2025/2026",
+              "Kommunedirektørens forslag til vedtak: Utvalg for oppvekst og kultur tar tilstandsrapporten for grunnskolen 2025/2026 til orientering.",
+              "Behandling: Rådgiver oppvekst Rakel Rådyr la fram rapporten. Skoleåret 2025/2026 hadde grunnskolen i Sirevåg 812 elever, 548 ved Sirevåg skole og 264 ved Sirevåg ungdomsskole. Resultatene på de nasjonale prøvene på 5. trinn ligger på landsgjennomsnittet i lesing og regning og litt under i engelsk. Avgangselevene på 10. trinn hadde i snitt 42,1 grunnskolepoeng, mot 41,6 året før. I Elevundersøkelsen svarer 6,2 prosent av elevene på 7. trinn og 5,4 prosent av elevene på 10. trinn at de blir mobbet to til tre ganger i måneden eller oftere. 7,1 prosent av elevene hadde vedtak om individuelt tilrettelagt opplæring.",
+              "Rektorene Tora Trane og Ivar Ilder svarte på spørsmål om arbeidet med skolemiljøet etter opplæringslova kapittel 12 og om leseopplæringen på de laveste trinnene. Marte Aarsland (KrF) ba om at neste rapport viser utviklingen i fraværet på ungdomstrinnet. Trygve Høyland (H) spurte hvordan skolene følger opp elevene som svarer at de blir mobbet. Rådyr opplyste at rapporten også blir lagt fram for kommunestyret.",
+              "Votering: Kommunedirektørens forslag ble enstemmig vedtatt.",
+              "Vedtak: Utvalg for oppvekst og kultur tar tilstandsrapporten for grunnskolen 2025/2026 til orientering.",
+              "## PS 32/26 Tildeling av kulturmidler høsten 2026",
+              "Habilitet: Helge Lode (Sp) er leder i Sirevåg historielag, som er blant søkerne, og ba utvalget ta stilling til om han var inhabil. Utvalget fant enstemmig at han var inhabil. Han fratrådte under behandlingen av saken, og utvalget hadde seks stemmeberettigede.",
+              "Kommunedirektørens forslag til vedtak: Kulturmidlene for høsten 2026, i alt 180 000 kroner, fordeles på ni lag slik det går fram av saksframlegget. Tre søknader avslås.",
+              "Behandling: Kulturkonsulent Stian Stokkand orienterte. Det kom tolv søknader innen fristen 1. oktober 2026, med en samlet søknadssum på 296 000 kroner. Retningslinjene prioriterer tiltak for barn og unge og tiltak som er åpne for alle. Anne Kari Bore (Sp) spurte hvorfor skolekorpset får det største tilskuddet. Stokkand svarte at korpset har 46 medlemmer under 18 år og må skifte ut flere instrumenter. Det ble ikke satt fram andre forslag.",
+              "Votering: Kommunedirektørens forslag ble enstemmig vedtatt med seks stemmer.",
+              "Vedtak: Utvalg for oppvekst og kultur tildeler kulturmidler for høsten 2026 slik:\nSirevåg skolekorps: 40 000 kroner\nSirevåg blandakor: 25 000 kroner\nSirevåg teaterlag: 25 000 kroner\nSirevåg speidergruppe: 25 000 kroner\nSirevåg historielag: 20 000 kroner\nSirevåg 4H: 15 000 kroner\nSirevåg husflidslag: 10 000 kroner\nSirevåg bygdekvinnelag: 10 000 kroner\nSirevåg sjakklubb: 10 000 kroner\nI alt 180 000 kroner.",
+              "Søknadene fra Kvassheim motorklubb, Sirevåg Kulturscene AS og Havna velforening avslås fordi de faller utenfor retningslinjene for kulturmidler. Søkerne får melding om vedtaket med opplysning om klageadgangen.",
+              "Helge Lode tok sete igjen da saken var ferdig behandlet.",
+              "## PS 33/26 Barnehagebruksplan 2027–2030 – høringsutkast",
+              "Kommunedirektørens forslag til vedtak: Utvalg for oppvekst og kultur sender høringsutkastet til barnehagebruksplan 2027–2030 på høring med frist 15. januar 2027.",
+              "Behandling: Rådgiver oppvekst Rakel Rådyr la fram utkastet. Prognosen viser at tallet på barn i barnehagealder går ned med om lag sju prosent fram til 2030. Samtidig søker flere om plass til ettåringer, og flere søker utenom hovedopptaket. Utkastet foreslår å gjøre om plasser for barn over tre år til småbarnsplasser i begge barnehagene fra høsten 2027 og å innføre et supplerende opptak 1. januar hvert år. Styrerne Frida Frosk og Lise Lemen svarte på spørsmål om bemanning og areal.",
+              "Henriette Grødem (H) satte fram dette tilleggsforslaget: Høringsinstansene bes særskilt uttale seg om forslaget om supplerende opptak 1. januar.",
+              "Votering: Kommunedirektørens forslag ble enstemmig vedtatt. Tilleggsforslaget fra Henriette Grødem (H) ble enstemmig vedtatt.",
+              "Vedtak:\n1. Utvalg for oppvekst og kultur sender høringsutkastet til barnehagebruksplan 2027–2030 på høring med frist 15. januar 2027.\n2. Høringsinstansene bes særskilt uttale seg om forslaget om supplerende opptak 1. januar.",
+              "Høringsutkastet sendes til samarbeidsutvalgene i barnehagene, til arbeidstakerorganisasjonene og til rådet for personer med funksjonsnedsettelse, og det legges ut på kommunens nettsted.",
+              "Sirevåg, 12. november 2026\nMona Tunheim, leder\nHenriette Grødem, medlem\nPetra Pinnsvin, politisk sekretær"
             ],
             "vedlegg": []
           }
@@ -5243,55 +6253,92 @@
       "status": "B",
       "journalposter": [
         {
-          "type": "I",
-          "tittel": "Brev til kommunen (midlertidig)",
+          "type": "X",
+          "tittel": "Innkalling og sakliste – formannskapet 17.11.2026",
           "offentlig_tittel": null,
           "dokumentdato": "2026-11-10",
-          "part": "Kari Avsender",
+          "part": "Petra Pinnsvin",
           "skjerm_part": false,
           "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
-            "kanal": "brev",
-            "mottatt": "2026-11-10",
-            "avsender": {
-              "navn": "Kari Avsender",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
-            },
-            "mottaker": null,
-            "emne": "Brev til kommunen",
-            "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
-            ],
-            "vedlegg": []
-          }
-        },
-        {
-          "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
-          "offentlig_tittel": null,
-          "dokumentdato": "2026-11-17",
-          "part": "Kari Avsender",
-          "skjerm_part": false,
-          "status": "E",
-          "journalfort": true,
-          "tilgangskode": null,
-          "dokument": {
-            "kanal": "brev",
+            "kanal": "innkalling",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Kommunedirektørens stab",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Kari Avsender",
-            "emne": "Svar fra kommunen",
+            "mottaker": null,
+            "emne": "Innkalling til møte i formannskapet 17. november 2026",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Formannskapet innkalles til møte tirsdag 17. november 2026 klokka 16.00 i kommunestyresalen i rådhuset, Rådhusgata 1. Arkivsak {{sak}}.",
+              "Innkallingen sendes til de sju medlemmene og til varamedlemmene til orientering, jf. kommuneloven § 11-3. Varamedlemmer møter bare når de blir kalt inn særskilt. Forfall og spørsmål om habilitet meldes så snart som mulig til politisk sekretær Petra Pinnsvin på petra.pinnsvin@sirevag.example.",
+              "Møtet er åpent for publikum. Saksframleggene med vedlegg er lagt ut på www.sirevag.example og ligger til gjennomsyn i servicetorget i rådhuset.",
+              "## Sakliste",
+              "PS 84/26 Godkjenning av protokoll fra møtet 20.10.2026\nPS 85/26 Budsjett 2027 og økonomiplan 2027–2030 – formannskapets innstilling, arkivsak {{sak:budsjett-2027}}\nPS 86/26 Kommunale avgifter og gebyrer 2027",
+              "## PS 84/26 Godkjenning av protokoll fra møtet 20.10.2026",
+              "Protokollen fra formannskapets møte 20. oktober 2026 er sendt til medlemmene og ligger på kommunens nettsted. Det er ikke kommet merknader. Forslag til vedtak: Protokollen fra møtet 20. oktober 2026 godkjennes.",
+              "## PS 85/26 Budsjett 2027 og økonomiplan 2027–2030 – formannskapets innstilling",
+              "Kommunedirektøren la fram forslaget til budsjett 2027 og økonomiplan 2027–2030 den 6. november 2026. Forslaget har en netto driftsramme på 612 millioner kroner og et innsparingskrav på 9 millioner kroner. Blant tiltakene er å redusere bemanningen i hjemmetjenesten med 2,5 årsverk og å øke foreldrebetalingen i skolefritidsordningen. Saksframlegget med budsjettforslaget ligger i arkivsak {{sak:budsjett-2027}}. Saksbehandler er økonomisjef Bodil Bever.",
+              "Formannskapet skal gi innstilling til kommunestyret. Innstillingen skal etter kommuneloven ligge ute til alminnelig ettersyn i minst 14 dager før kommunestyret behandler saken. Kommunestyret behandler budsjettet 10. desember 2026.",
+              "## PS 86/26 Kommunale avgifter og gebyrer 2027",
+              "Kommunedirektøren legger fram forslag til gebyrer for vann, avløp, renovasjon og feiing og til gebyrregulativ for byggesak og oppmåling for 2027. Gebyrene for vann, avløp, renovasjon og feiing er regnet ut etter selvkost. Formannskapet gir innstilling til kommunestyret, som behandler saken 10. desember 2026 sammen med budsjettet. Saksbehandler er økonomisjef Bodil Bever.",
+              "Sirevåg, 10. november 2026\nGunnhild Søyland, ordfører\nPetra Pinnsvin, politisk sekretær"
+            ],
+            "vedlegg": [
+              "Protokoll fra formannskapets møte 20. oktober 2026",
+              "Saksframlegg PS 85/26 med kommunedirektørens forslag til budsjett 2027 og økonomiplan 2027–2030",
+              "Saksframlegg PS 86/26 med forslag til gebyrer og gebyrregulativ for 2027"
+            ]
+          }
+        },
+        {
+          "type": "X",
+          "tittel": "Møteprotokoll – formannskapet 17.11.2026",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-11-18",
+          "part": "Petra Pinnsvin",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "protokoll",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Kommunedirektørens stab",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Møteprotokoll – formannskapet 17. november 2026",
+            "tekst": [
+              "Møteprotokoll for formannskapet, tirsdag 17. november 2026 klokka 16.00–18.50 i kommunestyresalen i rådhuset. Møtet var åpent. Protokollen er møteboken etter kommuneloven § 11-4. Arkivsak {{sak}}.",
+              "## Frammøte",
+              "Alle sju medlemmene var til stede: ordfører Gunnhild Søyland (Sp), som ledet møtet, varaordfører Torstein Ege (H), Per Olav Skjæveland (Sp), Kjell Inge Madland (H), Turid Malmin (Ap), Ingunn Haarr (KrF) og Jostein Obrestad (Frp). Formannskapet var vedtaksført.",
+              "Fra administrasjonen møtte kommunedirektør Ulla Ugle, økonomisjef Bodil Bever, rådgiver helse og omsorg Jon Jerv, rådgiver oppvekst Rakel Rådyr og politisk sekretær Petra Pinnsvin, som førte protokollen.",
+              "Innkallingen datert 10. november 2026 og saklisten ble godkjent uten merknader. Ingen meldte spørsmål om habilitet. Protokollen blir lagt fram til godkjenning i formannskapets neste møte.",
+              "## PS 84/26 Godkjenning av protokoll fra møtet 20.10.2026",
+              "Forslag til vedtak: Protokollen fra møtet 20. oktober 2026 godkjennes.",
+              "Behandling: Ingen hadde merknader til protokollen. Forslaget ble enstemmig vedtatt.",
+              "Vedtak: Protokollen fra møtet 20. oktober 2026 godkjennes.",
+              "## PS 85/26 Budsjett 2027 og økonomiplan 2027–2030 – formannskapets innstilling",
+              "Arkivsak {{sak:budsjett-2027}}. Kommunedirektørens forslag til innstilling: Kommunestyret vedtar budsjett 2027 og økonomiplan 2027–2030 slik det går fram av kommunedirektørens forslag datert 6. november 2026, med en netto driftsramme på 612 millioner kroner i 2027.",
+              "Behandling: Økonomisjef Bodil Bever gikk gjennom hovedtallene. Forslaget har en netto driftsramme på 612 millioner kroner og et innsparingskrav på 9 millioner kroner. Blant tiltakene er å redusere bemanningen i hjemmetjenesten med 2,5 årsverk og å øke foreldrebetalingen i skolefritidsordningen. Innspillet fra Fagforbundet Sirevåg om bemanningen i hjemmetjenesten fulgte saken. Rådgiverne Jon Jerv og Rakel Rådyr svarte på spørsmål om følgene for hjemmetjenesten og for skolefritidsordningen.",
+              "Turid Malmin (Ap) satte fram dette forslaget: Bemanningen i hjemmetjenesten reduseres ikke, og foreldrebetalingen i skolefritidsordningen økes ikke ut over forventet lønns- og prisvekst. Kommunedirektøren legger fram forslag til inndekning før kommunestyret behandler saken.",
+              "I ordskiftet sa flertallet at innsparingskravet er nødvendig for å holde driften i balanse i økonomiplanperioden, og at alle tjenesteområdene må ta sin del. Mindretallet mente at kuttet i hjemmetjenesten rammer eldre som bor hjemme, og at høyere foreldrebetaling kan føre til at flere barn blir tatt ut av skolefritidsordningen.",
+              "Votering: Forslaget fra Turid Malmin (Ap) fikk 2 stemmer og falt. Kommunedirektørens forslag til innstilling ble vedtatt med 5 mot 2 stemmer.",
+              "Vedtak, formannskapets innstilling til kommunestyret: Kommunestyret vedtar budsjett 2027 og økonomiplan 2027–2030 slik det går fram av kommunedirektørens forslag datert 6. november 2026, med en netto driftsramme på 612 millioner kroner i 2027.",
+              "Formannskapets innstilling legges ut til alminnelig ettersyn fram til 3. desember 2026. Kommunestyret behandler saken 10. desember 2026.",
+              "## PS 86/26 Kommunale avgifter og gebyrer 2027",
+              "Kommunedirektørens forslag til innstilling: Kommunestyret vedtar gebyrene for vann, avløp, renovasjon og feiing og gebyrregulativet for byggesak og oppmåling for 2027 slik de går fram av saksframlegget.",
+              "Behandling: Økonomisjef Bodil Bever orienterte. Gebyrene for vann, avløp, renovasjon og feiing er regnet ut etter selvkost. Årsgebyret for vann øker med 6,5 prosent og årsgebyret for avløp med 8,0 prosent, blant annet fordi kapitalkostnadene har økt etter utskiftingen av ledninger de siste årene. Renovasjonsgebyret øker med 6,5 prosent etter budsjettforslaget fra Jæren Renovasjon IKS, og feiegebyret øker med 4,0 prosent. For en bolig med standardabonnement øker de samlede gebyrene fra 15 200 til 16 263 kroner i året medregnet merverdiavgift, det vil si med 1 063 kroner eller 7,0 prosent. Satsene i gebyrregulativet for byggesak og oppmåling øker med 4,0 prosent.",
+              "Jostein Obrestad (Frp) spurte om økningen i avløpsgebyret kan fordeles over flere år. Bever svarte at selvkostfondet for avløp er brukt opp, og at en utsettelse bare vil gi høyere gebyrer senere. Det ble ikke satt fram andre forslag.",
+              "Votering: Kommunedirektørens forslag til innstilling ble enstemmig vedtatt.",
+              "Vedtak, formannskapets innstilling til kommunestyret: Kommunestyret vedtar gebyrene for vann, avløp, renovasjon og feiing og gebyrregulativet for byggesak og oppmåling for 2027 slik de går fram av saksframlegget.",
+              "Sirevåg, 18. november 2026\nGunnhild Søyland, ordfører\nPetra Pinnsvin, politisk sekretær"
             ],
             "vedlegg": []
           }
@@ -5312,54 +6359,88 @@
       "journalposter": [
         {
           "type": "I",
-          "tittel": "Brev til kommunen (midlertidig)",
+          "tittel": "Innkalling og sakliste – kontrollutvalget 22.09.2026",
           "offentlig_tittel": null,
           "dokumentdato": "2026-09-15",
-          "part": "Kari Avsender",
+          "part": "Jæren kontrollutvalgssekretariat IKS",
           "skjerm_part": false,
           "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
-            "kanal": "brev",
+            "kanal": "innkalling",
             "mottatt": "2026-09-15",
             "avsender": {
-              "navn": "Kari Avsender",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
+              "navn": "Jæren kontrollutvalgssekretariat IKS",
+              "adresse": "Rådhusvegen 5, 4398 Kvassheim",
+              "epost": "post@jaerenkus.example"
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Innkalling til møte i kontrollutvalget i Sirevåg kommune 22. september 2026",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Kontrollutvalget i Sirevåg kommune innkalles til møte tirsdag 22. september 2026 klokka 13.00 i kommunestyresalen i rådhuset i Sirevåg. Møtet er åpent for publikum.",
+              "Innkallingen sendes til utvalgets fem medlemmer, første varamedlem, ordføreren, kommunedirektøren og oppdragsansvarlig revisor. Forfall meldes så snart som mulig til sekretariatet på post@jaerenkus.example, slik at varamedlem kan kalles inn. Kommunedirektøren er bedt om å møte under sak 20/26.",
+              "Vi ber om at innkallingen og saksdokumentene blir journalført i kommunens arkiv og lagt ut på kommunens nettsted sammen med de andre møtedokumentene.",
+              "## Sakliste",
+              "Sak 18/26 Godkjenning av protokoll fra møtet 9. juni 2026\nSak 19/26 Revisjonens halvårsrapport\nSak 20/26 Bestilling av forvaltningsrevisjon av dokumentasjonsforvaltning og journalføring",
+              "## Sak 18/26 Godkjenning av protokoll fra møtet 9. juni 2026",
+              "Protokollen fra møtet 9. juni 2026 er gjennomgått av utvalgets leder og sendt til medlemmene. Sekretariatets forslag til vedtak: Kontrollutvalget godkjenner protokollen fra møtet 9. juni 2026.",
+              "## Sak 19/26 Revisjonens halvårsrapport",
+              "Jæren kommunerevisjon IKS legger fram rapport om revisjonsarbeidet i første halvår 2026. Rapporten gjelder status for regnskapsrevisjonen og ressursbruken målt mot revisjonsplanen. Oppdragsansvarlig revisor Magnus Hodne orienterer i møtet. Sekretariatets forslag til vedtak: Kontrollutvalget tar revisjonens halvårsrapport til orientering.",
+              "## Sak 20/26 Bestilling av forvaltningsrevisjon av dokumentasjonsforvaltning og journalføring",
+              "Kommunestyret har vedtatt plan for forvaltningsrevisjon 2024–2028. Dokumentasjonsforvaltning og journalføring er det neste prosjektet i planen. I risiko- og vesentlighetsvurderingen som ligger til grunn for planen, er det pekt på at kommunen har mange fagsystemer, at mye saksbehandling skjer på e-post, og at mangler i journalføringen svekker innsynsretten etter offentleglova.",
+              "Sekretariatet er kjent med at Nasjonalarkivet 21. august 2026 varslet tilsyn med dokumentasjonsforvaltningen og arkivholdet i kommunen, jf. arkivlova § 21. Utvalget bør derfor drøfte hvordan forvaltningsrevisjonen kan avgrenses, slik at revisjonen og tilsynet ikke undersøker det samme.",
+              "Sekretariatets forslag til vedtak:\n1. Kontrollutvalget bestiller forvaltningsrevisjon av dokumentasjonsforvaltning og journalføring i Sirevåg kommune fra Jæren kommunerevisjon IKS.\n2. Revisjonen legger fram prosjektplan med problemstillinger, revisjonskriterier, metode og timeramme til utvalgets møte 12. november 2026.",
+              "Kvassheim, 15. september 2026\nRagnhild Vigrestad, leder av kontrollutvalget\nAstrid Pollestad, daglig leder i Jæren kontrollutvalgssekretariat IKS"
             ],
-            "vedlegg": []
+            "vedlegg": [
+              "Protokoll fra kontrollutvalgets møte 9. juni 2026",
+              "Halvårsrapport fra Jæren kommunerevisjon IKS",
+              "Saksframlegg sak 20/26 med utdrag av plan for forvaltningsrevisjon 2024–2028"
+            ]
           }
         },
         {
-          "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
+          "type": "I",
+          "tittel": "Møteprotokoll – kontrollutvalget 22.09.2026",
           "offentlig_tittel": null,
-          "dokumentdato": "2026-09-22",
-          "part": "Kari Avsender",
+          "dokumentdato": "2026-09-24",
+          "part": "Jæren kontrollutvalgssekretariat IKS",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
-            "kanal": "brev",
-            "mottatt": null,
+            "kanal": "protokoll",
+            "mottatt": "2026-09-24",
             "avsender": {
-              "navn": "Sirevåg kommune",
-              "adresse": "Rådhusgata 1, 4399 Sirevåg",
-              "epost": "postmottak@sirevag.example"
+              "navn": "Jæren kontrollutvalgssekretariat IKS",
+              "adresse": "Rådhusvegen 5, 4398 Kvassheim",
+              "epost": "post@jaerenkus.example"
             },
-            "mottaker": "Kari Avsender",
-            "emne": "Svar fra kommunen",
+            "mottaker": null,
+            "emne": "Protokoll fra møte i kontrollutvalget i Sirevåg kommune 22. september 2026",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Protokoll fra møtet i kontrollutvalget i Sirevåg kommune tirsdag 22. september 2026 klokka 13.00–15.10 i kommunestyresalen i rådhuset i Sirevåg. Møtet var åpent. Protokollen er gjennomgått og godkjent av utvalgets leder og blir lagt fram til formell godkjenning i neste møte. Vi ber om at den blir journalført i kommunens arkiv og lagt ut på kommunens nettsted.",
+              "## Frammøte",
+              "Alle fem medlemmene var til stede: Ragnhild Vigrestad (SV), leder, Olav Njærheim (Sp), nestleder, Bjørg Ueland (H), Svein Byberg (KrF) og Eli Garpestad (Ap).",
+              "Andre som møtte: kommunedirektør Ulla Ugle og arkivleder Ellen Ekorn under sak 20/26, oppdragsansvarlig revisor Magnus Hodne fra Jæren kommunerevisjon IKS og daglig leder Astrid Pollestad fra sekretariatet, som førte protokollen. Ordfører Gunnhild Søyland hadde meldt forfall.",
+              "Innkallingen datert 15. september 2026 og saklisten ble godkjent uten merknader.",
+              "## Sak 18/26 Godkjenning av protokoll fra møtet 9. juni 2026",
+              "Behandling: Utvalget hadde ingen merknader til protokollen.",
+              "Vedtak, enstemmig: Kontrollutvalget godkjenner protokollen fra møtet 9. juni 2026.",
+              "## Sak 19/26 Revisjonens halvårsrapport",
+              "Behandling: Oppdragsansvarlig revisor Magnus Hodne la fram rapporten. Regnskapsrevisjonen følger revisjonsplanen, og revisjonen har brukt 46 prosent av timene for året. Kontrollene på lønnsområdet og innkjøpsområdet i første halvår er gjennomført uten vesentlige funn. Revisjonen har tatt opp med økonomisjefen at enkelte bilag er anvist av den samme personen som bestilte varen, og har fått opplyst at fullmaktene i økonomisystemet blir gjennomgått i løpet av høsten.",
+              "Bjørg Ueland (H) spurte om funnet gjelder flere enheter. Revisor svarte at det gjelder to enheter og små beløp, men at det er et grunnleggende kontrolltiltak at bestilling og anvisning gjøres av to ulike personer. På forslag fra lederen fikk vedtaket et tillegg om tilbakemelding.",
+              "Vedtak, enstemmig: Kontrollutvalget tar revisjonens halvårsrapport til orientering. Utvalget ber revisjonen melde tilbake i neste halvårsrapport om gjennomgangen av fullmaktene i økonomisystemet er fullført.",
+              "## Sak 20/26 Bestilling av forvaltningsrevisjon av dokumentasjonsforvaltning og journalføring",
+              "Behandling: Sekretariatet la fram saken. Dokumentasjonsforvaltning og journalføring er det neste prosjektet i plan for forvaltningsrevisjon 2024–2028, som kommunestyret har vedtatt.",
+              "Kommunedirektør Ulla Ugle og arkivleder Ellen Ekorn orienterte om at Nasjonalarkivet 21. august 2026 varslet tilsyn med dokumentasjonsforvaltningen og arkivholdet i kommunen, og at det stedlige tilsynet er satt til 14. oktober 2026. Kommunedirektøren mente at revisjonen og tilsynet kan utfylle hverandre dersom forvaltningsrevisjonen legger vekt på journalføringen og behandlingen av innsynskrav i enhetene.",
+              "I ordskiftet sa Olav Njærheim (Sp) at utvalget bør vente med å fastsette problemstillingene til den foreløpige tilsynsrapporten er kjent. Eli Garpestad (Ap) pekte på at innsyn og offentlig journal er viktig for innbyggernes tillit til kommunen, og at dette bør være hovedtema uansett hva tilsynet finner. Utvalget ble enig om å bestille prosjektet nå og ta stilling til avgrensningen når prosjektplanen blir lagt fram. Lederen satte fram et tillegg til sekretariatets forslag, som ble punkt 3 i vedtaket.",
+              "Vedtak, enstemmig:\n1. Kontrollutvalget bestiller forvaltningsrevisjon av dokumentasjonsforvaltning og journalføring i Sirevåg kommune fra Jæren kommunerevisjon IKS.\n2. Revisjonen legger fram prosjektplan med problemstillinger, revisjonskriterier, metode og timeramme til utvalgets møte 12. november 2026.\n3. Prosjektet skal avgrenses mot Nasjonalarkivets tilsyn med kommunen høsten 2026, slik at revisjonen og tilsynet ikke undersøker det samme.",
+              "## Eventuelt",
+              "Det var ingen saker under eventuelt. Neste møte i kontrollutvalget er torsdag 12. november 2026 klokka 13.00.",
+              "Kvassheim, 24. september 2026\nRagnhild Vigrestad, leder av kontrollutvalget\nAstrid Pollestad, daglig leder i Jæren kontrollutvalgssekretariat IKS"
             ],
             "vedlegg": []
           }
@@ -5380,56 +6461,46 @@
       "journalposter": [
         {
           "type": "I",
-          "tittel": "Brev til kommunen (midlertidig)",
+          "tittel": "Innkalling og sakliste – kontrollutvalget 12.11.2026",
           "offentlig_tittel": null,
           "dokumentdato": "2026-11-05",
-          "part": "Kari Avsender",
+          "part": "Jæren kontrollutvalgssekretariat IKS",
           "skjerm_part": false,
           "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
-            "kanal": "brev",
+            "kanal": "innkalling",
             "mottatt": "2026-11-05",
             "avsender": {
-              "navn": "Kari Avsender",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
+              "navn": "Jæren kontrollutvalgssekretariat IKS",
+              "adresse": "Rådhusvegen 5, 4398 Kvassheim",
+              "epost": "post@jaerenkus.example"
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Innkalling til møte i kontrollutvalget i Sirevåg kommune 12. november 2026",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Kontrollutvalget i Sirevåg kommune innkalles til møte torsdag 12. november 2026 klokka 13.00 i kommunestyresalen i rådhuset i Sirevåg. Møtet er åpent for publikum.",
+              "Innkallingen sendes til utvalgets fem medlemmer, første varamedlem, ordføreren, kommunedirektøren og oppdragsansvarlig revisor. Forfall meldes så snart som mulig til sekretariatet på post@jaerenkus.example, slik at varamedlem kan kalles inn. Kommunedirektøren er bedt om å møte under sak 22/26.",
+              "Vi ber om at innkallingen og saksdokumentene blir journalført i kommunens arkiv og lagt ut på kommunens nettsted sammen med de andre møtedokumentene.",
+              "## Sakliste",
+              "Sak 21/26 Godkjenning av protokoll fra møtet 22. september 2026\nSak 22/26 Orientering fra kommunedirektøren om Nasjonalarkivets tilsyn\nSak 23/26 Prosjektplan for forvaltningsrevisjonen av dokumentasjonsforvaltning og journalføring",
+              "## Sak 21/26 Godkjenning av protokoll fra møtet 22. september 2026",
+              "Protokollen fra møtet 22. september 2026 er gjennomgått av utvalgets leder og ble sendt til medlemmene og kommunen 24. september. Sekretariatets forslag til vedtak: Kontrollutvalget godkjenner protokollen fra møtet 22. september 2026.",
+              "## Sak 22/26 Orientering fra kommunedirektøren om Nasjonalarkivets tilsyn",
+              "Nasjonalarkivet førte stedlig tilsyn med dokumentasjonsforvaltningen og arkivholdet i Sirevåg kommune 14. oktober 2026, jf. arkivlova § 21. I den foreløpige tilsynsrapporten datert 23. oktober 2026 varsler Nasjonalarkivet tre pålegg: Dokumentasjonsplanen er ikke oppdatert, e-post og tekstmeldinger med saksinnhold blir ikke fanget opp og registrert godt nok, og eldre papirarkiv i kjelleren på rådhuset er ikke forsvarlig sikret. Kommunen kan uttale seg før Nasjonalarkivet skriver den endelige rapporten. Dokumentene ligger i kommunens arkivsak {{sak:tilsyn-arkivhold-2026}}.",
+              "Kontrollutvalget fører løpende kontroll med kommunens virksomhet på vegne av kommunestyret. Utvalget har derfor bedt kommunedirektøren orientere om funnene, om kommunens uttalelse til rapporten og om hvordan manglene skal rettes. Sekretariatets forslag til vedtak: Kontrollutvalget tar kommunedirektørens orientering til orientering.",
+              "## Sak 23/26 Prosjektplan for forvaltningsrevisjonen av dokumentasjonsforvaltning og journalføring",
+              "Kontrollutvalget bestilte 22. september 2026, i sak 20/26, forvaltningsrevisjon av dokumentasjonsforvaltning og journalføring og ba om at prosjektet avgrenses mot Nasjonalarkivets tilsyn. Jæren kommunerevisjon IKS har lagt fram prosjektplan datert 30. oktober 2026. Forvaltningsrevisor Ingeborg Skretting legger fram planen i møtet.",
+              "Revisjonen foreslår tre problemstillinger: om saksdokumenter blir journalført i samsvar med arkivforskrifta § 14 og offentleglova § 10, om innsynskrav blir behandlet i samsvar med offentleglova, og om enhetene får den opplæringen og oppfølgingen de trenger. Revisjonen vil bruke stikkprøver i journalen og i fagsystemene, intervjuer og en spørreundersøkelse blant saksbehandlerne. Det Nasjonalarkivet har undersøkt, blir ikke undersøkt på nytt, men revisjonen bygger på funnene fra tilsynet. Rammen er 300 timer, og rapporten skal leveres innen 1. mai 2027.",
+              "Sekretariatets forslag til vedtak: Kontrollutvalget vedtar prosjektplanen for forvaltningsrevisjon av dokumentasjonsforvaltning og journalføring i Sirevåg kommune. Rammen er 300 timer, og rapporten leveres innen 1. mai 2027.",
+              "Kvassheim, 5. november 2026\nRagnhild Vigrestad, leder av kontrollutvalget\nAstrid Pollestad, daglig leder i Jæren kontrollutvalgssekretariat IKS"
             ],
-            "vedlegg": []
-          }
-        },
-        {
-          "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
-          "offentlig_tittel": null,
-          "dokumentdato": "2026-11-12",
-          "part": "Kari Avsender",
-          "skjerm_part": false,
-          "status": "E",
-          "journalfort": true,
-          "tilgangskode": null,
-          "dokument": {
-            "kanal": "brev",
-            "mottatt": null,
-            "avsender": {
-              "navn": "Sirevåg kommune",
-              "adresse": "Rådhusgata 1, 4399 Sirevåg",
-              "epost": "postmottak@sirevag.example"
-            },
-            "mottaker": "Kari Avsender",
-            "emne": "Svar fra kommunen",
-            "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
-            ],
-            "vedlegg": []
+            "vedlegg": [
+              "Protokoll fra kontrollutvalgets møte 22. september 2026",
+              "Foreløpig tilsynsrapport fra Nasjonalarkivet datert 23. oktober 2026",
+              "Prosjektplan fra Jæren kommunerevisjon IKS datert 30. oktober 2026"
+            ]
           }
         }
       ]

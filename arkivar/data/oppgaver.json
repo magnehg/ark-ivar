@@ -29,8 +29,7 @@
           "arkivdel": "EIENDOM",
           "klasse": [
             "12/45"
-          ],
-          "skjerm_klasse": false
+          ]
         },
         "type": "I",
         "tittel": "Søknad om dispensasjon fra reguleringsplan – garasje – Strandveien 14",
@@ -210,8 +209,7 @@
           "arkivdel": "ELEV",
           "klasse": [
             "28.06.2017 Lerke, Leah"
-          ],
-          "skjerm_klasse": true
+          ]
         },
         "type": "I",
         "tittel": "Innmelding av ny elev – Sirevåg skole – Leah Lerke",
@@ -315,8 +313,7 @@
           "arkivdel": "BARNEHAGE",
           "klasse": [
             "21.07.2025 Falk, Filip"
-          ],
-          "skjerm_klasse": true
+          ]
         },
         "type": "I",
         "tittel": "Søknad om barnehageplass fra 01.01.2027 – Filip Falk",
@@ -370,8 +367,7 @@
           "arkivdel": "PERSONAL",
           "klasse": [
             "09.04.1991 Due, Dina"
-          ],
-          "skjerm_klasse": true
+          ]
         },
         "type": "I",
         "tittel": "Underskrevet arbeidsavtale – lærer ved Sirevåg skole – Dina Due",
@@ -617,8 +613,7 @@
           "arkivdel": "SAK",
           "klasse": [
             "256"
-          ],
-          "skjerm_klasse": false
+          ]
         },
         "type": "I",
         "tittel": "Varsel om kritikkverdige forhold – Sirevåg omsorgssenter",
@@ -672,11 +667,13 @@
           "arkivdel": "SAK",
           "klasse": [
             "641"
-          ],
-          "skjerm_klasse": false
+          ]
         },
         "type": "I",
         "tittel": "Høring – forslag til utvidelse av Ognasanden landskapsvernområde",
+        "part": [
+          "Statsforvalteren"
+        ],
         "tilgangskode": [],
         "skjerm_tittel": false,
         "skjerm_part": false,
@@ -803,8 +800,7 @@
           "arkivdel": "SAK",
           "klasse": [
             "016"
-          ],
-          "skjerm_klasse": false
+          ]
         },
         "type": "I",
         "tittel": "Innkalling til representantskapsmøte 08.12.2026 – Jæren Renovasjon IKS",
@@ -890,8 +886,7 @@
           "arkivdel": "SAK",
           "klasse": [
             "047"
-          ],
-          "skjerm_klasse": false
+          ]
         },
         "tittel": "Krav om innsyn i reiseregninger for ordfører og kommunedirektør 2026",
         "tilgangskode": [],
@@ -899,7 +894,8 @@
           "handling": "Kravet skal behandles og besvares uten ugrunnet opphold, og kommunen må kunne dokumentere når det kom, og hva som ble svart. Det skal derfor arkiveres. Men dokumenter i saker om innsyn er ikke omfattet av journalføringsplikten (arkivforskrifta § 14 tredje ledd). Bare en nærmere begrunnelse for et avslag, en klage, et krav om betaling eller et spørsmål om hvordan innsynet skal gis, skal journalføres. Sirevåg kommune følger denne regelen, slik den avsluttede innsynssaken i arkivet viser.",
           "sak": "Kravet gjelder ikke dokumenter i en sak som ligger i arkivet: reiseregningene behandles i lønns- og regnskapssystemet. Det opprettes derfor en egen innsynssak. Den avsluttede innsynssaken fra Jærposten gjaldt noe annet og kan ikke brukes.",
           "arkivdel": "Innsynssaken ligger i sakarkivet.",
-          "klasse": "Krav om innsyn som ikke hører til en sak kommunen har fra før, legges på 047 Innsyn og offentlig journal. Klassen 241 er for ordningen med tjenestereiser."
+          "klasse": "Krav om innsyn som ikke hører til en sak kommunen har fra før, legges på 047 Innsyn og offentlig journal. Klassen 241 er for ordningen med tjenestereiser.",
+          "skjerming": "Ingenting skal skjermes på mappen. Avisen ber om innsyn som en del av arbeidet sitt, og verken tittelen eller klasseringen røper noe som er unntatt offentlighet."
         }
       }
     },

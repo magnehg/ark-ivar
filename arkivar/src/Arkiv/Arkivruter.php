@@ -44,7 +44,7 @@ final class Arkivruter
 
     private function ovingsarkiv(): Ovingsarkiv
     {
-        return new Ovingsarkiv($this->kjerne->db(), $this->klokke, $this->grunndata(), $this->register());
+        return new Ovingsarkiv($this->kjerne->db(), $this->klokke, $this->grunndata(), $this->register(), $this->oppgaver());
     }
 
     private function oppgaver(): Oppgavesett
@@ -54,7 +54,7 @@ final class Arkivruter
 
     private function mapper(): Mapper
     {
-        return new Mapper($this->klokke, $this->grunndata(), $this->register());
+        return new Mapper($this->kjerne->db(), $this->klokke, $this->grunndata(), $this->register());
     }
 
     /** Loggobjektet for en mappe eller journalpost: typen og nummeret, ikke tittelen. */
@@ -158,7 +158,9 @@ final class Arkivruter
         // Søket studenten bruker for å finne ut om mappen finnes fra før.
         $r->legg('GET', '/api/arkiv/sok', function (Foresporsel $f): Svar {
             $arkiv = $this->arkiv();
+            // Søket sendes tilbake i svaret: ugyldig tekst (ikke UTF-8) kan ikke kodes som JSON, og blir et tomt søk.
             $sok = Felt::tekst($f->query['q'] ?? null);
+            $sok = mb_check_encoding($sok, 'UTF-8') ? mb_substr($sok, 0, 200, 'UTF-8') : '';
 
             return Svar::json(['sok' => $sok, 'treff' => $this->register()->sok($arkiv, $sok)]);
         });

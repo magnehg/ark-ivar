@@ -80,7 +80,7 @@ export default function NyMappe() {
       {mal && (
         <Kort tittel={t('arkivar.nymappe.sok.tittel')} id="nymappe-sok">
           <p className={c.dempet}>{t('arkivar.nymappe.sok.ingress')}</p>
-          <Mappesok tips={mal.soketips} handling={bruk} flyt={flyt} sokt={() => settHarSokt(true)} />
+          <Mappesok key={mal.kode} tips={mal.soketips} handling={bruk} flyt={flyt} sokt={() => settHarSokt(true)} />
           {!finnesIkke && (
             <div className={c.etterSok}>
               <Button disabled={!harSokt} onClick={() => settFinnesIkke(true)}>{t('arkivar.nymappe.finnes_ikke')}</Button>

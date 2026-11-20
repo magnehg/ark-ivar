@@ -12,18 +12,17 @@ use Bivrost\Kjerne\Database\Felt;
  * sendes aldri til nettleseren før studenten har behandlet dokumentet.
  *
  * Fasitens sak sier om dokumentet skal i en mappe som finnes i arkivet (type «eksisterende» med mappens nøkkel),
- * eller om det starter en ny sak (type «ny»). «klasse» er primærklasseringene som godtas, og «skjerm_klasse» om
- * klasseringen på en ny mappe skal skjermes (fødselsdato og navn i personarkivene).
+ * eller om det starter en ny sak (type «ny»). «klasse» er primærklasseringene som godtas. Har en ny sak en
+ * «offentlig_tittel», skal tittelen på mappen skjermes; ellers skal den stå åpent. «part» er andre navn på
+ * avsenderen som godtas, for eksempel «Statsforvalteren» når avsenderen er «Statsforvalteren i Rogaland».
  *
  * @phpstan-type Fasitsak array{
  *     type: string,
  *     nokkel: ?string,
- *     felles: ?string,
  *     tittel: ?string,
  *     offentlig_tittel: ?string,
  *     arkivdel: string,
  *     klasse: list<string>,
- *     skjerm_klasse: ?bool,
  * }
  * @phpstan-type Fasit array{
  *     handling: string,
@@ -34,6 +33,7 @@ use Bivrost\Kjerne\Database\Felt;
  *     tilgangskode: list<string>,
  *     skjerm_tittel: ?bool,
  *     skjerm_part: ?bool,
+ *     part: list<string>,
  *     sensitive_ord: list<string>,
  *     forklaring: array<string, string>,
  * }
@@ -58,13 +58,24 @@ final class Oppgavesett
     {
     }
 
+    private function fil(): string
+    {
+        return $this->fil ?? dirname(__DIR__, 2) . '/data/oppgaver.json';
+    }
+
+    /** Utgaven av oppgavesettet: et fingeravtrykk av filen. */
+    public function utgave(): string
+    {
+        return Grunndata::fingeravtrykk($this->fil());
+    }
+
     /** @return list<Oppgave> */
     public function alle(): array
     {
         if ($this->oppgaver !== null) {
             return $this->oppgaver;
         }
-        $data = Grunndata::les($this->fil ?? dirname(__DIR__, 2) . '/data/oppgaver.json');
+        $data = Grunndata::les($this->fil());
         $ut = [];
         foreach (Grunndata::rader($data, 'oppgaver') as $r) {
             $avsender = is_array($r['avsender'] ?? null) ? $r['avsender'] : [];
@@ -102,8 +113,8 @@ final class Oppgavesett
 
     /**
      * Saken dokumentet hører til etter fasiten, som en nøkkel til sammenlikning: mappen som finnes i arkivet, eller
-     * den nye saken dokumentet starter. To dokumenter som starter samme nye sak, har samme «felles» i fasiten.
-     * Null når dokumentet ikke skal i arkivet.
+     * den nye saken dokumentet starter (hvert dokument som starter en ny sak, starter sin egen). Null når dokumentet
+     * ikke skal i arkivet.
      *
      * @param Oppgave $oppgave
      */
@@ -114,7 +125,7 @@ final class Oppgavesett
             return null;
         }
 
-        return $sak['type'] === 'eksisterende' ? 'mappe:' . $sak['nokkel'] : 'ny:' . ($sak['felles'] ?? $oppgave['id']);
+        return $sak['type'] === 'eksisterende' ? 'mappe:' . $sak['nokkel'] : 'ny:' . $oppgave['id'];
     }
 
     /**
@@ -140,12 +151,10 @@ final class Oppgavesett
             $sak = [
                 'type' => Felt::tekst($s['type'] ?? null, 'ny'),
                 'nokkel' => Felt::valgfriTekst($s['nokkel'] ?? null),
-                'felles' => Felt::valgfriTekst($s['felles'] ?? null),
                 'tittel' => Felt::valgfriTekst($s['tittel'] ?? null),
                 'offentlig_tittel' => Felt::valgfriTekst($s['offentlig_tittel'] ?? null),
                 'arkivdel' => Felt::tekst($s['arkivdel'] ?? null),
                 'klasse' => Grunndata::tekster($s['klasse'] ?? null),
-                'skjerm_klasse' => is_bool($s['skjerm_klasse'] ?? null) ? $s['skjerm_klasse'] : null,
             ];
         }
         $forklaring = [];
@@ -164,6 +173,8 @@ final class Oppgavesett
             'tilgangskode' => Grunndata::tekster($f['tilgangskode'] ?? null),
             'skjerm_tittel' => is_bool($f['skjerm_tittel'] ?? null) ? $f['skjerm_tittel'] : null,
             'skjerm_part' => is_bool($f['skjerm_part'] ?? null) ? $f['skjerm_part'] : null,
+            // Andre navn på avsenderen som godtas, når avsenderen i dokumentet er skrevet med flere ledd.
+            'part' => Grunndata::tekster($f['part'] ?? null),
             'sensitive_ord' => Grunndata::tekster($f['sensitive_ord'] ?? null),
             'forklaring' => $forklaring,
         ];

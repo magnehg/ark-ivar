@@ -268,7 +268,8 @@ final class GrunndataTest extends TestCase
             } else {
                 self::assertSame('ny', $sak['type'], $id);
                 self::assertNotNull($sak['tittel'], $id);
-                self::assertSame($person, $sak['skjerm_klasse'], "$id: klasseringen på en ny mappe skjermes i personarkivene og ellers ikke.");
+                // Studenten oppretter mappen selv, og skjermingen av tittelen og klasseringen på den vurderes.
+                self::assertArrayHasKey('skjerming', $fasit['forklaring'], "$id: en ny mappe har en forklaring om skjerming.");
                 if ($person) {
                     // Hver person har én mappe: finnes den, skal dokumentet dit.
                     foreach ($mapper as $mappe) {

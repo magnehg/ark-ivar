@@ -11,9 +11,12 @@ namespace ArkIvar\Arkiv;
  * Bare det som kan avgjøres sikkert, vurderes: behandlingen, mappen (en som finnes, eller en ny som dokumentet har
  * for seg selv), arkivdelen, primærklasseringen, journalposttypen, tilgangskoden, skjermingen, dokumentdatoen og
  * avsenderen. Titler er fritekst og vurderes ikke, bortsett fra at de offentlige titlene (journalpostens, og
- * mappens når studenten har opprettet den) ikke må inneholde navn fasiten sier er sensitive. På en mappe studenten
- * har opprettet, vurderes også om klasseringen er skjermet. Er behandlingen feil (for eksempel journalført noe som
- * ikke skal i arkivet), vurderes ikke resten.
+ * mappens når studenten har opprettet den) ikke må inneholde navn fasiten sier er sensitive.
+ *
+ * Skjerming vurderes begge veier: det som røper et navn, skal skjermes, og det som ikke røper noe, skal stå åpent.
+ * På en mappe studenten har opprettet, gjelder det både tittelen og klasseringen: klasseringen skjermes i
+ * personarkivene (fødselsdato og navn) og ellers ikke. Er behandlingen feil (for eksempel journalført noe som ikke
+ * skal i arkivet), vurderes ikke resten.
  *
  * @phpstan-import-type Oppgave from Oppgavesett
  * @phpstan-type Svar array{
@@ -22,6 +25,7 @@ namespace ArkIvar\Arkiv;
  *     sak_nokkel: ?string,
  *     sak_tekst: string,
  *     sak_offentlig: string,
+ *     sak_skjermet: bool,
  *     sak_alene: bool,
  *     arkivdel: string,
  *     klasse: string,
@@ -39,6 +43,9 @@ namespace ArkIvar\Arkiv;
  */
 final class Vurdering
 {
+    /** Ord som ikke teller når navnet på avsenderen sammenliknes: småord og selskapsformer. */
+    private const SMAAORD = ['og', 'ved', 'v', 'i', 'for', 'att', 'as', 'asa', 'iks', 'kf', 'sa'];
+
     /**
      * @param Oppgave $oppgave
      * @param Svar $svar
@@ -73,9 +80,16 @@ final class Vurdering
             $forklaring['klasse'] ?? '',
         );
         $skjerming = $forklaring['skjerming'] ?? '';
-        if ($svar['sak_ny'] && $sak['skjerm_klasse'] !== null) {
-            // Klasseringen på en mappe studenten har opprettet: fødselsdato og navn skal ikke vises i den offentlige journalen.
-            $ut[] = self::kriterium('skjerm_klasse', $svar['skjerm_klasse'] === $sak['skjerm_klasse'], $svar['skjerm_klasse'] ? 'ja' : 'nei', $sak['skjerm_klasse'] ? 'ja' : 'nei', $skjerming);
+        if ($svar['sak_ny']) {
+            // Mappen har studenten opprettet selv. Klasseringen skal skjermes i personarkivene (fødselsdato og navn)
+            // og ellers stå åpent. Det vurderes etter arkivdelen studenten har valgt, så en feil arkivdel ikke også
+            // gir avvik her.
+            $skalSkjermes = ($grunndata->arkivdel($svar['arkivdel'])['ordning'] ?? '') === Grunndata::PERSON;
+            $ut[] = self::kriterium('skjerm_klasse', $svar['skjerm_klasse'] === $skalSkjermes, self::jaNei($svar['skjerm_klasse']), self::jaNei($skalSkjermes), $skjerming);
+            if ($ny && $sak['offentlig_tittel'] === null) {
+                // Tittelen på en ny mappe som ikke røper noe, skal stå åpent i den offentlige journalen.
+                $ut[] = self::kriterium('skjerm_sakstittel', !$svar['sak_skjermet'], self::jaNei($svar['sak_skjermet']), self::jaNei(false), $skjerming);
+            }
         }
         $ut[] = self::kriterium('dokumentdato', $svar['dokumentdato'] === $oppgave['dokumentdato'], $svar['dokumentdato'], $oppgave['dokumentdato'], '');
         if ($fasit['handling'] !== Kodelister::JOURNALFOR) {
@@ -84,7 +98,9 @@ final class Vurdering
         if ($fasit['type'] !== null) {
             $ut[] = self::kriterium('type', $svar['type'] === $fasit['type'], $svar['type'], $fasit['type'], '');
         }
-        $ut[] = self::kriterium('part', self::sammeNavn($svar['part_navn'], $oppgave['avsender']['navn']), $svar['part_navn'], $oppgave['avsender']['navn'], '');
+        $navn = array_merge([$oppgave['avsender']['navn']], $fasit['part']);
+        $riktigPart = array_filter($navn, static fn (string $n): bool => self::sammeNavn($svar['part_navn'], $n)) !== [];
+        $ut[] = self::kriterium('part', $riktigPart, $svar['part_navn'], $oppgave['avsender']['navn'], '');
         $valgt = $svar['tilgangskode'] ?? '';
         $riktigTilgang = $fasit['tilgangskode'] === [] ? $valgt === '' : in_array($valgt, $fasit['tilgangskode'], true);
         $ut[] = self::kriterium(
@@ -102,11 +118,14 @@ final class Vurdering
             // Det som teller, er hva den offentlige journalen viser: tittelen selv, eller den offentlige tittelen når den er skjermet.
             $vises = $svar['skjerm_tittel'] ? ($svar['offentlig_tittel'] ?? '') : $svar['tittel'];
             $ut[] = self::kriterium('offentlig_tittel', !self::harOrd($vises, $fasit['sensitive_ord']), $vises !== '' ? $vises : '*****', '', $skjerming);
-        } elseif ($fasit['skjerm_tittel'] === false) {
-            $ut[] = self::kriterium('skjerm_tittel', !$svar['skjerm_tittel'], $svar['skjerm_tittel'] ? 'ja' : 'nei', 'nei', $skjerming);
+        }
+        if ($fasit['skjerm_tittel'] === false) {
+            // Tittelen skal stå åpent. Har studenten selv skrevet et navn i den, er det likevel riktig å skjerme den.
+            $utenGrunn = $svar['skjerm_tittel'] && !self::harOrd($svar['tittel'], $fasit['sensitive_ord']);
+            $ut[] = self::kriterium('skjerm_tittel', !$utenGrunn, self::jaNei($svar['skjerm_tittel']), self::jaNei(false), $skjerming);
         }
         if ($fasit['skjerm_part'] !== null) {
-            $ut[] = self::kriterium('skjerm_part', $svar['skjerm_part'] === $fasit['skjerm_part'], $svar['skjerm_part'] ? 'ja' : 'nei', $fasit['skjerm_part'] ? 'ja' : 'nei', $skjerming);
+            $ut[] = self::kriterium('skjerm_part', $svar['skjerm_part'] === $fasit['skjerm_part'], self::jaNei($svar['skjerm_part']), self::jaNei($fasit['skjerm_part']), $skjerming);
         }
 
         return self::enForklaringOmSkjerming($ut);
@@ -121,7 +140,7 @@ final class Vurdering
      */
     private static function enForklaringOmSkjerming(array $kriterier): array
     {
-        $skjerming = ['skjerm_klasse', 'offentlig_sakstittel', 'offentlig_tittel', 'skjerm_tittel', 'skjerm_part'];
+        $skjerming = ['skjerm_klasse', 'skjerm_sakstittel', 'offentlig_sakstittel', 'offentlig_tittel', 'skjerm_tittel', 'skjerm_part'];
         $valgt = null;
         foreach ($kriterier as $nr => $k) {
             if (in_array($k['id'], $skjerming, true) && ($valgt === null || ($kriterier[$valgt]['ok'] && !$k['ok']))) {
@@ -143,13 +162,33 @@ final class Vurdering
         return ['id' => $id, 'ok' => $ok, 'ditt' => $ditt, 'riktig' => $riktig, 'forklaring' => $forklaring];
     }
 
-    /** Samme navn når det ene inneholder det andre, uten hensyn til store bokstaver, tegnsetting og mellomrom. */
+    private static function jaNei(bool $verdi): string
+    {
+        return $verdi ? 'ja' : 'nei';
+    }
+
+    /**
+     * Om studenten har skrevet navnet på avsenderen. Navnene sammenliknes ord for ord, uten hensyn til rekkefølge,
+     * store bokstaver, tegnsetting, småord og selskapsform («Due, Dina» er «Dina Due», «Rune og Marit Måke» er
+     * «Marit og Rune Måke», og «Jærrent» er «Jærrent AS»). Et navn på ett eller to ord må være helt med; av et
+     * lengre navn må minst halvparten av ordene være med. Ett ord av et langt navn («Sirevåg») er ikke nok, og
+     * deler av et ord teller ikke.
+     */
     private static function sammeNavn(string $svar, string $fasit): bool
     {
-        $a = self::forenkle($svar);
-        $b = self::forenkle($fasit);
+        $ord = static function (string $tekst): array {
+            $deler = preg_split('/[^\p{L}\p{N}]+/u', mb_strtolower($tekst, 'UTF-8'), -1, PREG_SPLIT_NO_EMPTY);
 
-        return mb_strlen($a, 'UTF-8') >= 3 && (str_contains($b, $a) || str_contains($a, $b));
+            return array_values(array_unique(array_diff($deler === false ? [] : $deler, self::SMAAORD)));
+        };
+        $fasitord = $ord($fasit);
+        $antall = count($fasitord);
+        if ($antall === 0) {
+            return false;
+        }
+        $felles = count(array_intersect($fasitord, $ord($svar)));
+
+        return $felles >= ($antall <= 2 ? $antall : (int) ceil($antall / 2));
     }
 
     /**

@@ -7,10 +7,11 @@ CREATE TABLE IF NOT EXISTS arkivar_arkiv (
     eier_id CHAR(36) NOT NULL,
     sak_sekvens INT NOT NULL DEFAULT 0,
     journal_sekvens INT NOT NULL DEFAULT 0,
+    innhold VARCHAR(40) NOT NULL DEFAULT '',
     opprettet DATETIME(6) NOT NULL,
     nullstilt DATETIME(6) NULL,
     UNIQUE KEY arkivar_arkiv_eier (eier_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Øvingsarkivet til én bruker, med tellerne for saksnummer og journalnummer';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Øvingsarkivet til én bruker, med tellerne for saksnummer og journalnummer. innhold er utgaven av mappene som fulgte med da arkivet ble fylt';
 
 CREATE TABLE IF NOT EXISTS arkivar_sak (
     id CHAR(36) NOT NULL PRIMARY KEY,
@@ -59,7 +60,7 @@ CREATE TABLE IF NOT EXISTS arkivar_journalpost (
     oppgave_id VARCHAR(60) NULL,
     startdokument VARCHAR(90) NULL,
     opprettet DATETIME(6) NOT NULL,
-    KEY arkivar_journalpost_sak (sak_id, postnr),
+    UNIQUE KEY arkivar_journalpost_sak (sak_id, postnr),
     KEY arkivar_journalpost_arkiv (arkiv_id, journalaar, sekvens)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Registreringer i en mappe (Noark: journalpost; journalfort = 0 er arkivert uten journalføring). Én korrespondansepart per post. Dokumentet ligger i arkivar/data: oppgave_id (postmottaket) eller startdokument (fulgte med arkivet)';
 

@@ -67,10 +67,27 @@ uttrekk eller avlevere.
 - **Postmottaket** (`Postmottak`, `Oppgavesett`, `arkivar/data/oppgaver.json`): studenten er arkivtjenesten og
   behandler eksempeldokumentene. Et dokument som ikke skal i arkivet, får bare valget registrert
   (`POST /api/arkiv/postmottak/{id}`); et som skal i arkivet, registreres som journalpost i en mappe. Svaret vurderes
-  av `Vurdering` (ren funksjon) og lagres i `arkivar_oppgavestatus`. En ny sak skal ha sin egen mappe (`sak_alene`).
+  av `Vurdering` (ren funksjon, `VurderingTest`) og lagres i `arkivar_oppgavestatus`.
   **Fasiten sendes aldri til nettleseren før dokumentet er behandlet** (testen sjekker det). Skjerming krever en
   tilgangskode (hjemmel), og gjelder journalpostens tittel, mappens tittel og klassering, og avsenderen; den
-  offentlige journalen (`Register::visJournalpost(…, true)`) viser de offentlige titlene og `*****`.
+  offentlige journalen (`Register::visJournalpost(…, true)`) viser de offentlige titlene og `*****`, og hjemmelen
+  for skjermingen på mappen (`sak_hjemmel`) også når journalposten selv er åpen.
+- **Vurderingen:** svaret bygges fra mappen og journalposten i databasen (`Postmottak::svar()`), ikke fra skjemaet.
+  En ny sak skal ha sin egen mappe (`sak_alene`): ligger det dokumenter fra flere saker i en mappe studenten har
+  opprettet, er mappen feil for alle. Derfor vurderes de andre dokumentene i mappen på nytt når et dokument
+  registreres eller angres (`Postmottak::revurder()`). Skjerming vurderes begge veier: det som røper et navn, skal
+  skjermes, og det som ikke røper noe, skal stå åpent (`skjerm_tittel`, `skjerm_sakstittel`). Klasseringen på en
+  mappe studenten har opprettet, skal skjermes i personarkivene og ellers ikke, vurdert etter arkivdelen studenten
+  valgte (`skjerm_klasse`). Avsenderen sammenliknes ord for ord uten hensyn til rekkefølge, småord og selskapsform
+  (`Vurdering::sammeNavn`); fasiten kan ha flere godtatte navn i `part`. Vurderingen har ingen tekst selv:
+  forklaringene kommer fra fasiten, og grensesnittet har reservetekster (`arkivar.vurdering.hjelp.*`).
+- **Samtidighet og dato:** alt som registrerer, angrer eller sletter i et arkiv, går i en transaksjon som først
+  låser arkivet (`Register::laas()`), så sjekkene (dokumentet er ubehandlet, mappen finnes og er åpen) fortsatt
+  gjelder når raden lagres, og saks- og dokumentnumre ikke kan bli like. Saksdato, journaldato og «ikke frem i
+  tid» følger norsk tid (`Dato::idag()`), ikke UTC-klokka i Kjerne.
+- **Utgaven av innholdet:** `arkivar_arkiv.innhold` er et fingeravtrykk av `sirevag.json` og `oppgaver.json` da
+  arkivet ble fylt. Er filene byttet siden, gir `GET /api/arkiv` `utdatert`, og forsiden ber studenten nullstille:
+  dokumentene leses fra filene og kan ha endret seg under mappene i arkivet.
 - **Nytt innhold** (mappe, dokument, saksmal eller eksempeldokument i postmottaket): følg `docs/innhold.md`
   (regelverket per november 2026, praksisen i Sirevåg kommune, formatet og tittelreglene). `GrunndataTest` sjekker at
   kodene finnes, at dokumentene er hele, og at ingenting i personarkivene røper navn i offentlig journal, og

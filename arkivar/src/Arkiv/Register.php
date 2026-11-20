@@ -22,6 +22,15 @@ final class Register
     {
     }
 
+    /**
+     * Låser arkivet til transaksjonen er ferdig. To forespørsler som registrerer i samme arkiv samtidig (to faner,
+     * dobbel innsending), går da etter hverandre, så sjekker og nummer ikke overlapper. Må kalles i en transaksjon.
+     */
+    public function laas(string $arkivId): void
+    {
+        $this->db->verdi('SELECT id FROM arkivar_arkiv WHERE id = ? FOR UPDATE', [$arkivId]);
+    }
+
     /** Neste nummer i en av arkivets tellere (sak_sekvens eller journal_sekvens). */
     private function neste(string $arkivId, string $teller): int
     {
@@ -92,13 +101,15 @@ final class Register
     public function opprettJournalpost(string $arkivId, string $sakId, array $felt): string
     {
         $id = Tilfeldig::uuid();
+        // Løpenummeret først: oppdateringen av telleren låser arkivet, så dokumentnummeret i mappen leses etter låsen.
+        $sekvens = $this->neste($arkivId, 'journal');
         $postnr = Felt::tall($this->db->verdi('SELECT COALESCE(MAX(postnr), 0) + 1 FROM arkivar_journalpost WHERE sak_id = ?', [$sakId]));
         $this->db->utfor(
             'INSERT INTO arkivar_journalpost (id, arkiv_id, sak_id, postnr, journalaar, sekvens, journalfort, type, status, tittel, offentlig_tittel, dokumentdato, journaldato,
                 saksbehandler, enhet, tilgangskode, skjerm_tittel, skjerm_part, part_navn, part_adresse, oppgave_id, startdokument, opprettet)
              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [
-                $id, $arkivId, $sakId, $postnr, (int) substr($felt['journaldato'], 0, 4), $this->neste($arkivId, 'journal'),
+                $id, $arkivId, $sakId, $postnr, (int) substr($felt['journaldato'], 0, 4), $sekvens,
                 ($felt['journalfort'] ?? true) ? 1 : 0, $felt['type'], $felt['status'], $felt['tittel'], $felt['offentlig_tittel'] ?? null,
                 $felt['dokumentdato'], $felt['journaldato'], $felt['saksbehandler'], $felt['enhet'], $felt['tilgangskode'] ?? null,
                 ($felt['skjerm_tittel'] ?? false) ? 1 : 0, ($felt['skjerm_part'] ?? false) ? 1 : 0, $felt['part_navn'] ?? '', $felt['part_adresse'] ?? null,
@@ -166,7 +177,7 @@ final class Register
     {
         return $this->db->alle(
             'SELECT j.*, s.saksaar, s.sekvens AS sakssekvens, s.tittel AS sakstittel, s.skjerm_tittel AS sak_skjermet, s.offentlig_tittel AS sak_offentlig_tittel,
-                    s.arkivdel AS sak_arkivdel, s.klasse AS sak_klasse, s.skjerm_klasse AS sak_skjerm_klasse
+                    s.arkivdel AS sak_arkivdel, s.klasse AS sak_klasse, s.skjerm_klasse AS sak_skjerm_klasse, s.tilgangskode AS sak_tilgangskode
                FROM arkivar_journalpost j JOIN arkivar_sak s ON s.id = j.sak_id
               WHERE j.arkiv_id = ? AND j.journalfort = 1 ORDER BY j.journaldato DESC, j.sekvens DESC',
             [$arkivId],
@@ -216,8 +227,20 @@ final class Register
     public function sok(string $arkivId, string $sok): array
     {
         $liten = static fn (string $tekst): string => mb_strtolower($tekst, 'UTF-8');
-        $ord = preg_split('/\s+/u', trim($liten($sok)), -1, PREG_SPLIT_NO_EMPTY);
-        if ($ord === false || mb_strlen(implode('', $ord), 'UTF-8') < 2) {
+        if (!mb_check_encoding($sok, 'UTF-8')) {
+            return [];
+        }
+        // Tegnsetting rundt et ord teller ikke («Måke,» og «"elevmappe"»), og et ord uten bokstaver eller tall (en
+        // bindestrek for seg selv) er ikke et søkeord. Tegn inne i ordet står: «9/112» og «12.11.2026».
+        $ord = [];
+        $deler = preg_split('/\s+/u', trim($liten(mb_substr($sok, 0, 200, 'UTF-8'))), -1, PREG_SPLIT_NO_EMPTY);
+        foreach ($deler === false ? [] : $deler as $del) {
+            $del = (string) preg_replace('/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/u', '', $del);
+            if ($del !== '') {
+                $ord[] = $del;
+            }
+        }
+        if (mb_strlen(implode('', $ord), 'UTF-8') < 2) {
             return [];
         }
         $poster = [];
@@ -324,6 +347,7 @@ final class Register
             'dokumentdato' => Felt::tekst($rad['dokumentdato']),
             'journaldato' => Felt::tekst($rad['journaldato']),
             'saksbehandler' => Felt::tekst($rad['saksbehandler']),
+            'saksbehandler_navn' => $this->grunndata->ansatt(Felt::tekst($rad['saksbehandler']))['navn'] ?? Felt::tekst($rad['saksbehandler']),
             'enhet' => Felt::tekst($rad['enhet']),
             'tilgangskode' => Felt::valgfriTekst($rad['tilgangskode']),
             'hjemmel' => $this->grunndata->tilgangstekst(Felt::valgfriTekst($rad['tilgangskode'])),
@@ -346,6 +370,9 @@ final class Register
             $klasseSkjermet = Felt::tall($rad['sak_skjerm_klasse'] ?? 0) === 1;
             $ut['klasse_tekst'] = $offentlig && $klasseSkjermet ? '*****' : $this->grunndata->klassetekst(Felt::tekst($rad['sak_arkivdel'] ?? ''), Felt::tekst($rad['sak_klasse'] ?? ''));
             $ut['skjerm_klasse'] = $klasseSkjermet;
+            // Hjemmelen for skjermingen på mappen. Den må stå i journalen også når journalposten selv er åpen.
+            $ut['sak_skjermet'] = $sakSkjermet;
+            $ut['sak_hjemmel'] = $sakSkjermet || $klasseSkjermet ? $this->grunndata->tilgangstekst(Felt::valgfriTekst($rad['sak_tilgangskode'] ?? null)) : '';
         }
 
         return $ut;

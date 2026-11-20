@@ -20,8 +20,10 @@ export type Sak = {
 export type Sokestreff = { sak: Sak; journalposter: { postnr: number; tittel: string; part_navn: string }[] };
 export type Journalpost = {
   id: string; sak_id: string; postnr: number; lopenummer: string; journalfort: boolean; type: string; status: string; tittel: string; offentlig_tittel: string | null;
-  dokumentdato: string; journaldato: string; saksbehandler: string; enhet: string; tilgangskode: string | null; hjemmel: string; skjerm_tittel: boolean; skjerm_part: boolean;
+  dokumentdato: string; journaldato: string; saksbehandler: string; saksbehandler_navn: string; enhet: string; tilgangskode: string | null; hjemmel: string; skjerm_tittel: boolean; skjerm_part: boolean;
   part_navn: string; har_dokument: boolean; saksnummer?: string; sakstittel?: string; klasse_tekst?: string; skjerm_klasse?: boolean;
+  /** Hjemmelen for skjermingen på mappen (tittel eller klassering), når mappen er skjermet. */
+  sak_skjermet?: boolean; sak_hjemmel?: string;
   /** Dokumentet fra postmottaket registreringen gjelder. Uten er den studentens egen, og kan slettes. */
   oppgave: string | null; kan_slettes: boolean;
 };
@@ -50,7 +52,8 @@ export type Struktur = {
   journalposttyper: string[];
   handlinger: Handling[];
 };
-export type Oversikt = { saker: number; journalposter: number; behandlet: number; poeng: number; maks: number; dokumenter: number };
+/** utdatert: arkivet ble fylt med en eldre utgave av mappene og oppgavene, og bør nullstilles. */
+export type Oversikt = { saker: number; journalposter: number; behandlet: number; poeng: number; maks: number; dokumenter: number; utdatert: boolean };
 
 let lagret: Struktur | null = null;
 

@@ -86,9 +86,25 @@ final class Grunndata
     /** @var list<Klasse>|null */
     private ?array $klasser = null;
 
+    private readonly string $fil;
+
     public function __construct(?string $fil = null)
     {
-        $this->data = self::les($fil ?? dirname(__DIR__, 2) . '/data/sirevag.json');
+        $this->fil = $fil ?? dirname(__DIR__, 2) . '/data/sirevag.json';
+        $this->data = self::les($this->fil);
+    }
+
+    /** Utgaven av grunndataene: et fingeravtrykk av filen. Endres filen, endres utgaven. */
+    public function utgave(): string
+    {
+        return self::fingeravtrykk($this->fil);
+    }
+
+    public static function fingeravtrykk(string $fil): string
+    {
+        $hash = hash_file('sha256', $fil);
+
+        return $hash === false ? '' : $hash;
     }
 
     /**

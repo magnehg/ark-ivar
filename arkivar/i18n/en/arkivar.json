@@ -30,6 +30,7 @@
   "arkivar.feil.mappe_fulgte_med": "The file came with the archive and cannot be deleted.",
   "arkivar.feil.mappe_ikke_tom": "The file has documents and cannot be deleted.",
   "arkivar.feil.navn": "Enter your name (at least two characters).",
+  "arkivar.feil.offentlig_tittel": "The public title can be at most 500 characters.",
   "arkivar.feil.oppgave": "The document does not exist in the mail room.",
   "arkivar.feil.part": "Enter who the document is from or to (at most 300 characters).",
   "arkivar.feil.saksmal": "The file template does not exist.",

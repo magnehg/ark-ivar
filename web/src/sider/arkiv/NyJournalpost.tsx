@@ -83,7 +83,7 @@ export default function NyJournalpost() {
             </RadioGroup>
             <Field label={t('arkivar.journalpost.tittel')} required hint={t('arkivar.nyjp.tittel.hjelp')}><Input value={v.tittel} onChange={(_, d) => endre({ tittel: d.value })} /></Field>
             <div className={c.rad}>
-              {journalfores && (
+              {(journalfores || !oppgave) && (
                 <Field label={t('arkivar.journalpost.type')} required>
                   <Select value={v.type} onChange={(_, d) => endre({ type: d.value })}>
                     <option value="">{t('arkivar.registrering.velg')}</option>

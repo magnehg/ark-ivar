@@ -33,15 +33,16 @@ export function Saker() {
   const settArkivdel = (kode: string) => settSok(kode ? { arkivdel: kode } : {}, { replace: true });
   const alle = liste.data?.saker ?? [];
   const rader = arkivdel === '' ? alle : alle.filter((r) => r.arkivdel === arkivdel);
+  // Tittelen får mest plass. Uten en bredde på den klemmer de andre kolonnene den sammen.
   const kolonner: Kolonne<Sak>[] = [
-    { id: 'nummer', overskrift: t('arkivar.sak.nummer'), stil: { width: '90px' }, celle: (r) => r.saksnummer, sorter: (r) => sorterbart(r.saksnummer) },
-    { id: 'tittel', overskrift: t('arkivar.sak.tittel'), celle: (r) => (<Ruterlenke to={`/arkiv/saker/${r.id}`}>{r.tittel}</Ruterlenke>), sorter: (r) => r.tittel },
-    { id: 'arkivdel', overskrift: t('arkivar.sak.arkivdel'), stil: { width: '150px' }, celle: (r) => r.arkivdel_tekst, sorter: (r) => r.arkivdel_tekst },
-    { id: 'klasse', overskrift: t('arkivar.sak.primaer'), stil: { width: '18%' }, celle: (r) => r.klasse_tekst, sorter: (r) => r.klasse_tekst },
-    { id: 'ansvarlig', overskrift: t('arkivar.sak.ansvarlig'), stil: { width: '140px' }, celle: (r) => r.saksansvarlig_navn, sorter: (r) => r.saksansvarlig_navn },
-    { id: 'dato', overskrift: t('arkivar.sak.dato'), stil: { width: '110px' }, celle: (r) => dato(r.saksdato), sorter: (r) => r.saksdato },
-    { id: 'status', overskrift: t('arkivar.sak.status'), stil: { width: '130px' }, celle: (r) => t(`arkivar.saksstatus.${r.status.toLowerCase()}`), sorter: (r) => r.status },
-    { id: 'antall', overskrift: t('arkivar.sak.antall'), stil: { width: '110px' }, celle: (r) => r.antall, sorter: (r) => r.antall },
+    { id: 'nummer', overskrift: t('arkivar.sak.nummer'), stil: { width: '84px' }, celle: (r) => r.saksnummer, sorter: (r) => sorterbart(r.saksnummer) },
+    { id: 'tittel', overskrift: t('arkivar.sak.tittel'), stil: { width: '32%' }, celle: (r) => (<Ruterlenke to={`/arkiv/saker/${r.id}`}>{r.tittel}</Ruterlenke>), sorter: (r) => r.tittel },
+    { id: 'arkivdel', overskrift: t('arkivar.sak.arkivdel'), stil: { width: '11%' }, celle: (r) => r.arkivdel_tekst, sorter: (r) => r.arkivdel_tekst },
+    { id: 'klasse', overskrift: t('arkivar.sak.primaer'), stil: { width: '17%' }, celle: (r) => r.klasse_tekst, sorter: (r) => r.klasse_tekst },
+    { id: 'ansvarlig', overskrift: t('arkivar.sak.ansvarlig'), stil: { width: '12%' }, celle: (r) => r.saksansvarlig_navn, sorter: (r) => r.saksansvarlig_navn },
+    { id: 'dato', overskrift: t('arkivar.sak.dato'), stil: { width: '100px' }, celle: (r) => dato(r.saksdato), sorter: (r) => r.saksdato },
+    { id: 'status', overskrift: t('arkivar.sak.status'), stil: { width: '136px' }, celle: (r) => t(`arkivar.saksstatus.${r.status.toLowerCase()}`), sorter: (r) => r.status },
+    { id: 'antall', overskrift: t('arkivar.sak.antall'), stil: { width: '96px' }, celle: (r) => r.antall, sorter: (r) => r.antall },
   ];
   return (
     <>
@@ -76,13 +77,16 @@ export function EnSak() {
   const flyt = lesFlyt(sok);
   const sak = useHent<{ sak: Sak; journalposter: Journalpost[]; kan_slettes: boolean }>(`/api/arkiv/saker/${id}`);
   const venter = useHent<Behandling>(flyt ? `/api/arkiv/postmottak/${flyt.dokument}` : null);
+  const struktur = useStruktur();
   const [feil, settFeil] = useState<string | null>(null);
   if (sak.feil) return <Feil melding={sak.feil} />;
   if (!sak.data) return <Laster />;
   const d = sak.data.sak;
   const avsluttet = d.status === 'A';
   const slett = () => { settFeil(null); api.slett(`/api/arkiv/saker/${id}`).then(() => naviger('/arkiv/saker')).catch((e: unknown) => settFeil(feiltekst(e))); };
-  const tilgang = (r: Journalpost) => (r.tilgangskode ? <Status slag="skjermet">{r.hjemmel}</Status> : t('arkivar.tilgang.offentlig'));
+  // I mappen står det korte navnet på tilgangskoden. Hele hjemmelen står på journalposten og i journalen.
+  const tilgangsnavn = (kode: string) => struktur?.tilgangskoder.find((k) => k.kode === kode)?.navn ?? kode;
+  const tilgang = (r: Journalpost) => (r.tilgangskode ? <Status slag="skjermet">{tilgangsnavn(r.tilgangskode)}</Status> : t('arkivar.tilgang.offentlig'));
   const kolonner: Kolonne<Journalpost>[] = [
     { id: 'nr', overskrift: t('arkivar.journalpost.nr'), stil: { width: '70px' }, celle: (r) => r.postnr, sorter: (r) => r.postnr },
     { id: 'type', overskrift: t('arkivar.journalpost.type'), stil: { width: '70px' }, celle: (r) => (<abbr title={t(`arkivar.jptype.${r.type.toLowerCase()}`)}>{r.type}</abbr>), sorter: (r) => r.type },
@@ -90,7 +94,7 @@ export function EnSak() {
     { id: 'part', overskrift: t('arkivar.journalpost.part'), stil: { width: '15%' }, celle: (r) => r.part_navn, sorter: (r) => r.part_navn },
     { id: 'dato', overskrift: t('arkivar.journalpost.dokumentdato'), stil: { width: '110px' }, celle: (r) => dato(r.dokumentdato), sorter: (r) => r.dokumentdato },
     { id: 'status', overskrift: t('arkivar.journalpost.status'), stil: { width: '120px' }, celle: (r) => t(r.journalfort ? `arkivar.jpstatus.${r.status.toLowerCase()}` : 'arkivar.jpstatus.uten'), sorter: (r) => r.status },
-    { id: 'tilgang', overskrift: t('arkivar.journalpost.tilgang'), stil: { width: '16%' }, celle: tilgang, sorter: (r) => r.tilgangskode ?? '' },
+    { id: 'tilgang', overskrift: t('arkivar.journalpost.tilgang'), stil: { width: '18%' }, celle: tilgang, sorter: (r) => r.tilgangskode ?? '' },
   ];
   const nyJournalpost = (
     <Button appearance="primary" icon={<Add20Regular />} disabled={avsluttet} onClick={() => naviger(`/arkiv/saker/${id}/ny-journalpost${flytSok(flyt)}`)}>{t('arkivar.sak.ny_journalpost')}</Button>

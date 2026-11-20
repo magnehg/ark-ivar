@@ -1,6 +1,6 @@
 // Forsiden etter innlogging. Arkivet til Sirevåg kommune kommer her; foreløpig forteller siden hva som er klart.
 import { Link as Ruterlenke } from 'react-router-dom';
-import { Body1, makeStyles, tokens } from '@fluentui/react-components';
+import { Body1, MessageBar, MessageBarBody, makeStyles, tokens } from '@fluentui/react-components';
 import { erDrift, harRolle } from '../api';
 import { useT } from '../i18n';
 import { Kort, Sidehode, useHent, useOkt } from '../komponenter/Felles';
@@ -10,6 +10,7 @@ import type { Oversikt } from '../arkiv';
 const s = makeStyles({
   tekst: { display: 'block', maxWidth: '72ch', marginBottom: '8px' },
   liste: { margin: 0, paddingLeft: '20px', color: tokens.colorNeutralForeground2 },
+  utdatert: { marginBottom: '12px' },
 });
 
 export default function Hjem() {
@@ -26,6 +27,11 @@ export default function Hjem() {
       {student && (
         <Kort tittel={t('arkivar.hjem.arkivet.tittel', { virksomhet: oppsett.virksomhet })} id="hjem-arkivet">
           <Body1 className={c.tekst}>{t('arkivar.hjem.arkivet.tekst')}</Body1>
+          {o?.utdatert && (
+            <MessageBar className={c.utdatert} intent="warning" id="hjem-utdatert">
+              <MessageBarBody>{t('arkivar.hjem.arkivet.utdatert')} <Ruterlenke to="/min-side">{t('arkivar.hjem.arkivet.utdatert.lenke')}</Ruterlenke></MessageBarBody>
+            </MessageBar>
+          )}
           {o && (
             <ul className={c.liste}>
               <li><Ruterlenke to="/arkiv/postmottak">{t('arkivar.hjem.arkivet.postmottak', { venter: o.dokumenter - o.behandlet, alle: o.dokumenter })}</Ruterlenke></li>

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ArkIvar\Arkiv;
 
+use Bivrost\Kjerne\Database\Db;
 use Bivrost\Kjerne\Database\Felt;
 use Bivrost\Kjerne\Feil\HttpFeil;
 use Psr\Clock\ClockInterface;
@@ -15,8 +16,12 @@ use Psr\Clock\ClockInterface;
  */
 final class Mapper
 {
-    public function __construct(private readonly ClockInterface $klokke, private readonly Grunndata $grunndata, private readonly Register $register)
-    {
+    public function __construct(
+        private readonly Db $db,
+        private readonly ClockInterface $klokke,
+        private readonly Grunndata $grunndata,
+        private readonly Register $register,
+    ) {
     }
 
     /**
@@ -63,33 +68,45 @@ final class Mapper
             throw new HttpFeil(422, 'skjerming_uten_hjemmel', 'arkivar.feil.skjerming_uten_hjemmel');
         }
         $offentlig = trim(Felt::tekst($inn['offentlig_tittel'] ?? null));
+        if (mb_strlen($offentlig, 'UTF-8') > 500) {
+            throw new HttpFeil(422, 'ugyldig_felt', 'arkivar.feil.offentlig_tittel');
+        }
 
-        return $this->register->opprettSak(
-            $arkivId,
-            $tittel,
-            $arkivdel,
-            $klasse,
-            $enhet,
-            $this->grunndata->forsteIEnhet($enhet),
-            $this->klokke->now()->format('Y-m-d'),
-            null,
-            $skjermTittel ? ($offentlig !== '' ? $offentlig : '*****') : null,
-            $tilgangskode !== '' ? $tilgangskode : null,
-            Kodelister::SAK_UNDER_BEHANDLING,
-            $skjermKlasse,
-            $mal !== '' ? $mal : null,
-        );
+        // Saksnummeret tas fra telleren på arkivet. I en transaksjon med lås kan ikke to mapper få samme nummer.
+        return $this->db->transaksjon(function () use ($arkivId, $tittel, $arkivdel, $klasse, $enhet, $skjermTittel, $offentlig, $tilgangskode, $skjermKlasse, $mal): string {
+            $this->register->laas($arkivId);
+
+            return $this->register->opprettSak(
+                $arkivId,
+                $tittel,
+                $arkivdel,
+                $klasse,
+                $enhet,
+                $this->grunndata->forsteIEnhet($enhet),
+                Dato::idag($this->klokke),
+                null,
+                $skjermTittel ? ($offentlig !== '' ? $offentlig : '*****') : null,
+                $tilgangskode !== '' ? $tilgangskode : null,
+                Kodelister::SAK_UNDER_BEHANDLING,
+                $skjermKlasse,
+                $mal !== '' ? $mal : null,
+            );
+        });
     }
 
     /** Sletter en tom mappe studenten har opprettet. */
     public function slett(string $arkivId, string $sakId): void
     {
-        $sak = $this->register->sak($arkivId, $sakId) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
-        if ($sak['nokkel'] !== null) {
-            throw new HttpFeil(409, 'mappe_fulgte_med', 'arkivar.feil.mappe_fulgte_med');
-        }
-        if (!$this->register->slettTomSak($arkivId, $sakId)) {
-            throw new HttpFeil(409, 'mappe_ikke_tom', 'arkivar.feil.mappe_ikke_tom');
-        }
+        $this->db->transaksjon(function () use ($arkivId, $sakId): void {
+            // Samme lås som registreringen bruker: et dokument kan ikke bli registrert i mappen mens den slettes.
+            $this->register->laas($arkivId);
+            $sak = $this->register->sak($arkivId, $sakId) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
+            if ($sak['nokkel'] !== null) {
+                throw new HttpFeil(409, 'mappe_fulgte_med', 'arkivar.feil.mappe_fulgte_med');
+            }
+            if (!$this->register->slettTomSak($arkivId, $sakId)) {
+                throw new HttpFeil(409, 'mappe_ikke_tom', 'arkivar.feil.mappe_ikke_tom');
+            }
+        });
     }
 }

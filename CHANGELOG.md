@@ -33,7 +33,18 @@
   fornavn]»), og hver mal har et søketips. Forslaget må fylles ut før mappen kan opprettes.
 - Klasseringen kan skjermes med en avkrysning. Den offentlige journalen viser da ***** i stedet, og vurderingen
   sjekker at klasseringen på en ny mappe i et personarkiv er skjermet.
-- Vurderingen krever at en ny sak får sin egen mappe: to saker i samme mappe er feil for den andre.
+- Vurderingen krever at en ny sak får sin egen mappe: en mappe med dokumenter fra flere saker er feil for alle
+  dokumentene i den. Vurderingen følger med når et dokument legges til i mappen eller angres.
+- Skjerming vurderes begge veier: en tittel eller klassering som ikke røper noe, skal stå åpent. Skjerming uten
+  grunn gir avvik, både på mappen og på journalposten.
+- Avsenderen sammenliknes ord for ord: «Due, Dina» er «Dina Due», og «Jærrent» er «Jærrent AS».
+- Den offentlige journalen viser hjemmelen for skjermingen på mappen også når journalposten selv er åpen.
+- Søket tåler tegnsetting («Måke, Mathias»).
+- To registreringer samtidig i samme arkiv (to faner, dobbel innsending) går etter hverandre: samme dokument kan
+  ikke registreres to ganger, og numrene blir ikke like.
+- Saksdato og journaldato følger norsk tid.
+- Forsiden sier fra når mappene og dokumentene i Ark-Ivar er oppdatert etter at øvingsarkivet ble laget, og ber
+  studenten nullstille.
 - Kommunens ansatte, elevene og barnehagebarna har dyrenavn med bokstavrim, etter mønster av Pelle Parafins
   Bøljeband (Gunnar Grevling på byggesak, Stian Stokkand, Frida Frosk, Sandra Salamander).
 - Postmottaket har 24 dokumenter. Hvert dokument har en naturlig mappe: en som finnes i arkivet, eller en ny for

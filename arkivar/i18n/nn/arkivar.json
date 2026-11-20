@@ -30,6 +30,7 @@
   "arkivar.feil.mappe_fulgte_med": "Mappa følgde med arkivet og kan ikkje slettast.",
   "arkivar.feil.mappe_ikke_tom": "Mappa har dokument og kan ikkje slettast.",
   "arkivar.feil.navn": "Skriv namnet ditt (minst to teikn).",
+  "arkivar.feil.offentlig_tittel": "Den offentlege tittelen kan ha høgst 500 teikn.",
   "arkivar.feil.oppgave": "Dokumentet finst ikkje i postmottaket.",
   "arkivar.feil.part": "Skriv kven dokumentet er frå eller til (høgst 300 teikn).",
   "arkivar.feil.saksmal": "Saksmalen finst ikkje.",

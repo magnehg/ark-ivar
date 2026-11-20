@@ -25,7 +25,14 @@ export default function Journal() {
       <span className={c.sak}>{t('arkivar.journal.klassering', { klassering: r.klasse_tekst ?? '' })}</span>
     </>
   );
-  const tilgang = (r: Journalpost) => (r.tilgangskode ? <Status slag="skjermet">{r.hjemmel}</Status> : t('arkivar.tilgang.offentlig'));
+  // Hjemmelen for skjermingen står alltid i journalen. Er mappen skjermet (tittelen eller klasseringen) med en annen
+  // hjemmel enn journalposten, eller er journalposten selv åpen, står mappens hjemmel for seg.
+  const tilgang = (r: Journalpost) => (
+    <>
+      {r.tilgangskode ? <Status slag="skjermet">{r.hjemmel}</Status> : t('arkivar.tilgang.offentlig')}
+      {r.sak_hjemmel && r.sak_hjemmel !== r.hjemmel && <span className={c.sak}>{t('arkivar.journal.mappehjemmel', { hjemmel: r.sak_hjemmel })}</span>}
+    </>
+  );
   const kolonner: Kolonne<Journalpost>[] = [
     { id: 'lopenr', overskrift: t('arkivar.journal.lopenummer'), stil: { width: '90px' }, celle: (r) => r.lopenummer, sorter: (r) => sorterbart(r.lopenummer) },
     { id: 'jdato', overskrift: t('arkivar.journal.journaldato'), stil: { width: '110px' }, celle: (r) => dato(r.journaldato), sorter: (r) => r.journaldato },

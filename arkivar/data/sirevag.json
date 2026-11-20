@@ -2209,38 +2209,53 @@
       "status": "B",
       "journalposter": [
         {
-          "type": "I",
-          "tittel": "Brev til kommunen (midlertidig)",
+          "type": "X",
+          "tittel": "Behovsvurdering og kostnadsoverslag – renholdstjenester for kommunale bygg 2027–2030",
           "offentlig_tittel": null,
           "dokumentdato": "2026-09-01",
-          "part": "Kari Avsender",
+          "part": "Henrik Hare",
           "skjerm_part": false,
           "status": "J",
           "journalfort": true,
-          "tilgangskode": null,
+          "tilgangskode": "23-1",
           "dokument": {
-            "kanal": "brev",
-            "mottatt": "2026-09-01",
+            "kanal": "notat",
+            "mottatt": null,
             "avsender": {
-              "navn": "Kari Avsender",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
+              "navn": "Sirevåg kommune, Økonomi og innkjøp",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Behovsvurdering og kostnadsoverslag – renholdstjenester for kommunale bygg 2027–2030",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Notat til saken fra innkjøpsrådgiver Henrik Hare. Arkivsak {{sak}}. Notatet er unntatt offentlighet etter offentleglova § 23 første ledd, fordi kostnadsoverslaget per bygg og den øvre rammen ikke kan være kjent for tilbyderne før konkurransen er avgjort.",
+              "## Bakgrunn",
+              "Avtalen kommunen har i dag om renhold av de kommunale byggene, går ut 31. januar 2027. Alle opsjonene er brukt, og avtalen kan ikke forlenges. Kommunen må derfor gjennomføre en ny konkurranse i høst. Spørsmålet om renhold i egen regi ble utredet i 2022, og kommunedirektøren har bestemt at tjenesten fortsatt skal kjøpes fra en ekstern leverandør.",
+              "## Behov",
+              "Anskaffelsen skal dekke daglig renhold av seks bygg: rådhuset, Sirevåg skole, Sirevåg ungdomsskole, Fyrlykta barnehage, Tjørnhaugen barnehage og Sirevåg omsorgssenter. Samlet renholdsareal er 18 650 m². I tillegg kommer hovedrengjøring én gang i året, vinduspuss to ganger i året og renhold etter behov ved utleie og arrangementer.",
+              "Enhetene meldte inn behovene sine i august. Oppvekst ber om at barnehagene får renhold etter stengetid, og at skolene får ekstra renhold av garderober og toaletter i vinterhalvåret. Helse og omsorg ber om renhold alle dager ved omsorgssenteret, også i helger og på helligdager, og om at renholderne får opplæring i smittevern. Teknisk drift og miljø ber om at leverandøren bruker miljømerkede midler og doseringsanlegg.",
+              "## Kostnadsoverslag",
+              "Kommunen betaler i dag 3 180 000 kroner i året eksklusive merverdiavgift. Jeg har regnet med lønnsvekst etter den allmenngjorte tariffavtalen for renholdsbedrifter, renhold i helgene ved omsorgssenteret og noe mer renhold ved skolene. Overslaget for den nye avtalen er 3 500 000 kroner i året eksklusive merverdiavgift, fordelt slik:\nRådhuset: 430 000 kroner\nSirevåg skole: 880 000 kroner\nSirevåg ungdomsskole: 640 000 kroner\nFyrlykta barnehage: 210 000 kroner\nTjørnhaugen barnehage: 240 000 kroner\nSirevåg omsorgssenter: 950 000 kroner\nHovedrengjøring, vinduspuss og renhold etter behov: 150 000 kroner",
+              "Avtalen bør gjelde fra 1. februar 2027 til 31. desember 2028, med rett for kommunen til å forlenge den med ett år om gangen i inntil to år, lengst til 31. desember 2030. Med prisregulering i avtaleperioden er samlet verdi med opsjonene anslått til 14 millioner kroner eksklusive merverdiavgift. Det er dette beløpet som skal stå i kunngjøringen.",
+              "Budsjettet til renhold er 3 600 000 kroner i 2026, og økonomisjefen har bekreftet at det samme beløpet, justert for prisvekst, ligger i den foreløpige rammen for 2027. Jeg tilrår at konkurransen avlyses dersom det laveste tilbudet er høyere enn 3 850 000 kroner i året, siden kommunen da ikke har dekning. Denne grensen og fordelingen per bygg må ikke bli kjent for leverandørene. Da kan tilbyderne legge prisene sine opp mot det kommunen er villig til å betale.",
+              "## Konkurranseform og framdrift",
+              "Verdien er over EØS-terskelverdien, og anskaffelsen må kunngjøres i Doffin og i den europeiske databasen TED. Jeg tilrår åpen anbudskonkurranse. Tildelingskriteriene bør være pris med 40 prosent vekt, kvalitet med 30 prosent vekt og klima og miljø med 30 prosent vekt.",
+              "Framdriftsplanen er slik: Konkurransegrunnlaget er ferdig 9. oktober, konkurransen kunngjøres 12. oktober, det holdes befaring 21. oktober, og tilbudsfristen er 20. november 2026 klokka 12.00. Leverandøren velges i første halvdel av desember, og kontrakten underskrives før jul, slik at en ny leverandør kan begynne 1. februar 2027. Oppvekst og Helse og omsorg har hver sin representant i gruppen som skal vurdere tilbudene.",
+              "Henrik Hare, innkjøpsrådgiver"
             ],
-            "vedlegg": []
+            "vedlegg": [
+              "Oversikt over bygg, areal og renholdsfrekvens",
+              "Innmeldte behov fra enhetene"
+            ]
           }
         },
         {
           "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
+          "tittel": "Kunngjøring av konkurranse – renholdstjenester for kommunale bygg 2027–2030",
           "offentlig_tittel": null,
-          "dokumentdato": "2026-09-08",
-          "part": "Kari Avsender",
+          "dokumentdato": "2026-10-12",
+          "part": "Doffin",
           "skjerm_part": false,
           "status": "E",
           "journalfort": true,
@@ -2249,17 +2264,103 @@
             "kanal": "brev",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Økonomi og innkjøp",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Kari Avsender",
-            "emne": "Svar fra kommunen",
+            "mottaker": "Doffin, den nasjonale kunngjøringsdatabasen for offentlige anskaffelser",
+            "emne": "Kunngjøring av konkurranse – renholdstjenester for kommunale bygg 2027–2030",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Sirevåg kommune kunngjør med dette en åpen anbudskonkurranse om renholdstjenester for kommunale bygg. Kunngjøringen sendes til Doffin 12. oktober 2026 og blir også publisert i den europeiske databasen TED. Vår ref.: {{sak}}.",
+              "## Oppdragsgiver",
+              "Sirevåg kommune, Økonomi og innkjøp, Rådhusgata 1, 4399 Sirevåg. Kontaktperson er innkjøpsrådgiver Henrik Hare, henrik.hare@sirevag.example. All kontakt om konkurransen skal gå skriftlig til kontaktpersonen.",
+              "## Om anskaffelsen",
+              "Kommunen skal inngå avtale med én leverandør om daglig renhold av rådhuset, Sirevåg skole, Sirevåg ungdomsskole, Fyrlykta barnehage, Tjørnhaugen barnehage og Sirevåg omsorgssenter. Samlet renholdsareal er om lag 18 650 m². Avtalen omfatter også hovedrengjøring én gang i året, vinduspuss to ganger i året og renhold etter behov. Ved omsorgssenteret skal det gjøres rent alle dager i året.",
+              "Avtalen gjelder fra 1. februar 2027 til 31. desember 2028. Kommunen har rett til å forlenge avtalen med ett år om gangen i inntil to år, lengst til 31. desember 2030. Samlet verdi av avtalen med opsjonene er anslått til 14 millioner kroner eksklusive merverdiavgift.",
+              "## Krav til leverandørene",
+              "Leverandøren må være et lovlig registrert foretak og være godkjent som renholdsvirksomhet av Arbeidstilsynet. Leverandøren må ha ordnede forhold når det gjelder skatt og merverdiavgift, ha økonomi til å gjennomføre avtalen og ha erfaring fra minst to tilsvarende oppdrag de siste tre årene. Lønns- og arbeidsvilkårene skal minst følge den allmenngjorte tariffavtalen for renholdsbedrifter. Leverandøren kan ha høyst ett ledd med underleverandører.",
+              "## Tildelingskriterier",
+              "Kommunen velger tilbudet som har det beste forholdet mellom pris og kvalitet. Kriteriene er pris med 40 prosent vekt, kvalitet med 30 prosent vekt og klima og miljø med 30 prosent vekt. Kvalitet vurderes ut fra bemanningsplanen, opplæringen av renholderne og rutinene for kvalitetskontroll. Klima og miljø vurderes ut fra bruken av miljømerkede midler, dosering og transport.",
+              "## Frister og innlevering",
+              "Konkurransegrunnlaget med kravspesifikasjon, prisskjema og utkast til avtale ligger på www.sirevag.example/anskaffelser. Det holdes felles befaring i byggene onsdag 21. oktober 2026 klokka 09.00, med oppmøte i rådhuset. Påmelding sendes til kontaktpersonen innen 19. oktober.\nFrist for å stille spørsmål til konkurransegrunnlaget: 6. november 2026\nTilbudsfrist: 20. november 2026 klokka 12.00\nVedståelsesfrist: 20. februar 2027",
+              "Tilbudet skal inneholde utfylt prisskjema, bemanningsplan, løsningsbeskrivelse og skatteattest som ikke er eldre enn seks måneder. Det sendes til Sirevåg kommune, Rådhusgata 1, 4399 Sirevåg, eller til postmottak@sirevag.example, og merkes «Tilbud – renholdstjenester for kommunale bygg 2027–2030». Tilbud som kommer inn etter fristen, blir avvist.",
+              "Spørsmål og svar blir sendt til alle som har meldt interesse for konkurransen, uten at det går fram hvem som har spurt. Kommunen fører ikke forhandlinger om tilbudene.",
+              "Med hilsen Henrik Hare, innkjøpsrådgiver"
+            ],
+            "vedlegg": [
+              "Konkurransegrunnlag",
+              "Kravspesifikasjon med oversikt over bygg, areal og renholdsfrekvens",
+              "Prisskjema",
+              "Utkast til avtale"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Spørsmål til konkurransegrunnlaget – renholdstjenester for kommunale bygg 2027–2030",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-10-27",
+          "part": "Vestkyst Renhold AS",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": "2026-10-27",
+            "avsender": {
+              "navn": "Vestkyst Renhold AS",
+              "adresse": "Fabrikkveien 31, 4033 Stavanger",
+              "epost": "post@vestkystrenhold.example"
+            },
+            "mottaker": null,
+            "emne": "Spørsmål til konkurransegrunnlaget – renholdstjenester for kommunale bygg 2027–2030",
+            "tekst": [
+              "Vi viser til kunngjøringen av 12. oktober 2026 om renholdstjenester for kommunale bygg 2027–2030 og til befaringen 21. oktober. Vestkyst Renhold AS vurderer å levere tilbud og har noen spørsmål til konkurransegrunnlaget.",
+              "Det første gjelder de ansatte hos dagens leverandør. Vi regner med at et bytte av leverandør kan være en virksomhetsoverdragelse etter arbeidsmiljøloven. Kan kommunen opplyse hvor mange renholdere som arbeider på avtalen i dag, hvilke stillingsprosenter de har, og hvilken ansiennitet de har? Vi trenger dette for å kunne regne ut lønnskostnadene.",
+              "Det andre gjelder Sirevåg omsorgssenter. I kravspesifikasjonen står det at det skal gjøres rent alle dager i året, men frekvenstabellen har bare kolonner for mandag til fredag. Skal alle rom ha renhold i helgene, eller gjelder det bare fellesarealer, kjøkken og toaletter?",
+              "Det tredje gjelder arealet ved Sirevåg ungdomsskole. Kravspesifikasjonen oppgir 3 800 m², mens plantegningene vi fikk på befaringen, viser om lag 4 100 m². Hvilket areal skal vi prise?",
+              "Vi ber også om svar på om hovedrengjøringen og vinduspussen skal ligge i den faste årsprisen eller prises for seg, og om hvilken indeks som skal brukes når prisene reguleres. Punkt 8 i utkastet til avtale viser til «relevant indeks» uten å si hvilken.",
+              "Vi setter pris på et raskt svar, slik at vi rekker å ta hensyn til det før tilbudsfristen 20. november.",
+              "Med hilsen Morten Odland, tilbudsansvarlig, Vestkyst Renhold AS"
             ],
             "vedlegg": []
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Svar på spørsmål til konkurransegrunnlaget – renholdstjenester for kommunale bygg 2027–2030",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-10-30",
+          "part": "Vestkyst Renhold AS med flere",
+          "skjerm_part": false,
+          "status": "E",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Økonomi og innkjøp",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "Vestkyst Renhold AS med flere (alle leverandører som har meldt interesse for konkurransen)",
+            "emne": "Svar på spørsmål til konkurransegrunnlaget – renholdstjenester for kommunale bygg 2027–2030",
+            "tekst": [
+              "Sirevåg kommune har fått spørsmål til konkurransegrunnlaget for renholdstjenester for kommunale bygg 2027–2030. Spørsmålene og svarene sendes med dette til alle leverandører som har meldt interesse for konkurransen eller deltok på befaringen 21. oktober 2026. Svarene er en del av konkurransegrunnlaget. Vår ref.: {{sak}}.",
+              "Spørsmål 1: Hvor mange renholdere arbeider på avtalen i dag, og hvilke stillingsprosenter og hvilken ansiennitet har de?\nSvar: Dagens leverandør har opplyst at elleve renholdere arbeider på avtalen, fordelt på 8,4 årsverk. Stillingsprosentene varierer fra 50 til 100 prosent. Fem av renholderne har mer enn ti års ansiennitet, fire har mellom fire og ti år, og to har mindre enn fire år. Leverandørene må selv vurdere om reglene om virksomhetsoverdragelse gjelder.",
+              "Spørsmål 2: Skal alle rom ved Sirevåg omsorgssenter ha renhold i helgene?\nSvar: Nei. På lørdager, søndager og helligdager gjelder renholdet fellesarealer, kjøkken, toaletter, skyllerom og vaktrom. Beboerrommene har renhold mandag til fredag. Frekvenstabellen er rettet og ligger ved.",
+              "Spørsmål 3: Hvilket areal skal prises for Sirevåg ungdomsskole?\nSvar: Leverandørene skal prise 3 800 m², slik det står i kravspesifikasjonen. Plantegningene viser bruttoarealet, mens kravspesifikasjonen oppgir det arealet som skal gjøres rent. Tekniske rom og lager er ikke med.",
+              "Spørsmål 4: Skal hovedrengjøring og vinduspuss ligge i den faste årsprisen?\nSvar: Ja. Hovedrengjøring én gang i året og vinduspuss to ganger i året skal ligge i den faste årsprisen per bygg. Bare renhold etter behov prises med timepris i prisskjemaet.",
+              "Spørsmål 5: Hvilken indeks skal brukes når prisene reguleres?\nSvar: Prisene reguleres én gang i året, første gang 1. februar 2028. Åtti prosent av prisen følger lønnsutviklingen i den allmenngjorte tariffavtalen for renholdsbedrifter, og tjue prosent følger konsumprisindeksen fra Statistisk sentralbyrå. Punkt 8 i utkastet til avtale er rettet og ligger ved.",
+              "Rettingene endrer ikke omfanget av konkurransen vesentlig, og fristene står fast. Fristen for å stille spørsmål er 6. november 2026, og tilbudsfristen er 20. november 2026 klokka 12.00.",
+              "Med hilsen Henrik Hare, innkjøpsrådgiver"
+            ],
+            "vedlegg": [
+              "Rettet frekvenstabell for Sirevåg omsorgssenter",
+              "Rettet utkast til avtale, punkt 8"
+            ]
           }
         }
       ]
@@ -2277,55 +2378,172 @@
       "status": "B",
       "journalposter": [
         {
-          "type": "I",
-          "tittel": "Brev til kommunen (midlertidig)",
+          "type": "X",
+          "tittel": "Utlysningstekst – byggesaksbehandler – stillingsnr. 26/41",
           "offentlig_tittel": null,
           "dokumentdato": "2026-10-26",
-          "part": "Kari Avsender",
+          "part": "Maren Mår",
           "skjerm_part": false,
           "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
-            "kanal": "brev",
-            "mottatt": "2026-10-26",
+            "kanal": "notat",
+            "mottatt": null,
             "avsender": {
-              "navn": "Kari Avsender",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
+              "navn": "Sirevåg kommune, Personal og organisasjon",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Utlysningstekst – byggesaksbehandler, 100 % fast stilling – stillingsnr. 26/41",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Stillingen som byggesaksbehandler i enheten Plan, bygg og eiendom er lyst ut 26. oktober 2026 på kommunens nettsider, i Navs stillingsdatabase og i Jærposten. Stillingen er ny og er finansiert av byggesaksgebyrene. Utlysningsteksten er godkjent av kommunedirektør Ulla Ugle og er gjengitt nedenfor. Arkivsak {{sak}}.",
+              "## Byggesaksbehandler – 100 % fast stilling",
+              "Sirevåg kommune har ledig en ny, fast stilling som byggesaksbehandler i enheten Plan, bygg og eiendom. Kommunen ligger på Jæren og har om lag 6 800 innbyggere. Enheten har ansvaret for arealplaner, byggesaker, oppmåling og matrikkel, og du får kollegaer med lang erfaring i plan- og bygningsrett. Antallet byggesaker har økt de siste årene. Med den nye stillingen vil vi korte ned saksbehandlingstiden og føre mer tilsyn.",
+              "## Arbeidsoppgaver",
+              "Du skal behandle søknader om tiltak etter plan- og bygningsloven, blant annet bolighus, tilbygg, garasjer, bruksendringer og næringsbygg. Du skal behandle søknader om dispensasjon, forberede klagesaker og saker til plan- og teknisk utvalg, holde forhåndskonferanser og veilede innbyggere og foretak. Tilsyn og oppfølging av ulovlige tiltak hører også til stillingen.",
+              "## Kvalifikasjoner",
+              "Vi søker deg som har utdanning på bachelornivå eller høyere som ingeniør, arkitekt eller jurist, eller annen relevant utdanning. Fagskoleutdanning i bygg sammen med lang praksis kan veie opp for manglende høyere utdanning. Erfaring fra byggesaksbehandling, prosjektering eller arbeid som ansvarlig søker er en fordel. Du må kjenne plan- og bygningsloven, skrive klart og godt norsk og ha førerkort for bil.",
+              "Vi legger vekt på at du arbeider selvstendig og nøyaktig, holder frister og har lett for å forklare regelverket for folk som møter det for første gang.",
+              "## Vi tilbyr",
+              "Lønn etter avtale, fleksibel arbeidstid og gode pensjons- og forsikringsordninger. Stillingen har kontorplass i rådhuset. Tiltredelse etter avtale, helst innen 1. februar 2027.",
+              "## Søknad",
+              "Søknad med CV, vitnemål og attester sendes til postmottak@sirevag.example eller til Sirevåg kommune, Rådhusgata 1, 4399 Sirevåg, og merkes med stillingsnr. 26/41. Søknadsfristen er 22. november 2026. Spørsmål om stillingen kan rettes til personalrådgiver Maren Mår, maren.mar@sirevag.example.",
+              "Etter søknadsfristen blir det satt opp en offentlig søkerliste. Opplysninger om en søker kan bli offentliggjort selv om søkeren har bedt om ikke å bli ført opp på listen. Søkeren blir i så fall varslet og kan trekke søknaden.",
+              "Maren Mår, personalrådgiver"
             ],
             "vedlegg": []
           }
         },
         {
-          "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
+          "type": "I",
+          "tittel": "Søknad på stilling – byggesaksbehandler – stillingsnr. 26/41",
           "offentlig_tittel": null,
-          "dokumentdato": "2026-11-02",
-          "part": "Kari Avsender",
-          "skjerm_part": false,
+          "dokumentdato": "2026-11-09",
+          "part": "Ane Lyngnes",
+          "skjerm_part": true,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "25",
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": "2026-11-09",
+            "avsender": {
+              "navn": "Ane Lyngnes",
+              "adresse": "Torvgata 15, 4360 Varhaug",
+              "epost": "ane.lyngnes@epost.example"
+            },
+            "mottaker": null,
+            "emne": "Søknad på stillingen som byggesaksbehandler, stillingsnr. 26/41",
+            "tekst": [
+              "Jeg viser til utlysningen på kommunens nettsider og søker med dette på stillingen som byggesaksbehandler i Sirevåg kommune, stillingsnr. 26/41.",
+              "Jeg er 34 år og utdannet byggingeniør fra Universitetet i Stavanger, med bachelorgrad fra 2015. Etter studiene arbeidet jeg tre år som prosjekterende ingeniør. Siden 2018 har jeg vært ansatt i Jæren Byggprosjektering AS, der jeg de siste fem årene har vært ansvarlig søker for boliger, tilbygg og mindre næringsbygg i kommunene på Jæren.",
+              "Som ansvarlig søker har jeg skrevet et par hundre søknader om tillatelse til tiltak og om dispensasjon, og jeg har vært med på mange forhåndskonferanser fra den andre siden av bordet. Jeg kjenner derfor plan- og bygningsloven og byggteknisk forskrift godt, og jeg vet hva som skal til for at en søknad er komplett. Jeg tror den erfaringen gjør at jeg raskt kan behandle saker selvstendig, og at jeg kan veilede søkere på en måte de forstår.",
+              "Jeg søker stillingen fordi jeg ønsker å arbeide med helheten i byggesakene og ikke bare med søkerens side. Arbeidet med regelverket er det jeg liker best, og jeg har lyst til å være med på å bygge opp tilsynsarbeidet i kommunen. Jeg bor på Varhaug og kjenner Sirevåg godt.",
+              "Jeg har tre måneders oppsigelsestid og kan begynne 1. mars 2027. Arbeidsgiveren min vet ikke at jeg søker, og jeg ber om at dere tar kontakt med meg før dere snakker med referansene. CV, vitnemål og attester ligger ved.",
+              "Med hilsen Ane Lyngnes"
+            ],
+            "vedlegg": [
+              "CV",
+              "Vitnemål",
+              "Attester"
+            ]
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Bekreftelse på mottatt søknad – byggesaksbehandler – stillingsnr. 26/41",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-11-10",
+          "part": "Ane Lyngnes",
+          "skjerm_part": true,
           "status": "E",
           "journalfort": true,
-          "tilgangskode": null,
+          "tilgangskode": "25",
           "dokument": {
             "kanal": "brev",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Personal og organisasjon",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Kari Avsender",
-            "emne": "Svar fra kommunen",
+            "mottaker": "Ane Lyngnes, Torvgata 15, 4360 Varhaug",
+            "emne": "Bekreftelse på mottatt søknad – byggesaksbehandler, stillingsnr. 26/41",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Vi bekrefter at Sirevåg kommune 9. november 2026 mottok søknaden din på stillingen som byggesaksbehandler i enheten Plan, bygg og eiendom, stillingsnr. 26/41. Takk for at du søker stilling hos oss. Vår ref.: {{sak}}.",
+              "Søknadsfristen er 22. november 2026. Etter fristen går vi gjennom alle søknadene og kaller inn de søkerne som er aktuelle, til intervju. Vi regner med å holde intervjuene i uke 49. Alle søkere får skriftlig beskjed når stillingen er besatt.",
+              "Du skriver at arbeidsgiveren din ikke vet at du søker. Vi tar ikke kontakt med referanser uten at vi har avtalt det med deg først.",
+              "Vi gjør oppmerksom på at det blir satt opp en offentlig søkerliste når fristen er ute. Listen har navn, alder, stilling eller yrkestittel og bosteds- eller arbeidskommune for hver søker. Ønsker du ikke å stå på den offentlige listen, må du gi oss en begrunnelse innen søknadsfristen. Kan vi ikke ta ønsket til følge, får du beskjed, slik at du kan trekke søknaden.",
+              "Har du spørsmål om stillingen eller om behandlingen av søknaden, kan du skrive til meg på maren.mar@sirevag.example.",
+              "Med hilsen Maren Mår, personalrådgiver"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Søknad på stilling – byggesaksbehandler – stillingsnr. 26/41",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-11-13",
+          "part": "Håvard Oma",
+          "skjerm_part": true,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "25",
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": "2026-11-13",
+            "avsender": {
+              "navn": "Håvard Oma",
+              "adresse": "Bakkevegen 52, 4399 Sirevåg",
+              "epost": "havard.oma@epost.example"
+            },
+            "mottaker": null,
+            "emne": "Søknad – byggesaksbehandler, stillingsnr. 26/41",
+            "tekst": [
+              "Jeg søker på stillingen som byggesaksbehandler, stillingsnr. 26/41, som er lyst ut med søknadsfrist 22. november 2026.",
+              "Jeg er 46 år og bor i Sirevåg. Jeg har fagbrev som tømrer fra 2001 og tok toårig fagskoleutdanning i bygg som deltidsstudent, ferdig i 2012. De siste tolv årene har jeg vært byggeleder i Jærbygg Entreprenør AS. Der har jeg hatt ansvaret for utførelsen av eneboliger, rekkehus og driftsbygninger, og jeg har hatt jevnlig kontakt med byggesakskontorene i flere kommuner.",
+              "Jeg har ikke bachelorgrad, men jeg ser at utlysningen åpner for fagskoleutdanning sammen med lang praksis. Jeg har 25 år i byggebransjen og kjenner kravene i byggteknisk forskrift fra den praktiske siden: fukt, brann, konstruksjon og universell utforming. Jeg har også stått for uavhengig kontroll av våtrom og lufttetthet. Saksbehandling etter plan- og bygningsloven har jeg mindre erfaring med, men jeg har fulgt mange saker fra søknad til ferdigattest, og jeg lærer fort.",
+              "Jeg mener jeg kan være særlig nyttig i tilsynsarbeidet, der kommunen trenger folk som kan lese en byggeplass. Etter mange år ute ønsker jeg nå en stilling der jeg kan bruke erfaringen på en annen måte, og jeg vil gjerne arbeide i kommunen jeg bor i.",
+              "Jeg har én måneds oppsigelsestid. Arbeidsgiveren min kjenner til at jeg søker, og dere kan gjerne ta kontakt med referansene som står i CV-en. CV, fagbrev, vitnemål fra fagskolen og attester ligger ved.",
+              "Med hilsen Håvard Oma"
+            ],
+            "vedlegg": [
+              "CV",
+              "Fagbrev og vitnemål",
+              "Attester"
+            ]
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Bekreftelse på mottatt søknad – byggesaksbehandler – stillingsnr. 26/41",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-11-16",
+          "part": "Håvard Oma",
+          "skjerm_part": true,
+          "status": "E",
+          "journalfort": true,
+          "tilgangskode": "25",
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Personal og organisasjon",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "Håvard Oma, Bakkevegen 52, 4399 Sirevåg",
+            "emne": "Bekreftelse på mottatt søknad – byggesaksbehandler, stillingsnr. 26/41",
+            "tekst": [
+              "Vi bekrefter at Sirevåg kommune 13. november 2026 mottok søknaden din på stillingen som byggesaksbehandler i enheten Plan, bygg og eiendom, stillingsnr. 26/41. Takk for at du søker stilling hos oss. Vår ref.: {{sak}}.",
+              "Søknadsfristen er 22. november 2026. Etter fristen går vi gjennom alle søknadene og kaller inn de søkerne som er aktuelle, til intervju. Vi regner med å holde intervjuene i uke 49. Alle søkere får skriftlig beskjed når stillingen er besatt.",
+              "Du har oppgitt referanser i CV-en. Vi tar kontakt med referanser først etter intervjuene, og bare for de søkerne som da er aktuelle for stillingen.",
+              "Vi gjør oppmerksom på at det blir satt opp en offentlig søkerliste når fristen er ute. Listen har navn, alder, stilling eller yrkestittel og bosteds- eller arbeidskommune for hver søker. Ønsker du ikke å stå på den offentlige listen, må du gi oss en begrunnelse innen søknadsfristen. Kan vi ikke ta ønsket til følge, får du beskjed, slik at du kan trekke søknaden.",
+              "Har du spørsmål om stillingen eller om behandlingen av søknaden, kan du skrive til meg på maren.mar@sirevag.example.",
+              "Med hilsen Maren Mår, personalrådgiver"
             ],
             "vedlegg": []
           }
@@ -2345,55 +2563,199 @@
       "status": "B",
       "journalposter": [
         {
-          "type": "I",
-          "tittel": "Brev til kommunen (midlertidig)",
+          "type": "N",
+          "tittel": "Budsjettrundskriv 2027 – rammer og framdrift for arbeidet med budsjett og økonomiplan",
           "offentlig_tittel": null,
           "dokumentdato": "2026-06-15",
-          "part": "Kari Avsender",
+          "part": "Bodil Bever",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "notat",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Økonomi og innkjøp",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Budsjettrundskriv 2027 – rammer og framdrift",
+            "tekst": [
+              "Til enhetslederne. Med dette rundskrivet starter arbeidet med budsjett 2027 og økonomiplan 2027–2030. Rundskrivet gir de foreløpige rammene, forutsetningene og fristene. Arkivsak {{sak}}.",
+              "## Økonomiske forutsetninger",
+              "Kommuneproposisjonen for 2027 ble lagt fram i mai. Etter våre beregninger dekker veksten i de frie inntektene lønns- og prisveksten, men ikke de økte utgiftene som følger av at kommunen får flere eldre. Samtidig har renteutgiftene økt, og årsregnskapet for 2025 viste et netto driftsresultat på 0,4 prosent. Det er godt under det anbefalte nivået på 1,75 prosent. Kommunen må derfor redusere driftsnivået i 2027.",
+              "I budsjettarbeidet regner vi foreløpig med en lønnsvekst på 4,0 prosent og en prisvekst på 2,5 prosent fra 2026 til 2027. Tallene blir justert når statsbudsjettet legges fram i oktober. Pensjonspremien budsjetteres sentralt.",
+              "## Foreløpige rammer",
+              "Den samlede netto driftsrammen er foreløpig satt til 606 millioner kroner. Rammen for hver enhet står i vedlegg 1. Rammene bygger på vedtatt budsjett for 2026, justert for lønnsoppgjøret i 2026, helårsvirkningen av vedtak kommunestyret har gjort, og endringer i oppgaver. Enhetene får ikke kompensert prisvekst på varer og tjenester ut over det som står i vedlegget.",
+              "Hver enhet skal i tillegg legge fram forslag til innsparingstiltak som svarer til 1,5 prosent av rammen. Tiltakene skal beskrives med beløp, virkning for tjenestene og for de ansatte og hvilke vedtak som må til. Tiltak som gjelder bemanning, skal drøftes med de tillitsvalgte før de sendes inn. Kommunedirektøren velger hvilke tiltak som blir med i budsjettforslaget.",
+              "## Investeringer og gebyrer",
+              "Forslag til nye investeringer og endringer i prosjekter som er vedtatt, meldes inn på skjemaet i vedlegg 2. Hvert prosjekt skal ha et kostnadsoverslag og en vurdering av følgene for driften. Forslag til gebyrer og egenbetalinger for 2027 sendes inn sammen med budsjettforslaget. Selvkostområdene vann, avløp, renovasjon og byggesak skal budsjetteres med full kostnadsdekning.",
+              "## Framdrift",
+              "4. september 2026: frist for enhetenes budsjettforslag, innsparingstiltak og investeringsønsker\n14.–18. september 2026: budsjettmøter mellom kommunedirektøren og hver enhet\n29. september 2026: budsjettseminar for formannskapet\n6. november 2026: kommunedirektøren legger fram forslaget sitt\n17. november 2026: formannskapet behandler saken og gir innstilling\n10. desember 2026: kommunestyret vedtar budsjett og økonomiplan",
+              "Forslagene legges inn i budsjettmodulen i økonomisystemet innen fristen. Spørsmål om rundskrivet kan rettes til meg.",
+              "Bodil Bever, økonomisjef"
+            ],
+            "vedlegg": [
+              "Vedlegg 1: Foreløpige rammer per enhet 2027",
+              "Vedlegg 2: Skjema for investeringsprosjekter"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Innspill til budsjett 2027 – bemanningen i hjemmetjenesten – Fagforbundet Sirevåg",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-09-18",
+          "part": "Fagforbundet Sirevåg",
           "skjerm_part": false,
           "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
             "kanal": "brev",
-            "mottatt": "2026-06-15",
+            "mottatt": "2026-09-21",
             "avsender": {
-              "navn": "Kari Avsender",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
+              "navn": "Fagforbundet Sirevåg",
+              "adresse": "Havnegata 9, 4399 Sirevåg",
+              "epost": "post@fagforbundetsirevag.example"
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Innspill til budsjett 2027 – bemanningen i hjemmetjenesten",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Fagforbundet Sirevåg viser til arbeidet med budsjett 2027 og økonomiplan 2027–2030 og til drøftingsmøtet med enheten Helse og omsorg 2. september 2026. Der ble vi kjent med et innsparingstiltak som går ut på å redusere bemanningen i hjemmetjenesten med 2,5 årsverk. Vi ber om at dette innspillet følger budsjettsaken til formannskapet og kommunestyret.",
+              "Vi går imot tiltaket. Hjemmetjenesten har i dag 31,5 årsverk og gir hjelp til om lag 210 brukere. Tallet på brukere har økt med nesten tjue prosent på tre år, mens bemanningen har stått stille. Flere blir skrevet ut tidligere fra sykehuset, og oppgavene er blitt tyngre og mer sammensatte.",
+              "Sykefraværet i hjemmetjenesten var 11,2 prosent i første halvår 2026. Medlemmene våre forteller om kveldsvakter der de ikke rekker over listene, om pauser som faller bort, og om at de blir ringt opp på fridager for å ta ekstravakter. Kommunen brukte 1,9 millioner kroner på overtid og vikarer i hjemmetjenesten i fjor. Færre faste stillinger vil etter vårt syn gi mer overtid og mer vikarbruk, ikke mindre.",
+              "Vi minner også om at kommunestyret har vedtatt at kommunen skal arbeide for en heltidskultur. Over halvparten av helsefagarbeiderne og assistentene i hjemmetjenesten arbeider deltid, og mange av dem ønsker større stilling. Vi foreslår at kommunen i stedet for å kutte gjør om vikarmidler til faste, større stillinger og prøver ut en ny arbeidstidsordning sammen med de tillitsvalgte.",
+              "Vi stiller gjerne i møte med administrasjonen og formannskapet for å utdype innspillet.",
+              "Med hilsen Wenche Aase, leder, Fagforbundet Sirevåg"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "S",
+          "tittel": "Saksframlegg til formannskapet og kommunestyret – budsjett 2027 og økonomiplan 2027–2030 – kommunedirektørens forslag",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-11-06",
+          "part": "Bodil Bever",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "saksframlegg",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Økonomi og innkjøp",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Budsjett 2027 og økonomiplan 2027–2030 – kommunedirektørens forslag",
+            "tekst": [
+              "Saksframlegg til formannskapet, møte 17. november 2026, og kommunestyret, møte 10. desember 2026. Arkivsak {{sak}}. Saksbehandler: Bodil Bever, økonomisjef.",
+              "## Saken gjelder",
+              "Kommunedirektøren legger med dette fram forslag til budsjett for 2027 og økonomiplan for 2027–2030. Formannskapet gir innstilling til kommunestyret. Etter kommuneloven skal innstillingen ligge ute til alminnelig ettersyn i minst 14 dager før kommunestyret behandler saken. Selve budsjettdokumentet følger som vedlegg.",
+              "## Bakgrunn",
+              "Arbeidet startet med budsjettrundskrivet 15. juni 2026. Enhetene leverte forslagene sine 4. september, og formannskapet hadde budsjettseminar 29. september. Statsbudsjettet for 2027 ble lagt fram i oktober og ga ingen vesentlige endringer i forhold til kommuneproposisjonen.",
+              "Kommunen har et stramt økonomisk utgangspunkt. Netto driftsresultat var 0,4 prosent i 2025. Tallet på innbyggere over 80 år øker med om lag 40 prosent fram til 2035, og behovet for helse- og omsorgstjenester vokser raskere enn inntektene. Samtidig har kommunen høy lånegjeld etter flere store investeringer, og renteutgiftene tar en større del av inntektene enn før.",
+              "## Økonomiske rammer",
+              "Frie inntekter og andre generelle inntekter er beregnet til 657 millioner kroner i 2027. Netto finansutgifter er 36 millioner kroner, og av dette er 22 millioner kroner avdrag på lån. Den samlede netto driftsrammen er 612 millioner kroner. Forslaget gir et netto driftsresultat på 9 millioner kroner, som er 1,1 prosent av driftsinntektene. Det er lagt til grunn en lønnsvekst på 4,0 prosent og en prisvekst på 2,5 prosent.",
+              "Netto driftsrammen er fordelt slik:\nOppvekst: 228 millioner kroner\nHelse og omsorg: 251 millioner kroner\nTeknisk drift og miljø: 47 millioner kroner\nNæring, kultur og beredskap: 21 millioner kroner\nPlan, bygg og eiendom: 14 millioner kroner\nKommunedirektørens stab, Dokumentsenteret, Økonomi og innkjøp og Personal og organisasjon: 38 millioner kroner\nFellesutgifter, blant annet pensjon og lønnsreserve: 13 millioner kroner",
+              "## Innsparingstiltak",
+              "Forslaget har et innsparingskrav på 9 millioner kroner. Uten tiltakene ville netto driftsresultat blitt null. Kravet er fordelt slik: Helse og omsorg 3,4 millioner kroner, Oppvekst 1,8 millioner kroner, Teknisk drift og miljø 1,2 millioner kroner, stab og støttefunksjoner 1,5 millioner kroner, Næring, kultur og beredskap 0,4 millioner kroner og reise- og kursutgifter i alle enheter 0,7 millioner kroner.",
+              "I helse og omsorg foreslår kommunedirektøren å redusere bemanningen i hjemmetjenesten med 2,5 årsverk, fra 31,5 til 29 årsverk. Det gir en innsparing på 2,1 millioner kroner. Reduksjonen skal tas ved naturlig avgang og ved at ledige stillinger ikke lyses ut, og ingen skal sies opp. Den forutsetter nye kjøreruter, mer bruk av digitalt tilsyn og medisindispensere og at flere oppgaver samles på dagtid. Resten av innsparingen, 1,3 millioner kroner, skal komme fra ny turnus og mindre bruk av overtid og vikarbyrå ved Sirevåg omsorgssenter.",
+              "I oppvekst foreslår kommunedirektøren å øke foreldrebetalingen i skolefritidsordningen fra 1. januar 2027. Satsen for hel plass økes fra 3 150 til 3 450 kroner i måneden, og satsen for halv plass fra 2 000 til 2 200 kroner. Det gir 0,6 millioner kroner i økte inntekter. De tolv gratis timene i uka for elever på 1. til 3. trinn og ordningen med redusert betaling for familier med lav inntekt blir ikke berørt. Videre foreslås det at ressursen til miljøarbeider ved Sirevåg skole ikke føres videre fra 1. august 2027, og at skolene og barnehagene bruker mindre på vikarer og læremidler.",
+              "De andre tiltakene er mindre. Teknisk drift og miljø sparer på energibruken i kommunale bygg og utsetter noe asfaltering. I stab og støttefunksjoner holdes én stilling ledig, og kjøp av konsulenttjenester reduseres. Biblioteket får kortere åpningstid én dag i uka.",
+              "## Nye tiltak og bindinger",
+              "Kommunestyret har i høst gjort to vedtak som binder budsjettet. Driftstilskuddet til Sirevåg idrettslag etter den nye driftsavtalen for idrettsparken er 420 000 kroner i året (PS 60/26, arkivsak {{sak:idrettsparken-driftsavtale}}). Kommunens andel av det interkommunale legevaktsamarbeidet med Kvassheim kommune er om lag 3,1 millioner kroner i året (PS 61/26, arkivsak {{sak:legevaktsamarbeid-2027-2030}}). Begge beløpene er innarbeidet.",
+              "Nasjonalarkivet har i en foreløpig tilsynsrapport varslet pålegg om dokumentasjonsforvaltningen i kommunen (arkivsak {{sak:tilsyn-arkivhold-2026}}). Kommunedirektøren foreslår 1,2 millioner kroner i investeringsbudsjettet til sikring av de eldre papirarkivene og 300 000 kroner i driftsbudsjettet til Dokumentsenteret til arbeidet med dokumentasjonsplanen og opplæring. Den nye stillingen som byggesaksbehandler er finansiert av byggesaksgebyrene og belaster ikke rammen.",
+              "## Investeringer",
+              "Investeringsbudsjettet for 2027 er på 46 millioner kroner. De største prosjektene er utskifting av vannledninger etter hovedplanen for vann og avløp med 15 millioner kroner, rehabilitering av taket på Sirevåg skole med 9 millioner kroner og velferdsteknologi i helse og omsorg med 4 millioner kroner. Investeringene finansieres med 30 millioner kroner i nye lån, 8 millioner kroner i momskompensasjon og 8 millioner kroner fra driften og fond. Nye lån er noe høyere enn avdragene, og lånegjelden øker med om lag 8 millioner kroner.",
+              "## Innspill",
+              "Fagforbundet Sirevåg har i brev datert 18. september 2026 gått imot reduksjonen i hjemmetjenesten. Forbundet viser til flere brukere, høyt sykefravær og mye overtid og foreslår at vikarmidler gjøres om til faste, større stillinger. Brevet ligger i saken og følger som vedlegg. Tiltaket er drøftet med de tillitsvalgte 2. september og 21. oktober 2026.",
+              "## Vurdering",
+              "Kommunedirektøren mener forslaget er forsvarlig, men stramt. Et netto driftsresultat på 1,1 prosent er lavere enn det anbefalte nivået på 1,75 prosent, og kommunen har liten reserve dersom renten stiger eller behovene i helse og omsorg øker raskere enn ventet. Uten innsparingstiltakene måtte kommunen brukt av disposisjonsfondet for å dekke løpende drift, og det kan ikke fortsette over tid.",
+              "Reduksjonen i hjemmetjenesten er det tiltaket som har størst følger. Kommunedirektøren tar på alvor det Fagforbundet skriver om arbeidspresset, og er enig i at vikarmidler bør gjøres om til faste stillinger der det er mulig. Sirevåg bruker likevel mer per bruker i hjemmetjenesten enn sammenliknbare kommuner, og kommunedirektøren mener at nye ruter og mer bruk av teknologi gjør det mulig å gi forsvarlige tjenester med 29 årsverk. Tiltaket skal følges tett, og formannskapet får en egen rapport etter første tertial 2027.",
+              "Økningen i foreldrebetalingen i skolefritidsordningen er på om lag 9,5 prosent for hel plass. Kommunedirektøren ser at økningen merkes for familiene, men mener den er et bedre valg enn å redusere bemanningen i ordningen.",
+              "## Forslag til vedtak",
+              "Formannskapet legger saken fram for kommunestyret med slik innstilling:\n1. Kommunestyret vedtar budsjett for 2027 og økonomiplan for 2027–2030 slik kommunedirektøren har foreslått, med en netto driftsramme på 612 millioner kroner fordelt slik det går fram av budsjettdokumentet.\n2. Kommunestyret vedtar investeringsbudsjettet for 2027 med en samlet ramme på 46 millioner kroner og godkjenner at det tas opp 30 millioner kroner i lån til investeringene.\n3. Skatt på inntekt og formue skrives ut etter de høyeste satsene Stortinget vedtar.\n4. Bemanningen i hjemmetjenesten reduseres med 2,5 årsverk ved naturlig avgang. Formannskapet får rapport om følgene etter første tertial 2027.\n5. Foreldrebetalingen i skolefritidsordningen økes fra 1. januar 2027 til 3 450 kroner i måneden for hel plass og 2 200 kroner i måneden for halv plass.\n6. Kommunedirektøren får fullmakt til å fordele lønnsreserven på enhetene når lønnsoppgjøret for 2027 er kjent.",
+              "Ulla Ugle, kommunedirektør\nBodil Bever, økonomisjef"
+            ],
+            "vedlegg": [
+              "Kommunedirektørens forslag til budsjett 2027 og økonomiplan 2027–2030",
+              "Innspill fra Fagforbundet Sirevåg datert 18. september 2026"
+            ]
+          }
+        },
+        {
+          "type": "X",
+          "tittel": "Saksprotokoll – formannskapet 17.11.2026 – PS 85/26 – budsjett 2027 og økonomiplan 2027–2030 – formannskapets innstilling",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-11-18",
+          "part": "Petra Pinnsvin",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "protokoll",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Kommunedirektørens stab",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Saksprotokoll – formannskapet 17.11.2026 – PS 85/26 – budsjett 2027 og økonomiplan 2027–2030",
+            "tekst": [
+              "Saksprotokoll fra formannskapet, møte 17. november 2026 i kommunestyresalen i rådhuset. Sak PS 85/26 gjelder budsjett 2027 og økonomiplan 2027–2030, formannskapets innstilling til kommunestyret. Arkivsak {{sak}}.",
+              "## Kommunedirektørens forslag til vedtak",
+              "Formannskapet legger saken fram for kommunestyret med slik innstilling:\n1. Kommunestyret vedtar budsjett for 2027 og økonomiplan for 2027–2030 slik kommunedirektøren har foreslått, med en netto driftsramme på 612 millioner kroner fordelt slik det går fram av budsjettdokumentet.\n2. Kommunestyret vedtar investeringsbudsjettet for 2027 med en samlet ramme på 46 millioner kroner og godkjenner at det tas opp 30 millioner kroner i lån til investeringene.\n3. Skatt på inntekt og formue skrives ut etter de høyeste satsene Stortinget vedtar.\n4. Bemanningen i hjemmetjenesten reduseres med 2,5 årsverk ved naturlig avgang. Formannskapet får rapport om følgene etter første tertial 2027.\n5. Foreldrebetalingen i skolefritidsordningen økes fra 1. januar 2027 til 3 450 kroner i måneden for hel plass og 2 200 kroner i måneden for halv plass.\n6. Kommunedirektøren får fullmakt til å fordele lønnsreserven på enhetene når lønnsoppgjøret for 2027 er kjent.",
+              "## Behandling i møtet",
+              "Ordfører Gunnhild Søyland (Sp) ledet behandlingen. Sju stemmeberettigede var til stede. Kommunedirektør Ulla Ugle og økonomisjef Bodil Bever orienterte om forslaget og svarte på spørsmål om innsparingstiltakene i helse og omsorg, om foreldrebetalingen i skolefritidsordningen og om lånegjelden. Innspillet fra Fagforbundet Sirevåg datert 18. september 2026 var lagt ved saken.",
+              "I ordskiftet la flertallet vekt på at kommunen må ha et driftsresultat som gir rom for investeringene, og at reduksjonen i hjemmetjenesten skal tas ved naturlig avgang og følges opp med rapport til formannskapet. Mindretallet mente at bemanningen i hjemmetjenesten ikke bør reduseres når tallet på brukere øker, og at foreldrebetalingen i skolefritidsordningen ikke bør økes. Mindretallet varslet at det vil komme tilbake med egne forslag når kommunestyret behandler saken.",
+              "## Votering",
+              "Kommunedirektørens forslag til vedtak ble vedtatt med 5 mot 2 stemmer.",
+              "## Vedtak",
+              "Formannskapet legger saken fram for kommunestyret med slik innstilling:\n1. Kommunestyret vedtar budsjett for 2027 og økonomiplan for 2027–2030 slik kommunedirektøren har foreslått, med en netto driftsramme på 612 millioner kroner fordelt slik det går fram av budsjettdokumentet.\n2. Kommunestyret vedtar investeringsbudsjettet for 2027 med en samlet ramme på 46 millioner kroner og godkjenner at det tas opp 30 millioner kroner i lån til investeringene.\n3. Skatt på inntekt og formue skrives ut etter de høyeste satsene Stortinget vedtar.\n4. Bemanningen i hjemmetjenesten reduseres med 2,5 årsverk ved naturlig avgang. Formannskapet får rapport om følgene etter første tertial 2027.\n5. Foreldrebetalingen i skolefritidsordningen økes fra 1. januar 2027 til 3 450 kroner i måneden for hel plass og 2 200 kroner i måneden for halv plass.\n6. Kommunedirektøren får fullmakt til å fordele lønnsreserven på enhetene når lønnsoppgjøret for 2027 er kjent.",
+              "Innstillingen legges ut til alminnelig ettersyn fram til 3. desember 2026. Kommunestyret behandler saken 10. desember 2026.",
+              "Rett utskrift bekreftes.\nSirevåg, 18. november 2026\nPetra Pinnsvin, politisk sekretær"
             ],
             "vedlegg": []
           }
         },
         {
           "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
+          "tittel": "Kunngjøring – budsjett 2027 og økonomiplan 2027–2030 lagt ut til alminnelig ettersyn",
           "offentlig_tittel": null,
-          "dokumentdato": "2026-06-22",
-          "part": "Kari Avsender",
+          "dokumentdato": "2026-11-18",
+          "part": "Jærposten",
           "skjerm_part": false,
           "status": "E",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
-            "kanal": "brev",
+            "kanal": "epost",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Økonomi og innkjøp",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Kari Avsender",
-            "emne": "Svar fra kommunen",
+            "mottaker": "Jærposten, annonseavdelingen, annonse@jaerposten.example",
+            "emne": "Bestilling av annonse – budsjett 2027 og økonomiplan 2027–2030 lagt ut til alminnelig ettersyn",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Sirevåg kommune bestiller med dette en kunngjøring i Jærposten torsdag 19. november 2026. Annonsen skal stå under kommunale kunngjøringer, i to spalters bredde og med kommunevåpenet øverst. Annonseteksten følger nedenfor. Vår ref.: {{sak}}.",
+              "## Budsjett 2027 og økonomiplan 2027–2030 – alminnelig ettersyn",
+              "Formannskapet behandlet 17. november 2026 forslaget til budsjett for 2027 og økonomiplan for 2027–2030 og ga innstilling til kommunestyret. Innstillingen og saksdokumentene er lagt ut til alminnelig ettersyn fram til 3. desember 2026.",
+              "Dokumentene ligger på www.sirevag.example/budsjett. De er også lagt ut i servicetorget i rådhuset og på Sirevåg bibliotek i åpningstiden.",
+              "Innbyggere, lag, foreninger og andre som ønsker å uttale seg, kan sende merknader til Sirevåg kommune, Rådhusgata 1, 4399 Sirevåg, eller til postmottak@sirevag.example innen 3. desember 2026. Merk sendingen «Budsjett 2027». Merknadene blir lagt fram for kommunestyret.",
+              "Kommunestyret behandler budsjettet og økonomiplanen torsdag 10. desember 2026 i kommunestyresalen i rådhuset. Møtet er åpent for alle.",
+              "Fakturaen sendes til Sirevåg kommune, Økonomi og innkjøp, og merkes med referansen over. Vi ber om en bekreftelse på at annonsen kommer på trykk 19. november.",
+              "Med hilsen Bodil Bever, økonomisjef"
             ],
             "vedlegg": []
           }
@@ -2414,54 +2776,173 @@
       "journalposter": [
         {
           "type": "I",
-          "tittel": "Brev til kommunen (midlertidig)",
+          "tittel": "Krav om innsyn i avtale om vintervedlikehold av kommunale veger 2025–2028",
           "offentlig_tittel": null,
           "dokumentdato": "2026-10-05",
-          "part": "Kari Avsender",
+          "part": "Jærposten v/ journalist Oda Nærland",
           "skjerm_part": false,
           "status": "A",
-          "journalfort": true,
+          "journalfort": false,
           "tilgangskode": null,
           "dokument": {
-            "kanal": "brev",
+            "kanal": "epost",
             "mottatt": "2026-10-05",
             "avsender": {
-              "navn": "Kari Avsender",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
+              "navn": "Jærposten v/ journalist Oda Nærland",
+              "adresse": null,
+              "epost": "oda.naerland@jaerposten.example"
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Innsynskrav: avtalen om vintervedlikehold av kommunale veger 2025–2028",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Jeg ber om innsyn i avtalen Sirevåg kommune har inngått med Jærbrøyt AS om vintervedlikehold av kommunale veger for 2025–2028. Jeg ber om å få hele avtalen med alle vedlegg, også prisskjemaet og oversikten over brøyterodene.",
+              "Jærposten arbeider med en sak om hva brøyting og strøing kostet kommunen sist vinter, og om hvordan utgiftene vil utvikle seg i resten av avtaleperioden. Jeg viser til offentleglova § 3 og ber om svar uten ugrunnet opphold.",
+              "Dersom kommunen mener at deler av avtalen må unntas, ber jeg om at hjemmelen oppgis, og om at resten sendes med en gang. Dokumentene kan sendes som PDF til denne e-postadressen.",
+              "Med hilsen Oda Nærland, journalist i Jærposten"
             ],
             "vedlegg": []
           }
         },
         {
           "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
+          "tittel": "Svar på krav om innsyn – avtale om vintervedlikehold av kommunale veger 2025–2028 – innsyn med enhetsprisene sladdet",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-10-07",
+          "part": "Jærposten v/ journalist Oda Nærland",
+          "skjerm_part": false,
+          "status": "A",
+          "journalfort": false,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Dokumentsenteret",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "Jærposten v/ journalist Oda Nærland, oda.naerland@jaerposten.example",
+            "emne": "Svar på krav om innsyn – avtale om vintervedlikehold av kommunale veger 2025–2028",
+            "tekst": [
+              "Vi viser til kravet ditt 5. oktober 2026 om innsyn i avtalen mellom Sirevåg kommune og Jærbrøyt AS om vintervedlikehold av kommunale veger 2025–2028. Vår ref.: {{sak}}.",
+              "Du får innsyn i avtalen med vedlegg. Avtalen ble underskrevet 2. september 2025 og gjelder fra 1. oktober 2025 til 30. april 2028. Originalen ligger i kommunens sak om anskaffelsen fra 2025, som er avsluttet. En kopi ligger ved denne e-posten sammen med kravspesifikasjonen, oversikten over brøyterodene og prisskjemaet.",
+              "I prisskjemaet er enhetsprisene sladdet. Det gjelder timeprisene for hver maskintype, prisen per tonn strøsand og satsene for beredskap. Disse opplysningene er unntatt fra innsyn etter offentleglova § 13 første ledd, jf. forvaltningsloven § 13 første ledd nr. 2. Den faste årlige godtgjørelsen og den anslåtte samlede verdien av avtalen er ikke sladdet.",
+              "Du kan klage på avslaget til Statsforvalteren i Rogaland, jf. offentleglova § 32. Klagefristen er tre uker fra du mottok dette svaret, og klagen sendes til Sirevåg kommune. Du kan også be om en nærmere begrunnelse for avslaget innen tre uker, jf. offentleglova § 31.",
+              "Med hilsen Ellen Ekorn, arkivleder"
+            ],
+            "vedlegg": [
+              "Avtale om vintervedlikehold av kommunale veger 2025–2028 med vedlegg, enhetsprisene sladdet"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Klage over delvis avslag på innsyn – avtale om vintervedlikehold av kommunale veger 2025–2028",
           "offentlig_tittel": null,
           "dokumentdato": "2026-10-12",
-          "part": "Kari Avsender",
+          "part": "Jærposten v/ journalist Oda Nærland",
+          "skjerm_part": false,
+          "status": "A",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": "2026-10-12",
+            "avsender": {
+              "navn": "Jærposten v/ journalist Oda Nærland",
+              "adresse": null,
+              "epost": "oda.naerland@jaerposten.example"
+            },
+            "mottaker": null,
+            "emne": "Klage over delvis avslag på innsyn i avtalen om vintervedlikehold",
+            "tekst": [
+              "Jeg viser til svaret fra kommunen 7. oktober 2026, deres ref. {{sak}}. Jeg fikk innsyn i avtalen med Jærbrøyt AS om vintervedlikehold av kommunale veger 2025–2028, men enhetsprisene var sladdet. Jeg klager med dette på avslaget på innsyn i enhetsprisene, jf. offentleglova § 32.",
+              "Kommunen viser til taushetsplikten for forretningsforhold. Jeg kan ikke se at vilkårene er oppfylt. Avtalen ble inngått for over ett år siden, konkurransen er avsluttet, og prisene er det kommunen faktisk betaler med innbyggernes penger. Timepriser for brøyting er ikke tekniske innretninger eller framgangsmåter, og de sier lite om hvordan selskapet regner ut tilbudene sine.",
+              "Det er dessuten stor offentlig interesse knyttet til tallene. Etter det Jærposten kjenner til, brukte kommunen betydelig mer på brøyting og strøing sist vinter enn det som var budsjettert. Uten enhetsprisene er det ikke mulig for andre enn kommunen selv å kontrollere hvorfor regningen ble så høy, eller hva en ny snørik vinter vil koste.",
+              "Jeg ber om at kommunen vurderer saken på nytt og gir innsyn i hele prisskjemaet. Dersom kommunen holder fast ved avslaget, ber jeg om at klagen sendes til Statsforvalteren i Rogaland uten ugrunnet opphold.",
+              "Med hilsen Oda Nærland, journalist i Jærposten"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Oversendelse av klage over delvis avslag på innsyn – avtale om vintervedlikehold av kommunale veger 2025–2028",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-10-19",
+          "part": "Statsforvalteren i Rogaland",
+          "skjerm_part": false,
+          "status": "A",
+          "journalfort": true,
+          "tilgangskode": "13-2",
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Dokumentsenteret",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "Statsforvalteren i Rogaland, Postboks 59, 4001 Stavanger",
+            "emne": "Oversendelse av klage over delvis avslag på innsyn – avtale om vintervedlikehold av kommunale veger 2025–2028",
+            "tekst": [
+              "Sirevåg kommune sender med dette over en klage fra Jærposten ved journalist Oda Nærland over delvis avslag på innsyn, jf. offentleglova § 32. Kommunen har vurdert saken på nytt og opprettholder avslaget. Vår ref.: {{sak}}.",
+              "## Bakgrunn",
+              "Jærposten ba 5. oktober 2026 om innsyn i avtalen mellom Sirevåg kommune og Jærbrøyt AS om vintervedlikehold av kommunale veger 2025–2028, med alle vedlegg. Kommunen ga 7. oktober 2026 innsyn i avtalen og vedleggene, men sladdet enhetsprisene i prisskjemaet. Avslaget ble gitt med hjemmel i offentleglova § 13 første ledd, jf. forvaltningsloven § 13 første ledd nr. 2. Jærposten klaget 12. oktober 2026. Klagen er satt fram innen fristen.",
+              "## Klagen",
+              "Klageren mener at enhetsprisene ikke er forretningshemmeligheter. Hun viser til at avtalen er over ett år gammel, at konkurransen er avsluttet, og at prisene gjelder bruk av offentlige midler. Hun viser også til at allmennheten har interesse av å kunne kontrollere utgiftene til vintervedlikehold.",
+              "## Kommunens vurdering",
+              "Kommunen har taushetsplikt om drifts- eller forretningsforhold som det er av konkurransemessig betydning å hemmeligholde av hensyn til den opplysningen gjelder. Enhetsprisene i prisskjemaet er timepriser for hver maskintype, pris per tonn strøsand og satser for beredskap. De viser hvordan Jærbrøyt AS har satt sammen tilbudet sitt, og hvilke marginer selskapet regner med på de ulike delene av oppdraget. Selskapet merket prisskjemaet som forretningshemmelighet da tilbudet ble levert i 2025.",
+              "Kommunen er enig med klageren i at tiden som er gått, har betydning. Avtalen løper likevel til 30. april 2028, og kommunen skal lyse ut oppdraget på nytt før den tid. Det er få leverandører av vintervedlikehold i området. Blir enhetsprisene kjent nå, kan konkurrentene bruke dem til å legge seg like under Jærbrøyt AS i neste konkurranse. Kommunen mener derfor at opplysningene fortsatt har konkurransemessig betydning.",
+              "Hensynet til offentlig kontroll er etter kommunens syn ivaretatt ved at Jærposten har fått hele avtalen, den faste årlige godtgjørelsen, den anslåtte verdien av avtalen og kravspesifikasjonen. Kommunen kan i tillegg gi innsyn i regnskapstallene for vintervedlikeholdet dersom avisen ber om det. Opplysninger som er underlagt taushetsplikt, har kommunen ikke adgang til å gi innsyn i.",
+              "## Konklusjon",
+              "Sirevåg kommune opprettholder avslaget på innsyn i enhetsprisene og sender saken til Statsforvalteren i Rogaland for endelig avgjørelse. Avtalen ligger ved i sladdet og usladdet versjon. Den usladdede versjonen har opplysninger som er underlagt taushetsplikt. Klageren har fått kopi av dette brevet uten vedlegg.",
+              "Med hilsen Ellen Ekorn, arkivleder"
+            ],
+            "vedlegg": [
+              "Krav om innsyn fra Jærposten 5. oktober 2026",
+              "Kommunens svar 7. oktober 2026",
+              "Klage fra Jærposten 12. oktober 2026",
+              "Avtale om vintervedlikehold av kommunale veger 2025–2028, sladdet versjon",
+              "Avtale om vintervedlikehold av kommunale veger 2025–2028, usladdet versjon (unntatt offentlighet, offl. § 13)"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Vedtak i klagesak – delvis avslag på innsyn i avtale om vintervedlikehold av kommunale veger 2025–2028 – kommunens avslag stadfestet",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-11-05",
+          "part": "Statsforvalteren i Rogaland",
           "skjerm_part": false,
           "status": "A",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
             "kanal": "brev",
-            "mottatt": null,
+            "mottatt": "2026-11-06",
             "avsender": {
-              "navn": "Sirevåg kommune",
-              "adresse": "Rådhusgata 1, 4399 Sirevåg",
-              "epost": "postmottak@sirevag.example"
+              "navn": "Statsforvalteren i Rogaland",
+              "adresse": "Postboks 59, 4001 Stavanger",
+              "epost": null
             },
-            "mottaker": "Kari Avsender",
-            "emne": "Svar fra kommunen",
+            "mottaker": null,
+            "emne": "Vedtak i klagesak – innsyn i avtale om vintervedlikehold av kommunale veger 2025–2028",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Statsforvalteren i Rogaland viser til oversendelsen fra Sirevåg kommune datert 19. oktober 2026, deres ref. {{sak}}. Saken gjelder en klage fra Jærposten ved journalist Oda Nærland over at kommunen har avslått innsyn i enhetsprisene i avtalen med Jærbrøyt AS om vintervedlikehold av kommunale veger 2025–2028.",
+              "## Vedtak",
+              "Statsforvalteren stadfester Sirevåg kommunes avslag av 7. oktober 2026 på innsyn i enhetsprisene i prisskjemaet. Klagen har ikke ført fram.",
+              "## Bakgrunn for saken",
+              "Jærposten ba 5. oktober 2026 om innsyn i avtalen med alle vedlegg. Kommunen ga innsyn i avtalen, kravspesifikasjonen, oversikten over brøyterodene og prisskjemaet, men sladdet enhetsprisene med hjemmel i offentleglova § 13 første ledd, jf. forvaltningsloven § 13 første ledd nr. 2. Jærposten klaget 12. oktober 2026. Kommunen opprettholdt avslaget og sendte saken hit.",
+              "## Statsforvalterens vurdering",
+              "Statsforvalteren er klageinstans når en kommune har avslått et krav om innsyn, jf. offentleglova § 32, og kan prøve alle sider av saken. Vi har fått avtalen i usladdet versjon og har gått gjennom opplysningene som er holdt tilbake.",
+              "Hovedregelen er at alle kan kreve innsyn i saksdokumentene til en kommune, jf. offentleglova § 3. Opplysninger som er underlagt taushetsplikt i lov, er unntatt fra innsyn etter offentleglova § 13 første ledd. Etter forvaltningsloven § 13 første ledd nr. 2 gjelder taushetsplikten opplysninger om drifts- eller forretningsforhold som det vil være av konkurransemessig betydning å hemmeligholde av hensyn til den opplysningen gjelder. Det er ikke nok at virksomheten selv ønsker hemmelighold. Innsyn må kunne føre til økonomisk tap eller redusert gevinst for virksomheten.",
+              "Den samlede prisen i en avtale med det offentlige er som hovedregel ikke en forretningshemmelighet, og kommunen har gitt innsyn i den faste årlige godtgjørelsen og den anslåtte verdien av avtalen. Enhetspriser står i en annen stilling. De kan vise hvordan leverandøren har regnet, og de kan brukes av konkurrenter i senere konkurranser. Om de er taushetsbelagte, må vurderes konkret.",
+              "I denne saken er prisene delt opp på maskintyper, strømidler og beredskap. Avtalen løper til 2028, kommunen skal lyse ut oppdraget på nytt, og markedet har få leverandører. Statsforvalteren er enig med kommunen i at konkurrenter vil kunne bruke opplysningene til å tilpasse tilbudene sine, og at innsyn derfor kan skade selskapet. At avtalen er vel ett år gammel, endrer ikke dette så lenge prisene fortsatt gjelder. Opplysningene er underlagt taushetsplikt, og kommunen har da ikke adgang til å gi innsyn i dem.",
+              "Klageren har vist til at allmennheten har interesse av å kontrollere bruken av offentlige midler. Det hensynet veier tungt, men det kan ikke føre til innsyn i opplysninger som er taushetsbelagte. Statsforvalteren viser til at klageren har fått resten av avtalen, og at kommunen har sagt at avisen kan få regnskapstallene for vintervedlikeholdet.",
+              "## Klageadgang",
+              "Vedtaket er endelig og kan ikke klages på. Jærposten ved Oda Nærland har fått kopi av dette brevet.",
+              "Med hilsen Jorunn Refsnes, seniorrådgiver, Statsforvalteren i Rogaland"
             ],
             "vedlegg": []
           }
@@ -2482,10 +2963,10 @@
       "journalposter": [
         {
           "type": "I",
-          "tittel": "Brev til kommunen (midlertidig)",
+          "tittel": "Varsel om tilsyn med dokumentasjonsforvaltningen og arkivholdet i Sirevåg kommune",
           "offentlig_tittel": null,
-          "dokumentdato": "2026-08-24",
-          "part": "Kari Avsender",
+          "dokumentdato": "2026-08-21",
+          "part": "Nasjonalarkivet",
           "skjerm_part": false,
           "status": "J",
           "journalfort": true,
@@ -2494,25 +2975,36 @@
             "kanal": "brev",
             "mottatt": "2026-08-24",
             "avsender": {
-              "navn": "Kari Avsender",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
+              "navn": "Nasjonalarkivet",
+              "adresse": null,
               "epost": null
             },
             "mottaker": null,
-            "emne": "Brev til kommunen",
+            "emne": "Varsel om tilsyn med dokumentasjonsforvaltningen og arkivholdet i Sirevåg kommune",
             "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
+              "Nasjonalarkivet varsler med dette tilsyn med dokumentasjonsforvaltningen og arkivholdet i Sirevåg kommune. Tilsynet har hjemmel i arkivlova § 21 og skal vise om kommunen oppfyller kravene i arkivlova og arkivforskrifta.",
+              "## Tid og sted",
+              "Det stedlige tilsynet holdes onsdag 14. oktober 2026 i rådhuset i Sirevåg, fra klokka 09.00 til om lag klokka 15.30. Dagen begynner med et åpningsmøte med kommunedirektøren og arkivlederen. Deretter har vi samtaler med ledere og saksbehandlere, vi går gjennom utvalgte systemer, og vi ser på lokalene der kommunen oppbevarer papirarkiv. Dagen slutter med et møte der vi legger fram de foreløpige funnene.",
+              "## Tema for tilsynet",
+              "Vi vil særlig se på fire tema. Det første er dokumentasjonsplanen, jf. arkivlova § 8, og hvordan kommunen har avgjort hva den skal forvalte som arkiv, jf. arkivlova § 5 og arkivforskrifta § 1. Det andre er hvordan kommunen fanger opp og registrerer dokumentasjon som blir til i e-post, tekstmeldinger, samhandlingsløsninger og fagsystemer. Det tredje er journalføringen, jf. arkivforskrifta § 14. Det fjerde er oppbevaringen og sikringen av eldre og avsluttede arkiv, både på papir og i digitale systemer.",
+              "## Dokumentasjon vi ber om",
+              "Vi ber kommunen sende oss dette innen 11. september 2026:\nGjeldende dokumentasjonsplan med vedlegg\nOversikt over systemer som inneholder dokumentasjon kommunen forvalter som arkiv\nRutiner for registrering og journalføring, også for e-post og tekstmeldinger\nOrganisasjonskart og delegeringsreglement som viser hvem som har ansvaret for arkivet\nOversikt over arkivlokaler og hva som oppbevares der\nOversikt over arkiv som er avlevert eller deponert de siste ti årene",
+              "Vi ber også om navn på en kontaktperson og på dem som skal delta i samtalene. Vi ønsker å snakke med kommunedirektøren, arkivlederen, en leder og to saksbehandlere fra ulike enheter.",
+              "## Etter tilsynet",
+              "Etter tilsynet sender vi en foreløpig tilsynsrapport som kommunen får uttale seg om. Finner vi brudd på regelverket, kan Nasjonalarkivet gi pålegg om å rette forholdene. Spørsmål om tilsynet kan rettes til tilsynslederen.",
+              "Med hilsen Marte Haver, seniorrådgiver og tilsynsleder, Nasjonalarkivet"
             ],
-            "vedlegg": []
+            "vedlegg": [
+              "Program for tilsynsdagen"
+            ]
           }
         },
         {
           "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
+          "tittel": "Oversendelse av dokumentasjon før tilsynet – tilsyn med dokumentasjonsforvaltningen og arkivholdet 2026",
           "offentlig_tittel": null,
-          "dokumentdato": "2026-08-31",
-          "part": "Kari Avsender",
+          "dokumentdato": "2026-09-11",
+          "part": "Nasjonalarkivet",
           "skjerm_part": false,
           "status": "E",
           "journalfort": true,
@@ -2521,15 +3013,101 @@
             "kanal": "brev",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Dokumentsenteret",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Kari Avsender",
-            "emne": "Svar fra kommunen",
+            "mottaker": "Nasjonalarkivet",
+            "emne": "Oversendelse av dokumentasjon før tilsynet 14. oktober 2026",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Vi viser til varselet om tilsyn datert 21. august 2026 og sender med dette dokumentasjonen Nasjonalarkivet har bedt om. Vår ref.: {{sak}}.",
+              "Dokumentasjonsplanen ligger ved slik den gjelder i dag. Vi gjør oppmerksom på at planen sist ble revidert i 2019. Den er ikke oppdatert etter at den nye arkivlova og arkivforskrifta begynte å gjelde 1. januar 2026, og heller ikke etter omorganiseringen av kommunen i 2023. Flere fagsystemer som er tatt i bruk de siste årene, mangler i planen. Vi har derfor laget en egen, oppdatert oversikt over systemene, som også ligger ved.",
+              "Rutinen for registrering og journalføring er fra 2021. Den sier at e-post med saksinnhold skal overføres til sak- og arkivsystemet av den som mottar eller sender den. Kommunen har ingen skriftlig rutine for tekstmeldinger og meldinger i samhandlingsløsninger.",
+              "Papirarkivene fra før 2005 står i to rom i kjelleren i rådhuset, til sammen om lag 310 hyllemeter. Oversikten over lokalene og innholdet ligger ved. Kommunen har ikke avlevert eller deponert papirarkiv de siste ti årene. Et uttrekk fra det forrige sak- og arkivsystemet ble deponert i 2018.",
+              "Kontaktperson for tilsynet er arkivleder Ellen Ekorn, ellen.ekorn@sirevag.example. I samtalene deltar kommunedirektør Ulla Ugle, arkivleder Ellen Ekorn, økonomisjef Bodil Bever, byggesaksbehandler Gunnar Grevling og rådgiver oppvekst Rakel Rådyr. Vi har satt av formannskapssalen i rådhuset hele dagen.",
+              "Med hilsen Ellen Ekorn, arkivleder"
+            ],
+            "vedlegg": [
+              "Dokumentasjonsplan for Sirevåg kommune, revidert 2019",
+              "Oppdatert oversikt over systemer med dokumentasjon",
+              "Rutine for registrering og journalføring, 2021",
+              "Organisasjonskart og delegeringsreglement",
+              "Oversikt over arkivlokaler og innhold",
+              "Kvittering for deponering av uttrekk, 2018"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Foreløpig tilsynsrapport med varsel om pålegg – tilsyn med dokumentasjonsforvaltningen og arkivholdet 2026",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-10-23",
+          "part": "Nasjonalarkivet",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": "2026-10-26",
+            "avsender": {
+              "navn": "Nasjonalarkivet",
+              "adresse": null,
+              "epost": null
+            },
+            "mottaker": null,
+            "emne": "Foreløpig tilsynsrapport med varsel om pålegg – tilsyn med dokumentasjonsforvaltningen og arkivholdet i Sirevåg kommune",
+            "tekst": [
+              "Nasjonalarkivet viser til tilsynet i Sirevåg kommune 14. oktober 2026 og til dokumentasjonen kommunen sendte 11. september 2026, deres ref. {{sak}}. Dette er den foreløpige tilsynsrapporten. Vi varsler tre pålegg og ber om kommunens uttalelse innen 13. november 2026.",
+              "## Om tilsynet",
+              "Tilsynet ble gjennomført med hjemmel i arkivlova § 21. Vi hadde samtaler med kommunedirektøren, arkivlederen, økonomisjefen og to saksbehandlere, gikk gjennom sak- og arkivsystemet og tre fagsystemer og så på arkivlokalene i kjelleren i rådhuset. Rapporten bygger på samtalene, dokumentasjonen og det vi så.",
+              "Kommunen har et dokumentsenter med god kompetanse, og journalføringen av inngående og utgående dokumenter i sak- og arkivsystemet holder gjennomgående god kvalitet. Vi fant likevel tre forhold som er brudd på regelverket.",
+              "## Varsel om pålegg 1: Dokumentasjonsplanen er ikke oppdatert",
+              "Kommunen skal ha en dokumentasjonsplan, jf. arkivlova § 8. Planen skal vise hva kommunen forvalter som arkiv, jf. arkivlova § 5 og arkivforskrifta § 1, og i hvilke systemer dokumentasjonen ligger. Planen til Sirevåg kommune ble sist revidert i 2019. Den beskriver en organisering som ikke gjelder lenger, og minst åtte fagsystemer som er i bruk, er ikke med. Vi varsler pålegg om at kommunen skal oppdatere dokumentasjonsplanen. Fristen vi foreslår, er 1. mars 2027.",
+              "## Varsel om pålegg 2: E-post og tekstmeldinger blir ikke fanget opp godt nok",
+              "Dokumenter som er eller blir saksbehandlet og har verdi som dokumentasjon, skal registreres og journalføres, jf. arkivforskrifta § 14. Det gjelder enten de kommer som brev, e-post eller tekstmelding. I samtalene kom det fram at saksbehandlere og ledere i flere enheter har e-post med saksinnhold liggende i egne e-postkasser, og at registreringen avhenger av den enkelte. Tekstmeldinger med saksinnhold, blant annet mellom ledere og folkevalgte, blir som regel ikke registrert, og kommunen har ingen rutine for dette. Vi varsler pålegg om at kommunen skal innføre rutiner som sikrer at e-post og tekstmeldinger med saksinnhold blir fanget opp og registrert. Fristen vi foreslår, er 1. februar 2027.",
+              "## Varsel om pålegg 3: Eldre papirarkiv er ikke forsvarlig sikret",
+              "Kommunen oppbevarer om lag 310 hyllemeter papirarkiv fra før 2005 i to rom i kjelleren i rådhuset. Det går vannrør gjennom begge rommene, det ene rommet har hatt vann på gulvet, og de nederste hyllene står for lavt. Rommene har ikke brannvarsling som er koblet til alarmsentral, og døren til det ene rommet var ulåst da vi var der. Arkivene er ikke forsvarlig sikret mot vann, brann og uvedkommende. Vi varsler pålegg om at kommunen skal legge fram en plan for forsvarlig sikring av de eldre papirarkivene. Fristen vi foreslår, er 1. april 2027.",
+              "## Videre saksgang",
+              "Kommunen kan uttale seg om de faktiske forholdene i rapporten, om påleggene og om fristene innen 13. november 2026. Når vi har vurdert uttalelsen, sender vi den endelige tilsynsrapporten.",
+              "Med hilsen Marte Haver, seniorrådgiver og tilsynsleder, Nasjonalarkivet"
+            ],
+            "vedlegg": []
+          }
+        },
+        {
+          "type": "U",
+          "tittel": "Uttalelse til foreløpig tilsynsrapport – tilsyn med dokumentasjonsforvaltningen og arkivholdet 2026",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-11-12",
+          "part": "Nasjonalarkivet",
+          "skjerm_part": false,
+          "status": "E",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "brev",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Dokumentsenteret",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": "Nasjonalarkivet",
+            "emne": "Uttalelse til foreløpig tilsynsrapport med varsel om pålegg",
+            "tekst": [
+              "Sirevåg kommune viser til den foreløpige tilsynsrapporten datert 23. oktober 2026, som vi mottok 26. oktober 2026. Kommunen har gått gjennom rapporten og har disse merknadene. Vår ref.: {{sak}}.",
+              "## De faktiske forholdene",
+              "Kommunen kjenner seg igjen i beskrivelsen og har ingen innvendinger mot funnene. Vi har én rettelse. Rapporten sier at minst åtte fagsystemer mangler i dokumentasjonsplanen. Etter vår egen gjennomgang er tallet elleve. Det endrer ikke konklusjonen.",
+              "## Pålegg 1: Dokumentasjonsplanen",
+              "Kommunedirektøren satte 2. november 2026 ned en arbeidsgruppe som skal lage ny dokumentasjonsplan. Arkivlederen leder gruppen, og alle enhetene deltar. Gruppen skal kartlegge systemene, avgjøre hva kommunen skal forvalte som arkiv, og plassere ansvaret for hvert system. Kommunen har ingen merknader til fristen 1. mars 2027.",
+              "## Pålegg 2: E-post og tekstmeldinger",
+              "Kommunen er enig i at registreringen i dag avhenger for mye av den enkelte. Vi lager en ny rutine for e-post, tekstmeldinger og meldinger i samhandlingsløsninger, og den skal være vedtatt innen 15. januar 2027. Alle ledere og saksbehandlere skal ha gjennomført opplæring innen fristen 1. februar 2027, og de folkevalgte får opplæring i det første kommunestyremøtet i 2027. Vi tar også i bruk en løsning som gjør at tekstmeldinger fra tjenestetelefoner kan overføres til sak- og arkivsystemet.",
+              "## Pålegg 3: De eldre papirarkivene",
+              "Kommunen har gjort strakstiltak. Begge rommene i kjelleren har fått ny lås, og bare Dokumentsenteret har nøkkel. Arkivboksene på de nederste hyllene er flyttet opp, og det er satt inn fuktmålere med varsling. En varig løsning krever enten ombygging av rommene eller at arkivene flyttes til lokaler som holder kravene. Kommunedirektøren har foreslått 1,2 millioner kroner til dette i investeringsbudsjettet for 2027, jf. arkivsak {{sak:budsjett-2027}}. Kommunestyret behandler budsjettet 10. desember 2026. Planen for sikring blir lagt fram innen fristen 1. april 2027.",
+              "## Oppfølging i kommunen",
+              "Kontrollutvalget blir orientert om tilsynet i møtet 12. november 2026 og har bestilt en forvaltningsrevisjon av dokumentasjonsforvaltningen og journalføringen i kommunen. Kommunedirektøren vil orientere kommunestyret om arbeidet med påleggene når den endelige tilsynsrapporten foreligger.",
+              "Med hilsen Ulla Ugle, kommunedirektør, og Ellen Ekorn, arkivleder"
             ],
             "vedlegg": []
           }
@@ -2549,38 +3127,11 @@
       "status": "B",
       "journalposter": [
         {
-          "type": "I",
-          "tittel": "Brev til kommunen (midlertidig)",
+          "type": "U",
+          "tittel": "Innkalling til lokale lønnsforhandlinger 2026 – hovedtariffavtalen kapittel 4 og 5",
           "offentlig_tittel": null,
           "dokumentdato": "2026-09-01",
-          "part": "Kari Avsender",
-          "skjerm_part": false,
-          "status": "J",
-          "journalfort": true,
-          "tilgangskode": null,
-          "dokument": {
-            "kanal": "brev",
-            "mottatt": "2026-09-01",
-            "avsender": {
-              "navn": "Kari Avsender",
-              "adresse": "Fyrveien 2, 4399 Sirevåg",
-              "epost": null
-            },
-            "mottaker": null,
-            "emne": "Brev til kommunen",
-            "tekst": [
-              "Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen avsenderen."
-            ],
-            "vedlegg": []
-          }
-        },
-        {
-          "type": "U",
-          "tittel": "Svar fra kommunen (midlertidig)",
-          "offentlig_tittel": null,
-          "dokumentdato": "2026-09-08",
-          "part": "Kari Avsender",
+          "part": "Fagforbundet Sirevåg med flere",
           "skjerm_part": false,
           "status": "E",
           "journalfort": true,
@@ -2589,15 +3140,174 @@
             "kanal": "brev",
             "mottatt": null,
             "avsender": {
-              "navn": "Sirevåg kommune",
+              "navn": "Sirevåg kommune, Personal og organisasjon",
               "adresse": "Rådhusgata 1, 4399 Sirevåg",
               "epost": "postmottak@sirevag.example"
             },
-            "mottaker": "Kari Avsender",
-            "emne": "Svar fra kommunen",
+            "mottaker": "Fagforbundet Sirevåg med flere (Utdanningsforbundet Sirevåg, Norsk Sykepleierforbund Sirevåg, Delta Sirevåg og NITO Sirevåg)",
+            "emne": "Innkalling til lokale lønnsforhandlinger 2026",
             "tekst": [
-              "Vi viser til brevet deres. Vår ref.: {{sak}}. Dette er et midlertidig dokument som står her til det ekte dokumentet er skrevet. Det har nok tekst til at arket ser ut som et brev, og det viser til saken slik et vanlig brev fra kommunen gjør. Innholdet har ingen betydning for registreringen, og det blir byttet ut.",
-              "Med hilsen saksbehandleren."
+              "Sirevåg kommune kaller med dette inn arbeidstakerorganisasjonene til lokale lønnsforhandlinger for 2026 etter hovedtariffavtalen kapittel 4, punkt 4.2.1, og kapittel 5, punkt 5.1. Vår ref.: {{sak}}.",
+              "## Grunnlaget for forhandlingene",
+              "I kapittel 4 forhandler partene om potten som er satt av til lokale forhandlinger i hovedtariffoppgjøret 2026. For Sirevåg kommune er potten beregnet til 1 415 000 kroner, og tilleggene gis med virkning fra 1. september 2026. Beregningen av potten ligger ved. I kapittel 5 skjer hele lønnsdannelsen lokalt, og virkningsdatoen er 1. mai 2026.",
+              "Lønnspolitisk drøftingsmøte ble holdt 25. august 2026, og referatet ligger ved. Forhandlingene bygger på kriteriene i kommunens lønnspolitikk: ansvar, kompetanse, resultater og behovet for å rekruttere og beholde arbeidstakere. Arbeidsgiveren vil i år særlig se på stillinger der kommunen har vansker med å rekruttere.",
+              "## Krav",
+              "Kravene legges fram i forhandlingsmøtet. Organisasjoner som ønsker det, kan sende skriftlige krav på forhånd. De må da være kommet til kommunen innen onsdag 23. september 2026. Kravene sendes til postmottak@sirevag.example og merkes med saksnummeret over. Krav for enkeltmedlemmer settes opp med navn, stilling, enhet, lønn i dag og krav om ny lønn. Organisasjonene får lønnsoversikter for medlemmene sine fra Personal og organisasjon innen 8. september.",
+              "## Forhandlingsmøter",
+              "Møtene holdes i formannskapssalen i rådhuset og begynner klokka 12.00. Utdanningsforbundet har bedt om et tidlig møte, og det er derfor lagt til oktober.\nUtdanningsforbundet Sirevåg: onsdag 28. oktober 2026\nNITO Sirevåg: torsdag 19. november 2026\nFagforbundet Sirevåg: tirsdag 24. november 2026\nNorsk Sykepleierforbund Sirevåg: onsdag 25. november 2026\nDelta Sirevåg: torsdag 26. november 2026",
+              "Arbeidsgiverens forhandlingsutvalg er kommunedirektør Ulla Ugle, økonomisjef Bodil Bever og personalrådgiver Maren Mår. Vi ber om at organisasjonene melder fra om hvem som møter, senest én uke før møtet.",
+              "Kommunen unntar krav og tilbud fra offentlighet mens forhandlingene pågår, jf. offentleglova § 23 første ledd. Protokollene fra forhandlingene er offentlige. Resultatet for den enkelte blir meddelt i eget brev når protokollen er underskrevet.",
+              "Med hilsen Maren Mår, personalrådgiver"
+            ],
+            "vedlegg": [
+              "Beregning av potten til lokale forhandlinger etter kapittel 4",
+              "Referat fra lønnspolitisk drøftingsmøte 25. august 2026",
+              "Lønnspolitisk plan for Sirevåg kommune"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Krav til lokale lønnsforhandlinger 2026 – Utdanningsforbundet Sirevåg",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-09-22",
+          "part": "Utdanningsforbundet Sirevåg",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "23-1",
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": "2026-09-22",
+            "avsender": {
+              "navn": "Utdanningsforbundet Sirevåg",
+              "adresse": null,
+              "epost": "sirevag@utdanningsforbundet.example"
+            },
+            "mottaker": null,
+            "emne": "Krav til lokale lønnsforhandlinger 2026 – Utdanningsforbundet Sirevåg",
+            "tekst": [
+              "Utdanningsforbundet Sirevåg viser til innkallingen datert 1. september 2026, deres ref. {{sak}}, og legger med dette fram kravene våre til de lokale forhandlingene etter hovedtariffavtalen kapittel 4, punkt 4.2.1. Kravene gjelder 148 medlemmer i skolene og barnehagene.",
+              "Medlemmene våre har 31 prosent av lønnsmassen i kapittel 4. Vi krever at minst 440 000 kroner av potten på 1 415 000 kroner går til dem, og at arbeidsgiveren i tillegg bruker egne midler for å løse rekrutteringsvanskene i skolene og barnehagene. Samlet har kravene våre en kostnad på 1 020 000 kroner i året.",
+              "Krav 1: Funksjonstillegget for kontaktlærere økes fra 24 000 til 32 000 kroner i året. Kontaktlærerne har fått flere oppgaver i arbeidet med skolemiljøet og i samarbeidet med hjemmene, og tillegget har stått stille siden 2022. Kravet gjelder 38 medlemmer.\nKrav 2: Pedagogiske ledere i barnehagene får et tillegg på 15 000 kroner i året. Begge barnehagene har hatt stillinger som pedagogisk leder ledige i mer enn et halvt år. Kravet gjelder 12 medlemmer.\nKrav 3: Lærere som har fullført videreutdanning på minst 30 studiepoeng de siste tre årene, får et kompetansetillegg på 20 000 kroner i året. Kravet gjelder 9 medlemmer.\nKrav 4: Individuelle tillegg til 22 medlemmer som har tatt på seg særlig ansvar, eller som er blitt hengende etter i lønn. Disse kravene er på til sammen 356 000 kroner og står i vedlegget med navn og begrunnelse.",
+              "Vi viser til at kommunen ved skolestart hadde fire lærerstillinger besatt av personer uten godkjent lærerutdanning, og at flere av medlemmene våre har fått tilbud om høyere lønn i nabokommunene. Lønn er ikke det eneste som avgjør, men kommunen kan ikke over tid ligge lavere enn kommunene rundt.",
+              "Vi ber om å få arbeidsgiverens første tilbud senest en uke før forhandlingsmøtet 28. oktober. Vi ber også om at kravene blir unntatt offentlighet mens forhandlingene pågår.",
+              "Med hilsen Ingrid Vagle, hovedtillitsvalgt, Utdanningsforbundet Sirevåg"
+            ],
+            "vedlegg": [
+              "Individuelle krav med navn, stilling og begrunnelse"
+            ]
+          }
+        },
+        {
+          "type": "I",
+          "tittel": "Krav til lokale lønnsforhandlinger 2026 – NITO Sirevåg",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-09-23",
+          "part": "NITO Sirevåg",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "23-1",
+          "dokument": {
+            "kanal": "epost",
+            "mottatt": "2026-09-23",
+            "avsender": {
+              "navn": "NITO Sirevåg",
+              "adresse": null,
+              "epost": "nito.sirevag@epost.example"
+            },
+            "mottaker": null,
+            "emne": "Krav til lokale lønnsforhandlinger 2026 – NITO Sirevåg",
+            "tekst": [
+              "NITO Sirevåg viser til innkallingen datert 1. september 2026, deres ref. {{sak}}, og legger fram kravene til de lokale forhandlingene etter hovedtariffavtalen kapittel 5, punkt 5.1. Kravene gjelder de ni medlemmene våre i enhetene Teknisk drift og miljø og Plan, bygg og eiendom.",
+              "Vi krever en samlet ramme på 5,6 prosent av lønnsmassen til medlemmene våre, med virkning fra 1. mai 2026. Lønnsmassen er 6 640 000 kroner, og kravet svarer til 372 000 kroner. Vi krever et generelt tillegg på 3,5 prosent til alle medlemmene, og at resten fordeles som individuelle tillegg slik det står i vedlegget.",
+              "Begrunnelsen er først og fremst lønnsnivået. Ingeniørene i Sirevåg kommune ligger i snitt om lag 45 000 kroner under ingeniører med samme utdanning og ansiennitet i nabokommunene, og langt under privat sektor på Jæren. Kommunen har hatt to ingeniørstillinger ledige i over ett år og har lyst ut flere stillinger uten å få kvalifiserte søkere.",
+              "Arbeidsmengden har samtidig økt. Antallet byggesaker og saker om vann og avløp har gått opp, og medlemmene våre dekker i praksis de ledige stillingene. Flere har tatt videreutdanning som kommunen har direkte nytte av. Vi mener kommunen må bruke lønn for å beholde de fagfolkene den har, og viser til kriteriene i lønnspolitikken.",
+              "Vi ber om lønnsoversikt for alle stillinger i kapittel 5 før forhandlingsmøtet 19. november, slik at vi kan sammenlikne med andre grupper. Vi ber om at kravene blir unntatt offentlighet mens forhandlingene pågår.",
+              "Med hilsen Ole Oter, tillitsvalgt, NITO Sirevåg"
+            ],
+            "vedlegg": [
+              "Individuelle krav med navn, stilling og begrunnelse",
+              "Lønnsstatistikk for ingeniører i kommunal sektor"
+            ]
+          }
+        },
+        {
+          "type": "X",
+          "tittel": "Arbeidsgivers forhandlingsstrategi og økonomiske ramme – lokale lønnsforhandlinger 2026",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-10-14",
+          "part": "Maren Mår",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": "23-1",
+          "dokument": {
+            "kanal": "notat",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Personal og organisasjon",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Arbeidsgivers forhandlingsstrategi og økonomiske ramme – lokale lønnsforhandlinger 2026",
+            "tekst": [
+              "Notat til kommunedirektøren og arbeidsgiverens forhandlingsutvalg fra personalrådgiver Maren Mår. Arkivsak {{sak}}. Notatet er unntatt offentlighet etter offentleglova § 23 første ledd. Blir innholdet kjent for motparten, svekker det kommunens stilling i forhandlingene.",
+              "## Bakgrunn",
+              "Utdanningsforbundet og NITO har sendt skriftlige krav innen fristen 23. september 2026. Fagforbundet, Norsk Sykepleierforbund og Delta legger fram kravene sine i forhandlingsmøtene i november. Dette notatet gjelder strategien og den økonomiske rammen for forhandlingene og tar for seg de to kravene som er kommet. Forhandlingsutvalget gikk gjennom notatet 13. oktober 2026, og kommunedirektøren har godkjent rammen.",
+              "## Økonomisk ramme",
+              "I kapittel 4 er potten på 1 415 000 kroner gitt av det sentrale oppgjøret, og den skal brukes fullt ut. Arbeidsgiveren går ikke ut over potten. Fordelingen mellom organisasjonene skal i utgangspunktet følge medlemmenes andel av lønnsmassen. For Utdanningsforbundet er andelen 31 prosent, som gir om lag 440 000 kroner. Jeg tilrår at utvalget kan gå opp til 460 000 kroner dersom det trengs for å bli enige.",
+              "I kapittel 5 er lønnsmassen 27,4 millioner kroner. Budsjettet for 2026 har en lønnsreserve som dekker en ramme på 4,4 prosent, det vil si 1 206 000 kroner. Jeg tilrår at det første tilbudet legges på 3,9 prosent, og at utvalget har fullmakt til å gå til 4,4 prosent. For de ni medlemmene i NITO svarer 4,4 prosent til 292 000 kroner. Skal ingeniørene få mer, må det tas fra de andre gruppene i kapittel 5.",
+              "## Vurdering av kravene",
+              "Utdanningsforbundet krever til sammen 1 020 000 kroner, mer enn det dobbelte av andelen. Kravet om å øke funksjonstillegget for kontaktlærere med 8 000 kroner koster alene 304 000 kroner og kan ikke innfris. Jeg tilrår at arbeidsgiveren prioriterer pedagogiske ledere i barnehagene, der rekrutteringen er vanskeligst, og lærere med ny videreutdanning. Kontaktlærerne kan få en mindre økning. Arbeidsgiveren bør ikke bruke midler utenfor potten.",
+              "NITO krever 5,6 prosent, det vil si 372 000 kroner. Forbundet har rett i at kommunen ligger under nabokommunene, og at to ingeniørstillinger har stått ledige lenge. Jeg tilrår at ingeniørene prioriteres innenfor rammen i kapittel 5, og at utvalget kan gå til 5,0 prosent for denne gruppen, det vil si 332 000 kroner. Kravet om et generelt tillegg på 3,5 prosent bør avvises. Tilleggene bør gis individuelt etter kriteriene i lønnspolitikken, med vekt på byggesak og vann og avløp.",
+              "## Opplegg for forhandlingene",
+              "Kommunedirektøren leder forhandlingene. Utdanningsforbundet har bedt om å få det første tilbudet en uke før møtet. Jeg tilrår at tilbudet legges fram i møtet, slik kommunen har gjort tidligere år. Blir partene ikke enige i kapittel 4, kan organisasjonen bringe saken inn for de sentrale partene. I kapittel 5 kan en tvist gå til lokal nemnd eller pendelvoldgift etter hovedavtalen. Kommunen bør strekke seg for å unngå brudd, men ikke ut over rammene i dette notatet.",
+              "Maren Mår, personalrådgiver"
+            ],
+            "vedlegg": [
+              "Oversikt over krav og kostnader",
+              "Lønnsstatistikk for kapittel 4 og 5 per 1. mai 2026"
+            ]
+          }
+        },
+        {
+          "type": "X",
+          "tittel": "Protokoll fra lokale lønnsforhandlinger 2026 – Utdanningsforbundet Sirevåg – hovedtariffavtalen kapittel 4",
+          "offentlig_tittel": null,
+          "dokumentdato": "2026-10-28",
+          "part": "Maren Mår",
+          "skjerm_part": false,
+          "status": "J",
+          "journalfort": true,
+          "tilgangskode": null,
+          "dokument": {
+            "kanal": "protokoll",
+            "mottatt": null,
+            "avsender": {
+              "navn": "Sirevåg kommune, Personal og organisasjon",
+              "adresse": "Rådhusgata 1, 4399 Sirevåg",
+              "epost": "postmottak@sirevag.example"
+            },
+            "mottaker": null,
+            "emne": "Protokoll fra lokale lønnsforhandlinger 2026 mellom Sirevåg kommune og Utdanningsforbundet Sirevåg",
+            "tekst": [
+              "Protokoll fra lokale forhandlinger etter hovedtariffavtalen kapittel 4, punkt 4.2.1, mellom Sirevåg kommune og Utdanningsforbundet Sirevåg. Forhandlingene ble ført onsdag 28. oktober 2026 i formannskapssalen i rådhuset. Arkivsak {{sak}}.",
+              "## Til stede",
+              "For Sirevåg kommune: kommunedirektør Ulla Ugle, økonomisjef Bodil Bever og personalrådgiver Maren Mår, som førte protokollen.\nFor Utdanningsforbundet Sirevåg: hovedtillitsvalgt Ingrid Vagle og tillitsvalgt Sigrid Voll.",
+              "## Grunnlaget for forhandlingene",
+              "Partene forhandlet om Utdanningsforbundets del av potten som er satt av til lokale forhandlinger i hovedtariffoppgjøret 2026. Potten for Sirevåg kommune er 1 415 000 kroner. Forhandlingene bygget på kriteriene i kommunens lønnspolitikk og på referatet fra det lønnspolitiske drøftingsmøtet 25. august 2026. Utdanningsforbundet la fram kravene sine skriftlig 22. september 2026. Arbeidsgiveren la fram det første tilbudet sitt i møtet.",
+              "## Forhandlingene",
+              "Partene hadde tre fellesmøter og to særmøter. Utdanningsforbundet la vekt på oppgavene til kontaktlærerne og på lønnsnivået i nabokommunene. Arbeidsgiveren la vekt på rekrutteringen av pedagogiske ledere til barnehagene og på kompetansen kommunen trenger i skolene. Partene ble enige klokka 15.40.",
+              "## Resultat",
+              "Medlemmene i Utdanningsforbundet får til sammen 452 000 kroner av potten. Tilleggene gis med virkning fra 1. september 2026 og fordeles slik:\nFunksjonstillegget for kontaktlærere økes med 3 000 kroner, fra 24 000 til 27 000 kroner i året. Det gjelder 38 medlemmer og utgjør 114 000 kroner.\nPedagogiske ledere i barnehagene får et tillegg på 8 000 kroner i året. Det gjelder 12 medlemmer og utgjør 96 000 kroner.\nLærere som har fullført videreutdanning på minst 30 studiepoeng de siste tre årene, får et kompetansetillegg på 10 000 kroner i året. Det gjelder 9 medlemmer og utgjør 90 000 kroner.\nIndividuelle tillegg til 13 medlemmer utgjør til sammen 152 000 kroner.",
+              "Tillegget til den enkelte går fram av meldingen om lønnsfastsetting, som sendes hvert medlem og arkiveres i personalmappen. Tilleggene er pensjonsgivende og blir utbetalt sammen med lønnen for desember 2026, med etterbetaling fra virkningsdatoen.",
+              "## Protokolltilførsel fra Utdanningsforbundet Sirevåg",
+              "Utdanningsforbundet Sirevåg mener at potten i kapittel 4 er for liten til å løse rekrutteringsvanskene i skolene og barnehagene. Forbundet ber kommunen bruke adgangen hovedtariffavtalen gir til å forhandle særskilt om lønn for å rekruttere og beholde arbeidstakere.",
+              "## Underskrifter",
+              "Partene er enige, og forhandlingene er avsluttet.\nSirevåg, 28. oktober 2026\nFor Sirevåg kommune: Ulla Ugle, kommunedirektør\nFor Utdanningsforbundet Sirevåg: Ingrid Vagle, hovedtillitsvalgt"
             ],
             "vedlegg": []
           }

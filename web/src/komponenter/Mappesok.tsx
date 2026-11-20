@@ -73,7 +73,7 @@ export function Mappesok({ tips, tipsSprak, handling, sokt, flyt = null }: Egens
           <ul className={c.liste}>
             {treff.map(({ sak, journalposter }) => (
               <li key={sak.id} className={c.treff}>
-                <span className={c.tittel} lang="nb"><Mappeikon status={sak.status}><Ruterlenke to={`/arkiv/saker/${sak.id}${flytSok(flyt)}`}>{sak.saksnummer} {sak.tittel}</Ruterlenke></Mappeikon></span>
+                <span className={c.tittel} lang="nb"><Mappeikon status={sak.status}>{sak.saksnummer}</Mappeikon> <Ruterlenke to={`/arkiv/saker/${sak.id}${flytSok(flyt)}`}>{sak.tittel}</Ruterlenke></span>
                 <span>{handling?.(sak)}</span>
                 <span className={c.dempet}>
                   <span lang="nb">{sak.arkivdel_tekst} · {sak.klasse_tekst}</span>{sak.skjerm_klasse && <> <Status slag="skjermet">{t('arkivar.sak.skjermet_klasse')}</Status></>}

@@ -263,7 +263,7 @@ final class ArkivTest extends AppTestCase
         $journal = self::rader($j['journalposter']);
         self::assertCount($this->urort()['journalposter'], $journal);
         $etterNummer = $journal;
-        usort($etterNummer, static fn (array $a, array $b): int => (int) explode('/', Felt::tekst($a['lopenummer']))[1] <=> (int) explode('/', Felt::tekst($b['lopenummer']))[1]);
+        usort($etterNummer, static fn (array $a, array $b): int => (int) explode('/', Felt::tekst($a['lopenummer']))[0] <=> (int) explode('/', Felt::tekst($b['lopenummer']))[0]);
         $journaldatoer = array_column($etterNummer, 'journaldato');
         $stigende = $journaldatoer;
         sort($stigende);
@@ -455,7 +455,7 @@ final class ArkivTest extends AppTestCase
         self::assertStringContainsString($saksnummer, $logg['urn:arkivar:hendelse:mappe:opprettet'][0]);
         self::assertStringContainsString($saksnummer, $logg['urn:arkivar:hendelse:mappe:slettet'][0]);
         // Løpenummeret teller alle registreringene, også dem som er arkivert uten journalføring.
-        $forsteLopenummer = '"2026/' . (count(array_merge(...array_column($this->grunndata->saker(), 'journalposter'))) + 1) . '"';
+        $forsteLopenummer = '"' . (count(array_merge(...array_column($this->grunndata->saker(), 'journalposter'))) + 1) . '/2026"';
         self::assertStringContainsString($forsteLopenummer, $logg['urn:arkivar:hendelse:journalpost:registrert'][0]);
         self::assertStringContainsString($forsteLopenummer, implode(' ', $logg['urn:arkivar:hendelse:journalpost:slettet']), 'Den slettede journalposten står med løpenummeret sitt.');
         $alt = implode(' ', array_merge(...array_values($logg)));

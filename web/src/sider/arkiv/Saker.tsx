@@ -37,12 +37,12 @@ export function Saker() {
   const rader = arkivdel === '' ? alle : alle.filter((r) => r.arkivdel === arkivdel);
   // Tittelen får mest plass. Uten en bredde på den klemmer de andre kolonnene den sammen.
   const enhetsnavn = (kode: string) => struktur.data?.enheter.find((e) => e.kode === kode)?.navn ?? kode;
-  // Enheten og saksansvarlig står først, så studenten ser hvem som eier saken; klasseringen står sist.
+  // Saksnummeret med mappeikonet og tittelen står først, så enheten og saksansvarlig; klasseringen står sist.
   const kolonner: Kolonne<Sak>[] = [
+    { id: 'nummer', overskrift: t('arkivar.sak.nummer'), stil: { width: '108px' }, celle: (r) => <Mappeikon status={r.status}>{r.saksnummer}</Mappeikon>, sorter: (r) => sorterbart(r.saksnummer) },
+    { id: 'tittel', overskrift: t('arkivar.sak.tittel'), sprak: 'nb', celle: (r) => <Ruterlenke to={`/arkiv/saker/${r.id}`}>{r.tittel}</Ruterlenke>, sorter: (r) => r.tittel },
     { id: 'enhet', overskrift: t('arkivar.sak.enhet.kort'), stil: { width: '64px' }, sprak: 'nb', celle: (r) => <abbr title={enhetsnavn(r.enhet)}>{r.enhet}</abbr>, sorter: (r) => r.enhet },
     { id: 'ansvarlig', overskrift: t('arkivar.sak.ansvarlig'), stil: { width: '120px' }, sprak: 'nb', celle: (r) => r.saksansvarlig_navn, sorter: (r) => r.saksansvarlig_navn },
-    { id: 'nummer', overskrift: t('arkivar.sak.nummer'), stil: { width: '80px' }, celle: (r) => r.saksnummer, sorter: (r) => sorterbart(r.saksnummer) },
-    { id: 'tittel', overskrift: t('arkivar.sak.tittel'), sprak: 'nb', celle: (r) => (<Mappeikon status={r.status}><Ruterlenke to={`/arkiv/saker/${r.id}`}>{r.tittel}</Ruterlenke></Mappeikon>), sorter: (r) => r.tittel },
     { id: 'dato', overskrift: t('arkivar.sak.dato'), stil: { width: '96px' }, celle: (r) => dato(r.saksdato), sorter: (r) => r.saksdato },
     { id: 'status', overskrift: t('arkivar.sak.status'), stil: { width: '64px' }, celle: (r) => <abbr title={t(`arkivar.saksstatus.${r.status.toLowerCase()}`)}>{r.status}</abbr>, sorter: (r) => r.status },
     { id: 'antall', overskrift: t('arkivar.sak.antall'), stil: { width: '92px' }, celle: (r) => r.antall, sorter: (r) => r.antall },

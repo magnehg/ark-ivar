@@ -12,7 +12,8 @@ import { Kolonne, SorterbarTabell, TabellVerktoy } from '../../komponenter/Tabel
 
 const s = makeStyles({ sak: { color: tokens.colorNeutralForeground2, display: 'block', marginTop: '2px' } });
 
-const sorterbart = (nummer: string) => nummer.split('/').map((del) => del.padStart(6, '0')).join('/');
+/** Løpenummeret til sortering. Det skrives «104/2026»: året sorteres først, så nummeret i året. */
+const sorterbart = (nummer: string) => nummer.split('/').reverse().map((del) => del.padStart(6, '0')).join('/');
 
 export default function Journal() {
   const c = s(); const t = useT(); const dato = useDato();

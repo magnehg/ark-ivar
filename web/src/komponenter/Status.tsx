@@ -4,7 +4,7 @@ import { makeStyles, mergeClasses, tokens } from '@fluentui/react-components';
 import { CheckmarkCircle16Filled, Circle16Regular, DismissCircle16Filled, Folder20Regular, FolderOpen20Regular, LockClosed16Regular } from '@fluentui/react-icons';
 
 const s = makeStyles({
-  mappe: { display: 'inline-flex', alignItems: 'flex-start', gap: '6px', minWidth: 0, '& > svg': { flexShrink: 0, color: tokens.colorNeutralForeground2 } },
+  mappe: { display: 'inline-flex', alignItems: 'center', gap: '6px', minWidth: 0, whiteSpace: 'nowrap', '& > svg': { flexShrink: 0, color: tokens.colorNeutralForeground2 } },
   merke: { display: 'inline-flex', alignItems: 'center', gap: '4px', whiteSpace: 'nowrap' },
   // Lang tekst (en hjemmel) brytes i stedet for å klippes. Ikonet står fast ved første linje.
   brytes: { whiteSpace: 'normal', alignItems: 'flex-start', '& > svg': { flexShrink: 0, marginTop: '2px' } },

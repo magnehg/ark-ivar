@@ -224,7 +224,7 @@ final class Postmottak
                 $this->db->utfor('DELETE FROM arkivar_oppgavestatus WHERE arkiv_id = ? AND oppgave_id = ?', [$arkivId, $oppgaveId]);
             }
 
-            return Felt::tall($post['journalaar']) . '/' . Felt::tall($post['sekvens']);
+            return Register::lopenummer(Felt::tall($post['journalaar']), Felt::tall($post['sekvens']));
         });
     }
 

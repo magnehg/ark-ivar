@@ -327,6 +327,15 @@ final class Register
     }
 
     /**
+     * Løpenummeret til en journalpost slik det skrives i journalen: nummeret i året først og så året, «104/2026».
+     * (Saksnummeret skrives motsatt vei, med året først.)
+     */
+    public static function lopenummer(int $aar, int $sekvens): string
+    {
+        return $sekvens . '/' . $aar;
+    }
+
+    /**
      * Journalposten slik den sendes til nettleseren. Med $offentlig vises den som i den offentlige journalen:
      * skjermet tittel, skjermet sakstittel og skjermet avsender eller mottaker er byttet med den offentlige
      * tittelen og *****.
@@ -344,7 +353,7 @@ final class Register
             'id' => Felt::tekst($rad['id']),
             'sak_id' => Felt::tekst($rad['sak_id']),
             'postnr' => Felt::tall($rad['postnr']),
-            'lopenummer' => Felt::tall($rad['journalaar']) . '/' . Felt::tall($rad['sekvens']),
+            'lopenummer' => self::lopenummer(Felt::tall($rad['journalaar']), Felt::tall($rad['sekvens'])),
             'journalfort' => Felt::tall($rad['journalfort']) === 1,
             'type' => Felt::tekst($rad['type']),
             'status' => Felt::tekst($rad['status']),

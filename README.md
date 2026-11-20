@@ -34,7 +34,7 @@ saksgangen, i hvert sitt øvingsarkiv. Systemet lager ikke uttrekk og avleverer 
 | `kjerne/` | Kopi av Bivrost Kjerne (`Bivrost\Kjerne\`): installasjon, økter, tilgang, migreringer, sikkerhetskopi, logg, språk |
 | `grensesnitt/` | Kopi av Bivrosts designpakke: tokens, temaer, stilfiler, skriften Gerd Sans, ikoner |
 | `skript/` | Bygg av Kjernens avhengigheter med eget navnerom (`prefiks.sh`) og versjonspakken |
-| `docs/` | Opphavet til kopien og senere dokumentasjon |
+| `docs/` | Opphavet til kopien (`opphav.md`) og prosessbeskrivelsene for sak og arkiv ([docs/prosesser](docs/prosesser/README.md)) |
 
 Driftsmiljøet er et vanlig webhotell: PHP 8.2+, MySQL 8 eller MariaDB 10.6+, Apache og HTTPS. Serveren trenger
 verken Composer eller Node.

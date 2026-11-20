@@ -12,3 +12,6 @@
   Fem fargetemaer i lys og mørk modus, bredde og tre språk i brukermenyen.
 - Installasjonen gjøres i grensesnittet: Kjerne-kopien slipper appens sider gjennom også før installasjonen.
 - Siden får en engangsverdi for stilene i CSP-hodet, så Fluent virker uten `unsafe-inline`.
+- Prosessbeskrivelser for sak og arkiv i Sirevåg kommune (docs/prosesser): elleve prosesser fra postmottak til
+  bevaring og kassasjon, med figurer, rutiner, lovgrunnlag, forklaringer, eksempler og kontrollspørsmål, og en
+  lovoversikt og ordliste. De er læremateriell og grunnlaget for arkivdelen som skal bygges.

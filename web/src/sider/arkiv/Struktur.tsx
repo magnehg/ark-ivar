@@ -83,7 +83,7 @@ export default function Struktur() {
         <Arkivnokkel struktur={struktur} />
       </Kort>
       {struktur.arkivdeler.filter((del) => del.ordning !== 'emne').map((del) => (
-        <Kort key={del.kode} tittel={t(`arkivar.ordning.${del.ordning}.register`, { arkivdel: del.tittel })} id={`register-${del.kode}`}>
+        <Kort key={del.kode} tittel={<>{t(`arkivar.ordning.${del.ordning}.register`)} (<span lang="nb">{del.tittel}</span>)</>} id={`register-${del.kode}`}>
           <SorterbarTabell rader={struktur.registre[del.kode] ?? []} kolonner={register(del)} nokkel={(r) => r.kode} aria-labelledby={`register-${del.kode}`} startSortering={{ id: 'tittel', retning: 'ascending' }} kroppSprak="nb" />
         </Kort>
       ))}

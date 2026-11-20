@@ -96,7 +96,8 @@ uttrekk eller avlevere.
 - **Samtidighet og dato:** alt som registrerer, angrer eller sletter i et arkiv, går i en transaksjon som først
   låser arkivet (`Register::laas()`), så sjekkene (dokumentet er ubehandlet, mappen finnes og er åpen) fortsatt
   gjelder når raden lagres, og saks- og dokumentnumre ikke kan bli like (`ArkivTest` holder låsen fra en annen
-  forbindelse og krever at hver operasjon venter). Nullstillingene går i tillegg etter hverandre på tvers av
+  forbindelse, og `SamtidighetTest` kjører to prosesser samtidig med `tester/Stotte/Bakgrunnsprosess`; testbrukeren
+  i databasen må ha PROCESS-rettighet). Nullstillingene går i tillegg etter hverandre på tvers av
   arkivene (`Db::las`), fordi sletting og påfylling i naboarkiver ellers kan vranglåse. Saksdato, journaldato og
   «ikke frem i tid» følger norsk tid (`Dato::idag()`), ikke UTC-klokka i Kjerne.
 - **Henting i grensesnittet:** `useHent(sti)` gir bare data og feil for adressen som er gitt nå. Byttes adressen

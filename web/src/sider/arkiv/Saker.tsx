@@ -109,7 +109,8 @@ export function EnSak() {
       {venter.data && !venter.data.behandlet && flyt && (
         <MessageBar className={c.venter} intent="info">
           <MessageBarBody>
-            {t('arkivar.sak.dokument_venter', { emne: venter.data.dokument.emne })} <Ruterlenke to={`/arkiv/postmottak/${flyt.dokument}`}>{t('arkivar.sak.tilbake_dokument')}</Ruterlenke>
+            {t('arkivar.sak.dokument_venter')} <span lang="nb">{venter.data.dokument.emne}</span><br />
+            {t('arkivar.sak.dokument_venter.hjelp')} <Ruterlenke to={`/arkiv/postmottak/${flyt.dokument}`}>{t('arkivar.sak.tilbake_dokument')}</Ruterlenke>
           </MessageBarBody>
         </MessageBar>
       )}

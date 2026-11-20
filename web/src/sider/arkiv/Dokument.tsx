@@ -1,7 +1,7 @@
 // Ett dokument fra postmottaket: dokumentet til venstre, behandlingen til høyre. Studenten velger hva som skal skje
 // med dokumentet. Skal det i arkivet, søker studenten etter mappen og registrerer dokumentet i den, eller oppretter
 // en ny mappe først. Når dokumentet er behandlet, vises vurderingen mot fasiten.
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { Link as Ruterlenke, useNavigate, useParams } from 'react-router-dom';
 import { Button, Caption1, Radio, RadioGroup, Text, makeStyles, tokens } from '@fluentui/react-components';
 import { Add20Regular, ArrowUndo20Regular } from '@fluentui/react-icons';
@@ -79,15 +79,22 @@ function Vurdering({ id, b, angret }: { id: string; b: Behandling; angret: () =>
   const c = s(); const t = useT(); const dato = useDato(); const feiltekst = useFeiltekst();
   const [feil, settFeil] = useState<string | null>(null);
   const ingen = t('arkivar.tilgang.ingen');
-  const verdi = (k: Kriterium, v: string, fasit: boolean): string => {
+  // Verdier fra arkivet (mappetittel, klassering, avsender, hjemmel) er norske og merkes. Verdier fra t() (behandlingen,
+  // journalposttypen, ja og nei) og datoer er på språket i grensesnittet og merkes ikke.
+  const norsk = (v: string): ReactNode => <span lang="nb">{v}</span>;
+  const verdi = (k: Kriterium, v: string, fasit: boolean): ReactNode => {
     if (k.id === 'handling') return t(`arkivar.handling.${v}`);
-    if (k.id === 'sak') return v === 'ny' ? t('arkivar.registrering.sak.ny') : fasit ? (b.forslag?.sak ?? t('arkivar.registrering.sak.eksisterende')) : v;
+    if (k.id === 'sak') {
+      if (v === 'ny') return t('arkivar.registrering.sak.ny');
+      if (!fasit) return norsk(v);
+      return b.forslag?.sak ? norsk(b.forslag.sak) : t('arkivar.registrering.sak.eksisterende');
+    }
     if (k.id === 'type') return `${v} – ${t(`arkivar.jptype.${v.toLowerCase()}`)}`;
-    if (k.id === 'tilgang') return v === '' ? ingen : v;
+    if (k.id === 'tilgang') return v === '' ? ingen : norsk(v);
     if (k.id === 'skjerm_tittel' || k.id === 'skjerm_part' || k.id === 'skjerm_klasse' || k.id === 'skjerm_sakstittel') return t(`arkivar.felles.${v}`);
     if (k.id === 'dokumentdato') return dato(v);
-    if (k.id === 'offentlig_tittel' || k.id === 'offentlig_sakstittel') return fasit ? t('arkivar.vurdering.uten_navn') : v;
-    return v;
+    if (k.id === 'offentlig_tittel' || k.id === 'offentlig_sakstittel') return fasit ? t('arkivar.vurdering.uten_navn') : norsk(v);
+    return norsk(v);
   };
   // Fasiten har én forklaring om skjerming per dokument. Et avvik på mappen uten egen forklaring får regelen som gjelder.
   const forklaring = (k: Kriterium): string => {
@@ -105,7 +112,7 @@ function Vurdering({ id, b, angret }: { id: string; b: Behandling; angret: () =>
         <div key={k.id} className={c.kriterium}>
           <span className={c.kriterienavn}>{t(`arkivar.kriterium.${k.id}`)}</span>
           <Status slag={k.ok ? 'ok' : 'feil'}>{t(k.ok ? 'arkivar.vurdering.riktig' : 'arkivar.vurdering.avvik')}</Status>
-          <span className={c.verdier}>{t('arkivar.vurdering.ditt', { verdi: verdi(k, k.ditt, false) })}{!k.ok && <> · {t('arkivar.vurdering.fasit', { verdi: verdi(k, k.riktig, true) })}</>}</span>
+          <span className={c.verdier}>{t('arkivar.vurdering.ditt')} {verdi(k, k.ditt, false)}{!k.ok && <> · {t('arkivar.vurdering.fasit')} {verdi(k, k.riktig, true)}</>}</span>
           {k.id === 'sak' && !k.ok && k.riktig === 'ny' && b.sak && !b.sak.fulgte_med && <p className={c.forklaring}>{t('arkivar.vurdering.hjelp.samlemappe')}</p>}
           {forklaring(k) && <p className={c.forklaring} lang={k.forklaring ? 'nb' : undefined}>{forklaring(k)}</p>}
         </div>

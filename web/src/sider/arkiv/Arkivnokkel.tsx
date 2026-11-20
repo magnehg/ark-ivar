@@ -36,7 +36,7 @@ export function Arkivnokkel({ struktur }: { struktur: Struktur }) {
     <span>
       <span lang="nb">{k.tittel}</span>
       {k.merknad && <span className={c.merknad} lang="nb">{k.merknad}</span>}
-      {k.henvisning && <span className={c.merknad}>{t('arkivar.struktur.arkivnokkel.henvisning', { arkivdel: arkivdel(k.henvisning) })}</span>}
+      {k.henvisning && <span className={c.merknad}>{t('arkivar.struktur.arkivnokkel.henvisning')} <span lang="nb">{arkivdel(k.henvisning)}</span></span>}
     </span>
   );
   const ord = sok.trim().toLocaleLowerCase('nb');

@@ -31,8 +31,11 @@ const s = makeStyles({
   korttittel: { margin: 0, fontSize: tokens.fontSizeBase400, fontWeight: tokens.fontWeightSemibold },
 });
 
-/** tittelSprak: språket tittelen står på, når den kommer fra arkivet (norsk) og ikke fra grensesnittet. */
-export function Sidehode({ tittel, ingress, handlinger, tittelSprak }: { tittel: string; ingress?: string; handlinger?: ReactNode; tittelSprak?: string }) {
+/**
+ * tittelSprak: språket tittelen står på, når den kommer fra arkivet (norsk) og ikke fra grensesnittet. Ingressen kan
+ * være ledeteksten fulgt av en verdi fra arkivet i et eget element med lang="nb".
+ */
+export function Sidehode({ tittel, ingress, handlinger, tittelSprak }: { tittel: string; ingress?: ReactNode; handlinger?: ReactNode; tittelSprak?: string }) {
   const c = s();
   const { oppsett } = useOkt();
   useEffect(() => { document.title = `${tittel} – ${oppsett.appnavn}`; }, [tittel, oppsett.appnavn]);

@@ -145,7 +145,7 @@ export default function NyMappe() {
   );
   return (
     <>
-      <Sidehode tittel={t('arkivar.nymappe.tittel')} ingress={venter ? t('arkivar.nymappe.for_dokument', { emne: venter.emne }) : t('arkivar.nymappe.ingress')} />
+      <Sidehode tittel={t('arkivar.nymappe.tittel')} ingress={venter ? <>{t('arkivar.nymappe.for_dokument')} <span lang="nb">{venter.emne}</span></> : t('arkivar.nymappe.ingress')} />
       {dokument.feil && <Feil melding={dokument.feil} />}
       {flyt && dokument.data?.behandlet && (
         <MessageBar className={c.melding} intent="warning" id="nymappe-behandlet">

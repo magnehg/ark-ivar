@@ -20,9 +20,21 @@ Navnerommet (`Bivrost\Kjerne\`), tabellprefikset (`bivrost_`) og rutene (`/bivro
 | Endring | Hvor | Hvorfor |
 |---|---|---|
 | Appens egne brukere: grensesnittet `Okt\Appbrukere`, `Kjerne::settAppbrukere()`, innloggingsmetoden `app` i `Okt\Innlogget`, og `metoder.app` i svaret fra `GET /bivrost/api/okt` | `kjerne/src/Okt/Appbrukere.php`, `Innlogget.php`, `Kjerne.php`, `openapi.json` | Bivrost forutsetter at vanlige brukere ligger i Bivrost Sentral, og har bare lokale driftsbrukere. Ark-Ivar har studentene, lærerne og administratorene selv. Kjerne spør appen ved hver forespørsel om innloggingen fortsatt gjelder. |
+| Appen får sidene sine også før installasjonen: `Kjerne::installert()`, og GET-forespørsler utenfor `/bivrost/` går til appen når den ikke er installert (ellers 503 som før) | `kjerne/src/Kjerne.php` | Bivrosts ferdige sider for installasjon finnes ikke ennå (fase 3). Ark-Ivars grensesnitt viser installasjonen selv, og må derfor kunne lastes før databasen finnes. |
 | `Kjerne::forsok()` er offentlig | `kjerne/src/Kjerne.php` | Appens innlogging og registrering bruker den samme begrensningen av forsøk som nødinnloggingen. |
 | Standardrepoet for oppdatering av Kjerne er `magnehg/ark-ivar`, ikke `magnehg/bivrost` | `kjerne/src/Kjerne.php` | En installasjon av Ark-Ivar skal aldri hente noe fra Bivrost-repoet. |
 | Test for metoden `app` | `kjerne/tester/Enhet/AppbrukereTest.php` | |
+
+## Hentet fra Gerð
+
+Bivrosts felles komponenter ligger foreløpig i Gerð-prototypen (`magnehg/gerd`, grenen `prototype/v1`, commit
+`59e1412b0b54e89af075ab572d980b37fa4afc0a`) til de flyttes til designpakken. Derfra er disse hentet til `web/src/`:
+
+| Fil i Ark-Ivar | Fra Gerð | Endret |
+|---|---|---|
+| `komponenter/Tabell.tsx` | `prototype/web/src/bivrost/Tabell.tsx` | Tekstnøklene har prefikset `arkivar.`; én type er skrevet om for språkkontrollen |
+| `komponenter/Skall.tsx` | `prototype/web/src/komponenter/Skall.tsx` | Ark-Ivars menyer; fargene fra designpakkens variabler (`--bivrost-farge-toppfelt-…`); språkvalg i brukermenyen |
+| `komponenter/Felles.tsx`, `sider/Konto.tsx` | `komponenter/Felles.tsx`, `bivrost/Logginn.tsx` | Mønsteret (sidehode, kort, lasting, innloggingsboksen), skrevet for Ark-Ivars API |
 
 ## Det som ikke er tatt i bruk
 

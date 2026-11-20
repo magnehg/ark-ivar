@@ -359,6 +359,21 @@ final class Kjerne
         return $this->sprak;
     }
 
+    /**
+     * Om installasjonen er fullført (Ark-Ivars tillegg). Appen får sidene sine også før installasjonen, og bruker
+     * dette til å vise installasjonssiden uten å røre databasen.
+     */
+    public function installert(): bool
+    {
+        try {
+            $db = $this->env()->hent('DB_NAVN') !== null ? $this->db() : null;
+        } catch (BivrostFeil) {
+            $db = null;
+        }
+
+        return $this->installasjon()->installert($db);
+    }
+
     // ---------------------------------------------------------------- forespørselen
 
     /**
@@ -471,7 +486,7 @@ final class Kjerne
             $db = null;
         }
         if (!$inst->installert($db)) {
-            return $this->installasjonsruter($f, $inst);
+            return $this->installasjonsruter($f, $inst, $app);
         }
         if (str_starts_with($f->sti, '/bivrost/api/installasjon')) {
             throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
@@ -555,9 +570,18 @@ final class Kjerne
 
     // ---------------------------------------------------------------- installasjon
 
-    private function installasjonsruter(Foresporsel $f, Installasjon $inst): Svar
+    /** @param (callable(Foresporsel, self): ?Svar)|null $app */
+    private function installasjonsruter(Foresporsel $f, Installasjon $inst, ?callable $app = null): Svar
     {
         if (!str_starts_with($f->sti, '/bivrost/api/installasjon')) {
+            // Ark-Ivars tillegg: appen viser installasjonssiden selv, så sidene utenfor /bivrost/ går til appen også
+            // før installasjonen. Appen må selv sjekke installert() før den bruker databasen.
+            if ($app !== null && in_array($f->metode, ['GET', 'HEAD'], true) && !str_starts_with($f->sti, '/bivrost/')) {
+                $svar = $app($f, $this);
+                if ($svar !== null) {
+                    return $svar;
+                }
+            }
             throw new HttpFeil(503, 'ikke_installert', 'bivrost.feil.installasjon.ikke_installert');
         }
         $inst->sikreKode();

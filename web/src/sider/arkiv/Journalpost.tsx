@@ -12,7 +12,9 @@ import { Feil, Kort, Laster, Sidehode, useFeiltekst, useHent } from '../../kompo
 import { Status } from '../../komponenter/Status';
 
 const s = makeStyles({
-  to: { display: 'grid', gridTemplateColumns: 'minmax(0, 3fr) minmax(0, 2fr)', gap: '16px', alignItems: 'start', '@media (max-width: 1100px)': { gridTemplateColumns: '1fr' } },
+  // Kolonnene følger plassen siden har, ikke skjermen: med lesevinduet åpent er siden smalere, og da står de under hverandre.
+  ramme: { containerType: 'inline-size' },
+  to: { display: 'grid', gridTemplateColumns: 'minmax(0, 3fr) minmax(0, 2fr)', gap: '16px', alignItems: 'start', '@container (max-width: 820px)': { gridTemplateColumns: '1fr' } },
   fakta: { display: 'grid', gridTemplateColumns: 'max-content 1fr', gap: '6px 16px', margin: 0, '& dt': { color: tokens.colorNeutralForeground2 }, '& dd': { margin: 0, minWidth: 0 } },
   dempet: { color: tokens.colorNeutralForeground2 },
   knapper: { display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center', marginTop: '16px' },
@@ -30,7 +32,7 @@ export default function Journalpost() {
   return (
     <>
       <Sidehode tittel={p.tittel} tittelSprak="nb" ingress={t('arkivar.journalpost.ingress', { nummer: `${sak.saksnummer}-${p.postnr}` })} />
-      <div className={c.to}>
+      <div className={c.ramme}><div className={c.to}>
         {dokument ? <Ark dok={dokument} /> : <Kort><Text className={c.dempet}>{t(p.kan_slettes ? 'arkivar.journalpost.egen' : 'arkivar.journalpost.uten_dokument')}</Text></Kort>}
         <Kort tittel={t('arkivar.journalpost.opplysninger')} id="jp-opplysninger">
           <dl className={c.fakta}>
@@ -57,7 +59,7 @@ export default function Journalpost() {
             {p.kan_slettes && <Button icon={<Delete20Regular />} onClick={slett}>{t('arkivar.journalpost.slett')}</Button>}
           </div>
         </Kort>
-      </div>
+      </div></div>
     </>
   );
 }

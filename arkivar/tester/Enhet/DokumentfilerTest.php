@@ -52,6 +52,7 @@ final class DokumentfilerTest extends TestCase
     {
         self::assertSame('byggesak-garasje-strandveien-16', Dokumentfiler::filnavn('Byggesak – garasje – Strandveien 16'));
         self::assertSame('dokument', Dokumentfiler::filnavn(' – '));
+        self::assertMatchesRegularExpression('/^[a-z0-9]+(-[a-z0-9]+)*$/', Dokumentfiler::filnavn(str_repeat('æøå', 40) . ' – ' . str_repeat('日本', 20)));
         $langt = Dokumentfiler::filnavn(str_repeat('ord ', 40));
         self::assertLessThanOrEqual(60, strlen($langt));
         self::assertMatchesRegularExpression('/^[a-z0-9]+(-[a-z0-9]+)*$/', $langt);

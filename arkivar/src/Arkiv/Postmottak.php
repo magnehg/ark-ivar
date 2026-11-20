@@ -373,6 +373,12 @@ final class Postmottak
         // Dokumentfilene (produksjonsformat og arkivformat). Den offentlige journalen har ikke dokumentene.
         $startdokument = Felt::valgfriTekst($rad['startdokument'] ?? null);
         $dokument = $oppgave ?? ($oppgaveId === null && $startdokument !== null ? $this->grunndata->startdokument($startdokument) : null);
+        if ($oppgaveId === null && $startdokument !== null && $dokument === null) {
+            // Dokumentet som fulgte med, er tatt ut av grunndataene siden arkivet ble fylt: det er ikke noe å åpne.
+            $ut['har_dokument'] = false;
+            $ut['dokumentstatus'] = null;
+            $ut['variantformat'] = null;
+        }
         $ut['filer'] = $offentlig || $dokument === null
             ? []
             : Dokumentfiler::filer($dokument['kanal'], $dokument['mottatt'], Felt::tekst($rad['status']), Felt::tekst($rad['tittel']));

@@ -579,6 +579,7 @@ final class ArkivTest extends AppTestCase
         self::assertIsArray($j['journalpost']);
         self::assertSame('J', $j['journalpost']['status']);
         self::assertSame(['F', 'P'], [$j['journalpost']['dokumentstatus'], $j['journalpost']['variantformat']], 'Dokumentfilen er ferdigstilt og ligger i produksjonsformat.');
+        self::assertSame(['tif'], array_column(self::rader($j['journalpost']['filer']), 'format'), 'Et journalført skjema på papir har den skannede filen.');
         self::assertSame('2026-11-20', $j['journalpost']['journaldato']);
         self::assertTrue($j['journalpost']['har_dokument']);
         self::assertSame('innmelding-lerke', $j['journalpost']['oppgave']);
@@ -631,6 +632,7 @@ final class ArkivTest extends AppTestCase
         self::assertIsArray($j['journalpost']);
         self::assertFalse($j['journalpost']['har_dokument']);
         self::assertSame([null, null], [$j['journalpost']['dokumentstatus'], $j['journalpost']['variantformat']], 'En registrering uten dokument har ingen dokumentfil.');
+        self::assertSame([], $j['journalpost']['filer']);
 
         // En elev som har mappe fra før: søknaden legges i den.
         $oppgave = $this->oppgaver->hent('tilrettelegging-elev');
@@ -723,6 +725,7 @@ final class ArkivTest extends AppTestCase
         self::assertIsArray($j['journalpost']);
         self::assertFalse($j['journalpost']['journalfort']);
         self::assertSame(['A', 'F', 'A'], [$j['journalpost']['status'], $j['journalpost']['dokumentstatus'], $j['journalpost']['variantformat']], 'Arkivert uten journalføring: dokumentet ligger i arkivformat.');
+        self::assertSame(['eml', 'txt'], array_column(self::rader($j['journalpost']['filer']), 'format'), 'En arkivert e-post har også filen i arkivformat, som ren tekst.');
 
         // Reklamen journalføres: bare behandlingen vurderes. Og et dokument som skal i arkivet, kan ikke bare få valget registrert.
         $kurs = $this->nyMappe($this->kari, ['tittel' => 'Kurs i dokumenthåndtering', 'arkivdel' => 'SAK', 'klasse' => '274', 'enhet' => 'DOK']);

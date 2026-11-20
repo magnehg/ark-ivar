@@ -3,7 +3,7 @@
 // - Alle tabeller kan sorteres ved å klikke på kolonneoverskriften. Sorteringen følger språket (Intl.Collator).
 // - Filter vises som et diskret ikon øverst til høyre over tabellen. Filterfeltene ligger i en sprettboks.
 //   Når et filter er i bruk, er ikonet fylt og viser antall aktive filtre (ikke bare farge, UU-05).
-import { CSSProperties, FocusEvent, Fragment, ReactNode, useId, useMemo, useState } from 'react';
+import { CSSProperties, FocusEvent, Fragment, ReactNode, useEffect, useId, useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
 import {
   Button, Popover, PopoverSurface, PopoverTrigger, Table, TableBody, TableCell, TableHeader, TableHeaderCell, TableRow,
@@ -81,9 +81,10 @@ type TabellProps<T> = {
   kroppSprak?: string;
   /**
    * Rader som kan utvides: en knapp først i raden viser innholdet i en egen rad under. vis og skjul er navnet på
-   * knappen i de to tilstandene; kan sier om raden har noe å vise (ellers får den ingen knapp).
+   * knappen i de to tilstandene; kan sier om raden har noe å vise (ellers får den ingen knapp). beskrevetAv er
+   * kolonnen som sier hvilken rad knappen gjelder (tittelen), så knappene kan skilles fra hverandre i en skjermleser.
    */
-  utvid?: { innhold: (rad: T, indeks: number) => ReactNode; vis: string; skjul: string; kan?: (rad: T, indeks: number) => boolean };
+  utvid?: { innhold: (rad: T, indeks: number) => ReactNode; vis: string; skjul: string; kan?: (rad: T, indeks: number) => boolean; beskrevetAv?: string };
 };
 
 /** Tabell der alle kolonner med sorteringsverdi kan sorteres ved klikk på overskriften (GRS-02). */
@@ -106,8 +107,15 @@ export function SorterbarTabell<T>({ rader, kolonner, nokkel, size = 'small', st
   // Radene som er utvidet, etter nøkkelen. En rad som forsvinner (filter), er lukket når den kommer tilbake.
   const [apne, settApne] = useState<ReadonlySet<string | number>>(new Set());
   const veksle = (n: string | number) => settApne((gml) => { const ny = new Set(gml); if (!ny.delete(n)) ny.add(n); return ny; });
+  const nokler = rader.map((rad, indeks) => nokkel(rad, indeks));
+  const finnes = nokler.join('\u0000');
+  const kanUtvides = utvid !== undefined;
+  useEffect(() => {
+    const igjen = new Set(kanUtvides ? nokler : []);
+    settApne((gml) => ([...gml].every((n) => igjen.has(n)) ? gml : new Set([...gml].filter((n) => igjen.has(n)))));
+  }, [finnes, kanUtvides]);
   const tabell = (
-    <Table sortable size={size} style={style} aria-label={aria['aria-label']} aria-labelledby={aria['aria-labelledby']} onFocus={fokusInn} onBlur={fokusUt}>
+    <Table sortable size={size} style={style} className={utvid ? c.bred : undefined} aria-label={aria['aria-label']} aria-labelledby={aria['aria-labelledby']} onFocus={fokusInn} onBlur={fokusUt}>
       <TableHeader>
         <TableRow>
           {utvid && <TableHeaderCell className={c.utvidcelle} sortable={false}><span className={c.skjult}>{utvid.vis}</span></TableHeaderCell>}
@@ -128,11 +136,12 @@ export function SorterbarTabell<T>({ rader, kolonner, nokkel, size = 'small', st
                   <TableCell className={c.utvidcelle} lang={sprak}>
                     {(utvid.kan?.(rad, indeks) ?? true) && (
                       <Button appearance="subtle" size="small" icon={apen ? <ChevronDown20Regular /> : <ChevronRight20Regular />} aria-expanded={apen} aria-controls={apen ? under : undefined}
+                        aria-describedby={utvid.beskrevetAv ? `${under}-${utvid.beskrevetAv}` : undefined}
                         aria-label={apen ? utvid.skjul : utvid.vis} title={apen ? utvid.skjul : utvid.vis} onClick={() => veksle(n)} />
                     )}
                   </TableCell>
                 )}
-                {kolonner.map((k) => <TableCell key={k.id} style={k.stil} lang={k.sprak}>{k.celle(rad, indeks)}</TableCell>)}
+                {kolonner.map((k) => <TableCell key={k.id} id={utvid?.beskrevetAv === k.id ? `${under}-${k.id}` : undefined} style={k.stil} lang={k.sprak}>{k.celle(rad, indeks)}</TableCell>)}
               </TableRow>
               {apen && (
                 <TableRow id={under} className={c.utvidetrad}>
@@ -150,6 +159,8 @@ export function SorterbarTabell<T>({ rader, kolonner, nokkel, size = 'small', st
 
 const s = makeStyles({
   tabellvegg: { overflowX: 'auto' },
+  // En tabell med utvidbare rader står ved siden av lesevinduet. Den klemmes ikke sammen: veggen rundt ruller sidelengs.
+  bred: { minWidth: '1040px' },
   utvidcelle: { width: '40px', paddingLeft: '4px', paddingRight: 0 },
   utvidetrad: { backgroundColor: tokens.colorNeutralBackground2, ':hover': { backgroundColor: tokens.colorNeutralBackground2 } },
   utvidetcelle: { height: 'auto', whiteSpace: 'normal' },

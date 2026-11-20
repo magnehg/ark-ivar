@@ -1,14 +1,17 @@
 // Dokumentfilene til journalpostene: filikoner for produksjonsformat og arkivformat, listen som vises når en rad i en
 // oversikt er utvidet, og lesevinduet som åpnes til høyre når studenten klikker på en fil. Øvingsarkivet har ikke
 // virkelige filer: lesevinduet viser dokumentet slik filen ville sett ut (som ark, eller som ren tekst for txt).
-import { ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Link as Ruterlenke, useLocation } from 'react-router-dom';
 import { Button, DrawerBody, DrawerHeader, DrawerHeaderTitle, OverlayDrawer, Text, makeStyles, mergeClasses, tokens } from '@fluentui/react-components';
 import { Dismiss24Regular } from '@fluentui/react-icons';
 import { Dokument, Dokumentfil, Journalpost, del } from '../arkiv';
-import { useDato, useSprak, useT } from '../i18n';
+import { useSprak, useT } from '../i18n';
 import { Ark } from './Ark';
 import { Hentefeil, Laster, useHent } from './Felles';
+
+/** Bredden på lesevinduet. Siden ved siden av får like mye marg mens vinduet er åpent. */
+const BREDDE = 'min(680px, 44vw)';
 
 const s = makeStyles({
   ikon: { flexShrink: 0, display: 'block' },
@@ -27,7 +30,9 @@ const s = makeStyles({
   utvidet: { padding: '8px 0 12px 36px' },
   post: { margin: '0 0 2px', fontWeight: tokens.fontWeightSemibold, fontSize: tokens.fontSizeBase300 },
   poster: { listStyleType: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '10px' },
-  skuff: { width: 'min(760px, 48vw)', '@media (max-width: 900px)': { width: '100vw' } },
+  // Siden gir plass til vinduet (plass), så ingenting ligger under det. På smale skjermer dekker vinduet hele bredden.
+  skuff: { width: BREDDE, '@media (max-width: 900px)': { width: '100vw' } },
+  plass: { '@media (min-width: 901px)': { paddingRight: BREDDE } },
   hodetekst: { display: 'flex', gap: '10px', alignItems: 'center', minWidth: 0 },
   kropp: { backgroundColor: tokens.colorNeutralBackground3, paddingTop: '16px', paddingBottom: '24px' },
   lenke: { display: 'block', marginBottom: '12px' },
@@ -57,45 +62,64 @@ type Lesevindu = { apen: Apen | null; apne: (valg: Apen) => void; lukk: () => vo
 const LesevinduCtx = createContext<Lesevindu>({ apen: null, apne: () => undefined, lukk: () => undefined });
 export const useLesevindu = (): Lesevindu => useContext(LesevinduCtx);
 
-/** Dokumentet som ren tekst, slik en e-post ligger i arkivformat. Ledetekstene står på norsk, som resten av filen. */
-function somTekst(dok: Dokument, dato: (iso: string) => string): string {
+/** Datoen slik den står i en norsk tekstfil, uansett språk i grensesnittet: 12.10.2026. */
+const norskDato = (iso: string): string => iso.slice(0, 10).split('-').reverse().join('.');
+
+/**
+ * Dokumentet som ren tekst, slik en e-post ligger i arkivformat. Linjene «Fra:», «Emne:» og de andre er en del av
+ * den norske filen og ikke tekst i grensesnittet, så de oversettes ikke.
+ */
+function somTekst(dok: Dokument): string {
   const linjer = [`Fra: ${[dok.avsender.navn, dok.avsender.epost ? `<${dok.avsender.epost}>` : ''].filter(Boolean).join(' ')}`];
   if (dok.mottaker) linjer.push(`Til: ${dok.mottaker}`);
-  linjer.push(`Dato: ${dato(dok.dokumentdato)}`, `Emne: ${dok.emne}`, '', ...dok.tekst.flatMap((avsnitt) => [avsnitt.replace(/^## /, ''), '']));
+  linjer.push(`Dato: ${norskDato(dok.dokumentdato)}`, `Emne: ${dok.emne}`, '', ...dok.tekst.flatMap((avsnitt) => [avsnitt.replace(/^## /, ''), '']));
   if (dok.vedlegg.length > 0) linjer.push(`Vedlegg: ${dok.vedlegg.join(', ')}`);
   return linjer.join('\n').trimEnd();
 }
 
 function Filinnhold({ valg }: { valg: Apen }) {
-  const c = s(); const t = useT(); const dato = useDato();
+  const c = s(); const t = useT();
   const hentet = useHent<{ dokument: Dokument | null }>(`/api/arkiv/journalposter/${del(valg.journalpost)}`);
   if (hentet.feil) return <Hentefeil melding={hentet.feil} last={hentet.last} />;
   if (!hentet.data) return <Laster />;
   const dok = hentet.data.dokument;
   if (!dok) return <Text>{t('arkivar.journalpost.uten_dokument')}</Text>;
-  return valg.fil.format === 'txt' ? <pre className={c.tekstfil} lang="nb">{somTekst(dok, dato)}</pre> : <Ark dok={dok} />;
+  return valg.fil.format === 'txt' ? <pre className={c.tekstfil} lang="nb">{somTekst(dok)}</pre> : <Ark dok={dok} />;
 }
 
 /** Holder lesevinduet for sidene under. Vinduet ligger til høyre og lukkes når studenten går til en annen side. */
 export function LesevinduTilbyder({ children }: { children: ReactNode }) {
   const c = s(); const t = useT(); const { sprak } = useSprak();
   const [apen, settApen] = useState<Apen | null>(null);
-  const lukk = useCallback(() => settApen(null), []);
-  const sted = useLocation().pathname;
-  useEffect(() => { settApen(null); }, [sted]);
+  // Knappen som åpnet vinduet. Fokus settes tilbake dit når vinduet lukkes, så tastaturbrukeren ikke mister plassen.
+  const apner = useRef<HTMLElement | null>(null);
+  const apne = useCallback((valg: Apen) => {
+    if (document.activeElement instanceof HTMLElement && !document.activeElement.closest('[data-lesevindu]')) apner.current = document.activeElement;
+    settApen(valg);
+  }, []);
+  const lukk = useCallback(() => {
+    settApen(null);
+    const tilbake = apner.current;
+    apner.current = null;
+    // Etter at vinduet er tatt bort: ellers flytter det fokus selv.
+    if (tilbake?.isConnected) window.setTimeout(() => tilbake.focus(), 0);
+  }, []);
+  // Vinduet hører til listen det ble åpnet fra: det lukkes når studenten går til en annen side eller bytter filter.
+  const { pathname, search } = useLocation();
+  useEffect(() => { apner.current = null; settApen(null); }, [pathname, search]);
   // Vinduet er ikke modalt, så Escape lukker det ikke av seg selv.
   useEffect(() => {
     if (apen === null) return undefined;
-    const tast = (e: KeyboardEvent) => { if (e.key === 'Escape' && !e.defaultPrevented) settApen(null); };
+    const tast = (e: KeyboardEvent) => { if (e.key === 'Escape' && !e.defaultPrevented) lukk(); };
     document.addEventListener('keydown', tast);
     return () => document.removeEventListener('keydown', tast);
-  }, [apen]);
-  const verdi = useMemo(() => ({ apen, apne: settApen, lukk }), [apen, lukk]);
+  }, [apen, lukk]);
+  const verdi = useMemo(() => ({ apen, apne, lukk }), [apen, apne, lukk]);
   return (
     <LesevinduCtx.Provider value={verdi}>
-      {children}
+      <div className={apen ? c.plass : undefined}>{children}</div>
       {/* Ikke modalt: listen ved siden av kan brukes mens vinduet er åpent, og en annen fil bytter innholdet. */}
-      <OverlayDrawer className={c.skuff} position="end" modalType="non-modal" open={apen !== null} onOpenChange={(_, d) => { if (!d.open) lukk(); }} aria-label={t('arkivar.lesevindu.tittel')}>
+      <OverlayDrawer className={c.skuff} data-lesevindu="" position="end" modalType="non-modal" open={apen !== null} onOpenChange={(_, d) => { if (!d.open) lukk(); }} aria-label={t('arkivar.lesevindu.tittel')}>
         {apen && (
           <>
             <DrawerHeader>
@@ -164,7 +188,7 @@ export function Mappefiler({ sak }: { sak: string }) {
       <ul className={c.poster}>
         {poster.map((p) => (
           <li key={p.id}>
-            <p className={c.post}>{p.postnr}. <Ruterlenke to={`/arkiv/saker/${p.sak_id}/journalposter/${p.id}`}>{p.tittel}</Ruterlenke></p>
+            <p className={c.post}>{p.postnr}. <Ruterlenke lang="nb" to={`/arkiv/saker/${p.sak_id}/journalposter/${p.id}`}>{p.tittel}</Ruterlenke></p>
             <Filliste post={p} />
           </li>
         ))}

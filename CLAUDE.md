@@ -53,7 +53,9 @@ uttrekk eller avlevere.
   arkivformat (`txt` for e-post, ellers `pdf`). Den offentlige journalen har aldri filene. I grensesnittet kan radene
   i `SorterbarTabell` utvides (`utvid`), `Filliste` viser filene med `Filikon` (fylt merke for arkivformat, ramme for
   produksjonsformat, og alltid tekst ved siden av), og `LesevinduTilbyder` (rundt `Skall`) holder lesevinduet til
-  høyre: ikke modalt, lukkes med Escape og når studenten går til en annen side.
+  høyre: ikke modalt, lukkes med Escape og når adressen endres (side eller filter), og fokus settes tilbake på filen
+  som åpnet det. Siden får like mye høyremarg som vinduet er bredt, så ingenting ligger under det; tabeller med
+  utvidbare rader har en minstebredde og ruller sidelengs i stedet for å klemmes sammen.
 - **Kommunevåpenet** (`web/src/bilder/sirevag-kommunevapen.svg`, `Kommunevapen`) er oppdiktet: «I blått en gull bjelke som på
   midten er bøyd ned i en nesten sluttet ring (en våg)». Det er valgt blant tre forslag og sjekket mot virkelige
   kommunevåpen på Jæren og sørvestkysten (ikke uttømmende). Det er et bilde med sine egne heraldiske farger og

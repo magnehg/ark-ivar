@@ -63,7 +63,7 @@ export function Saker() {
             </Field>
             <TabellVerktoy tekst={t('arkivar.tabell.antall', { vist: rader.length, alle: alle.length })}>{null}</TabellVerktoy>
             <SorterbarTabell rader={rader} kolonner={kolonner} nokkel={(r) => r.id} aria-labelledby="saksliste" startSortering={{ id: 'nummer', retning: 'descending' }}
-              utvid={{ innhold: (r) => <Mappefiler sak={r.id} />, vis: t('arkivar.filer.vis'), skjul: t('arkivar.filer.skjul'), kan: (r) => r.antall > 0 }} />
+              utvid={{ innhold: (r) => <Mappefiler sak={r.id} />, vis: t('arkivar.filer.vis'), skjul: t('arkivar.filer.skjul'), beskrevetAv: 'tittel', kan: (r) => r.antall > 0 }} />
           </>
         )}
       </Kort>
@@ -132,7 +132,7 @@ export function EnSak() {
         {sak.data.journalposter.length === 0
           ? <Text block className={c.dempet}>{t('arkivar.sak.tom')}</Text>
           : <SorterbarTabell rader={sak.data.journalposter} kolonner={kolonner} nokkel={(r) => r.id} aria-labelledby="sak-journalposter" startSortering={{ id: 'nr', retning: 'ascending' }}
-            utvid={{ innhold: (r) => <Journalpostfiler post={r} />, vis: t('arkivar.filer.vis'), skjul: t('arkivar.filer.skjul'), kan: (r) => r.filer.length > 0 }} />}
+            utvid={{ innhold: (r) => <Journalpostfiler post={r} />, vis: t('arkivar.filer.vis'), skjul: t('arkivar.filer.skjul'), beskrevetAv: 'tittel', kan: (r) => r.filer.length > 0 }} />}
       </Kort>
       <div className={c.knapper}>
         <Ruterlenke to="/arkiv/saker">{t('arkivar.sak.tilbake')}</Ruterlenke>

@@ -44,21 +44,30 @@ final class Ovingsarkiv
             return $id;
         }
 
-        return $this->db->transaksjon(function () use ($brukerId): string {
-            $ny = Tilfeldig::uuid();
-            // En side kan hente flere ting samtidig første gang arkivet åpnes. Den som kommer sist, venter her til
-            // den første har fylt arkivet, og bruker så det: brukeren får aldri to arkiver eller en feil.
-            $this->db->utfor(
-                'INSERT INTO arkivar_arkiv (id, eier_id, opprettet) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE eier_id = eier_id',
-                [$ny, $brukerId, Db::tid($this->klokke->now())],
-            );
-            $id = Felt::tekst($this->db->verdi('SELECT id FROM arkivar_arkiv WHERE eier_id = ?', [$brukerId]));
-            if ($id === $ny) {
-                $this->fyll($ny);
-            }
+        // Påfyllingen setter inn rader i de samme indeksgapene som slettingen i en nullstilling låser, så en første
+        // åpning og en nullstilling samtidig kan vranglåse. De går derfor etter hverandre (samme lås som nullstill).
+        if (!$this->db->las(self::NULLSTILLING, self::VENTETID)) {
+            throw new HttpFeil(503, 'opptatt', 'arkivar.feil.opptatt');
+        }
+        try {
+            return $this->db->transaksjon(function () use ($brukerId): string {
+                $ny = Tilfeldig::uuid();
+                // En side kan hente flere ting samtidig første gang arkivet åpnes. Den som kommer sist, venter her til
+                // den første har fylt arkivet, og bruker så det: brukeren får aldri to arkiver eller en feil.
+                $this->db->utfor(
+                    'INSERT INTO arkivar_arkiv (id, eier_id, opprettet) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE eier_id = eier_id',
+                    [$ny, $brukerId, Db::tid($this->klokke->now())],
+                );
+                $id = Felt::tekst($this->db->verdi('SELECT id FROM arkivar_arkiv WHERE eier_id = ?', [$brukerId]));
+                if ($id === $ny) {
+                    $this->fyll($ny);
+                }
 
-            return $id;
-        });
+                return $id;
+            });
+        } finally {
+            $this->db->slippLas(self::NULLSTILLING);
+        }
     }
 
     /** Navnet på låsen som gjør at nullstillingene går etter hverandre, og hvor lenge en nullstilling venter på den. */

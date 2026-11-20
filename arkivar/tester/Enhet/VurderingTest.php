@@ -313,15 +313,15 @@ final class VurderingTest extends TestCase
         $tilfeller = [
             'arbeidsavtale-due' => ['Dina Due' => true, 'Due, Dina' => true, 'dina due' => true, 'Dina' => false, 'Dina Duestad' => false, '' => false],
             // Én av de to foresatte godtas (kortform i fasiten), men ikke fornavnene alene eller bare etternavnet.
-            'tilrettelegging-elev' => ['Marit og Rune Måke' => true, 'Rune og Marit Måke' => true, 'Marit Måke' => true, 'Måke, Rune' => true, 'Måke' => false,
+            'tilrettelegging-elev' => ['Marit og Rune Måke' => true, 'Rune og Marit Måke' => true, 'Marit & Rune Måke' => true, 'Måke, Marit, Rune' => true, 'Marit Måke' => true, 'Måke, Rune' => true, 'Måke' => false,
                 'Marit og Rune' => false, 'Foresatte' => false, 'Mathias Måke' => false],
             // Alle ordene i navnet må være med. Selskapsformen teller ikke.
             'nabomerknad-havnegata' => ['Sirevåg Rør og Varme AS' => true, 'Sirevåg Rør og Varme' => true, 'Sirevåg Varme' => false, 'Sirevåg' => false,
                 'Sirevåg kommune' => false, 'Rørlegger' => false],
             'tilbud-renhold' => ['Jærrent AS' => true, 'Jærrent' => true, 'AS' => false, 'Jær' => false],
             // En kortform godtas bare alene: med flere ord er det et annet navn.
-            'horing-verneplan' => ['Statsforvalteren i Rogaland' => true, 'Statsforvalteren' => true, 'Statsforvalteren i Agder' => false, 'Rogaland fylkeskommune' => false],
-            'uttalelse-budsjett-fau' => ['FAU ved Sirevåg skole' => true, 'FAU' => true, 'FAU ved Sirevåg skole v/ leder' => true, 'Sirevåg skole' => false, 'Sirevåg skole v/ rektor' => false],
+            'horing-verneplan' => ['Statsforvalteren i Rogaland' => true, 'Statsforvalteren Rogaland' => true, 'Statsforvalteren' => true, 'Statsforvalteren i Agder' => false, 'Rogaland fylkeskommune' => false],
+            'uttalelse-budsjett-fau' => ['FAU ved Sirevåg skole' => true, 'FAU, Sirevåg skole' => true, 'FAU' => true, 'FAU ved Sirevåg skole v/ leder' => true, 'Sirevåg skole' => false, 'Sirevåg skole v/ rektor' => false],
         ];
         foreach ($tilfeller as $oppgaveId => $navn) {
             foreach ($navn as $skrevet => $riktig) {
@@ -333,6 +333,19 @@ final class VurderingTest extends TestCase
                 self::assertSame($riktig, $vurdering['part']['ok'], "$oppgaveId: «{$skrevet}»");
             }
         }
+    }
+
+    public function testAvsenderenSkjermesBareNaarDenSkal(): void
+    {
+        // Statsforvalteren er en offentlig myndighet: avsenderen skal stå åpent i den offentlige journalen.
+        $skjermet = $this->vurder('horing-verneplan', static function (array $s): array {
+            $s['skjerm_part'] = true;
+
+            return $s;
+        });
+        self::assertFalse($skjermet['skjerm_part']['ok']);
+        self::assertSame(['ja', 'nei'], [$skjermet['skjerm_part']['ditt'], $skjermet['skjerm_part']['riktig']]);
+        self::assertTrue($this->vurder('horing-verneplan')['skjerm_part']['ok']);
     }
 
     public function testForklaringenOmSkjermingStaarEnGang(): void

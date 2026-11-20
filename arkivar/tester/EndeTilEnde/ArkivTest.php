@@ -941,6 +941,25 @@ final class ArkivTest extends AppTestCase
         self::assertCount(1, self::rader($s['journalposter']));
     }
 
+    public function testDatoeneFolgerNorskTidEtterMidnatt(): void
+    {
+        // Klokka er 00.30 i Norge den 21. november, men 23.30 den 20. i UTC. En ny student, så økten ikke er for gammel.
+        $this->klokke->sett('2026-11-20 23:30:00');
+        $ola = $this->student('ola@hogskolen.example', 'Ola Student', null, '10.0.0.2');
+        $sakId = $this->nyMappe($ola, ['tittel' => 'Høring – sak opprettet etter midnatt', 'arkivdel' => 'SAK', 'klasse' => '641', 'enhet' => 'TEK']);
+        [, $j] = $ola->kall('GET', "/api/arkiv/saker/$sakId");
+        self::assertIsArray($j['sak']);
+        self::assertSame('2026-11-21', $j['sak']['saksdato']);
+        $post = ['journalfores' => true, 'type' => 'X', 'tittel' => 'Notat skrevet i natt', 'dokumentdato' => '2026-11-21', 'part_navn' => '', 'tilgangskode' => ''];
+        [$svar, $j] = $ola->kall('POST', "/api/arkiv/saker/$sakId/journalposter", $post);
+        self::assertSame(201, $svar->status, $svar->kropp);
+        self::assertIsArray($j['journalpost']);
+        self::assertSame('2026-11-21', $j['journalpost']['journaldato']);
+        [$svar, $j] = $ola->kall('POST', "/api/arkiv/saker/$sakId/journalposter", ['dokumentdato' => '2026-11-22'] + $post);
+        self::assertSame(422, $svar->status);
+        self::assertSame('ugyldig_dato', $j['kode']);
+    }
+
     public function testMappeskjemaetValideres(): void
     {
         $gyldig = ['tittel' => 'Byggesak – garasje – Strandveien 14', 'arkivdel' => 'EIENDOM', 'klasse' => '12/45', 'enhet' => 'PBE'];

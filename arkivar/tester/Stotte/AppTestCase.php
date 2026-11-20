@@ -62,8 +62,13 @@ abstract class AppTestCase extends DbTestCase
         };
         $kjerne->settVent($ingenVenting);
         $app = new App($kjerne, $this->klokke, $this->epost, $ingenVenting);
+        $svar = $kjerne->handter($f, $app->ruter(...));
+        // Hver forespørsel har sin egen databasetilkobling. Den slippes her, så en test med mange forespørsler ikke
+        // hoper dem opp (to kjøringer av testene samtidig gikk ellers tom for tilkoblinger).
+        unset($kjerne, $app);
+        gc_collect_cycles();
 
-        return $kjerne->handter($f, $app->ruter(...));
+        return $svar;
     }
 
     /** En ny nettleser (egne informasjonskapsler). $ip skiller dem i grensene for forsøk. */

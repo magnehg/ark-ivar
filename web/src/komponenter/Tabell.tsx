@@ -3,14 +3,14 @@
 // - Alle tabeller kan sorteres ved å klikke på kolonneoverskriften. Sorteringen følger språket (Intl.Collator).
 // - Filter vises som et diskret ikon øverst til høyre over tabellen. Filterfeltene ligger i en sprettboks.
 //   Når et filter er i bruk, er ikonet fylt og viser antall aktive filtre (ikke bare farge, UU-05).
-import { CSSProperties, FocusEvent, ReactNode, useMemo, useState } from 'react';
+import { CSSProperties, FocusEvent, Fragment, ReactNode, useId, useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
 import {
   Button, Popover, PopoverSurface, PopoverTrigger, Table, TableBody, TableCell, TableHeader, TableHeaderCell, TableRow,
   TableRowProps, makeStyles, tokens,
 } from '@fluentui/react-components';
-import { Dismiss16Regular, Filter20Filled, Filter20Regular } from '@fluentui/react-icons';
-import { useT } from '../i18n';
+import { ChevronDown20Regular, ChevronRight20Regular, Dismiss16Regular, Filter20Filled, Filter20Regular } from '@fluentui/react-icons';
+import { useSprak, useT } from '../i18n';
 
 export type Sorteringsverdi = string | number | boolean | null | undefined;
 
@@ -79,10 +79,15 @@ type TabellProps<T> = {
   startSortering?: Sortering | null;
   /** Språket radene er på, når det er et annet enn grensesnittet (innholdet fra arkivet er norsk). Overskriftene er oversatt. */
   kroppSprak?: string;
+  /**
+   * Rader som kan utvides: en knapp først i raden viser innholdet i en egen rad under. vis og skjul er navnet på
+   * knappen i de to tilstandene; kan sier om raden har noe å vise (ellers får den ingen knapp).
+   */
+  utvid?: { innhold: (rad: T, indeks: number) => ReactNode; vis: string; skjul: string; kan?: (rad: T, indeks: number) => boolean };
 };
 
 /** Tabell der alle kolonner med sorteringsverdi kan sorteres ved klikk på overskriften (GRS-02). */
-export function SorterbarTabell<T>({ rader, kolonner, nokkel, size = 'small', style, radEgenskaper, utenVegg, startSortering, frysVedRedigering, kroppSprak, ...aria }: TabellProps<T>) {
+export function SorterbarTabell<T>({ rader, kolonner, nokkel, size = 'small', style, radEgenskaper, utenVegg, startSortering, frysVedRedigering, kroppSprak, utvid, ...aria }: TabellProps<T>) {
   const { sortert: levende, sortering, klikk: sorter } = useSortering(rader, kolonner, startSortering ?? null);
   const [frosset, settFrosset] = useState<number[] | null>(null);
   // Fryst rekkefølge: radene står der de stod da fokus kom inn i tabellkroppen. Nye rader legges sist.
@@ -96,21 +101,47 @@ export function SorterbarTabell<T>({ rader, kolonner, nokkel, size = 'small', st
   const klikk = (id: string) => { settFrosset(null); sorter(id); };
   const fokusInn = (e: FocusEvent<HTMLElement>) => { if (frysVedRedigering && !frosset && (e.target as Element).closest('tbody')) settFrosset(levende.map((x) => x.indeks)); };
   const fokusUt = (e: FocusEvent<HTMLElement>) => { if (frosset && !e.currentTarget.contains(e.relatedTarget as Node | null)) settFrosset(null); };
+  const c = s(); const { sprak } = useSprak();
+  const idStart = useId();
+  // Radene som er utvidet, etter nøkkelen. En rad som forsvinner (filter), er lukket når den kommer tilbake.
+  const [apne, settApne] = useState<ReadonlySet<string | number>>(new Set());
+  const veksle = (n: string | number) => settApne((gml) => { const ny = new Set(gml); if (!ny.delete(n)) ny.add(n); return ny; });
   const tabell = (
     <Table sortable size={size} style={style} aria-label={aria['aria-label']} aria-labelledby={aria['aria-labelledby']} onFocus={fokusInn} onBlur={fokusUt}>
       <TableHeader>
         <TableRow>
+          {utvid && <TableHeaderCell className={c.utvidcelle} sortable={false}><span className={c.skjult}>{utvid.vis}</span></TableHeaderCell>}
           {kolonner.map((k) => k.sorter
             ? <TableHeaderCell key={k.id} style={k.stil} sortDirection={sortering?.id === k.id ? sortering.retning : undefined} onClick={() => klikk(k.id)}>{k.overskrift}</TableHeaderCell>
             : <TableHeaderCell key={k.id} style={k.stil} sortable={false}>{k.overskrift}</TableHeaderCell>)}
         </TableRow>
       </TableHeader>
       <TableBody lang={kroppSprak}>
-        {sortert.map(({ rad, indeks }) => (
-          <TableRow key={nokkel(rad, indeks)} {...radEgenskaper?.(rad, indeks)}>
-            {kolonner.map((k) => <TableCell key={k.id} style={k.stil} lang={k.sprak}>{k.celle(rad, indeks)}</TableCell>)}
-          </TableRow>
-        ))}
+        {sortert.map(({ rad, indeks }) => {
+          const n = nokkel(rad, indeks);
+          const apen = utvid !== undefined && apne.has(n);
+          const under = `${idStart}-${n}`;
+          return (
+            <Fragment key={n}>
+              <TableRow {...radEgenskaper?.(rad, indeks)}>
+                {utvid && (
+                  <TableCell className={c.utvidcelle} lang={sprak}>
+                    {(utvid.kan?.(rad, indeks) ?? true) && (
+                      <Button appearance="subtle" size="small" icon={apen ? <ChevronDown20Regular /> : <ChevronRight20Regular />} aria-expanded={apen} aria-controls={apen ? under : undefined}
+                        aria-label={apen ? utvid.skjul : utvid.vis} title={apen ? utvid.skjul : utvid.vis} onClick={() => veksle(n)} />
+                    )}
+                  </TableCell>
+                )}
+                {kolonner.map((k) => <TableCell key={k.id} style={k.stil} lang={k.sprak}>{k.celle(rad, indeks)}</TableCell>)}
+              </TableRow>
+              {apen && (
+                <TableRow id={under} className={c.utvidetrad}>
+                  <TableCell colSpan={kolonner.length + 1} className={c.utvidetcelle}>{utvid.innhold(rad, indeks)}</TableCell>
+                </TableRow>
+              )}
+            </Fragment>
+          );
+        })}
       </TableBody>
     </Table>
   );
@@ -119,6 +150,10 @@ export function SorterbarTabell<T>({ rader, kolonner, nokkel, size = 'small', st
 
 const s = makeStyles({
   tabellvegg: { overflowX: 'auto' },
+  utvidcelle: { width: '40px', paddingLeft: '4px', paddingRight: 0 },
+  utvidetrad: { backgroundColor: tokens.colorNeutralBackground2, ':hover': { backgroundColor: tokens.colorNeutralBackground2 } },
+  utvidetcelle: { height: 'auto', whiteSpace: 'normal' },
+  skjult: { position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clipPath: 'inset(50%)', whiteSpace: 'nowrap' },
   flate: { display: 'flex', flexDirection: 'column', gap: '12px', width: 'min(320px, calc(100vw - 48px))' },
   tittel: { margin: 0, fontSize: tokens.fontSizeBase300, fontWeight: tokens.fontWeightSemibold },
   felt: { display: 'flex', flexDirection: 'column', gap: '12px', '& .fui-Input, & .fui-Select': { width: '100%', minWidth: 0 } },

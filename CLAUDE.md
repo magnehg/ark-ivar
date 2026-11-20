@@ -47,6 +47,13 @@ uttrekk eller avlevere.
   `arkivar.dokstatus.`, `arkivar.variantformat.`); `KodelisterTest` krever begge på alle språk, og `useKode()` viser
   «J – Journalført». Dokumentfilen (`arkivar_journalpost.dokumentstatus` og `variantformat`, NULL uten dokument) er
   ferdigstilt, og i arkivformat når journalposten har status A (`Kodelister::variantformat()`).
+- **Dokumentfilene** (`Dokumentfiler`, `filer` på journalposten i API-svarene): øvingsarkivet har ikke virkelige filer,
+  men hver journalpost med dokument har en fil i produksjonsformat (`eml` for e-post, `tif` for skannet brev og
+  skjema, `pdf` for andre dokumenter utenfra, `docx` for kommunens egne) og, når journalposten er arkivert, en i
+  arkivformat (`txt` for e-post, ellers `pdf`). Den offentlige journalen har aldri filene. I grensesnittet kan radene
+  i `SorterbarTabell` utvides (`utvid`), `Filliste` viser filene med `Filikon` (fylt merke for arkivformat, ramme for
+  produksjonsformat, og alltid tekst ved siden av), og `LesevinduTilbyder` (rundt `Skall`) holder lesevinduet til
+  høyre: ikke modalt, lukkes med Escape og når studenten går til en annen side.
 - **Kommunevåpenet** (`web/src/bilder/sirevag-kommunevapen.svg`, `Kommunevapen`) er oppdiktet: «I blått en gull bjelke som på
   midten er bøyd ned i en nesten sluttet ring (en våg)». Det er valgt blant tre forslag og sjekket mot virkelige
   kommunevåpen på Jæren og sørvestkysten (ikke uttømmende). Det er et bilde med sine egne heraldiske farger og

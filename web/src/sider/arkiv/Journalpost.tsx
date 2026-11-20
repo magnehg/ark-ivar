@@ -7,6 +7,7 @@ import { api } from '../../api';
 import { Dokument, Journalpost as Post, Sak, del } from '../../arkiv';
 import { useDato, useKode, useT } from '../../i18n';
 import { Ark } from '../../komponenter/Ark';
+import { Filliste } from '../../komponenter/Dokumentfiler';
 import { Feil, Kort, Laster, Sidehode, useFeiltekst, useHent } from '../../komponenter/Felles';
 import { Status } from '../../komponenter/Status';
 
@@ -48,6 +49,7 @@ export default function Journalpost() {
             {/* Statusen på dokumentfilen: om dokumentet er ferdigstilt, og hvilket format det ligger i. */}
             {p.dokumentstatus && <><dt>{t('arkivar.journalpost.dokumentstatus')}</dt><dd>{kode('dokstatus', p.dokumentstatus)}</dd></>}
             {p.variantformat && <><dt>{t('arkivar.journalpost.variantformat')}</dt><dd>{kode('variantformat', p.variantformat)}</dd></>}
+            {p.filer.length > 0 && <><dt>{t('arkivar.filer.tittel')}</dt><dd><Filliste post={p} /></dd></>}
           </dl>
           {feil && <Feil melding={feil} />}
           <div className={c.knapper}>

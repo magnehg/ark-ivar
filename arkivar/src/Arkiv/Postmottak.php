@@ -362,13 +362,20 @@ final class Postmottak
     {
         $ut = $this->register->visJournalpost($rad, $offentlig);
         $oppgaveId = Felt::valgfriTekst($rad['oppgave_id']);
-        if ($oppgaveId !== null && $this->oppgaver->hent($oppgaveId) === null) {
+        $oppgave = $oppgaveId !== null ? $this->oppgaver->hent($oppgaveId) : null;
+        if ($oppgaveId !== null && $oppgave === null) {
             $ut['oppgave'] = null;
             $ut['har_dokument'] = false;
             $ut['dokumentstatus'] = null;
             $ut['variantformat'] = null;
             $ut['kan_slettes'] = !$offentlig;
         }
+        // Dokumentfilene (produksjonsformat og arkivformat). Den offentlige journalen har ikke dokumentene.
+        $startdokument = Felt::valgfriTekst($rad['startdokument'] ?? null);
+        $dokument = $oppgave ?? ($oppgaveId === null && $startdokument !== null ? $this->grunndata->startdokument($startdokument) : null);
+        $ut['filer'] = $offentlig || $dokument === null
+            ? []
+            : Dokumentfiler::filer($dokument['kanal'], $dokument['mottatt'], Felt::tekst($rad['status']), Felt::tekst($rad['tittel']));
 
         return $ut;
     }

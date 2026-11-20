@@ -5,6 +5,7 @@ import { Link as Ruterlenke } from 'react-router-dom';
 import { Switch, Text, makeStyles, tokens } from '@fluentui/react-components';
 import { Journalpost } from '../../arkiv';
 import { useDato, useT } from '../../i18n';
+import { Journalpostfiler, useLesevindu } from '../../komponenter/Dokumentfiler';
 import { Hentefeil, Kort, Laster, Sidehode, useHent } from '../../komponenter/Felles';
 import { Status } from '../../komponenter/Status';
 import { Kolonne, SorterbarTabell, TabellVerktoy } from '../../komponenter/Tabell';
@@ -16,6 +17,7 @@ const sorterbart = (nummer: string) => nummer.split('/').map((del) => del.padSta
 export default function Journal() {
   const c = s(); const t = useT(); const dato = useDato();
   const [offentlig, settOffentlig] = useState(false);
+  const lesevindu = useLesevindu();
   const journal = useHent<{ journalposter: Journalpost[] }>(`/api/arkiv/journal${offentlig ? '?offentlig=1' : ''}`);
   const rader = journal.data?.journalposter ?? [];
   const venter = journal.laster && !journal.data;
@@ -46,14 +48,15 @@ export default function Journal() {
   return (
     <>
       <Sidehode tittel={t(offentlig ? 'arkivar.journal.tittel.offentlig' : 'arkivar.journal.tittel')} ingress={t(offentlig ? 'arkivar.journal.ingress.offentlig' : 'arkivar.journal.ingress')}
-        handlinger={<Switch checked={offentlig} onChange={(_, d) => settOffentlig(d.checked)} label={t('arkivar.journal.vis_offentlig')} />} />
+        handlinger={<Switch checked={offentlig} onChange={(_, d) => { lesevindu.lukk(); settOffentlig(d.checked); }} label={t('arkivar.journal.vis_offentlig')} />} />
       <Kort id="journalliste">
         {/* Tabellen står mens den andre visningen hentes, så sorteringen ikke nullstilles. Radene er tomme så lenge:
             titlene fra arkivtjenestens journal skal aldri stå under overskriften «Offentlig journal». */}
         {journal.feil && !journal.data ? <Hentefeil melding={journal.feil} last={journal.last} /> : (
           <div aria-busy={venter}>
             <TabellVerktoy tekst={venter ? <Laster /> : t('arkivar.journal.antall', { antall: rader.length })}>{null}</TabellVerktoy>
-            <SorterbarTabell rader={rader} kolonner={kolonner} nokkel={(r) => r.id} aria-label={t('arkivar.journal.tittel')} startSortering={{ id: 'lopenr', retning: 'descending' }} />
+            <SorterbarTabell rader={rader} kolonner={kolonner} nokkel={(r) => r.id} aria-label={t('arkivar.journal.tittel')} startSortering={{ id: 'lopenr', retning: 'descending' }}
+              utvid={offentlig ? undefined : { innhold: (r) => <Journalpostfiler post={r} />, vis: t('arkivar.filer.vis'), skjul: t('arkivar.filer.skjul'), kan: (r) => r.filer.length > 0 }} />
           </div>
         )}
       </Kort>

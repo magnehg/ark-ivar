@@ -18,3 +18,4 @@ arkivar.ordning.
 arkivar.dokstatus.
 arkivar.variantformat.
 arkivar.struktur.statuskoder.
+arkivar.filformat.

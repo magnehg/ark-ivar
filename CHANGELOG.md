@@ -74,5 +74,8 @@
 - Menyen under Arkivet har en lenke til arkivplanen, som ligger i undermappen `arkivplan/` ved siden av appen
   (`arkivar/public/arkivplan/index.html`).
 - Reglene for innholdet står i `docs/innhold.md`.
+- Dokumentfiler: hver journalpost har filen i produksjonsformat, og i arkivformat (PDF, eller ren tekst for e-post) når
+  den er arkivert. Radene i mappeoversikten, i en mappe og i journalen kan utvides og viser filene med ikon for
+  formatet, og et klikk på en fil åpner den i et lesevindu til høyre.
 - Tilgangskoder for alle unntakene i offentleglova §§ 13–26 (29 koder), og en samlemappe «Høringer 2026» (klasse 008)
   for høringer kommunen ikke uttaler seg til.

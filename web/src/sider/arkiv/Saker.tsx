@@ -7,6 +7,7 @@ import { api } from '../../api';
 import { Behandling, Journalpost, Sak, del, flytSok, lesFlyt, useStruktur } from '../../arkiv';
 import { useDato, useKode, useT } from '../../i18n';
 import { Feil, Kort, Laster, Sidehode, useFeiltekst, useHent } from '../../komponenter/Felles';
+import { Journalpostfiler, Mappefiler } from '../../komponenter/Dokumentfiler';
 import { Mappesok } from '../../komponenter/Mappesok';
 import { Status } from '../../komponenter/Status';
 import { Kolonne, SorterbarTabell, TabellVerktoy } from '../../komponenter/Tabell';
@@ -61,7 +62,8 @@ export function Saker() {
               </Select>
             </Field>
             <TabellVerktoy tekst={t('arkivar.tabell.antall', { vist: rader.length, alle: alle.length })}>{null}</TabellVerktoy>
-            <SorterbarTabell rader={rader} kolonner={kolonner} nokkel={(r) => r.id} aria-labelledby="saksliste" startSortering={{ id: 'nummer', retning: 'descending' }} />
+            <SorterbarTabell rader={rader} kolonner={kolonner} nokkel={(r) => r.id} aria-labelledby="saksliste" startSortering={{ id: 'nummer', retning: 'descending' }}
+              utvid={{ innhold: (r) => <Mappefiler sak={r.id} />, vis: t('arkivar.filer.vis'), skjul: t('arkivar.filer.skjul'), kan: (r) => r.antall > 0 }} />
           </>
         )}
       </Kort>
@@ -129,7 +131,8 @@ export function EnSak() {
         {avsluttet && <Text block className={c.dempet}>{t('arkivar.sak.avsluttet.hjelp')}</Text>}
         {sak.data.journalposter.length === 0
           ? <Text block className={c.dempet}>{t('arkivar.sak.tom')}</Text>
-          : <SorterbarTabell rader={sak.data.journalposter} kolonner={kolonner} nokkel={(r) => r.id} aria-labelledby="sak-journalposter" startSortering={{ id: 'nr', retning: 'ascending' }} />}
+          : <SorterbarTabell rader={sak.data.journalposter} kolonner={kolonner} nokkel={(r) => r.id} aria-labelledby="sak-journalposter" startSortering={{ id: 'nr', retning: 'ascending' }}
+            utvid={{ innhold: (r) => <Journalpostfiler post={r} />, vis: t('arkivar.filer.vis'), skjul: t('arkivar.filer.skjul'), kan: (r) => r.filer.length > 0 }} />}
       </Kort>
       <div className={c.knapper}>
         <Ruterlenke to="/arkiv/saker">{t('arkivar.sak.tilbake')}</Ruterlenke>

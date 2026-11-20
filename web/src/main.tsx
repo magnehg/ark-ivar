@@ -5,6 +5,7 @@ import { ApiFeil, Innlogget, Okt, Oppsett, api, harRolle, kanAdministrere } from
 import { Sprak, useT } from './i18n';
 import { TemaTilbyder } from './tema';
 import { Feil, Laster, OktCtx } from './komponenter/Felles';
+import { LesevinduTilbyder } from './komponenter/Dokumentfiler';
 import { Skall } from './komponenter/Skall';
 import Konto from './sider/Konto';
 import './grunnstil.css';
@@ -68,7 +69,7 @@ function App() {
       {!innlogget ? <Konto /> : (
         <Suspense fallback={<Laster />}>
           <Routes>
-            <Route element={<Skall />}>
+            <Route element={<LesevinduTilbyder><Skall /></LesevinduTilbyder>}>
               <Route index element={<Hjem />} />
               {student && <Route path="min-side" element={<MinSide />} />}
               {student && <Route path="arkiv/postmottak" element={<Postmottak />} />}

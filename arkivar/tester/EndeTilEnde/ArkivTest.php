@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ArkIvar\Tester\EndeTilEnde;
 
+use ArkIvar\Arkiv\Dokumentfiler;
 use ArkIvar\Arkiv\Grunndata;
 use ArkIvar\Arkiv\Kodelister;
 use ArkIvar\Arkiv\Mapper;
@@ -224,6 +225,11 @@ final class ArkivTest extends AppTestCase
         self::assertSame(array_column($startsak['journalposter'], 'status'), array_column($poster, 'status'));
         self::assertSame([Kodelister::DOK_FERDIGSTILT], self::ulike($poster, 'dokumentstatus'));
         self::assertSame([Kodelister::VARIANT_PRODUKSJON], self::ulike($poster, 'variantformat'));
+        // Hver journalpost har én dokumentfil i produksjonsformat så lenge den ikke er arkivert.
+        foreach ($poster as $post) {
+            self::assertIsArray($post['filer']);
+            self::assertSame(['P'], array_column($post['filer'], 'variantformat'), Felt::tekst($post['tittel']));
+        }
         // I en avsluttet mappe er journalpostene arkivert, og dokumentene er gjort om til arkivformat.
         [, $j] = $this->kari->kall('GET', '/api/arkiv/saker/' . $this->sakId($this->kari, 'Byggesak – garasje – Strandveien 16'));
         self::assertIsArray($j['sak']);
@@ -231,6 +237,12 @@ final class ArkivTest extends AppTestCase
         $arkiverte = self::rader($j['journalposter']);
         self::assertSame([Kodelister::JP_ARKIVERT], self::ulike($arkiverte, 'status'));
         self::assertSame([Kodelister::VARIANT_ARKIV], self::ulike($arkiverte, 'variantformat'));
+        // Arkiverte journalposter har også filen i arkivformat, som er PDF eller ren tekst.
+        foreach ($arkiverte as $post) {
+            self::assertIsArray($post['filer']);
+            self::assertSame(['P', 'A'], array_column($post['filer'], 'variantformat'), Felt::tekst($post['tittel']));
+            self::assertContains(array_column($post['filer'], 'format')[1], Dokumentfiler::ARKIVFORMATER);
+        }
         self::assertSame([Kodelister::DOK_FERDIGSTILT], self::ulike($arkiverte, 'dokumentstatus'));
 
         // Dokumentet til en journalpost, med saksnummeret til mappen satt inn i teksten.
@@ -474,6 +486,7 @@ final class ArkivTest extends AppTestCase
         self::assertSame(200, $svar->status, $svar->kropp);
         $sett = 0;
         foreach (self::rader($j['journalposter']) as $rad) {
+            self::assertSame([], $rad['filer'], 'Den offentlige journalen har ikke dokumentfilene.');
             $sak = $saker[Felt::tekst($rad['sak_id'])];
             $del = $this->grunndata->arkivdel(Felt::tekst($sak['arkivdel']));
             if ($del === null || $del['ordning'] !== Grunndata::PERSON) {

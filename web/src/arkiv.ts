@@ -17,6 +17,8 @@ export type Sak = {
 };
 /** Et treff i søket: mappen, og dokumentene i den som har et av søkeordene. */
 export type Sokestreff = { sak: Sak; journalposter: { postnr: number; tittel: string; part_navn: string }[] };
+/** En dokumentfil: variantformatet (P = produksjonsformat, A = arkivformat), filtypen og filnavnet. */
+export type Dokumentfil = { variantformat: 'P' | 'A'; format: 'docx' | 'eml' | 'tif' | 'pdf' | 'txt'; filnavn: string };
 export type Journalpost = {
   id: string; sak_id: string; postnr: number; lopenummer: string; journalfort: boolean; type: string; status: string; tittel: string; offentlig_tittel: string | null;
   dokumentdato: string; journaldato: string; saksbehandler: string; saksbehandler_navn: string; enhet: string; tilgangskode: string | null; hjemmel: string; skjerm_tittel: boolean; skjerm_part: boolean;
@@ -27,6 +29,8 @@ export type Journalpost = {
   oppgave: string | null; kan_slettes: boolean;
   /** Statusen på dokumentfilen (Noark: dokumentstatus og variantformat). Null når registreringen ikke har noe dokument. */
   dokumentstatus: string | null; variantformat: string | null;
+  /** Dokumentfilene. Tom i den offentlige journalen og for registreringer uten dokument. */
+  filer: Dokumentfil[];
 };
 export type Behandling = {
   dokument: Dokument; behandlet: boolean; handling?: Handling; vurdering?: Kriterium[]; poeng?: number; maks?: number;

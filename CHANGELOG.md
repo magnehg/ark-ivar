@@ -80,7 +80,8 @@
   og tittel først, så enhet og saksansvarlig, og primærklasseringen sist med arkivdelen under. Søketreffene har samme ikon.
 - Løpenummeret til journalpostene skrives med nummeret først og året sist («104/2026»).
 - Dokumentfiler: hver journalpost har filen i produksjonsformat, og i arkivformat (PDF, eller ren tekst for e-post) når
-  den er arkivert. Radene i mappeoversikten, i en mappe og i journalen kan utvides og viser filene med ikon for
+  den er journalført, ekspedert eller arkivert. Dokumentene står med ikonet til arkivformatet foran tittelen, og en
+  utvidet rad viser versjonene og variantene. Radene i mappeoversikten, i en mappe og i journalen kan utvides og viser filene med ikon for
   formatet, og et klikk på en fil åpner den i et lesevindu til høyre.
 - Tilgangskoder for alle unntakene i offentleglova §§ 13–26 (29 koder), og en samlemappe «Høringer 2026» (klasse 008)
   for høringer kommunen ikke uttaler seg til.

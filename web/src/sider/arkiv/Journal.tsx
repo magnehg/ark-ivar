@@ -5,7 +5,7 @@ import { Link as Ruterlenke } from 'react-router-dom';
 import { Switch, Text, makeStyles, tokens } from '@fluentui/react-components';
 import { Journalpost } from '../../arkiv';
 import { useDato, useT } from '../../i18n';
-import { Journalpostfiler, useLesevindu } from '../../komponenter/Dokumentfiler';
+import { Dokumenttittel, Journalpostfiler, useLesevindu } from '../../komponenter/Dokumentfiler';
 import { Hentefeil, Kort, Laster, Sidehode, useHent } from '../../komponenter/Felles';
 import { Status } from '../../komponenter/Status';
 import { Kolonne, SorterbarTabell, TabellVerktoy } from '../../komponenter/Tabell';
@@ -23,11 +23,11 @@ export default function Journal() {
   const rader = journal.data?.journalposter ?? [];
   const venter = journal.laster && !journal.data;
   const tittel = (r: Journalpost) => (
-    <>
+    <Dokumenttittel filer={r.filer}>
       <Text block lang="nb">{r.tittel}</Text>
       <span className={c.sak}>{t('arkivar.journal.sak')} <Ruterlenke to={`/arkiv/saker/${r.sak_id}`}>{r.saksnummer}-{r.postnr}</Ruterlenke> <span lang="nb">{r.sakstittel}</span></span>
       <span className={c.sak}>{t('arkivar.journal.klassering')} <span lang="nb">{r.klasse_tekst ?? ''}</span></span>
-    </>
+    </Dokumenttittel>
   );
   // Hjemmelen for skjermingen står alltid i journalen. Er mappen skjermet (tittelen eller klasseringen) med en annen
   // hjemmel enn journalposten, eller er journalposten selv åpen, står mappens hjemmel for seg.

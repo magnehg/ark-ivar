@@ -46,11 +46,14 @@ uttrekk eller avlevere.
   (P, A, O). Navnet og forklaringen («.bruk») står i språkfilene (`arkivar.saksstatus.`, `arkivar.jpstatus.`,
   `arkivar.dokstatus.`, `arkivar.variantformat.`); `KodelisterTest` krever begge på alle språk, og `useKode()` viser
   «J – Journalført». Dokumentfilen (`arkivar_journalpost.dokumentstatus` og `variantformat`, NULL uten dokument) er
-  ferdigstilt, og i arkivformat når journalposten har status A (`Kodelister::variantformat()`).
+  ferdigstilt, og i arkivformat når journalposten er journalført, ekspedert eller arkivert (J, E, A;
+  `Kodelister::variantformat()`, som også avgjør visningen for rader lagret med en eldre regel).
 - **Dokumentfilene** (`Dokumentfiler`, `filer` på journalposten i API-svarene): øvingsarkivet har ikke virkelige filer,
   men hver journalpost med dokument har en fil i produksjonsformat (`eml` for e-post, `tif` for skannet brev og
-  skjema, `pdf` for andre dokumenter utenfra, `docx` for kommunens egne) og, når journalposten er arkivert, en i
-  arkivformat (`txt` for e-post, ellers `pdf`). Den offentlige journalen har aldri filene. I grensesnittet kan radene
+  skjema, `pdf` for andre dokumenter utenfra, `docx` for kommunens egne) og, når journalposten er journalført, ekspedert
+  eller arkivert, en i arkivformat (`txt` for e-post, ellers `pdf`). Hver fil har `versjon`; øvingsarkivet har bare
+  versjon 1. I listene står ikonet til arkivformatet foran tittelen (`Dokumenttittel`, `hovedfil()`), og en utvidet
+  rad viser versjonene med variantene under (`Filliste`). Den offentlige journalen har aldri filene. I grensesnittet kan radene
   i `SorterbarTabell` utvides (`utvid`), `Filliste` viser filene med `Filikon` (fylt merke for arkivformat, ramme for
   produksjonsformat, og alltid tekst ved siden av), og `LesevinduTilbyder` (rundt `Skall`) holder lesevinduet til
   høyre: ikke modalt, lukkes med Escape og når adressen endres (side eller filter), og fokus settes tilbake på filen

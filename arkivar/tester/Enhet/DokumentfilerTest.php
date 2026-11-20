@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Dokumentfilene til en journalpost: formatet følger av hvordan dokumentet ble til, og arkivformatet (PDF eller ren
- * tekst) finnes bare når journalposten er arkivert.
+ * tekst) finnes når journalposten er journalført, ekspedert eller arkivert.
  */
 final class DokumentfilerTest extends TestCase
 {
@@ -34,18 +34,19 @@ final class DokumentfilerTest extends TestCase
         }
     }
 
-    public function testArkivformatetKommerITilleggNaarJournalpostenErArkivert(): void
+    public function testArkivformatetKommerITilleggNaarJournalpostenErJournalfort(): void
     {
-        $journalfort = Dokumentfiler::filer('brev', '2026-11-10', Kodelister::JP_JOURNALFORT, 'Søknad om støtte');
-        self::assertSame([['variantformat' => 'P', 'format' => 'tif', 'filnavn' => 'soknad-om-stotte.tif']], $journalfort);
-        $arkivert = Dokumentfiler::filer('epost', '2026-11-10', Kodelister::JP_ARKIVERT, 'Spørsmål om åpningstider');
-        self::assertSame(
-            [
-                ['variantformat' => 'P', 'format' => 'eml', 'filnavn' => 'sporsmal-om-apningstider.eml'],
-                ['variantformat' => 'A', 'format' => 'txt', 'filnavn' => 'sporsmal-om-apningstider.txt'],
-            ],
-            $arkivert,
-        );
+        $reservert = Dokumentfiler::filer('brev', '2026-11-10', 'R', 'Søknad om støtte');
+        self::assertSame([['versjon' => 1, 'variantformat' => 'P', 'format' => 'tif', 'filnavn' => 'soknad-om-stotte.tif']], $reservert);
+        foreach (Kodelister::MED_ARKIVFORMAT as $status) {
+            self::assertSame(
+                [
+                    ['versjon' => 1, 'variantformat' => 'P', 'format' => 'eml', 'filnavn' => 'sporsmal-om-apningstider.eml'],
+                    ['versjon' => 1, 'variantformat' => 'A', 'format' => 'txt', 'filnavn' => 'sporsmal-om-apningstider.txt'],
+                ],
+                Dokumentfiler::filer('epost', '2026-11-10', $status, 'Spørsmål om åpningstider'),
+            );
+        }
     }
 
     public function testFilnavnetHarBareTryggeTegn(): void

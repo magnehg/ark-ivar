@@ -51,10 +51,12 @@ final class KodelisterTest extends TestCase
         self::assertContains(Kodelister::VARIANT_ARKIV, Kodelister::VARIANTFORMATER);
     }
 
-    public function testDokumentfilenErIArkivformatNaarJournalpostenErArkivert(): void
+    public function testDokumentfilenErIArkivformatNaarJournalpostenErJournalfortEkspedertEllerArkivert(): void
     {
-        self::assertSame(Kodelister::VARIANT_ARKIV, Kodelister::variantformat(Kodelister::JP_ARKIVERT));
-        foreach (array_diff(Kodelister::JOURNALSTATUSER, [Kodelister::JP_ARKIVERT]) as $status) {
+        foreach (Kodelister::MED_ARKIVFORMAT as $status) {
+            self::assertSame(Kodelister::VARIANT_ARKIV, Kodelister::variantformat($status));
+        }
+        foreach (array_diff(Kodelister::JOURNALSTATUSER, Kodelister::MED_ARKIVFORMAT) as $status) {
             self::assertSame(Kodelister::VARIANT_PRODUKSJON, Kodelister::variantformat($status), "Journalstatus $status: dokumentet er ikke gjort om til arkivformat ennå.");
         }
     }

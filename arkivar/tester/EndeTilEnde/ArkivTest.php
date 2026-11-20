@@ -220,15 +220,16 @@ final class ArkivTest extends AppTestCase
         self::assertSame(array_column($startsak['journalposter'], 'type'), array_column($poster, 'type'));
         self::assertNotContains(false, array_column($poster, 'har_dokument'), 'Alle dokumentene i arkivet kan åpnes.');
         self::assertNotContains(true, array_column($poster, 'kan_slettes'));
-        // Statuskodene: mappen er under behandling, og dokumentfilene er ferdigstilt og ligger i produksjonsformat.
+        // Statuskodene: mappen er under behandling, og dokumentfilene er ferdigstilt og gjort om til arkivformat.
         self::assertSame(Kodelister::SAK_UNDER_BEHANDLING, $bygg['status']);
         self::assertSame(array_column($startsak['journalposter'], 'status'), array_column($poster, 'status'));
         self::assertSame([Kodelister::DOK_FERDIGSTILT], self::ulike($poster, 'dokumentstatus'));
-        self::assertSame([Kodelister::VARIANT_PRODUKSJON], self::ulike($poster, 'variantformat'));
-        // Hver journalpost har én dokumentfil i produksjonsformat så lenge den ikke er arkivert.
+        self::assertSame([Kodelister::VARIANT_ARKIV], self::ulike($poster, 'variantformat'));
+        // Hver journalpost har én versjon av dokumentet, med filen i produksjonsformat og i arkivformat.
         foreach ($poster as $post) {
             self::assertIsArray($post['filer']);
-            self::assertSame(['P'], array_column($post['filer'], 'variantformat'), Felt::tekst($post['tittel']));
+            self::assertSame(['P', 'A'], array_column($post['filer'], 'variantformat'), Felt::tekst($post['tittel']));
+            self::assertSame([1, 1], array_column($post['filer'], 'versjon'));
         }
         // I en avsluttet mappe er journalpostene arkivert, og dokumentene er gjort om til arkivformat.
         [, $j] = $this->kari->kall('GET', '/api/arkiv/saker/' . $this->sakId($this->kari, 'Byggesak – garasje – Strandveien 16'));
@@ -578,8 +579,8 @@ final class ArkivTest extends AppTestCase
         self::assertSame($sakId, $j['sak']['id']);
         self::assertIsArray($j['journalpost']);
         self::assertSame('J', $j['journalpost']['status']);
-        self::assertSame(['F', 'P'], [$j['journalpost']['dokumentstatus'], $j['journalpost']['variantformat']], 'Dokumentfilen er ferdigstilt og ligger i produksjonsformat.');
-        self::assertSame(['tif'], array_column(self::rader($j['journalpost']['filer']), 'format'), 'Et journalført skjema på papir har den skannede filen.');
+        self::assertSame(['F', 'A'], [$j['journalpost']['dokumentstatus'], $j['journalpost']['variantformat']], 'Dokumentfilen er ferdigstilt og gjort om til arkivformat.');
+        self::assertSame(['tif', 'pdf'], array_column(self::rader($j['journalpost']['filer']), 'format'), 'Et journalført skjema på papir har den skannede filen og en PDF.');
         self::assertSame('2026-11-20', $j['journalpost']['journaldato']);
         self::assertTrue($j['journalpost']['har_dokument']);
         self::assertSame('innmelding-lerke', $j['journalpost']['oppgave']);

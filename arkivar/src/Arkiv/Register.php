@@ -375,7 +375,8 @@ final class Register
             // studenten har laget selv, kan slettes.
             // Statusen på dokumentfilen (dokumentstatus og variantformat). Den offentlige journalen har ikke dokumentene.
             'dokumentstatus' => $offentlig ? null : Felt::valgfriTekst($rad['dokumentstatus'] ?? null),
-            'variantformat' => $offentlig ? null : Felt::valgfriTekst($rad['variantformat'] ?? null),
+            // Variantformatet følger statusen, også for rader som ble lagret før arkivformatet kom ved journalføring.
+            'variantformat' => $offentlig || ($rad['variantformat'] ?? null) === null ? null : Kodelister::variantformat(Felt::tekst($rad['status'])),
             'oppgave' => $offentlig ? null : Felt::valgfriTekst($rad['oppgave_id']),
             'kan_slettes' => !$offentlig && $rad['oppgave_id'] === null && $rad['startdokument'] === null,
         ];

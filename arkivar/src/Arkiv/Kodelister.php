@@ -31,7 +31,7 @@ final class Kodelister
      */
     public const JP_JOURNALFORT = 'J';
     public const JP_ARKIVERT = 'A';
-    public const JOURNALSTATUSER = [self::JP_JOURNALFORT, 'F', 'G', 'E', self::JP_ARKIVERT, 'U', 'M', 'S', 'R'];
+    public const JOURNALSTATUSER = [self::JP_JOURNALFORT, 'F', 'G', self::JP_EKSPEDERT, self::JP_ARKIVERT, 'U', 'M', 'S', 'R'];
 
     /** Dokumentstatus (på dokumentfilen): under redigering, ferdigstilt. */
     public const DOK_UNDER_REDIGERING = 'B';
@@ -43,13 +43,18 @@ final class Kodelister
     public const VARIANT_ARKIV = 'A';
     public const VARIANTFORMATER = [self::VARIANT_PRODUKSJON, self::VARIANT_ARKIV, 'O'];
 
+    public const JP_EKSPEDERT = 'E';
+
+    /** Journalstatusene der dokumentet er ferdig behandlet av arkivtjenesten og gjort om til arkivformat. */
+    public const MED_ARKIVFORMAT = [self::JP_JOURNALFORT, self::JP_EKSPEDERT, self::JP_ARKIVERT];
+
     /**
-     * Variantformatet til dokumentfilen i en journalpost med denne statusen: når journalposten er arkivert, er
-     * dokumentet gjort om til arkivformat. Før det ligger det i produksjonsformat.
+     * Variantformatet til dokumentfilen i en journalpost med denne statusen: når journalposten er journalført,
+     * ekspedert eller arkivert, er dokumentet gjort om til arkivformat. Før det finnes det bare i produksjonsformat.
      */
     public static function variantformat(string $journalstatus): string
     {
-        return $journalstatus === self::JP_ARKIVERT ? self::VARIANT_ARKIV : self::VARIANT_PRODUKSJON;
+        return in_array($journalstatus, self::MED_ARKIVFORMAT, true) ? self::VARIANT_ARKIV : self::VARIANT_PRODUKSJON;
     }
 
     /** Det arkivtjenesten kan gjøre med et dokument i postmottaket. */

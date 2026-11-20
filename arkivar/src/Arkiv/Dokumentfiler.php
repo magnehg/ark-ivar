@@ -6,14 +6,15 @@ namespace ArkIvar\Arkiv;
 
 /**
  * Dokumentfilene til en journalpost, slik de ligger i et sak- og arkivsystem: filen i produksjonsformat (slik den
- * ble laget eller mottatt), og i tillegg filen i arkivformat når journalposten er arkivert. Øvingsarkivet har ikke
+ * ble laget eller mottatt), og i tillegg filen i arkivformat når journalposten er journalført, ekspedert eller
+ * arkivert. Filene hører til en versjon av dokumentet; øvingsarkivet har bare én versjon av hvert dokument. Øvingsarkivet har ikke
  * virkelige filer: innholdet er dokumentet i grunndataene, og listen her sier hvilke filer det ville ligget som.
  *
  * Filformatet følger av hvordan dokumentet ble til: e-post er lagret som e-postfil, brev og skjemaer som er kommet
  * på papir, er skannet, andre dokumenter utenfra er mottatt som PDF, og kommunens egne er skrevet i tekstbehandler.
  * Arkivformatet er ren tekst for e-post og PDF/A for alt annet.
  *
- * @phpstan-type Dokumentfil array{variantformat: string, format: string, filnavn: string}
+ * @phpstan-type Dokumentfil array{versjon: int, variantformat: string, format: string, filnavn: string}
  */
 final class Dokumentfiler
 {
@@ -29,6 +30,8 @@ final class Dokumentfiler
     /** Dokumenter som kommer på papir og skannes av arkivtjenesten. */
     private const PAPIR = ['brev', 'skjema'];
     private const NAVNELENGDE = 60;
+    /** Versjonsnummeret: dokumentene i øvingsarkivet har én versjon. */
+    private const VERSJON = 1;
 
     /** Formatet filen ble laget eller mottatt i. $mottatt er datoen et dokument utenfra kom inn (null for kommunens egne). */
     public static function produksjonsformat(string $kanal, ?string $mottatt): string
@@ -51,7 +54,7 @@ final class Dokumentfiler
 
     /**
      * Filene til en journalpost med denne statusen. Produksjonsformatet finnes alltid; arkivformatet kommer i
-     * tillegg når journalposten er arkivert (Kodelister::variantformat()).
+     * tillegg når journalposten er journalført, ekspedert eller arkivert (Kodelister::variantformat()).
      *
      * @return list<Dokumentfil>
      */
@@ -59,10 +62,10 @@ final class Dokumentfiler
     {
         $navn = self::filnavn($tittel);
         $produksjon = self::produksjonsformat($kanal, $mottatt);
-        $filer = [['variantformat' => Kodelister::VARIANT_PRODUKSJON, 'format' => $produksjon, 'filnavn' => $navn . '.' . $produksjon]];
+        $filer = [['versjon' => self::VERSJON, 'variantformat' => Kodelister::VARIANT_PRODUKSJON, 'format' => $produksjon, 'filnavn' => $navn . '.' . $produksjon]];
         if (Kodelister::variantformat($journalstatus) === Kodelister::VARIANT_ARKIV) {
             $arkiv = self::arkivformat($kanal);
-            $filer[] = ['variantformat' => Kodelister::VARIANT_ARKIV, 'format' => $arkiv, 'filnavn' => $navn . '.' . $arkiv];
+            $filer[] = ['versjon' => self::VERSJON, 'variantformat' => Kodelister::VARIANT_ARKIV, 'format' => $arkiv, 'filnavn' => $navn . '.' . $arkiv];
         }
 
         return $filer;

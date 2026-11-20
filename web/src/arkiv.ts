@@ -17,8 +17,8 @@ export type Sak = {
 };
 /** Et treff i søket: mappen, og dokumentene i den som har et av søkeordene. */
 export type Sokestreff = { sak: Sak; journalposter: { postnr: number; tittel: string; part_navn: string }[] };
-/** En dokumentfil: variantformatet (P = produksjonsformat, A = arkivformat), filtypen og filnavnet. */
-export type Dokumentfil = { variantformat: 'P' | 'A'; format: 'docx' | 'eml' | 'tif' | 'pdf' | 'txt'; filnavn: string };
+/** En dokumentfil: versjonen av dokumentet, variantformatet (P = produksjonsformat, A = arkivformat), filtypen og filnavnet. */
+export type Dokumentfil = { versjon: number; variantformat: 'P' | 'A'; format: 'docx' | 'eml' | 'tif' | 'pdf' | 'txt'; filnavn: string };
 export type Journalpost = {
   id: string; sak_id: string; postnr: number; lopenummer: string; journalfort: boolean; type: string; status: string; tittel: string; offentlig_tittel: string | null;
   dokumentdato: string; journaldato: string; saksbehandler: string; saksbehandler_navn: string; enhet: string; tilgangskode: string | null; hjemmel: string; skjerm_tittel: boolean; skjerm_part: boolean;
@@ -130,3 +130,6 @@ export function lesFlyt(sok: URLSearchParams): Flyt {
 /** En ID fra adressen som en del av en sti til API-et. Den kodes, så den aldri kan peke til en annen adresse. */
 export const del = (id: string): string => encodeURIComponent(id);
 export const flytSok = (flyt: Flyt): string => (flyt ? `?dokument=${encodeURIComponent(flyt.dokument)}&handling=${flyt.handling}` : '');
+
+/** Filen dokumentet vises med i en liste: arkivformatet når det finnes, ellers produksjonsformatet. */
+export const hovedfil = (filer: Dokumentfil[]): Dokumentfil | null => filer.find((f) => f.variantformat === 'A') ?? filer[0] ?? null;

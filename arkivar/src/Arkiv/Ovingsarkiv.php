@@ -61,21 +61,38 @@ final class Ovingsarkiv
         });
     }
 
-    /** Sletter alt i arkivet og fyller det på nytt med sakene fra grunndataene. */
+    /** Navnet på låsen som gjør at nullstillingene går etter hverandre, og hvor lenge en nullstilling venter på den. */
+    private const NULLSTILLING = 'arkivar-nullstilling';
+    private const VENTETID = 30;
+
+    /**
+     * Sletter alt i arkivet og fyller det på nytt med sakene fra grunndataene.
+     *
+     * Nullstillingene går etter hverandre, også i ulike arkiver: slettingen låser gapene mot naboarkivene i
+     * indeksene, og påfyllingen setter inn rader der, så to samtidige nullstillinger kan vranglåse hverandre. Det
+     * skjer nettopp når en hel klasse nullstiller etter at innholdet er oppdatert.
+     */
     public function nullstill(string $arkivId): void
     {
-        $this->db->transaksjon(function () use ($arkivId): void {
-            // Samme lås som registreringen bruker: ingenting kan bli registrert i arkivet mens det tømmes.
-            $this->register->laas($arkivId);
-            if ($this->db->verdi('SELECT 1 FROM arkivar_arkiv WHERE id = ?', [$arkivId]) === null) {
-                throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
-            }
-            foreach (['arkivar_oppgavestatus', 'arkivar_journalpost', 'arkivar_sak'] as $tabell) {
-                $this->db->utfor("DELETE FROM $tabell WHERE arkiv_id = ?", [$arkivId]);
-            }
-            $this->db->utfor('UPDATE arkivar_arkiv SET sak_sekvens = 0, journal_sekvens = 0, nullstilt = ? WHERE id = ?', [Db::tid($this->klokke->now()), $arkivId]);
-            $this->fyll($arkivId);
-        });
+        if (!$this->db->las(self::NULLSTILLING, self::VENTETID)) {
+            throw new HttpFeil(503, 'opptatt', 'arkivar.feil.opptatt');
+        }
+        try {
+            $this->db->transaksjon(function () use ($arkivId): void {
+                // Samme lås som registreringen bruker: ingenting kan bli registrert i arkivet mens det tømmes.
+                $this->register->laas($arkivId);
+                if ($this->db->verdi('SELECT 1 FROM arkivar_arkiv WHERE id = ?', [$arkivId]) === null) {
+                    throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
+                }
+                foreach (['arkivar_oppgavestatus', 'arkivar_journalpost', 'arkivar_sak'] as $tabell) {
+                    $this->db->utfor("DELETE FROM $tabell WHERE arkiv_id = ?", [$arkivId]);
+                }
+                $this->db->utfor('UPDATE arkivar_arkiv SET sak_sekvens = 0, journal_sekvens = 0, nullstilt = ? WHERE id = ?', [Db::tid($this->klokke->now()), $arkivId]);
+                $this->fyll($arkivId);
+            });
+        } finally {
+            $this->db->slippLas(self::NULLSTILLING);
+        }
     }
 
     /**
@@ -137,7 +154,13 @@ final class Ovingsarkiv
      */
     public function oversikt(string $arkivId): array
     {
-        $status = $this->db->en('SELECT COUNT(*) AS antall, COALESCE(SUM(poeng), 0) AS poeng, COALESCE(SUM(maks), 0) AS maks FROM arkivar_oppgavestatus WHERE arkiv_id = ?', [$arkivId]) ?? [];
+        // Bare dokumentene som finnes i postmottaket nå, teller (se Oppgavesett::ider).
+        $ider = $this->oppgaver->ider();
+        $status = $ider === [] ? [] : $this->db->en(
+            'SELECT COUNT(*) AS antall, COALESCE(SUM(poeng), 0) AS poeng, COALESCE(SUM(maks), 0) AS maks FROM arkivar_oppgavestatus
+              WHERE arkiv_id = ? AND oppgave_id IN (' . implode(', ', array_fill(0, count($ider), '?')) . ')',
+            [$arkivId, ...$ider],
+        ) ?? [];
 
         return [
             'saker' => Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_sak WHERE arkiv_id = ?', [$arkivId])),

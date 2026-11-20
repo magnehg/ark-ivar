@@ -177,12 +177,13 @@ final class Arkivruter
         $r->legg('GET', '/api/arkiv/saker/{id}', function (Foresporsel $f, array $v): Svar {
             $arkiv = $this->arkiv();
             $register = $this->register();
+            $postmottak = $this->postmottak();
             $sak = $register->sak($arkiv, $v['id']) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
             $poster = $register->journalposter($arkiv, $v['id']);
 
             return Svar::json([
                 'sak' => $register->visSak($sak),
-                'journalposter' => array_map(static fn (array $p): array => $register->visJournalpost($p), $poster),
+                'journalposter' => array_map(static fn (array $p): array => $postmottak->visJournalpost($p), $poster),
                 // En tom mappe studenten har opprettet selv, kan slettes.
                 'kan_slettes' => $sak['nokkel'] === null && $poster === [],
             ]);
@@ -221,7 +222,7 @@ final class Arkivruter
             $post = $register->journalpost($arkiv, $v['id']) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
             $sak = $register->sak($arkiv, Felt::tekst($post['sak_id'])) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
 
-            return Svar::json(['journalpost' => $register->visJournalpost($post), 'sak' => $register->visSak($sak), 'dokument' => $this->dokument($arkiv, $post)]);
+            return Svar::json(['journalpost' => $this->postmottak()->visJournalpost($post), 'sak' => $register->visSak($sak), 'dokument' => $this->dokument($arkiv, $post)]);
         });
         $r->legg('DELETE', '/api/arkiv/journalposter/{id}', function (Foresporsel $f, array $v): Svar {
             $lopenummer = $this->postmottak()->slettJournalpost($this->arkiv(), $v['id']);
@@ -231,10 +232,12 @@ final class Arkivruter
         });
         $r->legg('GET', '/api/arkiv/journal', function (Foresporsel $f): Svar {
             $arkiv = $this->arkiv();
-            $register = $this->register();
+            $postmottak = $this->postmottak();
             $offentlig = ($f->query['offentlig'] ?? '') === '1';
 
-            return Svar::json(['offentlig' => $offentlig, 'journalposter' => array_map(static fn (array $p): array => $register->visJournalpost($p, $offentlig), $register->journal($arkiv))]);
+            $poster = array_map(static fn (array $p): array => $postmottak->visJournalpost($p, $offentlig), $this->register()->journal($arkiv));
+
+            return Svar::json(['offentlig' => $offentlig, 'journalposter' => $poster]);
         });
         $r->legg('POST', '/api/arkiv/nullstill', function (): Svar {
             $arkiv = $this->arkiv();

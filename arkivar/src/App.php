@@ -354,18 +354,19 @@ final class App
         });
         $r->legg('GET', '/api/klasser/{id}', function (Foresporsel $f, array $v): Svar {
             $klasse = $this->egenKlasse($v['id']);
+            $oppgaver = (new Oppgavesett())->ider();
 
             return Svar::json([
                 'klasse' => Klasser::offentlig($klasse, true),
                 // Antall dokumenter i postmottaket, så fremdriften kan vises som «3 av 12».
-                'dokumenter' => count((new Oppgavesett())->alle()),
+                'dokumenter' => count($oppgaver),
                 'studenter' => array_map(
                     static fn (array $b): array => [
                         'id' => Felt::tekst($b['id']), 'navn' => Felt::tekst($b['navn']), 'epost' => Felt::tekst($b['epost']),
                         'innmeldt' => Brukere::tidspunkt($b['innmeldt']), 'sist_innlogget' => Brukere::tidspunkt($b['sist_innlogget']),
                         'behandlet' => Felt::tall($b['behandlet']), 'poeng' => Felt::tall($b['poeng']), 'maks' => Felt::tall($b['maks']),
                     ],
-                    $this->klasser()->medlemmer(Felt::tekst($klasse['id'])),
+                    $this->klasser()->medlemmer(Felt::tekst($klasse['id']), $oppgaver),
                 ),
             ]);
         });

@@ -37,7 +37,9 @@
   dokumentene i den. Vurderingen følger med når et dokument legges til i mappen eller angres.
 - Skjerming vurderes begge veier: en tittel eller klassering som ikke røper noe, skal stå åpent. Skjerming uten
   grunn gir avvik, både på mappen og på journalposten.
-- Avsenderen sammenliknes ord for ord: «Due, Dina» er «Dina Due», og «Jærrent» er «Jærrent AS».
+- Avsenderen sammenliknes ord for ord: «Due, Dina» er «Dina Due», og «Jærrent» er «Jærrent AS». Alle ordene i navnet
+  må være med, og fasiten kan godta kortformer («Statsforvalteren», «FAU», én av to foresatte).
+- En hel klasse kan nullstille øvingsarkivet samtidig: nullstillingene går etter hverandre.
 - Den offentlige journalen viser hjemmelen for skjermingen på mappen også når journalposten selv er åpen.
 - Søket tåler tegnsetting («Måke, Mathias»).
 - To registreringer samtidig i samme arkiv (to faner, dobbel innsending) går etter hverandre: samme dokument kan

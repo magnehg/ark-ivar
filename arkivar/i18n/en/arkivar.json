@@ -32,6 +32,7 @@
   "arkivar.feil.navn": "Enter your name (at least two characters).",
   "arkivar.feil.offentlig_tittel": "The public title can be at most 500 characters.",
   "arkivar.feil.oppgave": "The document does not exist in the mail room.",
+  "arkivar.feil.opptatt": "Many are resetting their training archive at the same time. Try again in a moment.",
   "arkivar.feil.part": "Enter who the document is from or to (at most 300 characters).",
   "arkivar.feil.saksmal": "The file template does not exist.",
   "arkivar.feil.sakstittel": "Give the file a title (at least three characters).",

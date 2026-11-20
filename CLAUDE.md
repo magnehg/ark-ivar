@@ -79,12 +79,16 @@ uttrekk eller avlevere.
   skjermes, og det som ikke røper noe, skal stå åpent (`skjerm_tittel`, `skjerm_sakstittel`). Klasseringen på en
   mappe studenten har opprettet, skal skjermes i personarkivene og ellers ikke, vurdert etter arkivdelen studenten
   valgte (`skjerm_klasse`). Avsenderen sammenliknes ord for ord uten hensyn til rekkefølge, småord og selskapsform
-  (`Vurdering::sammeNavn`); fasiten kan ha flere godtatte navn i `part`. Vurderingen har ingen tekst selv:
-  forklaringene kommer fra fasiten, og grensesnittet har reservetekster (`arkivar.vurdering.hjelp.*`).
+  (`Vurdering::sammeNavn`): alle ordene i navnet må være med, og fasiten kan ha kortformer i `part` som godtas
+  alene («Statsforvalteren», «FAU», én av to foresatte). Vurderingen har ingen tekst selv: forklaringene kommer fra
+  fasiten, og grensesnittet har reservetekster (`arkivar.vurdering.hjelp.*`). Forklaringen om skjerming er skrevet
+  for fasitens arkivdel, så `skjerm_klasse` får den bare når studenten har valgt samme arkivdel.
 - **Samtidighet og dato:** alt som registrerer, angrer eller sletter i et arkiv, går i en transaksjon som først
   låser arkivet (`Register::laas()`), så sjekkene (dokumentet er ubehandlet, mappen finnes og er åpen) fortsatt
-  gjelder når raden lagres, og saks- og dokumentnumre ikke kan bli like. Saksdato, journaldato og «ikke frem i
-  tid» følger norsk tid (`Dato::idag()`), ikke UTC-klokka i Kjerne.
+  gjelder når raden lagres, og saks- og dokumentnumre ikke kan bli like (`ArkivTest` holder låsen fra en annen
+  forbindelse og krever at hver operasjon venter). Nullstillingene går i tillegg etter hverandre på tvers av
+  arkivene (`Db::las`), fordi sletting og påfylling i naboarkiver ellers kan vranglåse. Saksdato, journaldato og
+  «ikke frem i tid» følger norsk tid (`Dato::idag()`), ikke UTC-klokka i Kjerne.
 - **Henting i grensesnittet:** `useHent(sti)` gir bare data og feil for adressen som er gitt nå. Byttes adressen
   (også til ingen), glemmes svaret: det gamle vises aldri under en ny adresse, og en feil fra forrige gang gjelder
   ikke en ny henting. `last()` henter samme adresse på nytt, og da står det som vises, til svaret er der; en side som
@@ -104,7 +108,9 @@ uttrekk eller avlevere.
   installeres på nytt. Fra første utgivelse fryses filen, og endringer kommer i en ny fil (`003_….sql`).
 - **Utgaven av innholdet:** `arkivar_arkiv.innhold` er et fingeravtrykk av `sirevag.json` og `oppgaver.json` da
   arkivet ble fylt. Er filene byttet siden, gir `GET /api/arkiv` `utdatert`, og forsiden ber studenten nullstille:
-  dokumentene leses fra filene og kan ha endret seg under mappene i arkivet.
+  dokumentene leses fra filene og kan ha endret seg under mappene i arkivet. En behandling av et dokument som siden
+  er tatt ut av `oppgaver.json`, teller ikke i oversiktene (`Oppgavesett::ider()`), og journalposten kan slettes
+  (`Postmottak::visJournalpost()` og `slettJournalpost()`).
 - **Nytt innhold** (mappe, dokument, saksmal eller eksempeldokument i postmottaket): følg `docs/innhold.md`
   (regelverket per november 2026, praksisen i Sirevåg kommune, formatet og tittelreglene). `GrunndataTest` sjekker at
   kodene finnes, at dokumentene er hele, og at ingenting i personarkivene røper navn i offentlig journal, og

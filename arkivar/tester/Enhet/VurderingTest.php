@@ -205,6 +205,72 @@ final class VurderingTest extends TestCase
         self::assertArrayNotHasKey('skjerm_sakstittel', $nySak);
     }
 
+    public function testMappetittelenSkjermesBareNaarDenRoperNoe(): void
+    {
+        // Varselet starter en ny sak, og fasiten har ingen offentlig sakstittel: mappen skal stå åpent. Skriver
+        // studenten navnet på lederen i mappetittelen, må den likevel skjermes, og da er skjermingen riktig.
+        $medNavn = $this->vurder('varsel-arbeidsmiljo', static function (array $s): array {
+            $s['sak_tekst'] = '2026/1 Varsel om kritikkverdige forhold – Geir Gaupe';
+            $s['sak_skjermet'] = true;
+            $s['sak_offentlig'] = 'Varsel om kritikkverdige forhold – *****';
+
+            return $s;
+        });
+        self::assertTrue($medNavn['skjerm_sakstittel']['ok']);
+        self::assertTrue($medNavn['offentlig_sakstittel']['ok']);
+        $aapen = $this->vurder('varsel-arbeidsmiljo', static function (array $s): array {
+            $s['sak_tekst'] = '2026/1 Varsel om kritikkverdige forhold – Geir Gaupe';
+            $s['sak_offentlig'] = 'Varsel om kritikkverdige forhold – Geir Gaupe';
+
+            return $s;
+        });
+        self::assertTrue($aapen['skjerm_sakstittel']['ok'], 'Avviket er navnet i tittelen, ikke skjermingen.');
+        self::assertFalse($aapen['offentlig_sakstittel']['ok']);
+        $utenGrunn = $this->vurder('varsel-arbeidsmiljo', static function (array $s): array {
+            $s['sak_skjermet'] = true;
+            $s['sak_offentlig'] = 'Varsling – *****';
+
+            return $s;
+        });
+        self::assertFalse($utenGrunn['skjerm_sakstittel']['ok']);
+    }
+
+    public function testForklaringenOmKlasseringenFolgerArkivdelenStudentenValgte(): void
+    {
+        // Klagen hører til en byggesak som finnes. Studenten har laget en ny mappe i elevarkivet uten å skjerme
+        // klasseringen. Fasitens forklaring («Ingenting skal skjermes») gjelder eiendomsarkivet og passer ikke her:
+        // kriteriet står uten forklaring, og grensesnittet viser regelen.
+        $klage = $this->vurder('klage-fyrveien', function (array $s): array {
+            $s['sak_ny'] = true;
+            $s['sak_nokkel'] = null;
+            $s['arkivdel'] = 'ELEV';
+            $s['klasse'] = $this->grunndata->register('ELEV')[0]['kode'];
+
+            return $s;
+        });
+        self::assertFalse($klage['skjerm_klasse']['ok']);
+        self::assertSame(['nei', 'ja'], [$klage['skjerm_klasse']['ditt'], $klage['skjerm_klasse']['riktig']]);
+        self::assertSame('', $klage['skjerm_klasse']['forklaring']);
+        self::assertNotSame('', $klage['skjerm_tittel']['forklaring'], 'Forklaringen om skjerming står ved et kriterium den gjelder.');
+        // Motsatt: innmeldingen lagt i sakarkivet med skjermet klassering.
+        $innmelding = $this->vurder('innmelding-lerke', static function (array $s): array {
+            $s['arkivdel'] = 'SAK';
+            $s['klasse'] = '322';
+
+            return $s;
+        });
+        self::assertFalse($innmelding['skjerm_klasse']['ok']);
+        self::assertSame(['ja', 'nei'], [$innmelding['skjerm_klasse']['ditt'], $innmelding['skjerm_klasse']['riktig']]);
+        self::assertSame('', $innmelding['skjerm_klasse']['forklaring']);
+        // Med riktig arkivdel gjelder fasitens forklaring.
+        $riktigDel = $this->vurder('innmelding-lerke', static function (array $s): array {
+            $s['skjerm_klasse'] = false;
+
+            return $s;
+        });
+        self::assertStringContainsString('klasseringen', $riktigDel['skjerm_klasse']['forklaring']);
+    }
+
     public function testTittelenSkjermesBareNaarDenRoperNoe(): void
     {
         // Varselet: tittelen kan stå åpent så lenge den ikke nevner navn.
@@ -246,11 +312,16 @@ final class VurderingTest extends TestCase
     {
         $tilfeller = [
             'arbeidsavtale-due' => ['Dina Due' => true, 'Due, Dina' => true, 'dina due' => true, 'Dina' => false, 'Dina Duestad' => false, '' => false],
-            'tilrettelegging-elev' => ['Marit og Rune Måke' => true, 'Rune og Marit Måke' => true, 'Marit Måke' => true, 'Måke' => false, 'Foresatte' => false],
-            'nabomerknad-havnegata' => ['Sirevåg Rør og Varme AS' => true, 'Sirevåg Rør og Varme' => true, 'Sirevåg' => false, 'Sirevåg kommune' => false, 'Rørlegger' => false],
+            // Én av de to foresatte godtas (kortform i fasiten), men ikke fornavnene alene eller bare etternavnet.
+            'tilrettelegging-elev' => ['Marit og Rune Måke' => true, 'Rune og Marit Måke' => true, 'Marit Måke' => true, 'Måke, Rune' => true, 'Måke' => false,
+                'Marit og Rune' => false, 'Foresatte' => false, 'Mathias Måke' => false],
+            // Alle ordene i navnet må være med. Selskapsformen teller ikke.
+            'nabomerknad-havnegata' => ['Sirevåg Rør og Varme AS' => true, 'Sirevåg Rør og Varme' => true, 'Sirevåg Varme' => false, 'Sirevåg' => false,
+                'Sirevåg kommune' => false, 'Rørlegger' => false],
             'tilbud-renhold' => ['Jærrent AS' => true, 'Jærrent' => true, 'AS' => false, 'Jær' => false],
-            // Fasiten godtar også kortformen av avsenderen.
-            'horing-verneplan' => ['Statsforvalteren i Rogaland' => true, 'Statsforvalteren' => true, 'Rogaland fylkeskommune' => false],
+            // En kortform godtas bare alene: med flere ord er det et annet navn.
+            'horing-verneplan' => ['Statsforvalteren i Rogaland' => true, 'Statsforvalteren' => true, 'Statsforvalteren i Agder' => false, 'Rogaland fylkeskommune' => false],
+            'uttalelse-budsjett-fau' => ['FAU ved Sirevåg skole' => true, 'FAU' => true, 'FAU ved Sirevåg skole v/ leder' => true, 'Sirevåg skole' => false, 'Sirevåg skole v/ rektor' => false],
         ];
         foreach ($tilfeller as $oppgaveId => $navn) {
             foreach ($navn as $skrevet => $riktig) {

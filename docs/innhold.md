@@ -325,8 +325,10 @@ Hvert dokument har feltene `id`, `kanal` (brev, epost eller skjema), `dokumentda
   og tittelen skal bare skjermes når fasiten har en `offentlig_tittel`.
 - `type` (alltid `I`), `tittel`, `offentlig_tittel`, `tilgangskode` (en liste: alle godtas, tom = ingen),
   `skjerm_tittel` og `skjerm_part` (`null` = vurderes ikke), `sensitive_ord` (navn som ikke kan stå i en offentlig
-  tittel) og `part` (andre navn på avsenderen som godtas, for eksempel «Statsforvalteren»). Avsenderen sammenliknes
-  ord for ord uten hensyn til rekkefølge, småord og selskapsform.
+  tittel) og `part` (kortformer av avsenderen som også godtas, for eksempel «Statsforvalteren», «FAU» eller én av
+  to foresatte). Avsenderen sammenliknes ord for ord uten hensyn til rekkefølge, småord og selskapsform: alle
+  ordene i navnet må være med, og studenten kan skrive mer. En kortform godtas bare alene («Statsforvalteren i
+  Agder» er ikke Statsforvalteren i Rogaland).
 - `forklaring` med nøklene `handling`, `sak`, `arkivdel`, `klasse`, `tilgang` og `skjerming`. Forklaringen skal si
   hvorfor, og gjerne hva som ville vært feil og hvorfor. `skjerming` skal stå på alle dokumenter som journalføres,
   og på alle som starter en ny mappe.

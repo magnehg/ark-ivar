@@ -85,10 +85,20 @@ final class Vurdering
             // og ellers stå åpent. Det vurderes etter arkivdelen studenten har valgt, så en feil arkivdel ikke også
             // gir avvik her.
             $skalSkjermes = ($grunndata->arkivdel($svar['arkivdel'])['ordning'] ?? '') === Grunndata::PERSON;
-            $ut[] = self::kriterium('skjerm_klasse', $svar['skjerm_klasse'] === $skalSkjermes, self::jaNei($svar['skjerm_klasse']), self::jaNei($skalSkjermes), $skjerming);
+            // Fasitens forklaring om skjerming er skrevet for fasitens arkivdel. Har studenten valgt en annen, passer
+            // den ikke: da står kriteriet uten forklaring, og grensesnittet viser regelen.
+            $ut[] = self::kriterium(
+                'skjerm_klasse',
+                $svar['skjerm_klasse'] === $skalSkjermes,
+                self::jaNei($svar['skjerm_klasse']),
+                self::jaNei($skalSkjermes),
+                $svar['arkivdel'] === $sak['arkivdel'] ? $skjerming : '',
+            );
             if ($ny && $sak['offentlig_tittel'] === null) {
-                // Tittelen på en ny mappe som ikke røper noe, skal stå åpent i den offentlige journalen.
-                $ut[] = self::kriterium('skjerm_sakstittel', !$svar['sak_skjermet'], self::jaNei($svar['sak_skjermet']), self::jaNei(false), $skjerming);
+                // Tittelen på en ny mappe som ikke røper noe, skal stå åpent i den offentlige journalen. Har
+                // studenten selv skrevet et navn i tittelen, er det likevel riktig å skjerme den.
+                $utenGrunn = $svar['sak_skjermet'] && !self::harOrd($svar['sak_tekst'], $fasit['sensitive_ord']);
+                $ut[] = self::kriterium('skjerm_sakstittel', !$utenGrunn, self::jaNei($svar['sak_skjermet']), self::jaNei(false), $skjerming);
             }
         }
         $ut[] = self::kriterium('dokumentdato', $svar['dokumentdato'] === $oppgave['dokumentdato'], $svar['dokumentdato'], $oppgave['dokumentdato'], '');
@@ -98,8 +108,9 @@ final class Vurdering
         if ($fasit['type'] !== null) {
             $ut[] = self::kriterium('type', $svar['type'] === $fasit['type'], $svar['type'], $fasit['type'], '');
         }
-        $navn = array_merge([$oppgave['avsender']['navn']], $fasit['part']);
-        $riktigPart = array_filter($navn, static fn (string $n): bool => self::sammeNavn($svar['part_navn'], $n)) !== [];
+        // Avsenderen slik den står i dokumentet, eller en av kortformene fasiten godtar (da og bare da uten flere ord).
+        $riktigPart = self::sammeNavn($svar['part_navn'], $oppgave['avsender']['navn'], false)
+            || array_filter($fasit['part'], static fn (string $n): bool => self::sammeNavn($svar['part_navn'], $n, true)) !== [];
         $ut[] = self::kriterium('part', $riktigPart, $svar['part_navn'], $oppgave['avsender']['navn'], '');
         $valgt = $svar['tilgangskode'] ?? '';
         $riktigTilgang = $fasit['tilgangskode'] === [] ? $valgt === '' : in_array($valgt, $fasit['tilgangskode'], true);
@@ -143,7 +154,7 @@ final class Vurdering
         $skjerming = ['skjerm_klasse', 'skjerm_sakstittel', 'offentlig_sakstittel', 'offentlig_tittel', 'skjerm_tittel', 'skjerm_part'];
         $valgt = null;
         foreach ($kriterier as $nr => $k) {
-            if (in_array($k['id'], $skjerming, true) && ($valgt === null || ($kriterier[$valgt]['ok'] && !$k['ok']))) {
+            if (in_array($k['id'], $skjerming, true) && $k['forklaring'] !== '' && ($valgt === null || ($kriterier[$valgt]['ok'] && !$k['ok']))) {
                 $valgt = $nr;
             }
         }
@@ -170,11 +181,12 @@ final class Vurdering
     /**
      * Om studenten har skrevet navnet på avsenderen. Navnene sammenliknes ord for ord, uten hensyn til rekkefølge,
      * store bokstaver, tegnsetting, småord og selskapsform («Due, Dina» er «Dina Due», «Rune og Marit Måke» er
-     * «Marit og Rune Måke», og «Jærrent» er «Jærrent AS»). Et navn på ett eller to ord må være helt med; av et
-     * lengre navn må minst halvparten av ordene være med. Ett ord av et langt navn («Sirevåg») er ikke nok, og
-     * deler av et ord teller ikke.
+     * «Marit og Rune Måke», og «Jærrent» er «Jærrent AS»). Alle ordene i navnet må være med: «Sirevåg skole» er ikke
+     * «FAU ved Sirevåg skole», og deler av et ord teller ikke. Studenten kan skrive mer («v/ rektor»). Med $noyaktig
+     * (kortformene i fasiten) kan svaret ikke ha andre ord enn navnet: «Statsforvalteren» godtas for
+     * Statsforvalteren i Rogaland, «Statsforvalteren i Agder» gjør det ikke.
      */
-    private static function sammeNavn(string $svar, string $fasit): bool
+    private static function sammeNavn(string $svar, string $fasit, bool $noyaktig): bool
     {
         $ord = static function (string $tekst): array {
             $deler = preg_split('/[^\p{L}\p{N}]+/u', mb_strtolower($tekst, 'UTF-8'), -1, PREG_SPLIT_NO_EMPTY);
@@ -182,13 +194,12 @@ final class Vurdering
             return array_values(array_unique(array_diff($deler === false ? [] : $deler, self::SMAAORD)));
         };
         $fasitord = $ord($fasit);
-        $antall = count($fasitord);
-        if ($antall === 0) {
+        $svarord = $ord($svar);
+        if ($fasitord === [] || array_diff($fasitord, $svarord) !== []) {
             return false;
         }
-        $felles = count(array_intersect($fasitord, $ord($svar)));
 
-        return $felles >= ($antall <= 2 ? $antall : (int) ceil($antall / 2));
+        return !$noyaktig || array_diff($svarord, $fasitord) === [];
     }
 
     /**

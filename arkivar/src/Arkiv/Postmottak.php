@@ -196,27 +196,33 @@ final class Postmottak
                 $this->revurder($arkivId, $sakId, $oppgave['id']);
             }
 
-            return ['journalpost' => $this->register->visJournalpost($post), 'oppgave' => $oppgave['id'] ?? null, 'poeng' => $poeng, 'maks' => $maks];
+            return ['journalpost' => $this->visJournalpost($post), 'oppgave' => $oppgave['id'] ?? null, 'poeng' => $poeng, 'maks' => $maks];
         });
     }
 
     /**
      * Sletter en journalpost studenten har laget uten dokument fra postmottaket. En registrering av et dokument fra
-     * postmottaket fjernes ved å angre behandlingen, og dokumentene som fulgte med arkivet, kan ikke slettes. Gir
-     * løpenummeret journalposten hadde (til loggen).
+     * postmottaket fjernes ved å angre behandlingen, og dokumentene som fulgte med arkivet, kan ikke slettes. Er
+     * dokumentet tatt ut av postmottaket siden (arkivet er fylt med en eldre utgave av innholdet), kan behandlingen
+     * ikke angres der: da slettes journalposten her, sammen med behandlingen. Gir løpenummeret journalposten hadde
+     * (til loggen).
      */
     public function slettJournalpost(string $arkivId, string $id): string
     {
         return $this->db->transaksjon(function () use ($arkivId, $id): string {
             $this->register->laas($arkivId);
             $post = $this->register->journalpost($arkivId, $id) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
-            if ($post['oppgave_id'] !== null) {
+            $oppgaveId = Felt::valgfriTekst($post['oppgave_id']);
+            if ($oppgaveId !== null && $this->oppgaver->hent($oppgaveId) !== null) {
                 throw new HttpFeil(409, 'journalpost_fra_postmottak', 'arkivar.feil.journalpost_fra_postmottak');
             }
             if ($post['startdokument'] !== null) {
                 throw new HttpFeil(409, 'journalpost_fulgte_med', 'arkivar.feil.journalpost_fulgte_med');
             }
             $this->register->slettJournalpost($arkivId, $id);
+            if ($oppgaveId !== null) {
+                $this->db->utfor('DELETE FROM arkivar_oppgavestatus WHERE arkiv_id = ? AND oppgave_id = ?', [$arkivId, $oppgaveId]);
+            }
 
             return Felt::tall($post['journalaar']) . '/' . Felt::tall($post['sekvens']);
         });
@@ -345,6 +351,27 @@ final class Postmottak
     }
 
     /**
+     * Journalposten slik den sendes til nettleseren. En journalpost der dokumentet er tatt ut av postmottaket siden
+     * den ble registrert, har ikke noe dokument å vise og ingen behandling å angre: den vises som en registrering
+     * studenten kan slette.
+     *
+     * @param array<string, mixed> $rad
+     * @return array<string, mixed>
+     */
+    public function visJournalpost(array $rad, bool $offentlig = false): array
+    {
+        $ut = $this->register->visJournalpost($rad, $offentlig);
+        $oppgaveId = Felt::valgfriTekst($rad['oppgave_id']);
+        if ($oppgaveId !== null && $this->oppgaver->hent($oppgaveId) === null) {
+            $ut['oppgave'] = null;
+            $ut['har_dokument'] = false;
+            $ut['kan_slettes'] = !$offentlig;
+        }
+
+        return $ut;
+    }
+
+    /**
      * Om dokumentet er alene om mappen blant dokumentene fra postmottaket. Et dokument som starter en ny sak, skal
      * ha sin egen mappe: en mappe der studenten samler ulike saker, er feil for alle dokumentene i den.
      *
@@ -353,8 +380,9 @@ final class Postmottak
     private function aleneIMappen(string $arkivId, string $sakId, array $oppgave): bool
     {
         foreach ($this->register->oppgaverISak($arkivId, $sakId, $oppgave['id']) as $annenId) {
+            // Et dokument som er tatt ut av postmottaket siden, sier ingenting om hvilken sak mappen gjelder.
             $annen = $this->oppgaver->hent($annenId);
-            if ($annen === null || Oppgavesett::sak($annen) !== Oppgavesett::sak($oppgave)) {
+            if ($annen !== null && Oppgavesett::sak($annen) !== Oppgavesett::sak($oppgave)) {
                 return false;
             }
         }
@@ -405,7 +433,7 @@ final class Postmottak
             'poeng' => Felt::tall($status['poeng']),
             'maks' => Felt::tall($status['maks']),
             'forslag' => $forslag,
-            'journalpost' => $post !== null ? $this->register->visJournalpost($post) : null,
+            'journalpost' => $post !== null ? $this->visJournalpost($post) : null,
             'sak' => $sak !== null ? $this->register->visSak($sak) : null,
         ];
     }

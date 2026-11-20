@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace ArkIvar\Tester\EndeTilEnde;
 
 use ArkIvar\Arkiv\Grunndata;
+use ArkIvar\Arkiv\Mapper;
 use ArkIvar\Arkiv\Oppgavesett;
+use ArkIvar\Arkiv\Ovingsarkiv;
+use ArkIvar\Arkiv\Postmottak;
 use ArkIvar\Arkiv\Register;
 use ArkIvar\Tester\Stotte\AppTestCase;
 use ArkIvar\Tester\Stotte\Nettleser;
@@ -800,6 +803,55 @@ final class ArkivTest extends AppTestCase
         $annen->transaksjon(static function () use ($andre, $karis): void {
             $andre->laas($karis);
         });
+
+        // Alt som registrerer, angrer, sletter eller nullstiller i arkivet, tar låsen: mens den holdes av en annen,
+        // venter hver av operasjonene (og gir her opp), og ingenting er endret etterpå.
+        $fyrveien = $this->sakId($this->kari, 'Byggesak – tilbygg');
+        $tom = $this->nyMappe($this->kari, ['tittel' => 'Tom mappe som kan slettes', 'arkivdel' => 'SAK', 'klasse' => '641', 'enhet' => 'TEK']);
+        [, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$tom/journalposter", ['journalfores' => true, 'type' => 'X', 'tittel' => 'Notat som kan slettes', 'dokumentdato' => '2026-11-20', 'part_navn' => '', 'tilgangskode' => '']);
+        self::assertIsArray($j['journalpost']);
+        $notat = Felt::tekst($j['journalpost']['id']);
+        $this->kari->kall('POST', '/api/arkiv/postmottak/kursinvitasjon', ['handling' => 'ikke_arkiver']);
+        $postmottak = new Postmottak($annen, $this->klokke, $this->grunndata, $this->oppgaver, $andre);
+        $mapper = new Mapper($annen, $this->klokke, $this->grunndata, $andre);
+        $ovingsarkiv = new Ovingsarkiv($annen, $this->klokke, $this->grunndata, $andre, $this->oppgaver);
+        $journalpost = ['oppgave' => 'klage-fyrveien', 'journalfores' => true, 'type' => 'I', 'tittel' => 'Klage på vedtak', 'dokumentdato' => '2026-11-17', 'part_navn' => 'Solveig Mæland', 'tilgangskode' => ''];
+        $operasjoner = [
+            'registrer' => static fn (): mixed => $postmottak->registrer($karis, 'faktura-ror', ['handling' => 'fagsystem']),
+            'journalpost' => static fn (): mixed => $postmottak->journalpost($karis, $fyrveien, $journalpost),
+            'angre' => static fn () => $postmottak->angre($karis, 'kursinvitasjon'),
+            'slettJournalpost' => static fn (): mixed => $postmottak->slettJournalpost($karis, $notat),
+            'opprett' => static fn (): mixed => $mapper->opprett($karis, ['tittel' => 'Mappe bak låsen', 'arkivdel' => 'SAK', 'klasse' => '641', 'enhet' => 'TEK']),
+            'slett' => static fn () => $mapper->slett($karis, $tom),
+            'nullstill' => static fn () => $ovingsarkiv->nullstill($karis),
+        ];
+        $for = [
+            Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_sak WHERE arkiv_id = ?', [$karis])),
+            Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_journalpost WHERE arkiv_id = ?', [$karis])),
+            Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_oppgavestatus WHERE arkiv_id = ?', [$karis])),
+        ];
+        $fullfort = $this->db->transaksjon(static function () use ($forste, $karis, $operasjoner): array {
+            $forste->laas($karis);
+            $fullfort = [];
+            foreach ($operasjoner as $navn => $operasjon) {
+                try {
+                    $operasjon();
+                    $fullfort[] = $navn;
+                } catch (\PDOException $e) {
+                    if (!str_contains($e->getMessage(), '1205')) {
+                        throw $e;
+                    }
+                }
+            }
+
+            return $fullfort;
+        });
+        self::assertSame([], $fullfort, 'Disse operasjonene ventet ikke på låsen på arkivet.');
+        self::assertSame($for, [
+            Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_sak WHERE arkiv_id = ?', [$karis])),
+            Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_journalpost WHERE arkiv_id = ?', [$karis])),
+            Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_oppgavestatus WHERE arkiv_id = ?', [$karis])),
+        ]);
         // Samme dokument kan ikke registreres to ganger: sjekken står bak låsen.
         $sakId = $this->nyMappe($this->kari, ['tittel' => 'Byggesak – garasje – Strandveien 14', 'arkivdel' => 'EIENDOM', 'klasse' => '12/45', 'enhet' => 'PBE']);
         $post = ['oppgave' => 'dispensasjon-strandveien', 'journalfores' => true, 'type' => 'I', 'tittel' => 'Søknad om dispensasjon', 'dokumentdato' => '2026-11-12', 'part_navn' => 'Gudmund Refsnes', 'tilgangskode' => ''];
@@ -809,6 +861,51 @@ final class ArkivTest extends AppTestCase
         self::assertSame(409, $svar->status);
         self::assertSame('alt_behandlet', $j['kode']);
         self::assertSame(1, Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_journalpost WHERE sak_id = ?', [$sakId])));
+    }
+
+    public function testDokumentSomErTattUtAvPostmottaketKanRyddesBort(): void
+    {
+        // Innholdet er byttet siden arkivet ble fylt, og et dokument studenten har registrert, finnes ikke lenger i
+        // postmottaket. Her etterliknes det ved å gi registreringen en ID som ikke finnes.
+        $horing = $this->oppgaver->hent('horing-verneplan');
+        self::assertNotNull($horing);
+        $j = $this->folgFasiten($this->kari, $horing);
+        self::assertIsArray($j['sak']);
+        self::assertIsArray($j['journalpost']);
+        $sakId = Felt::tekst($j['sak']['id']);
+        $journalpostId = Felt::tekst($j['journalpost']['id']);
+        $this->kari->kall('POST', '/api/arkiv/postmottak/kursinvitasjon', ['handling' => 'ikke_arkiver']);
+        $this->db->utfor("UPDATE arkivar_journalpost SET oppgave_id = 'tatt-ut' WHERE id = ?", [$journalpostId]);
+        $this->db->utfor("UPDATE arkivar_oppgavestatus SET oppgave_id = 'tatt-ut' WHERE oppgave_id = 'horing-verneplan'");
+
+        // Behandlingen teller ikke lenger, verken på forsiden eller i lærerens oversikt.
+        [, $o] = $this->kari->kall('GET', '/api/arkiv');
+        self::assertIsArray($o['oversikt']);
+        self::assertSame([1, 1, 1], [$o['oversikt']['behandlet'], $o['oversikt']['poeng'], $o['oversikt']['maks']]);
+        $laerer = $this->ansatt($this->drift(), 'laerer', 'lars@hogskolen.example', 'Lars Lærer', '10.0.0.9');
+        [, $k] = $laerer->kall('POST', '/api/klasser', ['navn' => 'Arkivkunnskap høst']);
+        self::assertIsArray($k['klasse']);
+        $this->kari->kall('POST', '/api/meg/klasser', ['kode' => Felt::tekst($k['klasse']['kode'])]);
+        [, $k] = $laerer->kall('GET', '/api/klasser/' . Felt::tekst($k['klasse']['id']));
+        $student = self::rader($k['studenter'])[0];
+        self::assertSame([1, 1, 1], [$student['behandlet'], $student['poeng'], $student['maks']]);
+
+        // Journalposten har ikke noe dokument å vise og ingen behandling å angre: den kan slettes.
+        [, $s] = $this->kari->kall('GET', "/api/arkiv/saker/$sakId");
+        $post = self::rader($s['journalposter'])[0];
+        self::assertSame([null, false, true], [$post['oppgave'], $post['har_dokument'], $post['kan_slettes']]);
+        [$svar, $jp] = $this->kari->kall('GET', "/api/arkiv/journalposter/$journalpostId");
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertNull($jp['dokument']);
+        // Den gjør ikke mappen feil for et annet dokument: innkallingen registrert i mappen er alene om den.
+        $ny = $this->registrer($this->kari, $sakId, 'representantskap-renovasjon', ['journalfores' => true, 'type' => 'I', 'tittel' => 'Innkalling til representantskapsmøte 08.12.2026',
+            'dokumentdato' => '2026-11-17', 'part_navn' => 'Jæren Renovasjon IKS', 'tilgangskode' => '']);
+        self::assertTrue(array_column(self::rader($ny['vurdering']), null, 'id')['sak']['ok']);
+        [$svar] = $this->kari->kall('DELETE', "/api/arkiv/journalposter/$journalpostId");
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertSame(0, Felt::tall($this->db->verdi("SELECT COUNT(*) FROM arkivar_oppgavestatus WHERE oppgave_id = 'tatt-ut'")), 'Behandlingen er ryddet bort med journalposten.');
+        [, $s] = $this->kari->kall('GET', "/api/arkiv/saker/$sakId");
+        self::assertCount(1, self::rader($s['journalposter']));
     }
 
     public function testMappeskjemaetValideres(): void

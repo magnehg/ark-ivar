@@ -32,6 +32,7 @@
   "arkivar.feil.navn": "Skriv namnet ditt (minst to teikn).",
   "arkivar.feil.offentlig_tittel": "Den offentlege tittelen kan ha høgst 500 teikn.",
   "arkivar.feil.oppgave": "Dokumentet finst ikkje i postmottaket.",
+  "arkivar.feil.opptatt": "Mange nullstiller øvingsarkivet samtidig. Prøv igjen om litt.",
   "arkivar.feil.part": "Skriv kven dokumentet er frå eller til (høgst 300 teikn).",
   "arkivar.feil.saksmal": "Saksmalen finst ikkje.",
   "arkivar.feil.sakstittel": "Gi mappa ein tittel (minst tre teikn).",

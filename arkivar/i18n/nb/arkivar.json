@@ -32,6 +32,7 @@
   "arkivar.feil.navn": "Skriv navnet ditt (minst to tegn).",
   "arkivar.feil.offentlig_tittel": "Den offentlige tittelen kan ha høyst 500 tegn.",
   "arkivar.feil.oppgave": "Dokumentet finnes ikke i postmottaket.",
+  "arkivar.feil.opptatt": "Mange nullstiller øvingsarkivet samtidig. Prøv igjen om litt.",
   "arkivar.feil.part": "Skriv hvem dokumentet er fra eller til (høyst 300 tegn).",
   "arkivar.feil.saksmal": "Saksmalen finnes ikke.",
   "arkivar.feil.sakstittel": "Gi mappen en tittel (minst tre tegn).",

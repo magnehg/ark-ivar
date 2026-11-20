@@ -13,8 +13,8 @@ use Bivrost\Kjerne\Database\Felt;
  *
  * Fasitens sak sier om dokumentet skal i en mappe som finnes i arkivet (type «eksisterende» med mappens nøkkel),
  * eller om det starter en ny sak (type «ny»). «klasse» er primærklasseringene som godtas. Har en ny sak en
- * «offentlig_tittel», skal tittelen på mappen skjermes; ellers skal den stå åpent. «part» er andre navn på
- * avsenderen som godtas, for eksempel «Statsforvalteren» når avsenderen er «Statsforvalteren i Rogaland».
+ * «offentlig_tittel», skal tittelen på mappen skjermes; ellers skal den stå åpent. «part» er kortformer av
+ * avsenderen som også godtas, for eksempel «Statsforvalteren» når avsenderen er «Statsforvalteren i Rogaland».
  *
  * @phpstan-type Fasitsak array{
  *     type: string,
@@ -97,6 +97,17 @@ final class Oppgavesett
         }
 
         return $this->oppgaver = $ut;
+    }
+
+    /**
+     * ID-ene til oppgavene som finnes nå. Et arkiv som er fylt med en eldre utgave, kan ha behandlinger av
+     * dokumenter som siden er tatt ut: de telles ikke.
+     *
+     * @return list<string>
+     */
+    public function ider(): array
+    {
+        return array_column($this->alle(), 'id');
     }
 
     /** @return Oppgave|null */

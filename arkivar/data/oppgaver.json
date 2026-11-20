@@ -162,6 +162,10 @@
         "type": "I",
         "tittel": "Søknad om individuelt tilrettelagt opplæring – Mathias Måke",
         "offentlig_tittel": "Søknad om individuelt tilrettelagt opplæring – *****",
+        "part": [
+          "Marit Måke",
+          "Rune Måke"
+        ],
         "tilgangskode": [
           "13-1"
         ],
@@ -214,6 +218,10 @@
         "type": "I",
         "tittel": "Innmelding av ny elev – Sirevåg skole – Leah Lerke",
         "offentlig_tittel": "Innmelding av ny elev – Sirevåg skole – *****",
+        "part": [
+          "Nina Lerke",
+          "Pål Lerke"
+        ],
         "tilgangskode": [
           "13-1"
         ],
@@ -266,6 +274,10 @@
         "type": "I",
         "tittel": "Søknad om redusert foreldrebetaling etter endret inntekt – Oliver Orrfugl",
         "offentlig_tittel": "Søknad om redusert foreldrebetaling etter endret inntekt – *****",
+        "part": [
+          "Ida Orrfugl",
+          "Martin Orrfugl"
+        ],
         "tilgangskode": [
           "13-1"
         ],
@@ -318,6 +330,10 @@
         "type": "I",
         "tittel": "Søknad om barnehageplass fra 01.01.2027 – Filip Falk",
         "offentlig_tittel": "Søknad om barnehageplass fra 01.01.2027 – *****",
+        "part": [
+          "Maria Falk",
+          "Kristoffer Falk"
+        ],
         "tilgangskode": [
           "13-1"
         ],
@@ -474,6 +490,9 @@
         },
         "type": "I",
         "tittel": "Møteprotokoll – kontrollutvalget 12.11.2026",
+        "part": [
+          "Kontrollutvalgssekretariatet"
+        ],
         "tilgangskode": [],
         "skjerm_tittel": false,
         "skjerm_part": false,
@@ -760,6 +779,9 @@
         },
         "type": "I",
         "tittel": "Høringsuttalelse til budsjett 2027 – FAU ved Sirevåg skole",
+        "part": [
+          "FAU"
+        ],
         "tilgangskode": [],
         "skjerm_tittel": false,
         "skjerm_part": false,

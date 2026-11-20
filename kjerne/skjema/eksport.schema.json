@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://login.magnehg.no/skjema/eksport.schema.json",
+  "title": "Bivrost: eksport per app (bivrost-eksport, versjon 1)",
+  "type": "object",
+  "required": [
+    "format",
+    "formatversjon",
+    "laget",
+    "laget_av",
+    "app",
+    "versjoner",
+    "sprak",
+    "rolleregister",
+    "tilgangshistorikk",
+    "logg"
+  ],
+  "properties": {
+    "format": {
+      "const": "bivrost-eksport"
+    },
+    "formatversjon": {
+      "const": 1
+    },
+    "laget": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "laget_av": {
+      "type": "object",
+      "required": [
+        "type",
+        "type_tekst",
+        "id",
+        "navn",
+        "tittel"
+      ]
+    },
+    "app": {
+      "type": "object",
+      "required": [
+        "id",
+        "navn"
+      ]
+    },
+    "versjoner": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "sprak": {
+      "type": "string"
+    },
+    "rolleregister": {
+      "$ref": "rolleregister.schema.json"
+    },
+    "tilgangshistorikk": {
+      "type": "array",
+      "items": {
+        "$ref": "logghendelse.schema.json"
+      }
+    },
+    "logg": {
+      "type": "array",
+      "items": {
+        "$ref": "logghendelse.schema.json"
+      }
+    },
+    "app_format": {
+      "type": "object",
+      "required": [
+        "format",
+        "formatversjon"
+      ]
+    },
+    "app_data": {
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$comment": "Style Dictionary v4 (DTCG-formatet). Eksempel: npx style-dictionary build --config tokens/style-dictionary.config.json",
+  "source": [
+    "tokens/grunnlag.tokens.json",
+    "tokens/tema/marine.lys.normal.tokens.json"
+  ],
+  "platforms": {
+    "css": {
+      "transformGroup": "css",
+      "prefix": "bivrost",
+      "buildPath": "bygg/style-dictionary/",
+      "files": [
+        {
+          "destination": "variabler.css",
+          "format": "css/variables"
+        }
+      ]
+    },
+    "json": {
+      "transformGroup": "js",
+      "buildPath": "bygg/style-dictionary/",
+      "files": [
+        {
+          "destination": "tokens.json",
+          "format": "json/flat"
+        }
+      ]
+    }
+  }
+}

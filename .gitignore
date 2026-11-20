@@ -1,0 +1,19 @@
+# Avhengigheter og bygg (vendor/ følger bare med i versjonspakken, aldri i git)
+/kjerne/vendor/
+/kjerne/vendor-prefikset/
+/skript/scoper/vendor/
+/grensesnitt/node_modules/
+/bygg/
+# Verktøy
+/kjerne/.phpstan-cache/
+/kjerne/.phpunit.cache/
+/kjerne/.phpunit.result.cache
+# Hemmeligheter og driftsdata skal aldri i git
+.env
+.env.*
+!.env.eksempel
+*.pem
+*.key
+drift/
+*.sql.gz
+/skript/scoper/kollisjonsapp/vendor/

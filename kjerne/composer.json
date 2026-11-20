@@ -1,0 +1,52 @@
+{
+    "name": "bivrost/kjerne",
+    "description": "Bivrost Kjerne: felles grunnmur for appene (innlogging mot Bivrost Sentral, økter, tilgang, oppdatering, migreringer, sikkerhetskopi, eksport og logg).",
+    "type": "library",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.2",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "ext-pdo": "*",
+        "ext-sodium": "*",
+        "ext-zip": "*",
+        "composer/semver": "^3.4",
+        "firebase/php-jwt": "^7.0",
+        "league/oauth2-client": "^2.8",
+        "spomky-labs/otphp": "^11.3",
+        "symfony/polyfill-intl-normalizer": "^1.33"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bivrost\\Kjerne\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Bivrost\\Kjerne\\Tester\\": "tester/"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "8.2.0"
+        },
+        "sort-packages": true,
+        "allow-plugins": {}
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require-dev": {
+        "opis/json-schema": "^2.4",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "phpunit/phpunit": "^11.5",
+        "squizlabs/php_codesniffer": "^4.0"
+    },
+    "scripts": {
+        "test": "phpunit",
+        "analyse": "phpstan analyse --memory-limit=1G",
+        "kodestandard": "phpcs"
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "name": "bivrost/verktoy-scoper",
+    "description": "Byggeverktøyet som prefikser Kjernens avhengigheter (BIV-B-024). Brukes bare når vendor-prefikset/ og versjonspakken lages, aldri på serverne.",
+    "license": "proprietary",
+    "require": {
+        "humbug/php-scoper": "0.18.20"
+    },
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "8.2.0"
+        },
+        "allow-plugins": false
+    }
+}

@@ -1,0 +1,9 @@
+# Nøkler som lages av koden (prefiks + verdi), så de ikke står bokstavelig i koden (BIV-SPR-08).
+bivrost.aktortype.
+bivrost.kilde.
+bivrost.loggkategori.
+bivrost.objekttype.
+bivrost.tilgang.
+bivrost.hendelse.
+bivrost.aktiv.
+bivrost.rolle.

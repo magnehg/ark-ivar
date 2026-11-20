@@ -1,0 +1,764 @@
+{
+  "$description": "Grunnlaget i Bivrosts designpakke (likt i alle temaene). Generert av grensesnitt/skript/lag-tokens.ts – endre ikke for hånd.",
+  "typografi": {
+    "familie": {
+      "standard": {
+        "$type": "fontFamily",
+        "$value": [
+          "Segoe UI",
+          "Gerd Sans",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Roboto",
+          "Helvetica Neue",
+          "sans-serif"
+        ],
+        "$description": "Segoe UI der den finnes (Windows), ellers Gerd Sans (Microsofts Selawik) fra egen server (B-042, PLT-08/09)",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "fontFamilyBase"
+          }
+        }
+      },
+      "tall": {
+        "$type": "fontFamily",
+        "$value": [
+          "Segoe UI",
+          "Gerd Sans",
+          "sans-serif"
+        ],
+        "$description": "Til tabeller og tall: bruk med typografi.tall.funksjoner (tabellsifre)"
+      },
+      "kode": {
+        "$type": "fontFamily",
+        "$value": [
+          "Consolas",
+          "Courier New",
+          "monospace"
+        ],
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "fontFamilyMonospace"
+          }
+        }
+      }
+    },
+    "tall": {
+      "funksjoner": {
+        "$type": "string",
+        "$value": "\"tnum\" 1, \"lnum\" 1",
+        "$description": "font-feature-settings for tall i tabeller (like brede sifre)"
+      }
+    },
+    "storrelse": {
+      "100": {
+        "$type": "dimension",
+        "$value": "10px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "fontSizeBase100"
+          }
+        }
+      },
+      "200": {
+        "$type": "dimension",
+        "$value": "12px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "fontSizeBase200"
+          }
+        }
+      },
+      "300": {
+        "$type": "dimension",
+        "$value": "14px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "fontSizeBase300"
+          }
+        }
+      },
+      "400": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "fontSizeBase400"
+          }
+        }
+      },
+      "500": {
+        "$type": "dimension",
+        "$value": "20px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "fontSizeBase500"
+          }
+        }
+      },
+      "600": {
+        "$type": "dimension",
+        "$value": "24px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "fontSizeBase600"
+          }
+        }
+      },
+      "700": {
+        "$type": "dimension",
+        "$value": "28px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "fontSizeHero700"
+          }
+        }
+      },
+      "800": {
+        "$type": "dimension",
+        "$value": "32px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "fontSizeHero800"
+          }
+        }
+      },
+      "900": {
+        "$type": "dimension",
+        "$value": "40px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "fontSizeHero900"
+          }
+        }
+      },
+      "1000": {
+        "$type": "dimension",
+        "$value": "68px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "fontSizeHero1000"
+          }
+        }
+      }
+    },
+    "linjehoyde": {
+      "100": {
+        "$type": "dimension",
+        "$value": "14px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "lineHeightBase100"
+          }
+        }
+      },
+      "200": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "lineHeightBase200"
+          }
+        }
+      },
+      "300": {
+        "$type": "dimension",
+        "$value": "20px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "lineHeightBase300"
+          }
+        }
+      },
+      "400": {
+        "$type": "dimension",
+        "$value": "22px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "lineHeightBase400"
+          }
+        }
+      },
+      "500": {
+        "$type": "dimension",
+        "$value": "28px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "lineHeightBase500"
+          }
+        }
+      },
+      "600": {
+        "$type": "dimension",
+        "$value": "32px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "lineHeightBase600"
+          }
+        }
+      },
+      "700": {
+        "$type": "dimension",
+        "$value": "36px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "lineHeightHero700"
+          }
+        }
+      },
+      "800": {
+        "$type": "dimension",
+        "$value": "40px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "lineHeightHero800"
+          }
+        }
+      },
+      "900": {
+        "$type": "dimension",
+        "$value": "52px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "lineHeightHero900"
+          }
+        }
+      },
+      "1000": {
+        "$type": "dimension",
+        "$value": "92px",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "lineHeightHero1000"
+          }
+        }
+      }
+    },
+    "vekt": {
+      "vanlig": {
+        "$type": "fontWeight",
+        "$value": 400,
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "fontWeightRegular"
+          }
+        }
+      },
+      "halvfet": {
+        "$type": "fontWeight",
+        "$value": 600,
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "fontWeightSemibold"
+          }
+        }
+      },
+      "fet": {
+        "$type": "fontWeight",
+        "$value": 700,
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "fontWeightBold"
+          }
+        }
+      }
+    }
+  },
+  "avstand": {
+    "ingen": {
+      "$type": "dimension",
+      "$value": "0px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": [
+            "spacingHorizontalNone",
+            "spacingVerticalNone"
+          ]
+        }
+      }
+    },
+    "xxs": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": [
+            "spacingHorizontalXXS",
+            "spacingVerticalXXS"
+          ]
+        }
+      }
+    },
+    "xs": {
+      "$type": "dimension",
+      "$value": "4px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": [
+            "spacingHorizontalXS",
+            "spacingVerticalXS"
+          ]
+        }
+      }
+    },
+    "sxs": {
+      "$type": "dimension",
+      "$value": "6px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": [
+            "spacingHorizontalSNudge",
+            "spacingVerticalSNudge"
+          ]
+        }
+      }
+    },
+    "s": {
+      "$type": "dimension",
+      "$value": "8px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": [
+            "spacingHorizontalS",
+            "spacingVerticalS"
+          ]
+        }
+      }
+    },
+    "ms": {
+      "$type": "dimension",
+      "$value": "10px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": [
+            "spacingHorizontalMNudge",
+            "spacingVerticalMNudge"
+          ]
+        }
+      }
+    },
+    "m": {
+      "$type": "dimension",
+      "$value": "12px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": [
+            "spacingHorizontalM",
+            "spacingVerticalM"
+          ]
+        }
+      }
+    },
+    "l": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": [
+            "spacingHorizontalL",
+            "spacingVerticalL"
+          ]
+        }
+      }
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "20px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": [
+            "spacingHorizontalXL",
+            "spacingVerticalXL"
+          ]
+        }
+      }
+    },
+    "xxl": {
+      "$type": "dimension",
+      "$value": "24px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": [
+            "spacingHorizontalXXL",
+            "spacingVerticalXXL"
+          ]
+        }
+      }
+    },
+    "xxxl": {
+      "$type": "dimension",
+      "$value": "32px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": [
+            "spacingHorizontalXXXL",
+            "spacingVerticalXXXL"
+          ]
+        }
+      }
+    }
+  },
+  "radius": {
+    "ingen": {
+      "$type": "dimension",
+      "$value": "0px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": "borderRadiusNone"
+        }
+      }
+    },
+    "liten": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": "borderRadiusSmall"
+        }
+      }
+    },
+    "middels": {
+      "$type": "dimension",
+      "$value": "4px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": "borderRadiusMedium"
+        }
+      }
+    },
+    "stor": {
+      "$type": "dimension",
+      "$value": "6px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": "borderRadiusLarge"
+        }
+      }
+    },
+    "xstor": {
+      "$type": "dimension",
+      "$value": "8px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": "borderRadiusXLarge"
+        }
+      }
+    },
+    "sirkel": {
+      "$type": "dimension",
+      "$value": "10000px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": "borderRadiusCircular"
+        }
+      }
+    }
+  },
+  "kantbredde": {
+    "tynn": {
+      "$type": "dimension",
+      "$value": "1px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": "strokeWidthThin"
+        }
+      }
+    },
+    "tykk": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": "strokeWidthThick"
+        }
+      }
+    },
+    "tykkere": {
+      "$type": "dimension",
+      "$value": "3px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": "strokeWidthThicker"
+        }
+      }
+    },
+    "tykkest": {
+      "$type": "dimension",
+      "$value": "4px",
+      "$extensions": {
+        "no.bivrost": {
+          "fluent": "strokeWidthThickest"
+        }
+      }
+    }
+  },
+  "lag": {
+    "$description": "Lag (z-index), fra bunnen",
+    "innhold": {
+      "$type": "number",
+      "$value": 0
+    },
+    "sidemeny": {
+      "$type": "number",
+      "$value": 100
+    },
+    "toppfelt": {
+      "$type": "number",
+      "$value": 200
+    },
+    "nedtrekk": {
+      "$type": "number",
+      "$value": 1000
+    },
+    "dialog": {
+      "$type": "number",
+      "$value": 2000
+    },
+    "varsel": {
+      "$type": "number",
+      "$value": 3000
+    },
+    "verktoytips": {
+      "$type": "number",
+      "$value": 4000
+    }
+  },
+  "tetthet": {
+    "romslig": {
+      "kontrollhoyde": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "radhoyde": {
+        "$type": "dimension",
+        "$value": "44px"
+      },
+      "celleavstand": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "$description": "Standard"
+    },
+    "kompakt": {
+      "kontrollhoyde": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "radhoyde": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "celleavstand": {
+        "$type": "dimension",
+        "$value": "6px"
+      },
+      "$description": "Mer på skjermen (valgt av brukeren)"
+    }
+  },
+  "bredde": {
+    "begrenset": {
+      "$type": "dimension",
+      "$value": "1600px",
+      "$description": "Rammen med sidemeny og innhold er høyst 1600 px og står midt på skjermen (B-049)"
+    },
+    "sidemeny": {
+      "$type": "dimension",
+      "$value": "240px"
+    },
+    "lesebredde": {
+      "$type": "dimension",
+      "$value": "72ch",
+      "$description": "Høyst omtrent 72 tegn per linje i løpende tekst"
+    }
+  },
+  "brytepunkt": {
+    "smal": {
+      "$type": "dimension",
+      "$value": "480px"
+    },
+    "middels": {
+      "$type": "dimension",
+      "$value": "768px"
+    },
+    "bred": {
+      "$type": "dimension",
+      "$value": "1024px"
+    },
+    "stor": {
+      "$type": "dimension",
+      "$value": "1366px"
+    },
+    "svaer": {
+      "$type": "dimension",
+      "$value": "1920px"
+    }
+  },
+  "ikon": {
+    "liten": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "standard": {
+      "$type": "dimension",
+      "$value": "20px"
+    },
+    "stor": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "xstor": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "hel": {
+      "$type": "dimension",
+      "$value": "48px"
+    }
+  },
+  "bevegelse": {
+    "varighet": {
+      "ultrarask": {
+        "$type": "duration",
+        "$value": "50ms",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "durationUltraFast"
+          }
+        }
+      },
+      "raskere": {
+        "$type": "duration",
+        "$value": "100ms",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "durationFaster"
+          }
+        }
+      },
+      "rask": {
+        "$type": "duration",
+        "$value": "150ms",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "durationFast"
+          }
+        }
+      },
+      "normal": {
+        "$type": "duration",
+        "$value": "200ms",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "durationNormal"
+          }
+        }
+      },
+      "rolig": {
+        "$type": "duration",
+        "$value": "250ms",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "durationGentle"
+          }
+        }
+      },
+      "langsom": {
+        "$type": "duration",
+        "$value": "300ms",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "durationSlow"
+          }
+        }
+      },
+      "langsommere": {
+        "$type": "duration",
+        "$value": "400ms",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "durationSlower"
+          }
+        }
+      },
+      "ultralangsom": {
+        "$type": "duration",
+        "$value": "500ms",
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "durationUltraSlow"
+          }
+        }
+      }
+    },
+    "kurve": {
+      "standard": {
+        "$type": "cubicBezier",
+        "$value": [
+          0.33,
+          0,
+          0.67,
+          1
+        ],
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "curveEasyEase"
+          }
+        }
+      },
+      "inn": {
+        "$type": "cubicBezier",
+        "$value": [
+          0.9,
+          0.1,
+          1,
+          0.2
+        ],
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "curveAccelerateMid"
+          }
+        }
+      },
+      "ut": {
+        "$type": "cubicBezier",
+        "$value": [
+          0.1,
+          0.9,
+          0.2,
+          1
+        ],
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "curveDecelerateMid"
+          }
+        }
+      },
+      "lineaer": {
+        "$type": "cubicBezier",
+        "$value": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "$extensions": {
+          "no.bivrost": {
+            "fluent": "curveLinear"
+          }
+        }
+      }
+    },
+    "$description": "Med redusert bevegelse (prefers-reduced-motion eller brukerens valg) settes alle varighetene til 0 i stilfilen."
+  },
+  "fokus": {
+    "bredde": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$description": "Minst 2 px rundt hele kontrollen (WCAG 2.4.13)"
+    },
+    "avstand": {
+      "$type": "dimension",
+      "$value": "2px"
+    }
+  }
+}

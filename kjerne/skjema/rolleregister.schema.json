@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://login.magnehg.no/skjema/rolleregister.schema.json",
+  "title": "Bivrost: appens rolleregister (det Sentral leser)",
+  "type": "object",
+  "required": [
+    "format",
+    "versjon",
+    "app",
+    "hash",
+    "roller"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "const": "bivrost-rolleregister"
+    },
+    "versjon": {
+      "const": 1
+    },
+    "app": {
+      "type": "object",
+      "required": [
+        "id",
+        "navn"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,39}$"
+        },
+        "navn": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "roller": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "urn",
+          "slag",
+          "app",
+          "navn",
+          "tekst",
+          "beskrivelse",
+          "aktiv"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "urn": {
+            "type": "string",
+            "pattern": "^urn:bivrost:(tilgang:[a-z][a-z0-9-]*|app:[a-z][a-z0-9-]*:(rolle|tilgang):[a-z][a-z0-9-]*)$"
+          },
+          "slag": {
+            "enum": [
+              "rolle",
+              "tilgang"
+            ]
+          },
+          "app": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "navn": {
+            "type": "string"
+          },
+          "tekst": {
+            "$ref": "#/$defs/tekster"
+          },
+          "beskrivelse": {
+            "$ref": "#/$defs/tekster"
+          },
+          "aktiv": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "tekster": {
+      "type": "object",
+      "description": "Tekst per språk (BCP 47)",
+      "propertyNames": {
+        "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
+      },
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

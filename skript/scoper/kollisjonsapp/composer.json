@@ -1,0 +1,18 @@
+{
+    "name": "bivrost/kollisjonsapp",
+    "description": "En liten app med eldre versjoner av bibliotekene Kjerne bruker (BIV-B-024). Bare for sjekk-kollisjon.php i CI.",
+    "license": "proprietary",
+    "require": {
+        "firebase/php-jwt": "6.11.1",
+        "guzzlehttp/guzzle": "7.10.0",
+        "symfony/deprecation-contracts": "3.8.1",
+        "symfony/polyfill-intl-normalizer": "1.33.0"
+    },
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "8.2.0"
+        },
+        "allow-plugins": false
+    }
+}

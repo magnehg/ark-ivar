@@ -1,0 +1,21 @@
+includes:
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+
+parameters:
+    level: max
+    phpVersion:
+        min: 80200
+        max: 80399
+    paths:
+        - src
+        - tester
+        - bin
+        - autoload.php
+    tmpDir: .phpstan-cache
+    # Kjernens prefiksede avhengigheter (Bivrost\Vendor\…, BIV-B-024) fra skript/prefiks.sh.
+    scanDirectories:
+        - vendor-prefikset
+    bootstrapFiles:
+        - autoload.php

@@ -1,0 +1,10 @@
+Copyright (c) 2026 Magne. Alle rettigheter forbeholdt.
+
+Denne programvaren og dokumentasjonen kan ikke kopieres, endres, distribueres eller brukes uten skriftlig tillatelse
+fra rettighetshaveren (docs/beslutninger.md, BIV-B-022).
+
+Tredjepartskomponenter har egne lisenser og er ikke omfattet av dette:
+- Avhengighetene i kjerne/vendor/ (se docs/avhengigheter.md og sbom.cdx.json i versjonspakken): MIT, BSD-3-Clause.
+- Skriften Gerd Sans (grensesnitt/fonter/): Microsoft Selawik, SIL Open Font License 1.1 (grensesnitt/fonter/OFL.txt).
+- Listen over vanlige passord (kjerne/ressurser/vanlige-passord.txt): delvis fra SecLists, MIT
+  (kjerne/ressurser/SecLists-LICENSE.txt).

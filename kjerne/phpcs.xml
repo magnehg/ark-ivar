@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruleset name="Bivrost">
+    <description>Kodestandarden for Bivrost Kjerne: PSR-12, med lengre linjer (140, ingen hard grense).</description>
+    <file>src</file>
+    <file>tester</file>
+    <file>bin</file>
+    <file>autoload.php</file>
+    <arg name="extensions" value="php"/>
+    <arg name="colors"/>
+    <arg value="sp"/>
+    <rule ref="PSR12">
+        <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/>
+    </rule>
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="200"/>
+            <property name="absoluteLineLimit" value="0"/>
+        </properties>
+        <exclude-pattern>tester/*</exclude-pattern>
+    </rule>
+</ruleset>

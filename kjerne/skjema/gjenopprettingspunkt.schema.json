@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://login.magnehg.no/skjema/gjenopprettingspunkt.schema.json",
+  "title": "Bivrost: et gjenopprettingspunkt (database og filer sammen)",
+  "type": "object",
+  "required": [
+    "format",
+    "laget",
+    "grunn",
+    "db",
+    "filer",
+    "korrelasjon",
+    "pakker"
+  ],
+  "properties": {
+    "format": {
+      "const": "bivrost-gjenopprettingspunkt"
+    },
+    "laget": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "grunn": {
+      "type": "string"
+    },
+    "db": {
+      "type": "string",
+      "pattern": "^db-[0-9]{8}-[0-9]{6}-[0-9a-f]{8}\\.sql\\.gz$"
+    },
+    "filer": {
+      "type": "string",
+      "pattern": "^filer-[0-9]{8}-[0-9]{6}-[0-9a-f]{8}\\.zip$"
+    },
+    "korrelasjon": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "pakker": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "mappe",
+          "versjon"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "mappe": {
+            "type": "string"
+          },
+          "versjon": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

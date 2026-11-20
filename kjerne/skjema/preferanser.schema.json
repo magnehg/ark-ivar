@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://login.magnehg.no/skjema/preferanser.schema.json",
+  "title": "Bivrost: brukerens preferanser (ett nivå: app eller felles)",
+  "description": "BIV-PRF-01. Felt som ikke er satt, arves (app > felles > system). Claimet bivrost_preferanser har i tillegg «oppdatert» (RFC 3339).",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "tema": {
+      "enum": [
+        "marine",
+        "teal",
+        "mose",
+        "arkivbrun",
+        "vinrod"
+      ]
+    },
+    "modus": {
+      "enum": [
+        "system",
+        "lys",
+        "mork"
+      ]
+    },
+    "bredde": {
+      "enum": [
+        "begrenset",
+        "full"
+      ]
+    },
+    "tetthet": {
+      "enum": [
+        "romslig",
+        "kompakt"
+      ]
+    },
+    "redusertBevegelse": {
+      "enum": [
+        "system",
+        "ja",
+        "nei"
+      ]
+    },
+    "hoyKontrast": {
+      "enum": [
+        "system",
+        "ja",
+        "nei"
+      ]
+    },
+    "preferredLanguage": {
+      "type": "string",
+      "description": "BCP 47 (SCIM preferredLanguage)",
+      "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
+    },
+    "locale": {
+      "type": "string",
+      "description": "SCIM locale / OIDC locale",
+      "pattern": "^[a-z]{2,3}(-[A-Z]{2})?$"
+    },
+    "timezone": {
+      "type": "string",
+      "description": "IANA-tidssone (SCIM timezone / OIDC zoneinfo)"
+    },
+    "oppdatert": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

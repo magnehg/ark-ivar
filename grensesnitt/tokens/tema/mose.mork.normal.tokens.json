@@ -1,0 +1,2003 @@
+{
+  "$description": "Fargetema «mose», mørk modus, normal kontrast. Generert av grensesnitt/skript/lag-tokens.ts – endre ikke for hånd.",
+  "$extensions": {
+    "no.bivrost": {
+      "tema": "mose",
+      "modus": "mork",
+      "kontrast": "normal",
+      "nokkelfarger": {
+        "hoved": "#336633",
+        "aksent": "#CCCC99",
+        "lys": "#FFFFCC"
+      }
+    }
+  },
+  "farge": {
+    "bakgrunn": {
+      "side": {
+        "$type": "color",
+        "$value": "{fluent.colorNeutralBackground3}",
+        "$description": "Bakgrunnen bak innholdet"
+      },
+      "flate-1": {
+        "$type": "color",
+        "$value": "{fluent.colorNeutralBackground1}",
+        "$description": "Kort, tabeller, dialoger"
+      },
+      "flate-2": {
+        "$type": "color",
+        "$value": "{fluent.colorNeutralBackground2}",
+        "$description": "Sidemeny og paneler"
+      },
+      "flate-3": {
+        "$type": "color",
+        "$value": "{fluent.colorNeutralBackground4}",
+        "$description": "Nivå tre (felt i panel)"
+      },
+      "hover": {
+        "$type": "color",
+        "$value": "{fluent.colorNeutralBackground1Hover}"
+      },
+      "trykket": {
+        "$type": "color",
+        "$value": "{fluent.colorNeutralBackground1Pressed}"
+      },
+      "valgt": {
+        "$type": "color",
+        "$value": "{fluent.colorBrandBackground2}",
+        "$description": "Valgt rad, menypunkt og periode"
+      },
+      "valgt-hover": {
+        "$type": "color",
+        "$value": "{fluent.colorBrandBackground2Hover}"
+      },
+      "deaktivert": {
+        "$type": "color",
+        "$value": "{fluent.colorNeutralBackgroundDisabled}"
+      },
+      "overlegg": {
+        "$type": "color",
+        "$value": "#000000A3",
+        "$description": "Bak dialoger"
+      }
+    },
+    "tekst": {
+      "standard": {
+        "$type": "color",
+        "$value": "{fluent.colorNeutralForeground1}"
+      },
+      "dempet": {
+        "$type": "color",
+        "$value": "{fluent.colorNeutralForeground2}",
+        "$description": "Sekundærtekst (minst 4,5:1)"
+      },
+      "deaktivert": {
+        "$type": "color",
+        "$value": "{fluent.colorNeutralForegroundDisabled}",
+        "$description": "Deaktivert (unntatt fra kontrastkravet, WCAG 1.4.3)"
+      },
+      "pa-merkevare": {
+        "$type": "color",
+        "$value": "{fluent.colorNeutralForegroundOnBrand}"
+      },
+      "merkevare": {
+        "$type": "color",
+        "$value": "{fluent.colorBrandForeground1}"
+      },
+      "lenke": {
+        "$type": "color",
+        "$value": "{fluent.colorBrandForegroundLink}"
+      },
+      "lenke-hover": {
+        "$type": "color",
+        "$value": "{fluent.colorBrandForegroundLinkHover}"
+      },
+      "lenke-besokt": {
+        "$type": "color",
+        "$value": "#CEAAF5",
+        "$description": "Besøkt lenke"
+      }
+    },
+    "kant": {
+      "svak": {
+        "$type": "color",
+        "$value": "{fluent.colorNeutralStroke2}",
+        "$description": "Dekorative skillelinjer (ikke grenser for kontroller)"
+      },
+      "standard": {
+        "$type": "color",
+        "$value": "{fluent.colorNeutralStroke1}"
+      },
+      "sterk": {
+        "$type": "color",
+        "$value": "{fluent.colorNeutralStrokeAccessible}",
+        "$description": "Grenser for kontroller (minst 3:1, WCAG 1.4.11)"
+      },
+      "fokus": {
+        "$type": "color",
+        "$value": "{fluent.colorStrokeFocus2}",
+        "$description": "Fokusringen (minst 3:1, WCAG 2.4.11/2.4.13)"
+      },
+      "valgt": {
+        "$type": "color",
+        "$value": "{fluent.colorBrandStroke1}"
+      }
+    },
+    "merkevare": {
+      "bakgrunn": {
+        "$type": "color",
+        "$value": "{fluent.colorBrandBackground}"
+      },
+      "bakgrunn-hover": {
+        "$type": "color",
+        "$value": "{fluent.colorBrandBackgroundHover}"
+      },
+      "bakgrunn-trykket": {
+        "$type": "color",
+        "$value": "{fluent.colorBrandBackgroundPressed}"
+      },
+      "bakgrunn-valgt": {
+        "$type": "color",
+        "$value": "{fluent.colorBrandBackgroundSelected}"
+      },
+      "hoved": {
+        "$type": "color",
+        "$value": "#336633",
+        "$description": "Temaets hovedfarge (nøkkelfarge)"
+      },
+      "aksent": {
+        "$type": "color",
+        "$value": "#CCCC99",
+        "$description": "Temaets aksent (nøkkelfarge)"
+      },
+      "lys": {
+        "$type": "color",
+        "$value": "#FFFFCC",
+        "$description": "Temaets lyse bakgrunn (nøkkelfarge)"
+      }
+    },
+    "toppfelt": {
+      "bakgrunn": {
+        "$type": "color",
+        "$value": "#041F05"
+      },
+      "tekst": {
+        "$type": "color",
+        "$value": "#FFFFFF"
+      },
+      "kant": {
+        "$type": "color",
+        "$value": "#123513"
+      },
+      "logo-fyll": {
+        "$type": "color",
+        "$value": "#CCCC99"
+      },
+      "logo-ramme": {
+        "$type": "color",
+        "$value": "#FFFFFF"
+      }
+    },
+    "status": {
+      "ok": {
+        "bakgrunn": {
+          "$type": "color",
+          "$value": "#243B24"
+        },
+        "tekst": {
+          "$type": "color",
+          "$value": "#65B060"
+        },
+        "kant": {
+          "$type": "color",
+          "$value": "#3A9136"
+        },
+        "ikon": {
+          "$type": "color",
+          "$value": "#3A9136"
+        }
+      },
+      "advarsel": {
+        "bakgrunn": {
+          "$type": "color",
+          "$value": "#4B3520"
+        },
+        "tekst": {
+          "$type": "color",
+          "$value": "#E58E56"
+        },
+        "kant": {
+          "$type": "color",
+          "$value": "#CB6A22"
+        },
+        "ikon": {
+          "$type": "color",
+          "$value": "#CB6A22"
+        }
+      },
+      "feil": {
+        "bakgrunn": {
+          "$type": "color",
+          "$value": "#4B2327"
+        },
+        "tekst": {
+          "$type": "color",
+          "$value": "#F46C63"
+        },
+        "kant": {
+          "$type": "color",
+          "$value": "#DA423F"
+        },
+        "ikon": {
+          "$type": "color",
+          "$value": "#DA423F"
+        }
+      },
+      "info": {
+        "bakgrunn": {
+          "$type": "color",
+          "$value": "#23384A"
+        },
+        "tekst": {
+          "$type": "color",
+          "$value": "#63A3E8"
+        },
+        "kant": {
+          "$type": "color",
+          "$value": "#3883CF"
+        },
+        "ikon": {
+          "$type": "color",
+          "$value": "#3883CF"
+        }
+      },
+      "pagar": {
+        "bakgrunn": {
+          "$type": "color",
+          "$value": "#342A40"
+        },
+        "tekst": {
+          "$type": "color",
+          "$value": "#A687D8"
+        },
+        "kant": {
+          "$type": "color",
+          "$value": "#8A67BD"
+        },
+        "ikon": {
+          "$type": "color",
+          "$value": "#8A67BD"
+        }
+      },
+      "noytral": {
+        "bakgrunn": {
+          "$type": "color",
+          "$value": "#353535"
+        },
+        "tekst": {
+          "$type": "color",
+          "$value": "#9E9E9E"
+        },
+        "kant": {
+          "$type": "color",
+          "$value": "#7F7F7F"
+        },
+        "ikon": {
+          "$type": "color",
+          "$value": "#7F7F7F"
+        }
+      }
+    },
+    "data": {
+      "$description": "Paletter for diagrammer. Kategoriene er Okabe–Ito, justert til minst 3:1 mot flatene. Bruk alltid tekst eller mønster i tillegg, og en tabellversjon av diagrammet.",
+      "kategorisk": {
+        "1": {
+          "$type": "color",
+          "$value": "#1778B7"
+        },
+        "2": {
+          "$type": "color",
+          "$value": "#E69F00"
+        },
+        "3": {
+          "$type": "color",
+          "$value": "#009E73"
+        },
+        "4": {
+          "$type": "color",
+          "$value": "#CC79A7"
+        },
+        "5": {
+          "$type": "color",
+          "$value": "#56B4E9"
+        },
+        "6": {
+          "$type": "color",
+          "$value": "#D55E00"
+        },
+        "7": {
+          "$type": "color",
+          "$value": "#F0E442"
+        },
+        "8": {
+          "$type": "color",
+          "$value": "#737373"
+        }
+      },
+      "sekvensiell": {
+        "1": {
+          "$type": "color",
+          "$value": "#34342E"
+        },
+        "2": {
+          "$type": "color",
+          "$value": "#4B4B3E"
+        },
+        "3": {
+          "$type": "color",
+          "$value": "#63634F"
+        },
+        "4": {
+          "$type": "color",
+          "$value": "#7C7C61"
+        },
+        "5": {
+          "$type": "color",
+          "$value": "#969673"
+        },
+        "6": {
+          "$type": "color",
+          "$value": "#B0B086"
+        },
+        "7": {
+          "$type": "color",
+          "$value": "#CCCC99"
+        }
+      },
+      "tekst-pa-sekvensiell": {
+        "1": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "2": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "3": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "4": {
+          "$type": "color",
+          "$value": "#000000"
+        },
+        "5": {
+          "$type": "color",
+          "$value": "#000000"
+        },
+        "6": {
+          "$type": "color",
+          "$value": "#000000"
+        },
+        "7": {
+          "$type": "color",
+          "$value": "#000000"
+        }
+      },
+      "divergerende": {
+        "1": {
+          "$type": "color",
+          "$value": "#3776B9"
+        },
+        "2": {
+          "$type": "color",
+          "$value": "#3B6798"
+        },
+        "3": {
+          "$type": "color",
+          "$value": "#3C5877"
+        },
+        "4": {
+          "$type": "color",
+          "$value": "#3C4958"
+        },
+        "5": {
+          "$type": "color",
+          "$value": "#3A3A3A"
+        },
+        "6": {
+          "$type": "color",
+          "$value": "#584337"
+        },
+        "7": {
+          "$type": "color",
+          "$value": "#764C31"
+        },
+        "8": {
+          "$type": "color",
+          "$value": "#955326"
+        },
+        "9": {
+          "$type": "color",
+          "$value": "#B45A0B"
+        }
+      },
+      "tekst-pa-divergerende": {
+        "1": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "2": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "3": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "4": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "5": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "6": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "7": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "8": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "9": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        }
+      }
+    },
+    "archimate": {
+      "strategi": {
+        "fyll": {
+          "$type": "color",
+          "$value": "#565145"
+        },
+        "tekst": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "kant": {
+          "$type": "color",
+          "$value": "#F5DEAA"
+        }
+      },
+      "forretning": {
+        "fyll": {
+          "$type": "color",
+          "$value": "#585848"
+        },
+        "tekst": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "kant": {
+          "$type": "color",
+          "$value": "#FFFFB5"
+        }
+      },
+      "applikasjon": {
+        "fyll": {
+          "$type": "color",
+          "$value": "#485858"
+        },
+        "tekst": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "kant": {
+          "$type": "color",
+          "$value": "#B5FFFF"
+        }
+      },
+      "teknologi": {
+        "fyll": {
+          "$type": "color",
+          "$value": "#4C5348"
+        },
+        "tekst": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "kant": {
+          "$type": "color",
+          "$value": "#C9E7B7"
+        }
+      },
+      "fysisk": {
+        "fyll": {
+          "$type": "color",
+          "$value": "#4C5348"
+        },
+        "tekst": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "kant": {
+          "$type": "color",
+          "$value": "#C9E7B7"
+        }
+      },
+      "motivasjon": {
+        "fyll": {
+          "$type": "color",
+          "$value": "#4D4D58"
+        },
+        "tekst": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "kant": {
+          "$type": "color",
+          "$value": "#CCCCFF"
+        }
+      },
+      "implementering": {
+        "fyll": {
+          "$type": "color",
+          "$value": "#585151"
+        },
+        "tekst": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "kant": {
+          "$type": "color",
+          "$value": "#FFE0E0"
+        }
+      }
+    }
+  },
+  "skygge": {
+    "2": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": "#0000003D",
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "2px",
+          "spread": "0px"
+        },
+        {
+          "color": "#00000047",
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "2px",
+          "spread": "0px"
+        }
+      ]
+    },
+    "4": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": "#0000003D",
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "2px",
+          "spread": "0px"
+        },
+        {
+          "color": "#00000047",
+          "offsetX": "0px",
+          "offsetY": "2px",
+          "blur": "4px",
+          "spread": "0px"
+        }
+      ]
+    },
+    "8": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": "#0000003D",
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "2px",
+          "spread": "0px"
+        },
+        {
+          "color": "#00000047",
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "8px",
+          "spread": "0px"
+        }
+      ]
+    },
+    "16": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": "#0000003D",
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "8px",
+          "spread": "0px"
+        },
+        {
+          "color": "#00000047",
+          "offsetX": "0px",
+          "offsetY": "8px",
+          "blur": "16px",
+          "spread": "0px"
+        }
+      ]
+    },
+    "28": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": "#0000003D",
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "8px",
+          "spread": "0px"
+        },
+        {
+          "color": "#00000047",
+          "offsetX": "0px",
+          "offsetY": "14px",
+          "blur": "28px",
+          "spread": "0px"
+        }
+      ]
+    },
+    "64": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": "#0000003D",
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "8px",
+          "spread": "0px"
+        },
+        {
+          "color": "#00000047",
+          "offsetX": "0px",
+          "offsetY": "32px",
+          "blur": "64px",
+          "spread": "0px"
+        }
+      ]
+    }
+  },
+  "fluent": {
+    "colorBrandBackground": {
+      "$type": "color",
+      "$value": "#CCCC99"
+    },
+    "colorBrandBackground2": {
+      "$type": "color",
+      "$value": "#4A4A3F"
+    },
+    "colorBrandBackground2Hover": {
+      "$type": "color",
+      "$value": "#41413A"
+    },
+    "colorBrandBackground2Pressed": {
+      "$type": "color",
+      "$value": "#3B3B35"
+    },
+    "colorBrandBackground3Static": {
+      "$type": "color",
+      "$value": "#224D22"
+    },
+    "colorBrandBackground4Static": {
+      "$type": "color",
+      "$value": "#123513"
+    },
+    "colorBrandBackgroundHover": {
+      "$type": "color",
+      "$value": "#D6D6A3"
+    },
+    "colorBrandBackgroundInverted": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorBrandBackgroundInvertedHover": {
+      "$type": "color",
+      "$value": "#FFFFCC"
+    },
+    "colorBrandBackgroundInvertedPressed": {
+      "$type": "color",
+      "$value": "#EAEAB7"
+    },
+    "colorBrandBackgroundInvertedSelected": {
+      "$type": "color",
+      "$value": "#F5F5C2"
+    },
+    "colorBrandBackgroundPressed": {
+      "$type": "color",
+      "$value": "#98A975"
+    },
+    "colorBrandBackgroundSelected": {
+      "$type": "color",
+      "$value": "#98A975"
+    },
+    "colorBrandBackgroundStatic": {
+      "$type": "color",
+      "$value": "#336633"
+    },
+    "colorBrandForeground1": {
+      "$type": "color",
+      "$value": "#CCCC99"
+    },
+    "colorBrandForeground2": {
+      "$type": "color",
+      "$value": "#D6D6A3"
+    },
+    "colorBrandForeground2Hover": {
+      "$type": "color",
+      "$value": "#E0E0AD"
+    },
+    "colorBrandForeground2Pressed": {
+      "$type": "color",
+      "$value": "#EAEAB7"
+    },
+    "colorBrandForegroundInverted": {
+      "$type": "color",
+      "$value": "#336633"
+    },
+    "colorBrandForegroundInvertedHover": {
+      "$type": "color",
+      "$value": "#2A592B"
+    },
+    "colorBrandForegroundInvertedPressed": {
+      "$type": "color",
+      "$value": "#224D22"
+    },
+    "colorBrandForegroundLink": {
+      "$type": "color",
+      "$value": "#CCCC99"
+    },
+    "colorBrandForegroundLinkHover": {
+      "$type": "color",
+      "$value": "#D6D6A3"
+    },
+    "colorBrandForegroundLinkPressed": {
+      "$type": "color",
+      "$value": "#98A975"
+    },
+    "colorBrandForegroundLinkSelected": {
+      "$type": "color",
+      "$value": "#CCCC99"
+    },
+    "colorBrandForegroundOnLight": {
+      "$type": "color",
+      "$value": "#336633"
+    },
+    "colorBrandForegroundOnLightHover": {
+      "$type": "color",
+      "$value": "#2A592B"
+    },
+    "colorBrandForegroundOnLightPressed": {
+      "$type": "color",
+      "$value": "#1A411A"
+    },
+    "colorBrandForegroundOnLightSelected": {
+      "$type": "color",
+      "$value": "#224D22"
+    },
+    "colorBrandStroke1": {
+      "$type": "color",
+      "$value": "#CCCC99"
+    },
+    "colorBrandStroke2": {
+      "$type": "color",
+      "$value": "#6A6A56"
+    },
+    "colorBrandStroke2Contrast": {
+      "$type": "color",
+      "$value": "#6A6A56"
+    },
+    "colorBrandStroke2Hover": {
+      "$type": "color",
+      "$value": "#6A6A56"
+    },
+    "colorBrandStroke2Pressed": {
+      "$type": "color",
+      "$value": "#7B7B61"
+    },
+    "colorCompoundBrandBackground": {
+      "$type": "color",
+      "$value": "#CCCC99"
+    },
+    "colorCompoundBrandBackgroundHover": {
+      "$type": "color",
+      "$value": "#D6D6A3"
+    },
+    "colorCompoundBrandBackgroundPressed": {
+      "$type": "color",
+      "$value": "#98A975"
+    },
+    "colorCompoundBrandForeground1": {
+      "$type": "color",
+      "$value": "#CCCC99"
+    },
+    "colorCompoundBrandForeground1Hover": {
+      "$type": "color",
+      "$value": "#D6D6A3"
+    },
+    "colorCompoundBrandForeground1Pressed": {
+      "$type": "color",
+      "$value": "#98A975"
+    },
+    "colorCompoundBrandStroke": {
+      "$type": "color",
+      "$value": "#CCCC99"
+    },
+    "colorCompoundBrandStrokeHover": {
+      "$type": "color",
+      "$value": "#D6D6A3"
+    },
+    "colorCompoundBrandStrokePressed": {
+      "$type": "color",
+      "$value": "#98A975"
+    },
+    "colorNeutralBackground1": {
+      "$type": "color",
+      "$value": "#292929"
+    },
+    "colorNeutralBackground1Hover": {
+      "$type": "color",
+      "$value": "#3D3D3D"
+    },
+    "colorNeutralBackground1Pressed": {
+      "$type": "color",
+      "$value": "#1F1F1F"
+    },
+    "colorNeutralBackground1Selected": {
+      "$type": "color",
+      "$value": "#383838"
+    },
+    "colorNeutralBackground2": {
+      "$type": "color",
+      "$value": "#1F1F1F"
+    },
+    "colorNeutralBackground2Hover": {
+      "$type": "color",
+      "$value": "#333333"
+    },
+    "colorNeutralBackground2Pressed": {
+      "$type": "color",
+      "$value": "#141414"
+    },
+    "colorNeutralBackground2Selected": {
+      "$type": "color",
+      "$value": "#2E2E2E"
+    },
+    "colorNeutralBackground3": {
+      "$type": "color",
+      "$value": "#141414"
+    },
+    "colorNeutralBackground3Hover": {
+      "$type": "color",
+      "$value": "#292929"
+    },
+    "colorNeutralBackground3Pressed": {
+      "$type": "color",
+      "$value": "#0A0A0A"
+    },
+    "colorNeutralBackground3Selected": {
+      "$type": "color",
+      "$value": "#242424"
+    },
+    "colorNeutralBackground4": {
+      "$type": "color",
+      "$value": "#0A0A0A"
+    },
+    "colorNeutralBackground4Hover": {
+      "$type": "color",
+      "$value": "#1F1F1F"
+    },
+    "colorNeutralBackground4Pressed": {
+      "$type": "color",
+      "$value": "#000000"
+    },
+    "colorNeutralBackground4Selected": {
+      "$type": "color",
+      "$value": "#1A1A1A"
+    },
+    "colorNeutralBackground5": {
+      "$type": "color",
+      "$value": "#000000"
+    },
+    "colorNeutralBackground5Hover": {
+      "$type": "color",
+      "$value": "#141414"
+    },
+    "colorNeutralBackground5Pressed": {
+      "$type": "color",
+      "$value": "#050505"
+    },
+    "colorNeutralBackground5Selected": {
+      "$type": "color",
+      "$value": "#0F0F0F"
+    },
+    "colorNeutralBackground6": {
+      "$type": "color",
+      "$value": "#333333"
+    },
+    "colorNeutralBackground7Hover": {
+      "$type": "color",
+      "$value": "#1A1A1A"
+    },
+    "colorNeutralBackground7Pressed": {
+      "$type": "color",
+      "$value": "#0A0A0A"
+    },
+    "colorNeutralBackground8": {
+      "$type": "color",
+      "$value": "#292929"
+    },
+    "colorNeutralBackgroundDisabled": {
+      "$type": "color",
+      "$value": "#141414"
+    },
+    "colorNeutralBackgroundDisabled2": {
+      "$type": "color",
+      "$value": "#292929"
+    },
+    "colorNeutralBackgroundInverted": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralBackgroundInvertedHover": {
+      "$type": "color",
+      "$value": "#F5F5F5"
+    },
+    "colorNeutralBackgroundInvertedPressed": {
+      "$type": "color",
+      "$value": "#E0E0E0"
+    },
+    "colorNeutralBackgroundInvertedSelected": {
+      "$type": "color",
+      "$value": "#EBEBEB"
+    },
+    "colorNeutralBackgroundStatic": {
+      "$type": "color",
+      "$value": "#3D3D3D"
+    },
+    "colorNeutralCardBackground": {
+      "$type": "color",
+      "$value": "#333333"
+    },
+    "colorNeutralCardBackgroundDisabled": {
+      "$type": "color",
+      "$value": "#141414"
+    },
+    "colorNeutralCardBackgroundHover": {
+      "$type": "color",
+      "$value": "#3D3D3D"
+    },
+    "colorNeutralCardBackgroundPressed": {
+      "$type": "color",
+      "$value": "#2E2E2E"
+    },
+    "colorNeutralCardBackgroundSelected": {
+      "$type": "color",
+      "$value": "#383838"
+    },
+    "colorNeutralForeground1": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralForeground1Hover": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralForeground1Pressed": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralForeground1Selected": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralForeground1Static": {
+      "$type": "color",
+      "$value": "#242424"
+    },
+    "colorNeutralForeground2": {
+      "$type": "color",
+      "$value": "#D6D6D6"
+    },
+    "colorNeutralForeground2BrandHover": {
+      "$type": "color",
+      "$value": "#CCCC99"
+    },
+    "colorNeutralForeground2BrandPressed": {
+      "$type": "color",
+      "$value": "#98A975"
+    },
+    "colorNeutralForeground2BrandSelected": {
+      "$type": "color",
+      "$value": "#CCCC99"
+    },
+    "colorNeutralForeground2Hover": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralForeground2Link": {
+      "$type": "color",
+      "$value": "#D6D6D6"
+    },
+    "colorNeutralForeground2LinkHover": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralForeground2LinkPressed": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralForeground2LinkSelected": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralForeground2Pressed": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralForeground2Selected": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralForeground3": {
+      "$type": "color",
+      "$value": "#ADADAD"
+    },
+    "colorNeutralForeground3BrandHover": {
+      "$type": "color",
+      "$value": "#CCCC99"
+    },
+    "colorNeutralForeground3BrandPressed": {
+      "$type": "color",
+      "$value": "#98A975"
+    },
+    "colorNeutralForeground3BrandSelected": {
+      "$type": "color",
+      "$value": "#CCCC99"
+    },
+    "colorNeutralForeground3Hover": {
+      "$type": "color",
+      "$value": "#D6D6D6"
+    },
+    "colorNeutralForeground3Pressed": {
+      "$type": "color",
+      "$value": "#D6D6D6"
+    },
+    "colorNeutralForeground3Selected": {
+      "$type": "color",
+      "$value": "#D6D6D6"
+    },
+    "colorNeutralForeground4": {
+      "$type": "color",
+      "$value": "#999999"
+    },
+    "colorNeutralForeground5": {
+      "$type": "color",
+      "$value": "#ADADAD"
+    },
+    "colorNeutralForeground5Hover": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralForeground5Pressed": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralForeground5Selected": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralForegroundDisabled": {
+      "$type": "color",
+      "$value": "#5C5C5C"
+    },
+    "colorNeutralForegroundInverted": {
+      "$type": "color",
+      "$value": "#242424"
+    },
+    "colorNeutralForegroundInverted2": {
+      "$type": "color",
+      "$value": "#242424"
+    },
+    "colorNeutralForegroundInvertedHover": {
+      "$type": "color",
+      "$value": "#242424"
+    },
+    "colorNeutralForegroundInvertedLink": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralForegroundInvertedLinkHover": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralForegroundInvertedLinkPressed": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralForegroundInvertedLinkSelected": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralForegroundInvertedPressed": {
+      "$type": "color",
+      "$value": "#242424"
+    },
+    "colorNeutralForegroundInvertedSelected": {
+      "$type": "color",
+      "$value": "#242424"
+    },
+    "colorNeutralForegroundOnBrand": {
+      "$type": "color",
+      "$value": "#011501"
+    },
+    "colorNeutralForegroundStaticInverted": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralStencil1": {
+      "$type": "color",
+      "$value": "#575757"
+    },
+    "colorNeutralStencil2": {
+      "$type": "color",
+      "$value": "#333333"
+    },
+    "colorNeutralStroke1": {
+      "$type": "color",
+      "$value": "#666666"
+    },
+    "colorNeutralStroke1Hover": {
+      "$type": "color",
+      "$value": "#757575"
+    },
+    "colorNeutralStroke1Pressed": {
+      "$type": "color",
+      "$value": "#6B6B6B"
+    },
+    "colorNeutralStroke1Selected": {
+      "$type": "color",
+      "$value": "#707070"
+    },
+    "colorNeutralStroke2": {
+      "$type": "color",
+      "$value": "#525252"
+    },
+    "colorNeutralStroke3": {
+      "$type": "color",
+      "$value": "#3D3D3D"
+    },
+    "colorNeutralStroke4": {
+      "$type": "color",
+      "$value": "#3D3D3D"
+    },
+    "colorNeutralStroke4Hover": {
+      "$type": "color",
+      "$value": "#2E2E2E"
+    },
+    "colorNeutralStroke4Pressed": {
+      "$type": "color",
+      "$value": "#242424"
+    },
+    "colorNeutralStroke4Selected": {
+      "$type": "color",
+      "$value": "#3D3D3D"
+    },
+    "colorNeutralStrokeAccessible": {
+      "$type": "color",
+      "$value": "#ADADAD"
+    },
+    "colorNeutralStrokeAccessibleHover": {
+      "$type": "color",
+      "$value": "#BDBDBD"
+    },
+    "colorNeutralStrokeAccessiblePressed": {
+      "$type": "color",
+      "$value": "#B3B3B3"
+    },
+    "colorNeutralStrokeAccessibleSelected": {
+      "$type": "color",
+      "$value": "#CCCC99"
+    },
+    "colorNeutralStrokeDisabled": {
+      "$type": "color",
+      "$value": "#424242"
+    },
+    "colorNeutralStrokeDisabled2": {
+      "$type": "color",
+      "$value": "#3D3D3D"
+    },
+    "colorNeutralStrokeOnBrand": {
+      "$type": "color",
+      "$value": "#292929"
+    },
+    "colorNeutralStrokeOnBrand2": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralStrokeOnBrand2Hover": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralStrokeOnBrand2Pressed": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralStrokeOnBrand2Selected": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorNeutralStrokeSubtle": {
+      "$type": "color",
+      "$value": "#0A0A0A"
+    },
+    "colorPaletteAnchorBackground2": {
+      "$type": "color",
+      "$value": "#202427"
+    },
+    "colorPaletteAnchorBorderActive": {
+      "$type": "color",
+      "$value": "#808A90"
+    },
+    "colorPaletteAnchorForeground2": {
+      "$type": "color",
+      "$value": "#BCC3C7"
+    },
+    "colorPaletteBeigeBackground2": {
+      "$type": "color",
+      "$value": "#444241"
+    },
+    "colorPaletteBeigeBorderActive": {
+      "$type": "color",
+      "$value": "#AFABAA"
+    },
+    "colorPaletteBeigeForeground2": {
+      "$type": "color",
+      "$value": "#D7D4D4"
+    },
+    "colorPaletteBerryBackground1": {
+      "$type": "color",
+      "$value": "#3A1136"
+    },
+    "colorPaletteBerryBackground2": {
+      "$type": "color",
+      "$value": "#6D2064"
+    },
+    "colorPaletteBerryBackground3": {
+      "$type": "color",
+      "$value": "#C239B3"
+    },
+    "colorPaletteBerryBorder1": {
+      "$type": "color",
+      "$value": "#C239B3"
+    },
+    "colorPaletteBerryBorder2": {
+      "$type": "color",
+      "$value": "#D161C4"
+    },
+    "colorPaletteBerryBorderActive": {
+      "$type": "color",
+      "$value": "#DA7ED0"
+    },
+    "colorPaletteBerryForeground1": {
+      "$type": "color",
+      "$value": "#DA7ED0"
+    },
+    "colorPaletteBerryForeground2": {
+      "$type": "color",
+      "$value": "#EDBBE7"
+    },
+    "colorPaletteBerryForeground3": {
+      "$type": "color",
+      "$value": "#D161C4"
+    },
+    "colorPaletteBlueBackground2": {
+      "$type": "color",
+      "$value": "#004377"
+    },
+    "colorPaletteBlueBorderActive": {
+      "$type": "color",
+      "$value": "#5CAAE5"
+    },
+    "colorPaletteBlueForeground2": {
+      "$type": "color",
+      "$value": "#A9D3F2"
+    },
+    "colorPaletteBrassBackground2": {
+      "$type": "color",
+      "$value": "#553E06"
+    },
+    "colorPaletteBrassBorderActive": {
+      "$type": "color",
+      "$value": "#C1A256"
+    },
+    "colorPaletteBrassForeground2": {
+      "$type": "color",
+      "$value": "#E0CEA2"
+    },
+    "colorPaletteBrownBackground2": {
+      "$type": "color",
+      "$value": "#50301A"
+    },
+    "colorPaletteBrownBorderActive": {
+      "$type": "color",
+      "$value": "#BB8F6F"
+    },
+    "colorPaletteBrownForeground2": {
+      "$type": "color",
+      "$value": "#DDC3B0"
+    },
+    "colorPaletteCornflowerBackground2": {
+      "$type": "color",
+      "$value": "#2C3C85"
+    },
+    "colorPaletteCornflowerBorderActive": {
+      "$type": "color",
+      "$value": "#93A4F4"
+    },
+    "colorPaletteCornflowerForeground2": {
+      "$type": "color",
+      "$value": "#C8D1FA"
+    },
+    "colorPaletteCranberryBackground2": {
+      "$type": "color",
+      "$value": "#6E0811"
+    },
+    "colorPaletteCranberryBorderActive": {
+      "$type": "color",
+      "$value": "#DC626D"
+    },
+    "colorPaletteCranberryForeground2": {
+      "$type": "color",
+      "$value": "#EEACB2"
+    },
+    "colorPaletteDarkGreenBackground2": {
+      "$type": "color",
+      "$value": "#063B06"
+    },
+    "colorPaletteDarkGreenBorderActive": {
+      "$type": "color",
+      "$value": "#4DA64D"
+    },
+    "colorPaletteDarkGreenForeground2": {
+      "$type": "color",
+      "$value": "#9AD29A"
+    },
+    "colorPaletteDarkOrangeBackground1": {
+      "$type": "color",
+      "$value": "#411200"
+    },
+    "colorPaletteDarkOrangeBackground2": {
+      "$type": "color",
+      "$value": "#7A2101"
+    },
+    "colorPaletteDarkOrangeBackground3": {
+      "$type": "color",
+      "$value": "#DA3B01"
+    },
+    "colorPaletteDarkOrangeBorder1": {
+      "$type": "color",
+      "$value": "#DA3B01"
+    },
+    "colorPaletteDarkOrangeBorder2": {
+      "$type": "color",
+      "$value": "#E9835E"
+    },
+    "colorPaletteDarkOrangeBorderActive": {
+      "$type": "color",
+      "$value": "#E9835E"
+    },
+    "colorPaletteDarkOrangeForeground1": {
+      "$type": "color",
+      "$value": "#E9835E"
+    },
+    "colorPaletteDarkOrangeForeground2": {
+      "$type": "color",
+      "$value": "#F4BFAB"
+    },
+    "colorPaletteDarkOrangeForeground3": {
+      "$type": "color",
+      "$value": "#E9835E"
+    },
+    "colorPaletteDarkRedBackground2": {
+      "$type": "color",
+      "$value": "#590815"
+    },
+    "colorPaletteDarkRedBorderActive": {
+      "$type": "color",
+      "$value": "#AC4F5E"
+    },
+    "colorPaletteDarkRedForeground2": {
+      "$type": "color",
+      "$value": "#D69CA5"
+    },
+    "colorPaletteForestBackground2": {
+      "$type": "color",
+      "$value": "#294903"
+    },
+    "colorPaletteForestBorderActive": {
+      "$type": "color",
+      "$value": "#85B44C"
+    },
+    "colorPaletteForestForeground2": {
+      "$type": "color",
+      "$value": "#BDD99B"
+    },
+    "colorPaletteGoldBackground2": {
+      "$type": "color",
+      "$value": "#6C5700"
+    },
+    "colorPaletteGoldBorderActive": {
+      "$type": "color",
+      "$value": "#DAC157"
+    },
+    "colorPaletteGoldForeground2": {
+      "$type": "color",
+      "$value": "#ECDFA5"
+    },
+    "colorPaletteGrapeBackground2": {
+      "$type": "color",
+      "$value": "#4C0D55"
+    },
+    "colorPaletteGrapeBorderActive": {
+      "$type": "color",
+      "$value": "#B55FC1"
+    },
+    "colorPaletteGrapeForeground2": {
+      "$type": "color",
+      "$value": "#D9A7E0"
+    },
+    "colorPaletteGreenBackground1": {
+      "$type": "color",
+      "$value": "#052505"
+    },
+    "colorPaletteGreenBackground2": {
+      "$type": "color",
+      "$value": "#094509"
+    },
+    "colorPaletteGreenBackground3": {
+      "$type": "color",
+      "$value": "#107C10"
+    },
+    "colorPaletteGreenBorder1": {
+      "$type": "color",
+      "$value": "#107C10"
+    },
+    "colorPaletteGreenBorder2": {
+      "$type": "color",
+      "$value": "#9FD89F"
+    },
+    "colorPaletteGreenBorderActive": {
+      "$type": "color",
+      "$value": "#54B054"
+    },
+    "colorPaletteGreenForeground1": {
+      "$type": "color",
+      "$value": "#54B054"
+    },
+    "colorPaletteGreenForeground2": {
+      "$type": "color",
+      "$value": "#9FD89F"
+    },
+    "colorPaletteGreenForeground3": {
+      "$type": "color",
+      "$value": "#9FD89F"
+    },
+    "colorPaletteGreenForegroundInverted": {
+      "$type": "color",
+      "$value": "#107C10"
+    },
+    "colorPaletteLavenderBackground2": {
+      "$type": "color",
+      "$value": "#3F3682"
+    },
+    "colorPaletteLavenderBorderActive": {
+      "$type": "color",
+      "$value": "#A79CF1"
+    },
+    "colorPaletteLavenderForeground2": {
+      "$type": "color",
+      "$value": "#D2CCF8"
+    },
+    "colorPaletteLightGreenBackground1": {
+      "$type": "color",
+      "$value": "#063004"
+    },
+    "colorPaletteLightGreenBackground2": {
+      "$type": "color",
+      "$value": "#0B5A08"
+    },
+    "colorPaletteLightGreenBackground3": {
+      "$type": "color",
+      "$value": "#13A10E"
+    },
+    "colorPaletteLightGreenBorder1": {
+      "$type": "color",
+      "$value": "#13A10E"
+    },
+    "colorPaletteLightGreenBorder2": {
+      "$type": "color",
+      "$value": "#3DB838"
+    },
+    "colorPaletteLightGreenBorderActive": {
+      "$type": "color",
+      "$value": "#5EC75A"
+    },
+    "colorPaletteLightGreenForeground1": {
+      "$type": "color",
+      "$value": "#5EC75A"
+    },
+    "colorPaletteLightGreenForeground2": {
+      "$type": "color",
+      "$value": "#A7E3A5"
+    },
+    "colorPaletteLightGreenForeground3": {
+      "$type": "color",
+      "$value": "#3DB838"
+    },
+    "colorPaletteLightTealBackground2": {
+      "$type": "color",
+      "$value": "#00666D"
+    },
+    "colorPaletteLightTealBorderActive": {
+      "$type": "color",
+      "$value": "#58D3DB"
+    },
+    "colorPaletteLightTealForeground2": {
+      "$type": "color",
+      "$value": "#A6E9ED"
+    },
+    "colorPaletteLilacBackground2": {
+      "$type": "color",
+      "$value": "#63276D"
+    },
+    "colorPaletteLilacBorderActive": {
+      "$type": "color",
+      "$value": "#CF87DA"
+    },
+    "colorPaletteLilacForeground2": {
+      "$type": "color",
+      "$value": "#E6BFED"
+    },
+    "colorPaletteMagentaBackground2": {
+      "$type": "color",
+      "$value": "#6B0043"
+    },
+    "colorPaletteMagentaBorderActive": {
+      "$type": "color",
+      "$value": "#D957A8"
+    },
+    "colorPaletteMagentaForeground2": {
+      "$type": "color",
+      "$value": "#ECA5D1"
+    },
+    "colorPaletteMarigoldBackground1": {
+      "$type": "color",
+      "$value": "#463100"
+    },
+    "colorPaletteMarigoldBackground2": {
+      "$type": "color",
+      "$value": "#835B00"
+    },
+    "colorPaletteMarigoldBackground3": {
+      "$type": "color",
+      "$value": "#EAA300"
+    },
+    "colorPaletteMarigoldBorder1": {
+      "$type": "color",
+      "$value": "#EAA300"
+    },
+    "colorPaletteMarigoldBorder2": {
+      "$type": "color",
+      "$value": "#EFB839"
+    },
+    "colorPaletteMarigoldBorderActive": {
+      "$type": "color",
+      "$value": "#F2C661"
+    },
+    "colorPaletteMarigoldForeground1": {
+      "$type": "color",
+      "$value": "#F2C661"
+    },
+    "colorPaletteMarigoldForeground2": {
+      "$type": "color",
+      "$value": "#F9E2AE"
+    },
+    "colorPaletteMarigoldForeground3": {
+      "$type": "color",
+      "$value": "#EFB839"
+    },
+    "colorPaletteMinkBackground2": {
+      "$type": "color",
+      "$value": "#343231"
+    },
+    "colorPaletteMinkBorderActive": {
+      "$type": "color",
+      "$value": "#9E9B99"
+    },
+    "colorPaletteMinkForeground2": {
+      "$type": "color",
+      "$value": "#CECCCB"
+    },
+    "colorPaletteNavyBackground2": {
+      "$type": "color",
+      "$value": "#001665"
+    },
+    "colorPaletteNavyBorderActive": {
+      "$type": "color",
+      "$value": "#546FD2"
+    },
+    "colorPaletteNavyForeground2": {
+      "$type": "color",
+      "$value": "#A3B2E8"
+    },
+    "colorPalettePeachBackground2": {
+      "$type": "color",
+      "$value": "#8F4E00"
+    },
+    "colorPalettePeachBorderActive": {
+      "$type": "color",
+      "$value": "#FFBA66"
+    },
+    "colorPalettePeachForeground2": {
+      "$type": "color",
+      "$value": "#FFDDB3"
+    },
+    "colorPalettePinkBackground2": {
+      "$type": "color",
+      "$value": "#80215D"
+    },
+    "colorPalettePinkBorderActive": {
+      "$type": "color",
+      "$value": "#EF85C8"
+    },
+    "colorPalettePinkForeground2": {
+      "$type": "color",
+      "$value": "#F7C0E3"
+    },
+    "colorPalettePlatinumBackground2": {
+      "$type": "color",
+      "$value": "#3B4447"
+    },
+    "colorPalettePlatinumBorderActive": {
+      "$type": "color",
+      "$value": "#A0ADB2"
+    },
+    "colorPalettePlatinumForeground2": {
+      "$type": "color",
+      "$value": "#CDD6D8"
+    },
+    "colorPalettePlumBackground2": {
+      "$type": "color",
+      "$value": "#5A003B"
+    },
+    "colorPalettePlumBorderActive": {
+      "$type": "color",
+      "$value": "#AD4589"
+    },
+    "colorPalettePlumForeground2": {
+      "$type": "color",
+      "$value": "#D696C0"
+    },
+    "colorPalettePumpkinBackground2": {
+      "$type": "color",
+      "$value": "#712D09"
+    },
+    "colorPalettePumpkinBorderActive": {
+      "$type": "color",
+      "$value": "#DF8E64"
+    },
+    "colorPalettePumpkinForeground2": {
+      "$type": "color",
+      "$value": "#EFC4AD"
+    },
+    "colorPalettePurpleBackground2": {
+      "$type": "color",
+      "$value": "#341A51"
+    },
+    "colorPalettePurpleBorderActive": {
+      "$type": "color",
+      "$value": "#9470BD"
+    },
+    "colorPalettePurpleForeground2": {
+      "$type": "color",
+      "$value": "#C6B1DE"
+    },
+    "colorPaletteRedBackground1": {
+      "$type": "color",
+      "$value": "#3F1011"
+    },
+    "colorPaletteRedBackground2": {
+      "$type": "color",
+      "$value": "#751D1F"
+    },
+    "colorPaletteRedBackground3": {
+      "$type": "color",
+      "$value": "#D13438"
+    },
+    "colorPaletteRedBorder1": {
+      "$type": "color",
+      "$value": "#D13438"
+    },
+    "colorPaletteRedBorder2": {
+      "$type": "color",
+      "$value": "#E37D80"
+    },
+    "colorPaletteRedBorderActive": {
+      "$type": "color",
+      "$value": "#E37D80"
+    },
+    "colorPaletteRedForeground1": {
+      "$type": "color",
+      "$value": "#E37D80"
+    },
+    "colorPaletteRedForeground2": {
+      "$type": "color",
+      "$value": "#F1BBBC"
+    },
+    "colorPaletteRedForeground3": {
+      "$type": "color",
+      "$value": "#E37D80"
+    },
+    "colorPaletteRedForegroundInverted": {
+      "$type": "color",
+      "$value": "#D13438"
+    },
+    "colorPaletteRoyalBlueBackground2": {
+      "$type": "color",
+      "$value": "#002C4E"
+    },
+    "colorPaletteRoyalBlueBorderActive": {
+      "$type": "color",
+      "$value": "#4A89BA"
+    },
+    "colorPaletteRoyalBlueForeground2": {
+      "$type": "color",
+      "$value": "#9ABFDC"
+    },
+    "colorPaletteSeafoamBackground2": {
+      "$type": "color",
+      "$value": "#00723B"
+    },
+    "colorPaletteSeafoamBorderActive": {
+      "$type": "color",
+      "$value": "#5AE0A0"
+    },
+    "colorPaletteSeafoamForeground2": {
+      "$type": "color",
+      "$value": "#A8F0CD"
+    },
+    "colorPaletteSteelBackground2": {
+      "$type": "color",
+      "$value": "#00333F"
+    },
+    "colorPaletteSteelBorderActive": {
+      "$type": "color",
+      "$value": "#4496A9"
+    },
+    "colorPaletteSteelForeground2": {
+      "$type": "color",
+      "$value": "#94C8D4"
+    },
+    "colorPaletteTealBackground2": {
+      "$type": "color",
+      "$value": "#02494C"
+    },
+    "colorPaletteTealBorderActive": {
+      "$type": "color",
+      "$value": "#4CB4B7"
+    },
+    "colorPaletteTealForeground2": {
+      "$type": "color",
+      "$value": "#9BD9DB"
+    },
+    "colorPaletteYellowBackground1": {
+      "$type": "color",
+      "$value": "#4C4400"
+    },
+    "colorPaletteYellowBackground2": {
+      "$type": "color",
+      "$value": "#817400"
+    },
+    "colorPaletteYellowBackground3": {
+      "$type": "color",
+      "$value": "#FDE300"
+    },
+    "colorPaletteYellowBorder1": {
+      "$type": "color",
+      "$value": "#FDE300"
+    },
+    "colorPaletteYellowBorder2": {
+      "$type": "color",
+      "$value": "#FDEA3D"
+    },
+    "colorPaletteYellowBorderActive": {
+      "$type": "color",
+      "$value": "#FEEE66"
+    },
+    "colorPaletteYellowForeground1": {
+      "$type": "color",
+      "$value": "#FEEE66"
+    },
+    "colorPaletteYellowForeground2": {
+      "$type": "color",
+      "$value": "#FEF7B2"
+    },
+    "colorPaletteYellowForeground3": {
+      "$type": "color",
+      "$value": "#FDEA3D"
+    },
+    "colorPaletteYellowForegroundInverted": {
+      "$type": "color",
+      "$value": "#817400"
+    },
+    "colorStatusDangerBackground1": {
+      "$type": "color",
+      "$value": "#3B0509"
+    },
+    "colorStatusDangerBackground2": {
+      "$type": "color",
+      "$value": "#6E0811"
+    },
+    "colorStatusDangerBackground3": {
+      "$type": "color",
+      "$value": "#C50F1F"
+    },
+    "colorStatusDangerBackground3Hover": {
+      "$type": "color",
+      "$value": "#B10E1C"
+    },
+    "colorStatusDangerBackground3Pressed": {
+      "$type": "color",
+      "$value": "#960B18"
+    },
+    "colorStatusDangerBorder1": {
+      "$type": "color",
+      "$value": "#C50F1F"
+    },
+    "colorStatusDangerBorder2": {
+      "$type": "color",
+      "$value": "#DC626D"
+    },
+    "colorStatusDangerBorderActive": {
+      "$type": "color",
+      "$value": "#DC626D"
+    },
+    "colorStatusDangerForeground1": {
+      "$type": "color",
+      "$value": "#DC626D"
+    },
+    "colorStatusDangerForeground2": {
+      "$type": "color",
+      "$value": "#EEACB2"
+    },
+    "colorStatusDangerForeground3": {
+      "$type": "color",
+      "$value": "#EEACB2"
+    },
+    "colorStatusDangerForegroundInverted": {
+      "$type": "color",
+      "$value": "#B10E1C"
+    },
+    "colorStatusSuccessBackground1": {
+      "$type": "color",
+      "$value": "#052505"
+    },
+    "colorStatusSuccessBackground2": {
+      "$type": "color",
+      "$value": "#094509"
+    },
+    "colorStatusSuccessBackground3": {
+      "$type": "color",
+      "$value": "#107C10"
+    },
+    "colorStatusSuccessBorder1": {
+      "$type": "color",
+      "$value": "#107C10"
+    },
+    "colorStatusSuccessBorder2": {
+      "$type": "color",
+      "$value": "#9FD89F"
+    },
+    "colorStatusSuccessBorderActive": {
+      "$type": "color",
+      "$value": "#54B054"
+    },
+    "colorStatusSuccessForeground1": {
+      "$type": "color",
+      "$value": "#54B054"
+    },
+    "colorStatusSuccessForeground2": {
+      "$type": "color",
+      "$value": "#9FD89F"
+    },
+    "colorStatusSuccessForeground3": {
+      "$type": "color",
+      "$value": "#9FD89F"
+    },
+    "colorStatusSuccessForegroundInverted": {
+      "$type": "color",
+      "$value": "#0E700E"
+    },
+    "colorStatusWarningBackground1": {
+      "$type": "color",
+      "$value": "#4A1E04"
+    },
+    "colorStatusWarningBackground2": {
+      "$type": "color",
+      "$value": "#8A3707"
+    },
+    "colorStatusWarningBackground3": {
+      "$type": "color",
+      "$value": "#F7630C"
+    },
+    "colorStatusWarningBorder1": {
+      "$type": "color",
+      "$value": "#F7630C"
+    },
+    "colorStatusWarningBorder2": {
+      "$type": "color",
+      "$value": "#F98845"
+    },
+    "colorStatusWarningBorderActive": {
+      "$type": "color",
+      "$value": "#FAA06B"
+    },
+    "colorStatusWarningForeground1": {
+      "$type": "color",
+      "$value": "#FAA06B"
+    },
+    "colorStatusWarningForeground2": {
+      "$type": "color",
+      "$value": "#FDCFB4"
+    },
+    "colorStatusWarningForeground3": {
+      "$type": "color",
+      "$value": "#F98845"
+    },
+    "colorStatusWarningForegroundInverted": {
+      "$type": "color",
+      "$value": "#BC4B09"
+    },
+    "colorStrokeFocus1": {
+      "$type": "color",
+      "$value": "#000000"
+    },
+    "colorStrokeFocus2": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "colorSubtleBackgroundHover": {
+      "$type": "color",
+      "$value": "#383838"
+    },
+    "colorSubtleBackgroundPressed": {
+      "$type": "color",
+      "$value": "#2E2E2E"
+    },
+    "colorSubtleBackgroundSelected": {
+      "$type": "color",
+      "$value": "#333333"
+    }
+  }
+}

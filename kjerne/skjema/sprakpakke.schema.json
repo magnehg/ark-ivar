@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://login.magnehg.no/skjema/sprakpakke.schema.json",
+  "title": "Bivrost: manifestet for en språkpakke (sprakpakke.json)",
+  "type": "object",
+  "required": [
+    "format",
+    "formatversjon",
+    "kode",
+    "navn",
+    "versjon"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "const": "bivrost-sprakpakke"
+    },
+    "formatversjon": {
+      "const": 1
+    },
+    "kode": {
+      "type": "string",
+      "description": "BCP 47: språk, valgfritt skrift (ISO 15924) og region (ISO 3166-1 eller UN M.49)",
+      "pattern": "^[a-z]{2,3}(-[A-Z][a-z]{3})?(-([A-Z]{2}|[0-9]{3}))?$"
+    },
+    "navn": {
+      "type": "object",
+      "description": "Navnet på språket, minst på språket selv",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "versjon": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "dekker": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Modulfilene eller pakkene pakken har tekster for"
+    },
+    "retning": {
+      "enum": [
+        "ltr",
+        "rtl"
+      ]
+    },
+    "lisens": {
+      "type": "string",
+      "description": "SPDX-uttrykk"
+    }
+  }
+}

@@ -1,0 +1,291 @@
+/* Bivrost – grunnfilen med designtokenene (BIV-GRS-01–06). Generert av grensesnitt/skript/lag-tokens.ts: endre tokenene, ikke denne filen.
+ * Fargene for hvert tema ligger i stil/tema/<tema>.css (BIV-B-028). Lenk grunnfilen og temaet brukeren har valgt:
+ *   <link rel="stylesheet" href="…/stil/bivrost.css"> <link rel="stylesheet" href="…/stil/tema/marine.css" data-bivrost-tema-fil="aktiv">
+ * Uten temafil gir grunnfilen Marine og turkis, lys, normal kontrast.
+ * Bruk: <html data-bivrost-tema="marine" data-bivrost-modus="system|lys|mork" data-bivrost-kontrast="system|normal|hoy"
+ *        data-bivrost-bredde="begrenset|full" data-bivrost-tetthet="romslig|kompakt" data-bivrost-bevegelse="system|ja|nei">
+ * Appene bruker variablene (var(--bivrost-…)), aldri faste farger. Leveres fra appens egen server (ingen CDN).
+ * Skriften Gerd Sans er Microsofts Selawik (SIL Open Font License 1.1), se ../fonter/LES-MEG.txt. */
+
+@font-face { font-family: 'Gerd Sans'; src: url('../fonter/gerd-sans-regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Gerd Sans'; src: url('../fonter/gerd-sans-semibold.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Gerd Sans'; src: url('../fonter/gerd-sans-bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+
+:root {
+  --bivrost-typografi-familie-standard: 'Segoe UI', 'Gerd Sans', -apple-system, 'BlinkMacSystemFont', 'Roboto', 'Helvetica Neue', sans-serif;
+  --bivrost-typografi-familie-tall: 'Segoe UI', 'Gerd Sans', sans-serif;
+  --bivrost-typografi-familie-kode: 'Consolas', 'Courier New', monospace;
+  --bivrost-typografi-tall-funksjoner: "tnum" 1, "lnum" 1;
+  --bivrost-typografi-storrelse-100: 10px;
+  --bivrost-typografi-storrelse-200: 12px;
+  --bivrost-typografi-storrelse-300: 14px;
+  --bivrost-typografi-storrelse-400: 16px;
+  --bivrost-typografi-storrelse-500: 20px;
+  --bivrost-typografi-storrelse-600: 24px;
+  --bivrost-typografi-storrelse-700: 28px;
+  --bivrost-typografi-storrelse-800: 32px;
+  --bivrost-typografi-storrelse-900: 40px;
+  --bivrost-typografi-storrelse-1000: 68px;
+  --bivrost-typografi-linjehoyde-100: 14px;
+  --bivrost-typografi-linjehoyde-200: 16px;
+  --bivrost-typografi-linjehoyde-300: 20px;
+  --bivrost-typografi-linjehoyde-400: 22px;
+  --bivrost-typografi-linjehoyde-500: 28px;
+  --bivrost-typografi-linjehoyde-600: 32px;
+  --bivrost-typografi-linjehoyde-700: 36px;
+  --bivrost-typografi-linjehoyde-800: 40px;
+  --bivrost-typografi-linjehoyde-900: 52px;
+  --bivrost-typografi-linjehoyde-1000: 92px;
+  --bivrost-typografi-vekt-vanlig: 400;
+  --bivrost-typografi-vekt-halvfet: 600;
+  --bivrost-typografi-vekt-fet: 700;
+  --bivrost-avstand-ingen: 0px;
+  --bivrost-avstand-xxs: 2px;
+  --bivrost-avstand-xs: 4px;
+  --bivrost-avstand-sxs: 6px;
+  --bivrost-avstand-s: 8px;
+  --bivrost-avstand-ms: 10px;
+  --bivrost-avstand-m: 12px;
+  --bivrost-avstand-l: 16px;
+  --bivrost-avstand-xl: 20px;
+  --bivrost-avstand-xxl: 24px;
+  --bivrost-avstand-xxxl: 32px;
+  --bivrost-radius-ingen: 0px;
+  --bivrost-radius-liten: 2px;
+  --bivrost-radius-middels: 4px;
+  --bivrost-radius-stor: 6px;
+  --bivrost-radius-xstor: 8px;
+  --bivrost-radius-sirkel: 10000px;
+  --bivrost-kantbredde-tynn: 1px;
+  --bivrost-kantbredde-tykk: 2px;
+  --bivrost-kantbredde-tykkere: 3px;
+  --bivrost-kantbredde-tykkest: 4px;
+  --bivrost-lag-innhold: 0;
+  --bivrost-lag-sidemeny: 100;
+  --bivrost-lag-toppfelt: 200;
+  --bivrost-lag-nedtrekk: 1000;
+  --bivrost-lag-dialog: 2000;
+  --bivrost-lag-varsel: 3000;
+  --bivrost-lag-verktoytips: 4000;
+  --bivrost-tetthet-romslig-kontrollhoyde: 32px;
+  --bivrost-tetthet-romslig-radhoyde: 44px;
+  --bivrost-tetthet-romslig-celleavstand: 12px;
+  --bivrost-tetthet-kompakt-kontrollhoyde: 24px;
+  --bivrost-tetthet-kompakt-radhoyde: 32px;
+  --bivrost-tetthet-kompakt-celleavstand: 6px;
+  --bivrost-bredde-begrenset: 1600px;
+  --bivrost-bredde-sidemeny: 240px;
+  --bivrost-bredde-lesebredde: 72ch;
+  --bivrost-brytepunkt-smal: 480px;
+  --bivrost-brytepunkt-middels: 768px;
+  --bivrost-brytepunkt-bred: 1024px;
+  --bivrost-brytepunkt-stor: 1366px;
+  --bivrost-brytepunkt-svaer: 1920px;
+  --bivrost-ikon-liten: 16px;
+  --bivrost-ikon-standard: 20px;
+  --bivrost-ikon-stor: 24px;
+  --bivrost-ikon-xstor: 32px;
+  --bivrost-ikon-hel: 48px;
+  --bivrost-bevegelse-varighet-ultrarask: 50ms;
+  --bivrost-bevegelse-varighet-raskere: 100ms;
+  --bivrost-bevegelse-varighet-rask: 150ms;
+  --bivrost-bevegelse-varighet-normal: 200ms;
+  --bivrost-bevegelse-varighet-rolig: 250ms;
+  --bivrost-bevegelse-varighet-langsom: 300ms;
+  --bivrost-bevegelse-varighet-langsommere: 400ms;
+  --bivrost-bevegelse-varighet-ultralangsom: 500ms;
+  --bivrost-bevegelse-kurve-standard: cubic-bezier(0.33, 0, 0.67, 1);
+  --bivrost-bevegelse-kurve-inn: cubic-bezier(0.9, 0.1, 1, 0.2);
+  --bivrost-bevegelse-kurve-ut: cubic-bezier(0.1, 0.9, 0.2, 1);
+  --bivrost-bevegelse-kurve-lineaer: cubic-bezier(0, 0, 1, 1);
+  --bivrost-fokus-bredde: 2px;
+  --bivrost-fokus-avstand: 2px;
+  --bivrost-innholdsbredde: var(--bivrost-bredde-begrenset);
+  --bivrost-kontrollhoyde: var(--bivrost-tetthet-romslig-kontrollhoyde);
+  --bivrost-radhoyde: var(--bivrost-tetthet-romslig-radhoyde);
+  --bivrost-celleavstand: var(--bivrost-tetthet-romslig-celleavstand);
+  color-scheme: light;
+}
+:root[data-bivrost-bredde="full"] { --bivrost-innholdsbredde: 100%; }
+:root[data-bivrost-tetthet="kompakt"] {
+  --bivrost-kontrollhoyde: var(--bivrost-tetthet-kompakt-kontrollhoyde);
+  --bivrost-radhoyde: var(--bivrost-tetthet-kompakt-radhoyde);
+  --bivrost-celleavstand: var(--bivrost-tetthet-kompakt-celleavstand);
+}
+
+/* Standard uten valg: Marine og turkis, lys, normal kontrast. */
+:root {
+  --bivrost-farge-bakgrunn-side: #F5F5F5;
+  --bivrost-farge-bakgrunn-flate-1: #FFFFFF;
+  --bivrost-farge-bakgrunn-flate-2: #FAFAFA;
+  --bivrost-farge-bakgrunn-flate-3: #F0F0F0;
+  --bivrost-farge-bakgrunn-hover: #F5F5F5;
+  --bivrost-farge-bakgrunn-trykket: #E0E0E0;
+  --bivrost-farge-bakgrunn-valgt: #CCFFFF;
+  --bivrost-farge-bakgrunn-valgt-hover: #B3F5FF;
+  --bivrost-farge-bakgrunn-deaktivert: #F0F0F0;
+  --bivrost-farge-bakgrunn-overlegg: #00000066;
+  --bivrost-farge-tekst-standard: #242424;
+  --bivrost-farge-tekst-dempet: #424242;
+  --bivrost-farge-tekst-deaktivert: #BDBDBD;
+  --bivrost-farge-tekst-pa-merkevare: #FFFFFF;
+  --bivrost-farge-tekst-merkevare: #003366;
+  --bivrost-farge-tekst-lenke: #002E5C;
+  --bivrost-farge-tekst-lenke-hover: #002853;
+  --bivrost-farge-tekst-lenke-besokt: #5C2E91;
+  --bivrost-farge-kant-svak: #E0E0E0;
+  --bivrost-farge-kant-standard: #D1D1D1;
+  --bivrost-farge-kant-sterk: #616161;
+  --bivrost-farge-kant-fokus: #000000;
+  --bivrost-farge-kant-valgt: #003366;
+  --bivrost-farge-merkevare-bakgrunn: #003366;
+  --bivrost-farge-merkevare-bakgrunn-hover: #002E5C;
+  --bivrost-farge-merkevare-bakgrunn-trykket: #001E41;
+  --bivrost-farge-merkevare-bakgrunn-valgt: #002853;
+  --bivrost-farge-merkevare-hoved: #003366;
+  --bivrost-farge-merkevare-aksent: #33CCFF;
+  --bivrost-farge-merkevare-lys: #CCFFFF;
+  --bivrost-farge-toppfelt-bakgrunn: #003366;
+  --bivrost-farge-toppfelt-tekst: #FFFFFF;
+  --bivrost-farge-toppfelt-kant: #003366;
+  --bivrost-farge-toppfelt-logo-fyll: #33CCFF;
+  --bivrost-farge-toppfelt-logo-ramme: #FFFFFF;
+  --bivrost-farge-status-ok-bakgrunn: #E7F2E7;
+  --bivrost-farge-status-ok-tekst: #107C10;
+  --bivrost-farge-status-ok-kant: #107C10;
+  --bivrost-farge-status-ok-ikon: #107C10;
+  --bivrost-farge-status-advarsel-bakgrunn: #F9EFE6;
+  --bivrost-farge-status-advarsel-tekst: #B05100;
+  --bivrost-farge-status-advarsel-kant: #C25E00;
+  --bivrost-farge-status-advarsel-ikon: #C25E00;
+  --bivrost-farge-status-feil-bakgrunn: #F9E7E9;
+  --bivrost-farge-status-feil-tekst: #C50F1F;
+  --bivrost-farge-status-feil-kant: #C50F1F;
+  --bivrost-farge-status-feil-ikon: #C50F1F;
+  --bivrost-farge-status-info-bakgrunn: #E7F0F8;
+  --bivrost-farge-status-info-tekst: #0F6CBD;
+  --bivrost-farge-status-info-kant: #0F6CBD;
+  --bivrost-farge-status-info-ikon: #0F6CBD;
+  --bivrost-farge-status-pagar-bakgrunn: #EFEAF4;
+  --bivrost-farge-status-pagar-tekst: #5C2E91;
+  --bivrost-farge-status-pagar-kant: #5C2E91;
+  --bivrost-farge-status-pagar-ikon: #5C2E91;
+  --bivrost-farge-status-noytral-bakgrunn: #EFEFEF;
+  --bivrost-farge-status-noytral-tekst: #616161;
+  --bivrost-farge-status-noytral-kant: #616161;
+  --bivrost-farge-status-noytral-ikon: #616161;
+  --bivrost-farge-data-kategorisk-1: #0072B2;
+  --bivrost-farge-data-kategorisk-2: #BE7F00;
+  --bivrost-farge-data-kategorisk-3: #009E73;
+  --bivrost-farge-data-kategorisk-4: #C3729F;
+  --bivrost-farge-data-kategorisk-5: #3E95C5;
+  --bivrost-farge-data-kategorisk-6: #D55E00;
+  --bivrost-farge-data-kategorisk-7: #998E00;
+  --bivrost-farge-data-kategorisk-8: #000000;
+  --bivrost-farge-data-sekvensiell-1: #EBEFF3;
+  --bivrost-farge-data-sekvensiell-2: #C2CEDB;
+  --bivrost-farge-data-sekvensiell-3: #9BADC4;
+  --bivrost-farge-data-sekvensiell-4: #748EAC;
+  --bivrost-farge-data-sekvensiell-5: #4F6F95;
+  --bivrost-farge-data-sekvensiell-6: #2B517D;
+  --bivrost-farge-data-sekvensiell-7: #003366;
+  --bivrost-farge-data-tekst-pa-sekvensiell-1: #000000;
+  --bivrost-farge-data-tekst-pa-sekvensiell-2: #000000;
+  --bivrost-farge-data-tekst-pa-sekvensiell-3: #000000;
+  --bivrost-farge-data-tekst-pa-sekvensiell-4: #000000;
+  --bivrost-farge-data-tekst-pa-sekvensiell-5: #FFFFFF;
+  --bivrost-farge-data-tekst-pa-sekvensiell-6: #FFFFFF;
+  --bivrost-farge-data-tekst-pa-sekvensiell-7: #FFFFFF;
+  --bivrost-farge-data-divergerende-1: #2166AC;
+  --bivrost-farge-data-divergerende-2: #5A8AC0;
+  --bivrost-farge-data-divergerende-3: #8EAED4;
+  --bivrost-farge-data-divergerende-4: #C2D2E6;
+  --bivrost-farge-data-divergerende-5: #F7F7F7;
+  --bivrost-farge-data-divergerende-6: #E9CFC0;
+  --bivrost-farge-data-divergerende-7: #D9A88A;
+  --bivrost-farge-data-divergerende-8: #C78054;
+  --bivrost-farge-data-divergerende-9: #B35806;
+  --bivrost-farge-data-tekst-pa-divergerende-1: #FFFFFF;
+  --bivrost-farge-data-tekst-pa-divergerende-2: #000000;
+  --bivrost-farge-data-tekst-pa-divergerende-3: #000000;
+  --bivrost-farge-data-tekst-pa-divergerende-4: #000000;
+  --bivrost-farge-data-tekst-pa-divergerende-5: #000000;
+  --bivrost-farge-data-tekst-pa-divergerende-6: #000000;
+  --bivrost-farge-data-tekst-pa-divergerende-7: #000000;
+  --bivrost-farge-data-tekst-pa-divergerende-8: #000000;
+  --bivrost-farge-data-tekst-pa-divergerende-9: #FFFFFF;
+  --bivrost-farge-archimate-strategi-fyll: #F5DEAA;
+  --bivrost-farge-archimate-strategi-tekst: #000000;
+  --bivrost-farge-archimate-strategi-kant: #7C5E05;
+  --bivrost-farge-archimate-forretning-fyll: #FFFFB5;
+  --bivrost-farge-archimate-forretning-tekst: #000000;
+  --bivrost-farge-archimate-forretning-kant: #777300;
+  --bivrost-farge-archimate-applikasjon-fyll: #B5FFFF;
+  --bivrost-farge-archimate-applikasjon-tekst: #000000;
+  --bivrost-farge-archimate-applikasjon-kant: #007B7D;
+  --bivrost-farge-archimate-teknologi-fyll: #C9E7B7;
+  --bivrost-farge-archimate-teknologi-tekst: #000000;
+  --bivrost-farge-archimate-teknologi-kant: #496D2E;
+  --bivrost-farge-archimate-fysisk-fyll: #C9E7B7;
+  --bivrost-farge-archimate-fysisk-tekst: #000000;
+  --bivrost-farge-archimate-fysisk-kant: #496D2E;
+  --bivrost-farge-archimate-motivasjon-fyll: #CCCCFF;
+  --bivrost-farge-archimate-motivasjon-tekst: #000000;
+  --bivrost-farge-archimate-motivasjon-kant: #575391;
+  --bivrost-farge-archimate-implementering-fyll: #FFE0E0;
+  --bivrost-farge-archimate-implementering-tekst: #000000;
+  --bivrost-farge-archimate-implementering-kant: #805C5C;
+  --bivrost-skygge-2: 0px 0px 2px 0px #0000001F, 0px 1px 2px 0px #00000024;
+  --bivrost-skygge-4: 0px 0px 2px 0px #0000001F, 0px 2px 4px 0px #00000024;
+  --bivrost-skygge-8: 0px 0px 2px 0px #0000001F, 0px 4px 8px 0px #00000024;
+  --bivrost-skygge-16: 0px 0px 8px 0px #0000001F, 0px 8px 16px 0px #00000024;
+  --bivrost-skygge-28: 0px 0px 8px 0px #0000001F, 0px 14px 28px 0px #00000024;
+  --bivrost-skygge-64: 0px 0px 8px 0px #0000001F, 0px 32px 64px 0px #00000024;
+}
+
+/* Redusert bevegelse (WCAG 2.3.3): systemets valg, eller brukerens (data-bivrost-bevegelse="ja"). */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-bivrost-bevegelse="nei"]) { --bivrost-bevegelse-varighet-ultrarask: 0ms; --bivrost-bevegelse-varighet-raskere: 0ms; --bivrost-bevegelse-varighet-rask: 0ms; --bivrost-bevegelse-varighet-normal: 0ms; --bivrost-bevegelse-varighet-rolig: 0ms; --bivrost-bevegelse-varighet-langsom: 0ms; --bivrost-bevegelse-varighet-langsommere: 0ms; --bivrost-bevegelse-varighet-ultralangsom: 0ms; }
+  :root:not([data-bivrost-bevegelse="nei"]) *, :root:not([data-bivrost-bevegelse="nei"]) *::before, :root:not([data-bivrost-bevegelse="nei"]) *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+:root[data-bivrost-bevegelse="ja"] { --bivrost-bevegelse-varighet-ultrarask: 0ms; --bivrost-bevegelse-varighet-raskere: 0ms; --bivrost-bevegelse-varighet-rask: 0ms; --bivrost-bevegelse-varighet-normal: 0ms; --bivrost-bevegelse-varighet-rolig: 0ms; --bivrost-bevegelse-varighet-langsom: 0ms; --bivrost-bevegelse-varighet-langsommere: 0ms; --bivrost-bevegelse-varighet-ultralangsom: 0ms; }
+:root[data-bivrost-bevegelse="ja"] *, :root[data-bivrost-bevegelse="ja"] *::before, :root[data-bivrost-bevegelse="ja"] *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+
+/* Tvungne farger (Windows høy kontrast, PLT-11): systemfargene tar over, også over temafilene (!important). */
+@media (forced-colors: active) {
+  :root {
+    --bivrost-farge-bakgrunn-side: Canvas !important; --bivrost-farge-bakgrunn-flate-1: Canvas !important; --bivrost-farge-bakgrunn-flate-2: Canvas !important; --bivrost-farge-bakgrunn-flate-3: Canvas !important;
+    --bivrost-farge-bakgrunn-valgt: Highlight !important; --bivrost-farge-tekst-standard: CanvasText !important; --bivrost-farge-tekst-dempet: CanvasText !important;
+    --bivrost-farge-tekst-lenke: LinkText !important; --bivrost-farge-tekst-lenke-besokt: VisitedText !important; --bivrost-farge-tekst-deaktivert: GrayText !important;
+    --bivrost-farge-kant-sterk: CanvasText !important; --bivrost-farge-kant-standard: CanvasText !important; --bivrost-farge-kant-fokus: Highlight !important;
+    --bivrost-farge-merkevare-bakgrunn: ButtonFace !important; --bivrost-farge-tekst-pa-merkevare: ButtonText !important;
+  }
+  :focus-visible { outline-color: Highlight; }
+}
+
+/* Synlig fokus (WCAG 2.4.7, 2.4.11, 2.4.13). */
+:focus-visible { outline: var(--bivrost-fokus-bredde) solid var(--bivrost-farge-kant-fokus); outline-offset: var(--bivrost-fokus-avstand); }
+
+body {
+  margin: 0;
+  background: var(--bivrost-farge-bakgrunn-side);
+  color: var(--bivrost-farge-tekst-standard);
+  font-family: var(--bivrost-typografi-familie-standard);
+  font-size: var(--bivrost-typografi-storrelse-300);
+  line-height: var(--bivrost-typografi-linjehoyde-300);
+}
+a { color: var(--bivrost-farge-tekst-lenke); }
+a:visited { color: var(--bivrost-farge-tekst-lenke-besokt); }
+a:hover { color: var(--bivrost-farge-tekst-lenke-hover); }
+.bivrost-tall { font-family: var(--bivrost-typografi-familie-tall); font-feature-settings: var(--bivrost-typografi-tall-funksjoner); }
+.bivrost-dempet { color: var(--bivrost-farge-tekst-dempet); }
+.bivrost-skjult { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.bivrost-feilside main { max-width: var(--bivrost-bredde-lesebredde); margin: var(--bivrost-avstand-xxxl) auto; padding: var(--bivrost-avstand-xxl); background: var(--bivrost-farge-bakgrunn-flate-1); border-radius: var(--bivrost-radius-middels); box-shadow: var(--bivrost-skygge-4); }
+
+/* Utskrift: svart på hvitt (!important, så temafilene ikke vinner), uten skygger og uten det som er merket .bivrost-ikke-utskrift. */
+@media print {
+  :root { color-scheme: light !important; --bivrost-farge-bakgrunn-side: #FFFFFF !important; --bivrost-farge-bakgrunn-flate-1: #FFFFFF !important; --bivrost-farge-tekst-standard: #000000 !important; --bivrost-farge-tekst-dempet: #333333 !important; --bivrost-farge-tekst-lenke: #000000 !important; }
+  * { box-shadow: none !important; }
+  .bivrost-ikke-utskrift { display: none !important; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; }
+}

@@ -1,0 +1,17 @@
+Gerd Sans
+=========
+
+Gerd Sans er Microsofts åpne skrift Selawik, bygget fra Microsofts egne kildefiler
+(https://github.com/microsoft/Selawik, commit 89362e84731d1f5777fa078fd4d5ebbd339e4378).
+Microsoft lager Selawik som en åpen erstatning for Segoe UI. Bivrost og appene bruker Segoe UI
+der den finnes (Windows), og Gerd Sans ellers (PLT-09, B-042, BIV-B-012).
+
+Lisens: SIL Open Font License 1.1 (se OFL.txt). Opphavsrett: © 2015 Microsoft Corporation.
+
+Hvorfor et annet navn: «Selawik» er et reservert fontnavn i lisensen. Skriftfiler som er bygget
+eller endret av andre enn Microsoft, kan ikke hete Selawik. Halvfet (600) er interpolert mellom
+vanlig og fet. Filene er de samme som i Gerð (bygget med fontmake 3.12.2 og fonttools 4.68.0).
+Navnet «Gerd Sans» er beholdt i Bivrost, så appene ikke må endres; om skriften skal hete noe
+annet i Bivrost, er et åpent spørsmål (docs/beslutninger.md).
+
+Filene leveres fra appens egen server av Bivrost Kjerne (/bivrost/ressurser/fonter/…), aldri fra CDN.

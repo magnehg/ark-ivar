@@ -1,0 +1,248 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://login.magnehg.no/skjema/logghendelse.schema.json",
+  "title": "Bivrost: en hendelse i det felles loggformatet",
+  "description": "BIV-LOG-01. Klartekst ved siden av alle koder (BIV-LOG-03). Tid i RFC 3339 (UTC).",
+  "type": "object",
+  "required": [
+    "id",
+    "tid",
+    "kategori",
+    "hva",
+    "hvem",
+    "objekt",
+    "for",
+    "etter",
+    "apper",
+    "kilde",
+    "korrelasjon",
+    "data"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "tid": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "kategori": {
+      "type": "object",
+      "required": [
+        "kode",
+        "tekst"
+      ],
+      "properties": {
+        "kode": {
+          "enum": [
+            "revisjon",
+            "sikkerhet"
+          ]
+        },
+        "tekst": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "hva": {
+      "type": "object",
+      "required": [
+        "urn",
+        "tekst"
+      ],
+      "properties": {
+        "urn": {
+          "type": "string",
+          "pattern": "^urn:"
+        },
+        "tekst": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "hvem": {
+      "type": "object",
+      "required": [
+        "type",
+        "type_tekst",
+        "id",
+        "navn",
+        "tittel"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "bruker",
+            "lokal",
+            "api",
+            "kommandolinje",
+            "system"
+          ]
+        },
+        "type_tekst": {
+          "type": "string"
+        },
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "navn": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tittel": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "objekt": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "app",
+            "type",
+            "type_tekst",
+            "id",
+            "navn"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "app": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "type": {
+              "type": "string"
+            },
+            "type_tekst": {
+              "type": "string"
+            },
+            "id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "navn": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "for": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "kode",
+          "tekst"
+        ],
+        "properties": {
+          "kode": {
+            "type": [
+              "string",
+              "integer",
+              "boolean",
+              "number",
+              "null"
+            ]
+          },
+          "tekst": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "etter": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "kode",
+          "tekst"
+        ],
+        "properties": {
+          "kode": {
+            "type": [
+              "string",
+              "integer",
+              "boolean",
+              "number",
+              "null"
+            ]
+          },
+          "tekst": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "apper": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "navn"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "navn": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "kilde": {
+      "type": "object",
+      "required": [
+        "kode",
+        "tekst"
+      ],
+      "properties": {
+        "kode": {
+          "enum": [
+            "nett",
+            "api",
+            "kommandolinje",
+            "system"
+          ]
+        },
+        "tekst": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "korrelasjon": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "data": {
+      "type": "object"
+    }
+  }
+}

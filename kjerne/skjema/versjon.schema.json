@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://login.magnehg.no/skjema/versjon.schema.json",
+  "title": "Bivrost: versjon.json i en versjonspakke (og <tag>.versjon.json)",
+  "type": "object",
+  "required": [
+    "pakke",
+    "versjon",
+    "tag",
+    "commit",
+    "dato",
+    "krever"
+  ],
+  "properties": {
+    "pakke": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,39}$"
+    },
+    "versjon": {
+      "type": "string",
+      "description": "Semantic Versioning 2.0.0",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(-[0-9A-Za-z.-]+)?$"
+    },
+    "tag": {
+      "type": "string"
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "dato": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "oppdateres_fra": {
+      "type": "string",
+      "pattern": "^>=[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Mellomstopp (valgfri): den laveste installerte versjonen av samme pakke denne versjonen kan oppdateres fra, som «>=X.Y.Z» (BIV-DRF-16). Ligger installasjonen lavere (også en forhåndsversjon av X.Y.Z), legges en eldre versjon inn først. Uten feltet kan versjonen oppdateres fra alle eldre versjoner."
+    },
+    "krever": {
+      "type": "object",
+      "description": "Kompatibilitet: pakke-ID eller «php» → semver-krav (Composer-syntaks)",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

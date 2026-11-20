@@ -1,0 +1,36 @@
+{
+  "name": "@bivrost/grensesnitt",
+  "version": "0.1.0",
+  "description": "Bivrosts designpakke: designtokens (W3C-formatet) for fem fargetemaer i lys, mørk og høy kontrast, Fluent UI v9-tema generert fra dem, stilfilen, skriften Gerd Sans, felles ikoner, kontrastsjekken og preferansene i nettleseren.",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "engines": {
+    "node": ">=22.6"
+  },
+  "exports": {
+    "./farger": "./src/farger.ts",
+    "./temaer": "./src/temaer.ts",
+    "./fluent": "./src/fluent.ts",
+    "./preferanser": "./src/preferanser.ts",
+    "./tokens/*": "./tokens/*",
+    "./stil/bivrost.css": "./stil/bivrost.css",
+    "./stil/tema/*": "./stil/tema/*"
+  },
+  "scripts": {
+    "tokens": "node --experimental-strip-types skript/lag-tokens.ts",
+    "sjekk": "node --experimental-strip-types skript/lag-tokens.ts --sjekk && node --experimental-strip-types skript/sjekk-kontrast.ts && node --experimental-strip-types skript/sjekk-faste-farger.ts src stil",
+    "test": "node --experimental-strip-types --test test/*.test.ts"
+  },
+  "peerDependencies": {
+    "@fluentui/react-components": "^9.56.0"
+  },
+  "peerDependenciesMeta": {
+    "@fluentui/react-components": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@fluentui/tokens": "1.0.0-alpha.24"
+  }
+}

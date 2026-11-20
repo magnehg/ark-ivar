@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="tester/bootstrap.php"
+         colors="true"
+         failOnWarning="true"
+         failOnRisky="true"
+         failOnDeprecation="true"
+         failOnNotice="true"
+         beStrictAboutOutputDuringTests="true"
+         cacheDirectory=".phpunit.cache"
+         executionOrder="default">
+    <testsuites>
+        <testsuite name="enhet">
+            <directory>tester/Enhet</directory>
+        </testsuite>
+        <testsuite name="integrasjon">
+            <directory>tester/Integrasjon</directory>
+        </testsuite>
+        <testsuite name="ende-til-ende">
+            <directory>tester/EndeTilEnde</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory>src</directory>
+        </include>
+    </source>
+    <php>
+        <ini name="display_errors" value="1"/>
+        <ini name="error_reporting" value="-1"/>
+        <ini name="error_log" value="/dev/null"/>
+    </php>
+</phpunit>

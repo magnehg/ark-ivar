@@ -23,6 +23,7 @@
 ## Figur: avskriving
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#FFFFFF", "primaryBorderColor": "#003366", "primaryTextColor": "#242424", "secondaryColor": "#F0F0F0", "tertiaryColor": "#FAFAFA", "lineColor": "#616161", "textColor": "#616161", "clusterBkg": "#FAFAFA", "clusterBorder": "#D1D1D1", "edgeLabelBackground": "#FFFFFF", "noteBkgColor": "#E7F0F8", "noteBorderColor": "#0F6CBD", "actorBorder": "#003366", "signalColor": "#616161", "signalTextColor": "#616161"}}}%%
 flowchart TD
     start(["Inngående dokument<br/>er journalført: restanse"]) --> svar{"Krever dokumentet<br/>et svar?"}
     svar -->|nei| hand{"Skal kommunen innrette<br/>seg etter innholdet?"}
@@ -49,9 +50,10 @@ flowchart TD
 
 De fem måtene er obligatoriske verdier i Noark 5. Kodene er innarbeidet fra eldre versjoner av standarden.
 
-## Figur: avslutning av saken
+## Figur: tilstandene til en sak
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#FFFFFF", "primaryBorderColor": "#003366", "primaryTextColor": "#242424", "secondaryColor": "#F0F0F0", "tertiaryColor": "#FAFAFA", "lineColor": "#616161", "textColor": "#616161", "clusterBkg": "#FAFAFA", "clusterBorder": "#D1D1D1", "edgeLabelBackground": "#FFFFFF", "noteBkgColor": "#E7F0F8", "noteBorderColor": "#0F6CBD", "actorBorder": "#003366", "signalColor": "#616161", "signalTextColor": "#616161"}}}%%
 stateDiagram-v2
     direction LR
     state "Under behandling" as B
@@ -81,6 +83,10 @@ stateDiagram-v2
 
 ### Restansekontroll
 
+![BPMN-diagram: P5 Restansekontroll](../figurer/p5-restanse.svg)
+
+Figuren følger BPMN. Symbolene er forklart i [oversikten](README.md#symbolene-i-figurene).
+
 | Steg | Hvem | Hva gjøres |
 |---|---|---|
 | 1 | Dokumentsenteret | Tar ut restanselisten den første arbeidsdagen i hver måned, sortert på enhet, saksbehandler og alder |
@@ -89,6 +95,10 @@ stateDiagram-v2
 | 4 | Arkivleder | Rapporterer restansesituasjonen til kommunedirektøren to ganger i året, som en del av internkontrollen |
 
 ### Avslutning av saken
+
+![BPMN-diagram: P5 Avslutning av saken](../figurer/p5-avslutning.svg)
+
+Figuren følger BPMN. Symbolene er forklart i [oversikten](README.md#symbolene-i-figurene).
 
 | Steg | Hvem | Hva gjøres |
 |---|---|---|

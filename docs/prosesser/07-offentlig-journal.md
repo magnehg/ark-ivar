@@ -18,21 +18,9 @@ til hjemmelen.
 
 ## Figur
 
-```mermaid
-flowchart TD
-    start(["Journalposter med status<br/>Journalført for en dato"]) --> uttrekk["Systemet lager utkast:<br/>skjermede felt byttes ut med<br/>stjerner og hjemmel"]
-    uttrekk --> les["Dokumentsenteret leser<br/>gjennom hele utkastet"]
-    les --> funn{"Står det noe som<br/>ikke kan publiseres?"}
-    funn -->|ja| rett["Rette skjermingen<br/>i journalposten"]
-    rett --> uttrekk
-    funn -->|nei| over{"Er noe skjermet<br/>uten grunn?"}
-    over -->|ja| apne["Fjerne unødvendig<br/>skjerming"]
-    apne --> uttrekk
-    over -->|nei| pub["Publisere på<br/>kommunens nettside"]
-    pub --> krav(["Innbyggere kan bestille<br/>innsyn fra journalen: P8"])
-    pub --> etter{"Feil oppdaget<br/>etter publisering?"}
-    etter -->|ja| avvik(["Rette straks og<br/>melde avvik: P6"])
-```
+![BPMN-diagram: P7 Offentlig journal](../figurer/p7-offentlig-journal.svg)
+
+Figuren følger BPMN. Symbolene er forklart i [oversikten](README.md#symbolene-i-figurene).
 
 ## Rutine steg for steg
 

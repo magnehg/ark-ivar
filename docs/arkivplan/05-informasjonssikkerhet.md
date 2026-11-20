@@ -36,20 +36,9 @@ Reglene om taushetsplikt er forklart i [P9](../prosesser/09-skjerming-og-tilgang
 
 ## Tilgangsstyring
 
-```mermaid
-flowchart TD
-    start(["Ny ansatt, nye oppgaver<br/>eller ny rolle"]) --> best["Enhetslederen bestiller tilgang:<br/>arkivdeler, tilgangskoder og rolle"]
-    best --> krav{"Opplæring gjennomført<br/>og taushetserklæring signert?"}
-    krav -->|nei| vent["Tilgang gis ikke ennå"]
-    vent --> krav
-    krav -->|ja| gi["Dokumentsenteret gir tilgangen<br/>og fører den i tilgangsoversikten"]
-    gi --> bruk["Tilgangen brukes.<br/>Oppslag i skjermede saker logges"]
-    bruk --> endring{"Bytter oppgaver,<br/>har permisjon eller slutter?"}
-    endring -->|ja| fjern["Lederen melder fra samme dag.<br/>Tilgangen endres eller fjernes"]
-    endring -->|nei| aar["Årlig gjennomgang:<br/>lederen bekrefter hver tilgang"]
-    aar --> bruk
-    fjern --> slutt(["Tilgangen er i samsvar<br/>med tjenstlig behov"])
-```
+![BPMN-diagram: Tilgangsstyring](../figurer/tilgang.svg)
+
+Figuren følger BPMN. Symbolene er forklart i [oversikten over prosessene](../prosesser/README.md#symbolene-i-figurene).
 
 | Regel | Innhold |
 |---|---|

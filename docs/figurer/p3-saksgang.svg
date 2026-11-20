@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2208 512" width="2208" height="512" role="img" font-family="'Segoe UI', 'Gerd Sans', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="13">
+<title>P3 Saksgangen fram til vedtak</title><desc>BPMN-diagram. Basseng: Sirevåg kommune. Baner: Saksbehandler, Leder. Eksterne deltakere: Parten. Elementer i rekkefølge: Saksbehandler: Journalpost fordelt. Saksbehandler: Lese saken. Vurdere habilitet og tidsbruk. Saksbehandler: Kan saken avgjøres innen en måned?. Saksbehandler: Sende foreløpig svar. Saksbehandler: Opplyse saken: innhente uttalelser, skrive notater. Saksbehandler: Har parten fått uttale seg?. Saksbehandler: Sende forhåndsvarsel med frist. Saksbehandler: Skrive vedtak med begrunnelse. Leder: Vurdere vedtaket. Leder: Godkjent?. Saksbehandler: Sende vedtaket med opplysning om klagerett. Saksbehandler: Klagefristen løper.</desc>
+<style>.bp-flate{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF)}.bp-hode{fill:var(--bivrost-farge-bakgrunn-flate-3, #F0F0F0)}.bp-ramme{fill:none;stroke:var(--bivrost-farge-kant-sterk, #616161)}.bp-skille{stroke:var(--bivrost-farge-kant-sterk, #616161)}.bp-navn{fill:var(--bivrost-farge-tekst-standard, #242424);font-weight:600;font-size:12px}.bp-oppgave{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke:var(--bivrost-farge-tekst-standard, #242424);stroke-width:1.25}.bp-valg,.bp-start,.bp-slutt{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke:var(--bivrost-farge-tekst-merkevare, #003366);stroke-width:1.5}.bp-slutt{stroke-width:4}.bp-kryss{fill:none;stroke:var(--bivrost-farge-tekst-merkevare, #003366);stroke-width:2.5;stroke-linecap:round}.bp-ikon{fill:none;stroke:var(--bivrost-farge-tekst-merkevare, #003366);stroke-width:1.25;stroke-linejoin:round}.bp-tekst{fill:var(--bivrost-farge-tekst-standard, #242424);font-size:12px}.bp-etikett{fill:var(--bivrost-farge-tekst-standard, #242424);font-size:12px;paint-order:stroke;stroke:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke-width:4px;stroke-linejoin:round}.bp-flytetikett{fill:var(--bivrost-farge-tekst-merkevare, #003366);font-weight:600}.bp-flyt{fill:none;stroke:var(--bivrost-farge-tekst-dempet, #424242);stroke-width:1.5}.bp-pil{fill:var(--bivrost-farge-tekst-dempet, #424242)}.bp-melding{fill:none;stroke:var(--bivrost-farge-tekst-dempet, #424242);stroke-width:1.25;stroke-dasharray:6 4}.bp-meldingspil{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke:var(--bivrost-farge-tekst-dempet, #424242);stroke-width:1.25}@media (prefers-color-scheme: dark){svg{--bivrost-farge-bakgrunn-flate-1:#292929;--bivrost-farge-bakgrunn-flate-3:#0A0A0A;--bivrost-farge-kant-sterk:#ADADAD;--bivrost-farge-tekst-standard:#FFFFFF;--bivrost-farge-tekst-dempet:#D6D6D6;--bivrost-farge-tekst-merkevare:#33CCFF}}</style>
+<rect class="bp-flate" x="16" y="16" width="2176" height="48"/><rect class="bp-ramme" x="16" y="16" width="2176" height="48"/><text class="bp-navn" x="32" y="44.5">Parten</text>
+<rect class="bp-flate" x="16" y="112" width="2176" height="384"/>
+<rect class="bp-hode" x="16" y="112" width="64" height="384"/>
+<text class="bp-navn" text-anchor="middle" transform="translate(32,304) rotate(-90)"><tspan x="0" y="4.5">Sirevåg kommune</tspan></text>
+<text class="bp-navn" text-anchor="middle" transform="translate(64,240) rotate(-90)"><tspan x="0" y="4.5">Saksbehandler</tspan></text>
+<text class="bp-navn" text-anchor="middle" transform="translate(64,432) rotate(-90)"><tspan x="0" y="4.5">Leder</tspan></text>
+<line class="bp-skille" x1="48" y1="368" x2="2192" y2="368"/>
+<line class="bp-skille" x1="48" y1="112" x2="48" y2="496"/>
+<line class="bp-skille" x1="80" y1="112" x2="80" y2="496"/>
+<rect class="bp-ramme" x="16" y="112" width="2176" height="384"/>
+<path class="bp-melding" d="M696,264 L696,71"/><polygon class="bp-meldingspil" points="696,64 700.5,73 691.5,73"/><circle class="bp-meldingspil" cx="696" cy="264" r="3.5"/>
+<path class="bp-melding" d="M1224,264 L1224,71"/><polygon class="bp-meldingspil" points="1224,64 1228.5,73 1219.5,73"/><circle class="bp-meldingspil" cx="1224" cy="264" r="3.5"/>
+<path class="bp-melding" d="M1928,136 L1928,71"/><polygon class="bp-meldingspil" points="1928,64 1932.5,73 1923.5,73"/><circle class="bp-meldingspil" cx="1928" cy="136" r="3.5"/>
+<path class="bp-flyt" d="M184,176 L273,176"/><polygon class="bp-pil" points="280,176 271,180.5 271,171.5"/>
+<path class="bp-flyt" d="M408,176 L489,176"/><polygon class="bp-pil" points="496,176 487,180.5 487,171.5"/>
+<path class="bp-flyt" d="M544,176 L801,176"/><polygon class="bp-pil" points="808,176 799,180.5 799,171.5"/>
+<path class="bp-flyt" d="M520,200 L520,298 Q520,304 526,304 L625,304"/><polygon class="bp-pil" points="632,304 623,308.5 623,299.5"/>
+<path class="bp-flyt" d="M760,304 L786,304 Q792,304 792,298 L792,182 Q792,176 798,176 L801,176"/><polygon class="bp-pil" points="808,176 799,180.5 799,171.5"/>
+<path class="bp-flyt" d="M936,176 L1017,176"/><polygon class="bp-pil" points="1024,176 1015,180.5 1015,171.5"/>
+<path class="bp-flyt" d="M1072,176 L1329,176"/><polygon class="bp-pil" points="1336,176 1327,180.5 1327,171.5"/>
+<path class="bp-flyt" d="M1048,200 L1048,298 Q1048,304 1054,304 L1153,304"/><polygon class="bp-pil" points="1160,304 1151,308.5 1151,299.5"/>
+<path class="bp-flyt" d="M1288,304 L1314,304 Q1320,304 1320,298 L1320,182 Q1320,176 1326,176 L1329,176"/><polygon class="bp-pil" points="1336,176 1327,180.5 1327,171.5"/>
+<path class="bp-flyt" d="M1464,176 L1490,176 Q1496,176 1496,182 L1496,426 Q1496,432 1502,432 L1505,432"/><polygon class="bp-pil" points="1512,432 1503,436.5 1503,427.5"/>
+<path class="bp-flyt" d="M1640,432 L1721,432"/><polygon class="bp-pil" points="1728,432 1719,436.5 1719,427.5"/>
+<path class="bp-flyt" d="M1776,432 L1842,432 Q1848,432 1848,426 L1848,182 Q1848,176 1854,176 L1857,176"/><polygon class="bp-pil" points="1864,176 1855,180.5 1855,171.5"/>
+<path class="bp-flyt" d="M1752,456 L1752,482 Q1752,488 1746,488 L1406,488 Q1400,488 1400,482 L1400,223"/><polygon class="bp-pil" points="1400,216 1404.5,225 1395.5,225"/>
+<path class="bp-flyt" d="M1992,176 L2081,176"/><polygon class="bp-pil" points="2088,176 2079,180.5 2079,171.5"/>
+<circle class="bp-start" cx="168" cy="176" r="16"/><text class="bp-etikett" text-anchor="middle"><tspan x="168" y="209">Journalpost fordelt</tspan></text>
+<rect class="bp-oppgave" x="280" y="136" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="344" y="165">Lese saken.</tspan><tspan x="344" y="180">Vurdere habilitet</tspan><tspan x="344" y="195">og tidsbruk</tspan></text>
+<polygon class="bp-valg" points="520,152 544,176 520,200 496,176"/><path class="bp-kryss" d="M513,169 L527,183 M527,169 L513,183"/><text class="bp-etikett" text-anchor="middle"><tspan x="520" y="128">Kan saken avgjøres</tspan><tspan x="520" y="143">innen en måned?</tspan></text>
+<rect class="bp-oppgave" x="632" y="264" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="696" y="300.5">Sende foreløpig</tspan><tspan x="696" y="315.5">svar</tspan></text>
+<rect class="bp-oppgave" x="808" y="136" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="872" y="157.5">Opplyse saken:</tspan><tspan x="872" y="172.5">innhente</tspan><tspan x="872" y="187.5">uttalelser, skrive</tspan><tspan x="872" y="202.5">notater</tspan></text>
+<polygon class="bp-valg" points="1048,152 1072,176 1048,200 1024,176"/><path class="bp-kryss" d="M1041,169 L1055,183 M1055,169 L1041,183"/><text class="bp-etikett" text-anchor="middle"><tspan x="1048" y="128">Har parten fått uttale</tspan><tspan x="1048" y="143">seg?</tspan></text>
+<rect class="bp-oppgave" x="1160" y="264" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="1224" y="293">Sende</tspan><tspan x="1224" y="308">forhåndsvarsel med</tspan><tspan x="1224" y="323">frist</tspan></text>
+<rect class="bp-oppgave" x="1336" y="136" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="1400" y="172.5">Skrive vedtak med</tspan><tspan x="1400" y="187.5">begrunnelse</tspan></text>
+<rect class="bp-oppgave" x="1512" y="392" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="1576" y="436">Vurdere vedtaket</tspan></text>
+<polygon class="bp-valg" points="1752,408 1776,432 1752,456 1728,432"/><path class="bp-kryss" d="M1745,425 L1759,439 M1759,425 L1745,439"/><text class="bp-etikett" text-anchor="middle"><tspan x="1752" y="399">Godkjent?</tspan></text>
+<rect class="bp-oppgave" x="1864" y="136" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="1928" y="165">Sende vedtaket med</tspan><tspan x="1928" y="180">opplysning om</tspan><tspan x="1928" y="195">klagerett</tspan></text>
+<circle class="bp-slutt" cx="2104" cy="176" r="14.5"/><text class="bp-etikett" text-anchor="middle"><tspan x="2104" y="209">Klagefristen løper</tspan></text>
+<text class="bp-etikett bp-flytetikett" x="702" y="257" text-anchor="start">Foreløpig svar</text>
+<text class="bp-etikett bp-flytetikett" x="1230" y="257" text-anchor="start">Forhåndsvarsel</text>
+<text class="bp-etikett bp-flytetikett" x="1934" y="129" text-anchor="start">Vedtak</text>
+<text class="bp-etikett bp-flytetikett" x="549" y="170" text-anchor="start">ja</text>
+<text class="bp-etikett bp-flytetikett" x="526" y="215" text-anchor="start">nei</text>
+<text class="bp-etikett bp-flytetikett" x="1077" y="170" text-anchor="start">ja</text>
+<text class="bp-etikett bp-flytetikett" x="1054" y="215" text-anchor="start">nei</text>
+<text class="bp-etikett bp-flytetikett" x="1781" y="426" text-anchor="start">ja</text>
+<text class="bp-etikett bp-flytetikett" x="1758" y="471" text-anchor="start">nei</text>
+</svg>

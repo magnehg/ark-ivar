@@ -25,51 +25,11 @@ til kommunestyret selv, skal til politisk behandling. Kommunens delegeringsregle
 | Tildeling av barnehageplass | Barnehagestruktur og opptaksregler |
 | Utbetaling av tilskudd etter faste satser | Budsjett og retningslinjer for tilskudd |
 
-## Figur: saken gjennom det politiske systemet
+## Figur
 
-```mermaid
-sequenceDiagram
-    autonumber
-    participant B as Saksbehandler
-    participant K as Kommunedirektør
-    participant P as Politisk sekretariat
-    participant O as Folkevalgt organ
-    participant A as Parter og allmennhet
-    B->>B: Skriver saksframlegg i saken (S)
-    B->>K: Saksframlegg til godkjenning
-    K-->>B: Godkjent med innstilling
-    B->>P: Saken meldes til møte
-    P->>O: Innkalling med saksliste og dokumenter
-    P->>A: Møtet kunngjøres. Dokumentene legges ut
-    O->>O: Møte: behandling og votering
-    P->>P: Møtebok skrives og godkjennes
-    P->>B: Vedtaket legges i saken
-    B->>A: Melding om vedtak til partene (U)
-    B->>B: Setter vedtaket i verk
-```
+![BPMN-diagram: P10 Politisk behandling](../figurer/p10-politisk.svg)
 
-## Figur: beslutningene underveis
-
-```mermaid
-flowchart TD
-    start(["Sak skal til<br/>politisk behandling"]) --> sf["Skrive saksframlegg:<br/>bakgrunn, fakta, regler,<br/>vurdering og forslag til vedtak"]
-    sf --> taus{"Inneholder saken<br/>taushetsbelagte opplysninger?"}
-    taus -->|ja| todelt["Legge opplysningene i et<br/>skjermet vedlegg, eller<br/>skjerme saksframlegget"]
-    taus -->|nei| godkj
-    todelt --> godkj{"Finner kommunedirektøren<br/>saken forsvarlig utredet?"}
-    godkj -->|nei| sf
-    godkj -->|ja| liste["Lederen av organet<br/>setter saken på sakslisten"]
-    liste --> innk["Innkalling, kunngjøring<br/>og publisering av dokumentene"]
-    innk --> mote{"Skal møtet lukkes<br/>under behandlingen?"}
-    mote -->|ja| lukk["Organet vedtar lukking.<br/>Hjemmelen føres i møteboka"]
-    mote -->|nei| beh
-    lukk --> beh["Behandling og vedtak"]
-    beh --> mb["Møtebok"]
-    mb --> videre{"Skal saken videre til<br/>et annet organ?"}
-    videre -->|ja| liste
-    videre -->|nei| melding["Melding om vedtak til partene,<br/>med klageopplysning når<br/>det er et enkeltvedtak"]
-    melding --> iverk(["Vedtaket settes i verk.<br/>Saken avsluttes etter P5"])
-```
+Figuren følger BPMN. Symbolene er forklart i [oversikten](README.md#symbolene-i-figurene).
 
 ## Rutine steg for steg
 

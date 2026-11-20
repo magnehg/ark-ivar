@@ -39,6 +39,7 @@ dokumentasjonen skal kunne finnes igjen.
 ## Tre vurderinger for hvert dokument
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#FFFFFF", "primaryBorderColor": "#003366", "primaryTextColor": "#242424", "secondaryColor": "#F0F0F0", "tertiaryColor": "#FAFAFA", "lineColor": "#616161", "textColor": "#616161", "clusterBkg": "#FAFAFA", "clusterBorder": "#D1D1D1", "edgeLabelBackground": "#FFFFFF", "noteBkgColor": "#E7F0F8", "noteBorderColor": "#0F6CBD", "actorBorder": "#003366", "signalColor": "#616161", "signalTextColor": "#616161"}}}%%
 flowchart TD
     start(["Et dokument er mottatt<br/>eller laget"]) --> a{"1. Skal det forvaltes<br/>som arkiv?"}
     a -->|nei| ikke(["Ikke arkiv:<br/>kan legges bort eller slettes"])
@@ -73,6 +74,7 @@ Det har ingen betydning for om dokumentet skal arkiveres eller journalføres.
 Ark-Ivar følger strukturen i Noark 5. Hvert nivå svarer på ett spørsmål.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#FFFFFF", "primaryBorderColor": "#003366", "primaryTextColor": "#242424", "secondaryColor": "#F0F0F0", "tertiaryColor": "#FAFAFA", "lineColor": "#616161", "textColor": "#616161", "clusterBkg": "#FAFAFA", "clusterBorder": "#D1D1D1", "edgeLabelBackground": "#FFFFFF", "noteBkgColor": "#E7F0F8", "noteBorderColor": "#0F6CBD", "actorBorder": "#003366", "signalColor": "#616161", "signalTextColor": "#616161"}}}%%
 classDiagram
     direction TB
     class Arkiv {
@@ -188,6 +190,7 @@ bruker i tillegg de fire som er merket med stjerne.
 | Utgår | U | Registreringen var feil og skal ikke brukes. Den slettes ikke |
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#FFFFFF", "primaryBorderColor": "#003366", "primaryTextColor": "#242424", "secondaryColor": "#F0F0F0", "tertiaryColor": "#FAFAFA", "lineColor": "#616161", "textColor": "#616161", "clusterBkg": "#FAFAFA", "clusterBorder": "#D1D1D1", "edgeLabelBackground": "#FFFFFF", "noteBkgColor": "#E7F0F8", "noteBorderColor": "#0F6CBD", "actorBorder": "#003366", "signalColor": "#616161", "signalTextColor": "#616161"}}}%%
 stateDiagram-v2
     direction LR
     state "Midlertidig (M)" as M

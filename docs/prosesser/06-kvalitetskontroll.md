@@ -14,22 +14,9 @@
 
 ## Figur: den daglige kontrollen
 
-```mermaid
-flowchart TD
-    start(["Journalposter registrert<br/>siden forrige kontroll"]) --> apne["Åpne journalposten<br/>og dokumentet"]
-    apne --> sak{"Riktig sak<br/>og klasse?"}
-    sak -->|nei| flytt["Flytte journalposten<br/>eller rette klassen"]
-    sak -->|ja| tit
-    flytt --> tit{"Tittel, avsender, mottaker<br/>og datoer riktige?"}
-    tit -->|nei| rett["Rette opplysningene"]
-    tit -->|ja| skj
-    rett --> skj{"Riktig skjerming<br/>med hjemmel?"}
-    skj -->|nei| rskj["Rette skjermingen.<br/>Ved tvil: spørre saksbehandleren"]
-    skj -->|ja| dok
-    rskj --> dok{"Dokumentet ferdigstilt,<br/>lesbart og faktisk sendt?"}
-    dok -->|nei| tilbake(["Tilbake til saksbehandleren<br/>med merknad"])
-    dok -->|ja| j(["Status Journalført.<br/>Klar for offentlig journal"])
-```
+![BPMN-diagram: P6 Den daglige kontrollen](../figurer/p6-kontroll.svg)
+
+Figuren følger BPMN. Symbolene er forklart i [oversikten](README.md#symbolene-i-figurene).
 
 ## Rutine: kontrollkalenderen
 
@@ -62,24 +49,9 @@ flowchart TD
 
 ## Figur: retting av feil
 
-```mermaid
-flowchart TD
-    feil(["En feil er oppdaget"]) --> type{"Hva slags feil?"}
-    type -->|"feil i opplysninger:<br/>tittel, dato, navn"| meta["Rette feltet.<br/>Gammel og ny verdi logges"]
-    type -->|"ligger i feil sak"| flytt["Flytte journalposten.<br/>Flyttingen logges, og<br/>nummeret den hadde, brukes ikke igjen"]
-    type -->|"registrert ved en feil"| utgar["Sette status Utgår<br/>med merknad om årsaken"]
-    type -->|"feil i et dokument<br/>som er sendt"| nytt["Lage nytt dokument<br/>som retter det gamle.<br/>Det gamle beholdes"]
-    type -->|"noe som skulle vært skjermet,<br/>har vært offentlig"| avvik["Skjerme straks.<br/>Melde avvik"]
-    meta --> dok["Dokumentere hva som<br/>ble rettet, når og hvordan"]
-    flytt --> dok
-    utgar --> dok
-    nytt --> dok
-    avvik --> pvo{"Kan personopplysninger<br/>ha kommet på avveie?"}
-    pvo -->|ja| pv["Varsle personvernombudet.<br/>Vurdere melding til Datatilsynet<br/>innen 72 timer"]
-    pvo -->|nei| dok
-    pv --> dok
-    dok --> slutt(["Feilen er rettet, og<br/>den opprinnelige informasjonen er bevart"])
-```
+![BPMN-diagram: P6 Retting av feil](../figurer/p6-retting.svg)
+
+Figuren følger BPMN. Symbolene er forklart i [oversikten](README.md#symbolene-i-figurene).
 
 ## Rutine: retting av feil
 

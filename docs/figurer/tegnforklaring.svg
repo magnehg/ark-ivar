@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 976 384" width="976" height="384" role="img" font-family="'Segoe UI', 'Gerd Sans', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="13">
+<title>Symbolene i BPMN-figurene</title><desc>BPMN-diagram. Basseng: Basseng: virksomheten. Baner: Bane: en rolle, Bane: annen rolle. Eksterne deltakere: Sammenslått basseng: en ekstern deltaker. Elementer i rekkefølge: Bane: en rolle: Starthendelse med melding. Bane: annen rolle: Starthendelse med tid. Bane: en rolle: Oppgave: noe rollen i banen gjør. Bane: annen rolle: Sekvensflyt viser rekkefølgen. Bane: en rolle: Eksklusiv port: én av veiene velges. Bane: en rolle: Oppgave som sender en melding. Bane: annen rolle: Oppgave i en annen bane. Bane: en rolle: Slutthendelse. Bane: annen rolle: Slutthendelse.</desc>
+<style>.bp-flate{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF)}.bp-hode{fill:var(--bivrost-farge-bakgrunn-flate-3, #F0F0F0)}.bp-ramme{fill:none;stroke:var(--bivrost-farge-kant-sterk, #616161)}.bp-skille{stroke:var(--bivrost-farge-kant-sterk, #616161)}.bp-navn{fill:var(--bivrost-farge-tekst-standard, #242424);font-weight:600;font-size:12px}.bp-oppgave{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke:var(--bivrost-farge-tekst-standard, #242424);stroke-width:1.25}.bp-valg,.bp-start,.bp-slutt{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke:var(--bivrost-farge-tekst-merkevare, #003366);stroke-width:1.5}.bp-slutt{stroke-width:4}.bp-kryss{fill:none;stroke:var(--bivrost-farge-tekst-merkevare, #003366);stroke-width:2.5;stroke-linecap:round}.bp-ikon{fill:none;stroke:var(--bivrost-farge-tekst-merkevare, #003366);stroke-width:1.25;stroke-linejoin:round}.bp-tekst{fill:var(--bivrost-farge-tekst-standard, #242424);font-size:12px}.bp-etikett{fill:var(--bivrost-farge-tekst-standard, #242424);font-size:12px;paint-order:stroke;stroke:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke-width:4px;stroke-linejoin:round}.bp-flytetikett{fill:var(--bivrost-farge-tekst-merkevare, #003366);font-weight:600}.bp-flyt{fill:none;stroke:var(--bivrost-farge-tekst-dempet, #424242);stroke-width:1.5}.bp-pil{fill:var(--bivrost-farge-tekst-dempet, #424242)}.bp-melding{fill:none;stroke:var(--bivrost-farge-tekst-dempet, #424242);stroke-width:1.25;stroke-dasharray:6 4}.bp-meldingspil{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke:var(--bivrost-farge-tekst-dempet, #424242);stroke-width:1.25}@media (prefers-color-scheme: dark){svg{--bivrost-farge-bakgrunn-flate-1:#292929;--bivrost-farge-bakgrunn-flate-3:#0A0A0A;--bivrost-farge-kant-sterk:#ADADAD;--bivrost-farge-tekst-standard:#FFFFFF;--bivrost-farge-tekst-dempet:#D6D6D6;--bivrost-farge-tekst-merkevare:#33CCFF}}</style>
+<rect class="bp-flate" x="16" y="16" width="944" height="48"/><rect class="bp-ramme" x="16" y="16" width="944" height="48"/><text class="bp-navn" x="32" y="44.5">Sammenslått basseng: en ekstern deltaker</text>
+<rect class="bp-flate" x="16" y="112" width="944" height="256"/>
+<rect class="bp-hode" x="16" y="112" width="64" height="256"/>
+<text class="bp-navn" text-anchor="middle" transform="translate(32,240) rotate(-90)"><tspan x="0" y="4.5">Basseng: virksomheten</tspan></text>
+<text class="bp-navn" text-anchor="middle" transform="translate(64,176) rotate(-90)"><tspan x="0" y="4.5">Bane: en rolle</tspan></text>
+<text class="bp-navn" text-anchor="middle" transform="translate(64,304) rotate(-90)"><tspan x="0" y="4.5">Bane: annen rolle</tspan></text>
+<line class="bp-skille" x1="48" y1="240" x2="960" y2="240"/>
+<line class="bp-skille" x1="48" y1="112" x2="48" y2="368"/>
+<line class="bp-skille" x1="80" y1="112" x2="80" y2="368"/>
+<rect class="bp-ramme" x="16" y="112" width="944" height="256"/>
+<path class="bp-melding" d="M168,64 L168,153"/><polygon class="bp-meldingspil" points="168,160 163.5,151 172.5,151"/><circle class="bp-meldingspil" cx="168" cy="64" r="3.5"/>
+<path class="bp-melding" d="M696,136 L696,71"/><polygon class="bp-meldingspil" points="696,64 700.5,73 691.5,73"/><circle class="bp-meldingspil" cx="696" cy="136" r="3.5"/>
+<path class="bp-flyt" d="M184,176 L273,176"/><polygon class="bp-pil" points="280,176 271,180.5 271,171.5"/>
+<path class="bp-flyt" d="M408,176 L489,176"/><polygon class="bp-pil" points="496,176 487,180.5 487,171.5"/>
+<path class="bp-flyt" d="M544,176 L625,176"/><polygon class="bp-pil" points="632,176 623,180.5 623,171.5"/>
+<path class="bp-flyt" d="M520,200 L520,298 Q520,304 526,304 L625,304"/><polygon class="bp-pil" points="632,304 623,308.5 623,299.5"/>
+<path class="bp-flyt" d="M760,176 L849,176"/><polygon class="bp-pil" points="856,176 847,180.5 847,171.5"/>
+<path class="bp-flyt" d="M184,304 L273,304"/><polygon class="bp-pil" points="280,304 271,308.5 271,299.5"/>
+<path class="bp-flyt" d="M408,304 L625,304"/><polygon class="bp-pil" points="632,304 623,308.5 623,299.5"/>
+<path class="bp-flyt" d="M760,304 L849,304"/><polygon class="bp-pil" points="856,304 847,308.5 847,299.5"/>
+<circle class="bp-start" cx="168" cy="176" r="16"/><rect class="bp-ikon" x="160" y="170.5" width="16" height="11"/><path class="bp-ikon" d="M160,170.5 L168,177 L176,170.5"/><text class="bp-etikett" text-anchor="middle"><tspan x="168" y="209">Starthendelse med</tspan><tspan x="168" y="224">melding</tspan></text>
+<rect class="bp-oppgave" x="280" y="136" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="344" y="165">Oppgave: noe</tspan><tspan x="344" y="180">rollen i banen</tspan><tspan x="344" y="195">gjør</tspan></text>
+<polygon class="bp-valg" points="520,152 544,176 520,200 496,176"/><path class="bp-kryss" d="M513,169 L527,183 M527,169 L513,183"/><text class="bp-etikett" text-anchor="middle"><tspan x="520" y="128">Eksklusiv port: én av</tspan><tspan x="520" y="143">veiene velges</tspan></text>
+<rect class="bp-oppgave" x="632" y="136" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="696" y="172.5">Oppgave som sender</tspan><tspan x="696" y="187.5">en melding</tspan></text>
+<rect class="bp-oppgave" x="632" y="264" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="696" y="300.5">Oppgave i en annen</tspan><tspan x="696" y="315.5">bane</tspan></text>
+<circle class="bp-slutt" cx="872" cy="176" r="14.5"/><text class="bp-etikett" text-anchor="middle"><tspan x="872" y="209">Slutthendelse</tspan></text>
+<circle class="bp-start" cx="168" cy="304" r="16"/><circle class="bp-ikon" cx="168" cy="304" r="9"/><path class="bp-ikon" d="M168,298 V304 H172.5"/><text class="bp-etikett" text-anchor="middle"><tspan x="168" y="337">Starthendelse med</tspan><tspan x="168" y="352">tid</tspan></text>
+<rect class="bp-oppgave" x="280" y="264" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="344" y="300.5">Sekvensflyt viser</tspan><tspan x="344" y="315.5">rekkefølgen</tspan></text>
+<circle class="bp-slutt" cx="872" cy="304" r="14.5"/><text class="bp-etikett" text-anchor="middle"><tspan x="872" y="337">Slutthendelse</tspan></text>
+<text class="bp-etikett bp-flytetikett" x="174" y="79" text-anchor="start">meldingsflyt</text>
+<text class="bp-etikett bp-flytetikett" x="702" y="129" text-anchor="start">meldingsflyt</text>
+<text class="bp-etikett bp-flytetikett" x="549" y="170" text-anchor="start">ja</text>
+<text class="bp-etikett bp-flytetikett" x="526" y="215" text-anchor="start">nei</text>
+</svg>

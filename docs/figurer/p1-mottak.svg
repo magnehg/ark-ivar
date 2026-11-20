@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1328 512" width="1328" height="512" role="img" font-family="'Segoe UI', 'Gerd Sans', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="13">
+<title>P1 Mottak og sortering</title><desc>BPMN-diagram. Basseng: Sirevåg kommune. Baner: Dokumentsenteret, Saksbehandler. Eksterne deltakere: Avsender. Elementer i rekkefølge: Dokumentsenteret: Henvendelse mottatt. Saksbehandler: Henvendelse kommet direkte. Dokumentsenteret: Hente fra kanalen. Papir stemples og skannes. Saksbehandler: Sende e-post videre. Skrive notat fra telefon og møter. Dokumentsenteret: Gjelder det kommunens ansvar?. Dokumentsenteret: Skal det forvaltes som arkiv?. Dokumentsenteret: Feilsendt: sendes til rett organ. Dokumentsenteret: Hører det til i et fagsystem?. Dokumentsenteret: Ikke arkiv: legges bort. Dokumentsenteret: Skal det journalføres?. Dokumentsenteret: Sendes til enheten med fagsystemet. Dokumentsenteret: P2: journalføres. Dokumentsenteret: P2: arkiveres uten journalføring.</desc>
+<style>.bp-flate{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF)}.bp-hode{fill:var(--bivrost-farge-bakgrunn-flate-3, #F0F0F0)}.bp-ramme{fill:none;stroke:var(--bivrost-farge-kant-sterk, #616161)}.bp-skille{stroke:var(--bivrost-farge-kant-sterk, #616161)}.bp-navn{fill:var(--bivrost-farge-tekst-standard, #242424);font-weight:600;font-size:12px}.bp-oppgave{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke:var(--bivrost-farge-tekst-standard, #242424);stroke-width:1.25}.bp-valg,.bp-start,.bp-slutt{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke:var(--bivrost-farge-tekst-merkevare, #003366);stroke-width:1.5}.bp-slutt{stroke-width:4}.bp-kryss{fill:none;stroke:var(--bivrost-farge-tekst-merkevare, #003366);stroke-width:2.5;stroke-linecap:round}.bp-ikon{fill:none;stroke:var(--bivrost-farge-tekst-merkevare, #003366);stroke-width:1.25;stroke-linejoin:round}.bp-tekst{fill:var(--bivrost-farge-tekst-standard, #242424);font-size:12px}.bp-etikett{fill:var(--bivrost-farge-tekst-standard, #242424);font-size:12px;paint-order:stroke;stroke:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke-width:4px;stroke-linejoin:round}.bp-flytetikett{fill:var(--bivrost-farge-tekst-merkevare, #003366);font-weight:600}.bp-flyt{fill:none;stroke:var(--bivrost-farge-tekst-dempet, #424242);stroke-width:1.5}.bp-pil{fill:var(--bivrost-farge-tekst-dempet, #424242)}.bp-melding{fill:none;stroke:var(--bivrost-farge-tekst-dempet, #424242);stroke-width:1.25;stroke-dasharray:6 4}.bp-meldingspil{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke:var(--bivrost-farge-tekst-dempet, #424242);stroke-width:1.25}@media (prefers-color-scheme: dark){svg{--bivrost-farge-bakgrunn-flate-1:#292929;--bivrost-farge-bakgrunn-flate-3:#0A0A0A;--bivrost-farge-kant-sterk:#ADADAD;--bivrost-farge-tekst-standard:#FFFFFF;--bivrost-farge-tekst-dempet:#D6D6D6;--bivrost-farge-tekst-merkevare:#33CCFF}}</style>
+<rect class="bp-flate" x="16" y="16" width="1296" height="48"/><rect class="bp-ramme" x="16" y="16" width="1296" height="48"/><text class="bp-navn" x="32" y="44.5">Avsender</text>
+<rect class="bp-flate" x="16" y="112" width="1296" height="384"/>
+<rect class="bp-hode" x="16" y="112" width="64" height="384"/>
+<text class="bp-navn" text-anchor="middle" transform="translate(32,304) rotate(-90)"><tspan x="0" y="4.5">Sirevåg kommune</tspan></text>
+<text class="bp-navn" text-anchor="middle" transform="translate(64,240) rotate(-90)"><tspan x="0" y="4.5">Dokumentsenteret</tspan></text>
+<text class="bp-navn" text-anchor="middle" transform="translate(64,432) rotate(-90)"><tspan x="0" y="4.5">Saksbehandler</tspan></text>
+<line class="bp-skille" x1="48" y1="368" x2="1312" y2="368"/>
+<line class="bp-skille" x1="48" y1="112" x2="48" y2="496"/>
+<line class="bp-skille" x1="80" y1="112" x2="80" y2="496"/>
+<rect class="bp-ramme" x="16" y="112" width="1296" height="384"/>
+<path class="bp-melding" d="M168,64 L168,153"/><polygon class="bp-meldingspil" points="168,160 163.5,151 172.5,151"/><circle class="bp-meldingspil" cx="168" cy="64" r="3.5"/>
+<path class="bp-flyt" d="M184,176 L273,176"/><polygon class="bp-pil" points="280,176 271,180.5 271,171.5"/>
+<path class="bp-flyt" d="M408,176 L489,176"/><polygon class="bp-pil" points="496,176 487,180.5 487,171.5"/>
+<path class="bp-flyt" d="M544,176 L665,176"/><polygon class="bp-pil" points="672,176 663,180.5 663,171.5"/>
+<path class="bp-flyt" d="M520,200 L520,298 Q520,304 526,304 L673,304"/><polygon class="bp-pil" points="680,304 671,308.5 671,299.5"/>
+<path class="bp-flyt" d="M720,176 L841,176"/><polygon class="bp-pil" points="848,176 839,180.5 839,171.5"/>
+<path class="bp-flyt" d="M696,200 L696,266 Q696,272 702,272 L866,272 Q872,272 872,278 L872,281"/><polygon class="bp-pil" points="872,288 867.5,279 876.5,279"/>
+<path class="bp-flyt" d="M896,176 L1017,176"/><polygon class="bp-pil" points="1024,176 1015,180.5 1015,171.5"/>
+<path class="bp-flyt" d="M872,200 L872,258 Q872,264 878,264 L1042,264 Q1048,264 1048,270 L1048,281"/><polygon class="bp-pil" points="1048,288 1043.5,279 1052.5,279"/>
+<path class="bp-flyt" d="M1072,176 L1201,176"/><polygon class="bp-pil" points="1208,176 1199,180.5 1199,171.5"/>
+<path class="bp-flyt" d="M1048,200 L1048,250 Q1048,256 1054,256 L1218,256 Q1224,256 1224,262 L1224,281"/><polygon class="bp-pil" points="1224,288 1219.5,279 1228.5,279"/>
+<path class="bp-flyt" d="M184,432 L273,432"/><polygon class="bp-pil" points="280,432 271,436.5 271,427.5"/>
+<path class="bp-flyt" d="M408,432 L474,432 Q480,432 480,426 L480,182 Q480,176 486,176 L489,176"/><polygon class="bp-pil" points="496,176 487,180.5 487,171.5"/>
+<circle class="bp-start" cx="168" cy="176" r="16"/><rect class="bp-ikon" x="160" y="170.5" width="16" height="11"/><path class="bp-ikon" d="M160,170.5 L168,177 L176,170.5"/><text class="bp-etikett" text-anchor="middle"><tspan x="168" y="209">Henvendelse mottatt</tspan></text>
+<rect class="bp-oppgave" x="280" y="136" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="344" y="165">Hente fra kanalen.</tspan><tspan x="344" y="180">Papir stemples og</tspan><tspan x="344" y="195">skannes</tspan></text>
+<polygon class="bp-valg" points="520,152 544,176 520,200 496,176"/><path class="bp-kryss" d="M513,169 L527,183 M527,169 L513,183"/><text class="bp-etikett" text-anchor="middle"><tspan x="520" y="128">Gjelder det kommunens</tspan><tspan x="520" y="143">ansvar?</tspan></text>
+<circle class="bp-slutt" cx="696" cy="304" r="14.5"/><text class="bp-etikett" text-anchor="middle"><tspan x="696" y="337">Feilsendt: sendes</tspan><tspan x="696" y="352">til rett organ</tspan></text>
+<polygon class="bp-valg" points="696,152 720,176 696,200 672,176"/><path class="bp-kryss" d="M689,169 L703,183 M703,169 L689,183"/><text class="bp-etikett" text-anchor="middle"><tspan x="696" y="128">Skal det forvaltes som</tspan><tspan x="696" y="143">arkiv?</tspan></text>
+<circle class="bp-slutt" cx="872" cy="304" r="14.5"/><text class="bp-etikett" text-anchor="middle"><tspan x="872" y="337">Ikke arkiv: legges</tspan><tspan x="872" y="352">bort</tspan></text>
+<polygon class="bp-valg" points="872,152 896,176 872,200 848,176"/><path class="bp-kryss" d="M865,169 L879,183 M879,169 L865,183"/><text class="bp-etikett" text-anchor="middle"><tspan x="872" y="128">Hører det til i et</tspan><tspan x="872" y="143">fagsystem?</tspan></text>
+<circle class="bp-slutt" cx="1048" cy="304" r="14.5"/><text class="bp-etikett" text-anchor="middle"><tspan x="1048" y="337">Sendes til enheten</tspan><tspan x="1048" y="352">med fagsystemet</tspan></text>
+<polygon class="bp-valg" points="1048,152 1072,176 1048,200 1024,176"/><path class="bp-kryss" d="M1041,169 L1055,183 M1055,169 L1041,183"/><text class="bp-etikett" text-anchor="middle"><tspan x="1048" y="143">Skal det journalføres?</tspan></text>
+<circle class="bp-slutt" cx="1224" cy="304" r="14.5"/><text class="bp-etikett" text-anchor="middle"><tspan x="1224" y="337">P2: arkiveres uten</tspan><tspan x="1224" y="352">journalføring</tspan></text>
+<circle class="bp-slutt" cx="1224" cy="176" r="14.5"/><text class="bp-etikett" text-anchor="middle"><tspan x="1224" y="209">P2: journalføres</tspan></text>
+<circle class="bp-start" cx="168" cy="432" r="16"/><rect class="bp-ikon" x="160" y="426.5" width="16" height="11"/><path class="bp-ikon" d="M160,426.5 L168,433 L176,426.5"/><text class="bp-etikett" text-anchor="middle"><tspan x="168" y="465">Henvendelse kommet</tspan><tspan x="168" y="480">direkte</tspan></text>
+<rect class="bp-oppgave" x="280" y="392" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="344" y="413.5">Sende e-post</tspan><tspan x="344" y="428.5">videre. Skrive</tspan><tspan x="344" y="443.5">notat fra telefon</tspan><tspan x="344" y="458.5">og møter</tspan></text>
+<text class="bp-etikett bp-flytetikett" x="174" y="79" text-anchor="start">Henvendelse</text>
+<text class="bp-etikett bp-flytetikett" x="549" y="170" text-anchor="start">ja</text>
+<text class="bp-etikett bp-flytetikett" x="526" y="215" text-anchor="start">nei</text>
+<text class="bp-etikett bp-flytetikett" x="725" y="170" text-anchor="start">ja</text>
+<text class="bp-etikett bp-flytetikett" x="702" y="215" text-anchor="start">nei</text>
+<text class="bp-etikett bp-flytetikett" x="901" y="170" text-anchor="start">nei</text>
+<text class="bp-etikett bp-flytetikett" x="878" y="215" text-anchor="start">ja</text>
+<text class="bp-etikett bp-flytetikett" x="1077" y="170" text-anchor="start">ja</text>
+<text class="bp-etikett bp-flytetikett" x="1054" y="215" text-anchor="start">nei</text>
+</svg>

@@ -22,35 +22,17 @@ opprydding er enkeltvedtak. Et svar på et spørsmål om åpningstider er det ik
 
 ## Figur: saksgangen
 
-```mermaid
-flowchart TD
-    start(["Journalpost fordelt<br/>til saksbehandler"]) --> les["Lese dokumentet<br/>og saken"]
-    les --> rett{"Riktig sak og<br/>riktig saksbehandler?"}
-    rett -->|nei| retur["Sende tilbake til leder<br/>eller Dokumentsenteret"]
-    rett -->|ja| hab{"Er saksbehandleren<br/>habil?"}
-    hab -->|nei| retur
-    hab -->|ja| tid{"Kan saken besvares<br/>innen en måned?"}
-    tid -->|nei| forel["Sende foreløpig svar"]
-    tid -->|ja| opplys
-    forel --> opplys["Opplyse saken: innhente<br/>uttalelser og opplysninger"]
-    opplys --> varsel{"Har parten fått<br/>uttale seg?"}
-    varsel -->|nei| fv["Sende forhåndsvarsel<br/>med frist for uttalelse"]
-    varsel -->|ja| skriv
-    fv --> skriv["Skrive vedtak<br/>med begrunnelse"]
-    skriv --> godkj{"Godkjent av den som<br/>har myndighet?"}
-    godkj -->|nei| skriv
-    godkj -->|ja| send["Sende vedtaket med<br/>opplysning om klagerett"]
-    send --> klage{"Klage innen<br/>tre uker?"}
-    klage -->|nei| p5(["P5: avskrive og avslutte"])
-    klage -->|ja| kb["Behandle klagen,<br/>se figuren under"]
-    kb --> p5
-```
+![BPMN-diagram: P3 Saksgangen fram til vedtak](../figurer/p3-saksgang.svg)
 
-## Figur: hvem gjør hva, og hva blir journalført
+Figuren følger BPMN. Symbolene er forklart i [oversikten](README.md#symbolene-i-figurene).
 
-Hver pil mellom kommunen og omverdenen er en journalpost. Tallene viser dokumentnummeret i saken.
+## Figur: hva blir journalført
+
+Figuren viser de samme stegene som dokumenter i saken. Hver pil mellom kommunen og omverdenen er en journalpost.
+Tallene viser rekkefølgen.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#FFFFFF", "primaryBorderColor": "#003366", "primaryTextColor": "#242424", "secondaryColor": "#F0F0F0", "tertiaryColor": "#FAFAFA", "lineColor": "#616161", "textColor": "#616161", "clusterBkg": "#FAFAFA", "clusterBorder": "#D1D1D1", "edgeLabelBackground": "#FFFFFF", "noteBkgColor": "#E7F0F8", "noteBorderColor": "#0F6CBD", "actorBorder": "#003366", "signalColor": "#616161", "signalTextColor": "#616161"}}}%%
 sequenceDiagram
     autonumber
     participant S as Søker
@@ -69,7 +51,7 @@ sequenceDiagram
     L-->>B: Godkjent
     B->>S: Vedtak (U, dokument 5)
     B->>N: Kopi av vedtaket
-    Note over D,B: Dokumentsenteret kontrollerer og journalfører dokument 3 til 5
+    Note over D,L: Dokumentsenteret kontrollerer og journalfører dokument 3 til 5
 ```
 
 ## Rutine steg for steg
@@ -91,18 +73,11 @@ sequenceDiagram
 
 ### Når det kommer en klage
 
-```mermaid
-flowchart TD
-    k(["Klage mottatt<br/>og journalført i saken"]) --> frist{"Kom klagen<br/>innen fristen?"}
-    frist -->|nei| opp{"Grunn til å ta den<br/>under behandling likevel?"}
-    opp -->|nei| avvis(["Klagen avvises.<br/>Avvisningen kan påklages"])
-    opp -->|ja| und
-    frist -->|ja| und["Kommunen undersøker<br/>det klagen gir grunn til"]
-    und --> enig{"Finner kommunen<br/>klagen begrunnet?"}
-    enig -->|ja| endre(["Kommunen opphever<br/>eller endrer vedtaket"])
-    enig -->|nei| overs["Saken sendes klageinstansen<br/>med kommunens uttalelse.<br/>Klageren får kopi"]
-    overs --> ki(["Klageinstansen avgjør.<br/>Avgjørelsen journalføres i saken"])
-```
+Klageren og klageinstansen er egne deltakere utenfor kommunen. Meldingsflyten viser hva som sendes mellom dem.
+
+![BPMN-diagram: P3 Klage på vedtak](../figurer/p3-klage.svg)
+
+Figuren følger BPMN. Symbolene er forklart i [oversikten](README.md#symbolene-i-figurene).
 
 | Steg | Hva gjøres |
 |---|---|

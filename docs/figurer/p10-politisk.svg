@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2032 768" width="2032" height="768" role="img" font-family="'Segoe UI', 'Gerd Sans', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="13">
+<title>P10 Politisk behandling</title><desc>BPMN-diagram. Basseng: Sirevåg kommune. Baner: Saksbehandler, Kommunedirektør, Politisk sekretariat, Folkevalgt organ. Eksterne deltakere: Parter og allmennhet. Elementer i rekkefølge: Saksbehandler: Sak skal til politisk behandling. Saksbehandler: Skrive saksframlegg. Taushetsbelagt i eget vedlegg. Kommunedirektør: Vurdere utredningen og innstille. Kommunedirektør: Forsvarlig utredet?. Politisk sekretariat: Saksliste, innkalling, kunngjøring og publisering. Folkevalgt organ: Må møtet lukkes?. Folkevalgt organ: Vedta lukking. Hjemmelen føres i møteboka. Folkevalgt organ: Behandle saken og treffe vedtak. Politisk sekretariat: Føre møtebok og legge vedtaket i saken. Saksbehandler: Sende melding om vedtaket til partene. Saksbehandler: Vedtaket settes i verk.</desc>
+<style>.bp-flate{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF)}.bp-hode{fill:var(--bivrost-farge-bakgrunn-flate-3, #F0F0F0)}.bp-ramme{fill:none;stroke:var(--bivrost-farge-kant-sterk, #616161)}.bp-skille{stroke:var(--bivrost-farge-kant-sterk, #616161)}.bp-navn{fill:var(--bivrost-farge-tekst-standard, #242424);font-weight:600;font-size:12px}.bp-oppgave{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke:var(--bivrost-farge-tekst-standard, #242424);stroke-width:1.25}.bp-valg,.bp-start,.bp-slutt{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke:var(--bivrost-farge-tekst-merkevare, #003366);stroke-width:1.5}.bp-slutt{stroke-width:4}.bp-kryss{fill:none;stroke:var(--bivrost-farge-tekst-merkevare, #003366);stroke-width:2.5;stroke-linecap:round}.bp-ikon{fill:none;stroke:var(--bivrost-farge-tekst-merkevare, #003366);stroke-width:1.25;stroke-linejoin:round}.bp-tekst{fill:var(--bivrost-farge-tekst-standard, #242424);font-size:12px}.bp-etikett{fill:var(--bivrost-farge-tekst-standard, #242424);font-size:12px;paint-order:stroke;stroke:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke-width:4px;stroke-linejoin:round}.bp-flytetikett{fill:var(--bivrost-farge-tekst-merkevare, #003366);font-weight:600}.bp-flyt{fill:none;stroke:var(--bivrost-farge-tekst-dempet, #424242);stroke-width:1.5}.bp-pil{fill:var(--bivrost-farge-tekst-dempet, #424242)}.bp-melding{fill:none;stroke:var(--bivrost-farge-tekst-dempet, #424242);stroke-width:1.25;stroke-dasharray:6 4}.bp-meldingspil{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke:var(--bivrost-farge-tekst-dempet, #424242);stroke-width:1.25}@media (prefers-color-scheme: dark){svg{--bivrost-farge-bakgrunn-flate-1:#292929;--bivrost-farge-bakgrunn-flate-3:#0A0A0A;--bivrost-farge-kant-sterk:#ADADAD;--bivrost-farge-tekst-standard:#FFFFFF;--bivrost-farge-tekst-dempet:#D6D6D6;--bivrost-farge-tekst-merkevare:#33CCFF}}</style>
+<rect class="bp-flate" x="16" y="704" width="2000" height="48"/><rect class="bp-ramme" x="16" y="704" width="2000" height="48"/><text class="bp-navn" x="32" y="732.5">Parter og allmennhet</text>
+<rect class="bp-flate" x="16" y="16" width="2000" height="640"/>
+<rect class="bp-hode" x="16" y="16" width="64" height="640"/>
+<text class="bp-navn" text-anchor="middle" transform="translate(32,336) rotate(-90)"><tspan x="0" y="4.5">Sirevåg kommune</tspan></text>
+<text class="bp-navn" text-anchor="middle" transform="translate(64,80) rotate(-90)"><tspan x="0" y="4.5">Saksbehandler</tspan></text>
+<text class="bp-navn" text-anchor="middle" transform="translate(64,208) rotate(-90)"><tspan x="0" y="4.5">Kommunedirektør</tspan></text>
+<text class="bp-navn" text-anchor="middle" transform="translate(64,336) rotate(-90)"><tspan x="0" y="-3">Politisk</tspan><tspan x="0" y="11">sekretariat</tspan></text>
+<text class="bp-navn" text-anchor="middle" transform="translate(64,528) rotate(-90)"><tspan x="0" y="4.5">Folkevalgt organ</tspan></text>
+<line class="bp-skille" x1="48" y1="144" x2="2016" y2="144"/>
+<line class="bp-skille" x1="48" y1="272" x2="2016" y2="272"/>
+<line class="bp-skille" x1="48" y1="400" x2="2016" y2="400"/>
+<line class="bp-skille" x1="48" y1="16" x2="48" y2="656"/>
+<line class="bp-skille" x1="80" y1="16" x2="80" y2="656"/>
+<rect class="bp-ramme" x="16" y="16" width="2000" height="640"/>
+<path class="bp-melding" d="M872,376 L872,697"/><polygon class="bp-meldingspil" points="872,704 867.5,695 876.5,695"/><circle class="bp-meldingspil" cx="872" cy="376" r="3.5"/>
+<path class="bp-melding" d="M1752,120 L1752,697"/><polygon class="bp-meldingspil" points="1752,704 1747.5,695 1756.5,695"/><circle class="bp-meldingspil" cx="1752" cy="120" r="3.5"/>
+<path class="bp-flyt" d="M184,80 L273,80"/><polygon class="bp-pil" points="280,80 271,84.5 271,75.5"/>
+<path class="bp-flyt" d="M408,80 L434,80 Q440,80 440,86 L440,202 Q440,208 446,208 L449,208"/><polygon class="bp-pil" points="456,208 447,212.5 447,203.5"/>
+<path class="bp-flyt" d="M584,208 L665,208"/><polygon class="bp-pil" points="672,208 663,212.5 663,203.5"/>
+<path class="bp-flyt" d="M720,208 L786,208 Q792,208 792,214 L792,330 Q792,336 798,336 L801,336"/><polygon class="bp-pil" points="808,336 799,340.5 799,331.5"/>
+<path class="bp-flyt" d="M696,184 L696,142 Q696,136 690,136 L350,136 Q344,136 344,130 L344,127"/><polygon class="bp-pil" points="344,120 348.5,129 339.5,129"/>
+<path class="bp-flyt" d="M936,336 L986,336 Q992,336 992,342 L992,458 Q992,464 998,464 L1017,464"/><polygon class="bp-pil" points="1024,464 1015,468.5 1015,459.5"/>
+<path class="bp-flyt" d="M1072,464 L1329,464"/><polygon class="bp-pil" points="1336,464 1327,468.5 1327,459.5"/>
+<path class="bp-flyt" d="M1048,488 L1048,586 Q1048,592 1054,592 L1153,592"/><polygon class="bp-pil" points="1160,592 1151,596.5 1151,587.5"/>
+<path class="bp-flyt" d="M1288,592 L1314,592 Q1320,592 1320,586 L1320,470 Q1320,464 1326,464 L1329,464"/><polygon class="bp-pil" points="1336,464 1327,468.5 1327,459.5"/>
+<path class="bp-flyt" d="M1464,464 L1490,464 Q1496,464 1496,458 L1496,342 Q1496,336 1502,336 L1505,336"/><polygon class="bp-pil" points="1512,336 1503,340.5 1503,331.5"/>
+<path class="bp-flyt" d="M1640,336 L1666,336 Q1672,336 1672,330 L1672,86 Q1672,80 1678,80 L1681,80"/><polygon class="bp-pil" points="1688,80 1679,84.5 1679,75.5"/>
+<path class="bp-flyt" d="M1816,80 L1905,80"/><polygon class="bp-pil" points="1912,80 1903,84.5 1903,75.5"/>
+<circle class="bp-start" cx="168" cy="80" r="16"/><text class="bp-etikett" text-anchor="middle"><tspan x="168" y="113">Sak skal til</tspan><tspan x="168" y="128">politisk behandling</tspan></text>
+<rect class="bp-oppgave" x="280" y="40" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="344" y="61.5">Skrive</tspan><tspan x="344" y="76.5">saksframlegg.</tspan><tspan x="344" y="91.5">Taushetsbelagt i</tspan><tspan x="344" y="106.5">eget vedlegg</tspan></text>
+<rect class="bp-oppgave" x="456" y="168" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="520" y="197">Vurdere</tspan><tspan x="520" y="212">utredningen og</tspan><tspan x="520" y="227">innstille</tspan></text>
+<polygon class="bp-valg" points="696,184 720,208 696,232 672,208"/><path class="bp-kryss" d="M689,201 L703,215 M703,201 L689,215"/><text class="bp-etikett" text-anchor="middle"><tspan x="696" y="249">Forsvarlig utredet?</tspan></text>
+<rect class="bp-oppgave" x="808" y="296" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="872" y="317.5">Saksliste,</tspan><tspan x="872" y="332.5">innkalling,</tspan><tspan x="872" y="347.5">kunngjøring og</tspan><tspan x="872" y="362.5">publisering</tspan></text>
+<polygon class="bp-valg" points="1048,440 1072,464 1048,488 1024,464"/><path class="bp-kryss" d="M1041,457 L1055,471 M1055,457 L1041,471"/><text class="bp-etikett" text-anchor="middle"><tspan x="1048" y="431">Må møtet lukkes?</tspan></text>
+<rect class="bp-oppgave" x="1160" y="552" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="1224" y="581">Vedta lukking.</tspan><tspan x="1224" y="596">Hjemmelen føres i</tspan><tspan x="1224" y="611">møteboka</tspan></text>
+<rect class="bp-oppgave" x="1336" y="424" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="1400" y="460.5">Behandle saken og</tspan><tspan x="1400" y="475.5">treffe vedtak</tspan></text>
+<rect class="bp-oppgave" x="1512" y="296" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="1576" y="325">Føre møtebok og</tspan><tspan x="1576" y="340">legge vedtaket i</tspan><tspan x="1576" y="355">saken</tspan></text>
+<rect class="bp-oppgave" x="1688" y="40" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="1752" y="69">Sende melding om</tspan><tspan x="1752" y="84">vedtaket til</tspan><tspan x="1752" y="99">partene</tspan></text>
+<circle class="bp-slutt" cx="1928" cy="80" r="14.5"/><text class="bp-etikett" text-anchor="middle"><tspan x="1928" y="113">Vedtaket settes i</tspan><tspan x="1928" y="128">verk</tspan></text>
+<text class="bp-etikett bp-flytetikett" x="878" y="391" text-anchor="start">Saksliste og dokumenter</text>
+<text class="bp-etikett bp-flytetikett" x="1758" y="135" text-anchor="start">Melding om vedtak</text>
+<text class="bp-etikett bp-flytetikett" x="725" y="202" text-anchor="start">ja</text>
+<text class="bp-etikett bp-flytetikett" x="702" y="177" text-anchor="start">nei</text>
+<text class="bp-etikett bp-flytetikett" x="1077" y="458" text-anchor="start">nei</text>
+<text class="bp-etikett bp-flytetikett" x="1054" y="503" text-anchor="start">ja</text>
+</svg>

@@ -30,6 +30,7 @@ som først er blitt arkiv.
 ## Figur: bevares eller kasseres?
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#FFFFFF", "primaryBorderColor": "#003366", "primaryTextColor": "#242424", "secondaryColor": "#F0F0F0", "tertiaryColor": "#FAFAFA", "lineColor": "#616161", "textColor": "#616161", "clusterBkg": "#FAFAFA", "clusterBorder": "#D1D1D1", "edgeLabelBackground": "#FFFFFF", "noteBkgColor": "#E7F0F8", "noteBorderColor": "#0F6CBD", "actorBorder": "#003366", "signalColor": "#616161", "signalTextColor": "#616161"}}}%%
 flowchart TD
     start(["Dokumentasjon i en<br/>avsluttet sak"]) --> eldre{"Er den fra 1950<br/>eller tidligere?"}
     eldre -->|ja| bev(["Bevares for ettertiden"])
@@ -50,6 +51,7 @@ flowchart TD
 ## Figur: livsløpet til en sak
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#FFFFFF", "primaryBorderColor": "#003366", "primaryTextColor": "#242424", "secondaryColor": "#F0F0F0", "tertiaryColor": "#FAFAFA", "lineColor": "#616161", "textColor": "#616161", "clusterBkg": "#FAFAFA", "clusterBorder": "#D1D1D1", "edgeLabelBackground": "#FFFFFF", "noteBkgColor": "#E7F0F8", "noteBorderColor": "#0F6CBD", "actorBorder": "#003366", "signalColor": "#616161", "signalTextColor": "#616161"}}}%%
 stateDiagram-v2
     direction LR
     state "Under behandling" as B
@@ -77,6 +79,10 @@ stateDiagram-v2
 | 3 | Dokumentsenteret | Kontrollerer regelen når saken avsluttes (P5). En sak kan ha fått et annet innhold enn klassen tilsier. Regelen kan da overstyres på saken, med begrunnelse |
 
 ### Årlig kassasjon
+
+![BPMN-diagram: P11 Årlig kassasjon](../figurer/p11-kassasjon.svg)
+
+Figuren følger BPMN. Symbolene er forklart i [oversikten](README.md#symbolene-i-figurene).
 
 | Steg | Hvem | Hva gjøres |
 |---|---|---|

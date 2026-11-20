@@ -26,6 +26,7 @@ Sirevåg kommune finnes ikke. Personer, saker, adresser og dokumenter i eksemple
 Figuren viser hovedløpet et dokument følger, og de fire prosessene som går på tvers av løpet.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#FFFFFF", "primaryBorderColor": "#003366", "primaryTextColor": "#242424", "secondaryColor": "#F0F0F0", "tertiaryColor": "#FAFAFA", "lineColor": "#616161", "textColor": "#616161", "clusterBkg": "#FAFAFA", "clusterBorder": "#D1D1D1", "edgeLabelBackground": "#FFFFFF", "noteBkgColor": "#E7F0F8", "noteBorderColor": "#0F6CBD", "actorBorder": "#003366", "signalColor": "#616161", "signalTextColor": "#616161"}}}%%
 flowchart TD
     inn(["Dokument kommer inn<br/>eller blir laget"]) --> p1["P1 Mottak og sortering"]
     p1 -->|skal registreres| p2["P2 Registrering<br/>og journalføring"]
@@ -78,7 +79,7 @@ gjennom huset. P6 til P11 kan leses i den rekkefølgen du trenger dem.
 | Avsnitt | Innhold |
 |---|---|
 | Kort om prosessen | Formålet, hva som starter prosessen, hva som avslutter den, og hvem som deltar |
-| Figur | Flyten som diagram. Firkanter er arbeidssteg, romber er valg, avrundede bokser er start og slutt |
+| Figur | Prosessen som BPMN-diagram: hvem som gjør hva, i hvilken rekkefølge. Se [symbolene](#symbolene-i-figurene) |
 | Rutine steg for steg | Hva som gjøres, av hvem, og hva resultatet er |
 | Lovgrunnlag | Paragrafene som styrer prosessen, og hvor i prosessen de slår inn |
 | Hvorfor gjør vi det slik? | Begrunnelsen bak rutinen |
@@ -86,6 +87,27 @@ gjennom huset. P6 til P11 kan leses i den rekkefølgen du trenger dem.
 | Vanlige feil | Det som oftest går galt, og hvordan det unngås |
 | Hva systemet må støtte | Funksjoner Ark-Ivar trenger for at prosessen kan øves |
 | Kontrollspørsmål | Spørsmål med løsningsforslag |
+
+## Symbolene i figurene
+
+Prosessene er tegnet etter BPMN 2.0 (Business Process Model and Notation), som er standarden for prosessmodeller.
+Kommunen er et basseng, og hver rolle har sin bane. Det som står i en bane, er den rollens ansvar.
+
+![BPMN-diagram: Symbolene i BPMN-figurene](../figurer/tegnforklaring.svg)
+
+| Symbol | Navn | Betydning |
+|---|---|---|
+| Sirkel med tynn strek | Starthendelse | Det som setter prosessen i gang. Konvolutt betyr at en melding kommer inn. Klokke betyr et fast tidspunkt |
+| Sirkel med tykk strek | Slutthendelse | Et resultat prosessen kan ende med. En prosess kan ha flere |
+| Avrundet rektangel | Oppgave | Noe rollen i banen gjør |
+| Rute med kryss | Eksklusiv port | Et valg der én av veiene følges. Spørsmålet står ved porten, og svaret står på hver vei |
+| Hel linje med fylt pil | Sekvensflyt | Rekkefølgen innenfor kommunen |
+| Stiplet linje med åpen pil | Meldingsflyt | Noe som sendes mellom kommunen og en deltaker utenfor |
+| Stort felt med navnet på høykant | Basseng | En deltaker. Kommunen er ett basseng. Deltakere utenfor vises som smale, sammenslåtte basseng |
+| Felt inne i bassenget | Bane | En rolle i kommunen |
+
+Figurer som ikke er prosesser, er ikke BPMN: beslutningstrær, tilstandene til en sak og en journalpost,
+arkivstrukturen og oversiktskart. Hvordan figurene lages, står i [docs/figurer](../figurer/LES-MEG.md).
 
 ## Rollene i Sirevåg kommune
 

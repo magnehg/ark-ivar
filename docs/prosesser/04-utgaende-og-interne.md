@@ -14,26 +14,11 @@
 
 ## Figur: utgående dokument
 
-```mermaid
-flowchart TD
-    start(["Saksbehandler skal<br/>sende et dokument"]) --> jp["Opprette utgående journalpost<br/>i saken: status Reservert"]
-    jp --> skriv["Skrive dokumentet i mal.<br/>Legge til vedlegg og mottakere"]
-    skriv --> skj{"Må noe skjermes?"}
-    skj -->|ja| kode["Sette tilgangskode<br/>og hjemmel"]
-    skj -->|nei| ferdig
-    kode --> ferdig["Ferdigstille: dokumentet låses.<br/>Status Ferdigstilt"]
-    ferdig --> gk{"Krever dokumentet<br/>godkjenning?"}
-    gk -->|ja| leder{"Godkjenner<br/>lederen?"}
-    leder -->|nei| skriv
-    leder -->|ja| kanal
-    gk -->|nei| kanal{"Kan mottakeren<br/>nås digitalt?"}
-    kanal -->|ja| dig["Sende som sikker digital post<br/>eller e-post"]
-    kanal -->|"nei, eller<br/>reservert"| papir["Skrive ut og<br/>sende i posten"]
-    dig --> eksp["Status Ekspedert.<br/>Avskrive det dokumentet svarer på"]
-    papir --> eksp
-    eksp --> ktr["Dokumentsenteret kontrollerer<br/>registreringen"]
-    ktr --> j(["Status Journalført"])
-```
+Valget mellom digital post og papir er en del av oppgaven «Sende dokumentet» og er forklart i rutinen under.
+
+![BPMN-diagram: P4 Utgående dokument](../figurer/p4-utgaende.svg)
+
+Figuren følger BPMN. Symbolene er forklart i [oversikten](README.md#symbolene-i-figurene).
 
 ## Rutine: utgående dokument
 
@@ -64,6 +49,7 @@ forvaltningen (§ 9), og får da vedtaket på papir.
 ## Figur: internt dokument
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#FFFFFF", "primaryBorderColor": "#003366", "primaryTextColor": "#242424", "secondaryColor": "#F0F0F0", "tertiaryColor": "#FAFAFA", "lineColor": "#616161", "textColor": "#616161", "clusterBkg": "#FAFAFA", "clusterBorder": "#D1D1D1", "edgeLabelBackground": "#FFFFFF", "noteBkgColor": "#E7F0F8", "noteBorderColor": "#0F6CBD", "actorBorder": "#003366", "signalColor": "#616161", "signalTextColor": "#616161"}}}%%
 flowchart TD
     start(["Noe skal skrives<br/>til saken"]) --> hva{"Hva er det?"}
     hva -->|"notat som noen<br/>skal svare på"| n["Internt notat med oppfølging (N):<br/>registrere intern mottaker"]

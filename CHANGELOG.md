@@ -18,3 +18,6 @@
 - Arkivplan for Sirevåg kommune (docs/arkivplan): kommunens dokumentasjonsplan etter arkivlova § 8, med organisering
   og ansvar, dokumentasjon og systemer, arkivoversikt og arkivlokaler, bevarings- og kassasjonsplan,
   informasjonssikkerhet, avtaler, internkontroll og beredskap. Prosessbeskrivelsene er rutinedelen i planen.
+- Prosessfigurene er tegnet etter BPMN 2.0 med kommunen som basseng og rollene som baner (docs/figurer): en liten
+  tegnemotor uten avhengigheter lager SVG-filene fra beskrivelsene i `figurer.mjs`. Alle figurene bruker fargene
+  fra designpakken.

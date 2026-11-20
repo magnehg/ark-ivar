@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2208 768" width="2208" height="768" role="img" font-family="'Segoe UI', 'Gerd Sans', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="13">
+<title>P8 Behandling av et innsynskrav</title><desc>BPMN-diagram. Basseng: Sirevåg kommune. Baner: Dokumentsenteret, Saksbehandler, Leder. Eksterne deltakere: Den som krever innsyn. Elementer i rekkefølge: Dokumentsenteret: Innsynskrav mottatt. Dokumentsenteret: Føre kravet i innsynsloggen og finne dokumentene. Dokumentsenteret: Kan dokumentet åpenbart gis ut?. Saksbehandler: Lese dokumentet og vurdere konkret. Saksbehandler: Taushetsbelagte opplysninger?. Saksbehandler: Sladde opplysningene: de skal unntas. Saksbehandler: Adgang til unntak etter annen hjemmel?. Saksbehandler: Vurdere merinnsyn, og om resten kan gis ut. Saksbehandler: Blir noe unntatt?. Dokumentsenteret: Sende dokumentet. Leder: Godkjenne avslaget: hjemmel med ledd og bokstav. Dokumentsenteret: Sende avslag med klagerett, og det som kan gis ut. Dokumentsenteret: Innsyn er gitt. Dokumentsenteret: Avslag er sendt.</desc>
+<style>.bp-flate{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF)}.bp-hode{fill:var(--bivrost-farge-bakgrunn-flate-3, #F0F0F0)}.bp-ramme{fill:none;stroke:var(--bivrost-farge-kant-sterk, #616161)}.bp-skille{stroke:var(--bivrost-farge-kant-sterk, #616161)}.bp-navn{fill:var(--bivrost-farge-tekst-standard, #242424);font-weight:600;font-size:12px}.bp-oppgave{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke:var(--bivrost-farge-tekst-standard, #242424);stroke-width:1.25}.bp-valg,.bp-start,.bp-slutt{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke:var(--bivrost-farge-tekst-merkevare, #003366);stroke-width:1.5}.bp-slutt{stroke-width:4}.bp-kryss{fill:none;stroke:var(--bivrost-farge-tekst-merkevare, #003366);stroke-width:2.5;stroke-linecap:round}.bp-ikon{fill:none;stroke:var(--bivrost-farge-tekst-merkevare, #003366);stroke-width:1.25;stroke-linejoin:round}.bp-tekst{fill:var(--bivrost-farge-tekst-standard, #242424);font-size:12px}.bp-etikett{fill:var(--bivrost-farge-tekst-standard, #242424);font-size:12px;paint-order:stroke;stroke:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke-width:4px;stroke-linejoin:round}.bp-flytetikett{fill:var(--bivrost-farge-tekst-merkevare, #003366);font-weight:600}.bp-flyt{fill:none;stroke:var(--bivrost-farge-tekst-dempet, #424242);stroke-width:1.5}.bp-pil{fill:var(--bivrost-farge-tekst-dempet, #424242)}.bp-melding{fill:none;stroke:var(--bivrost-farge-tekst-dempet, #424242);stroke-width:1.25;stroke-dasharray:6 4}.bp-meldingspil{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke:var(--bivrost-farge-tekst-dempet, #424242);stroke-width:1.25}@media (prefers-color-scheme: dark){svg{--bivrost-farge-bakgrunn-flate-1:#292929;--bivrost-farge-bakgrunn-flate-3:#0A0A0A;--bivrost-farge-kant-sterk:#ADADAD;--bivrost-farge-tekst-standard:#FFFFFF;--bivrost-farge-tekst-dempet:#D6D6D6;--bivrost-farge-tekst-merkevare:#33CCFF}}</style>
+<rect class="bp-flate" x="16" y="16" width="2176" height="48"/><rect class="bp-ramme" x="16" y="16" width="2176" height="48"/><text class="bp-navn" x="32" y="44.5">Den som krever innsyn</text>
+<rect class="bp-flate" x="16" y="112" width="2176" height="640"/>
+<rect class="bp-hode" x="16" y="112" width="64" height="640"/>
+<text class="bp-navn" text-anchor="middle" transform="translate(32,432) rotate(-90)"><tspan x="0" y="4.5">Sirevåg kommune</tspan></text>
+<text class="bp-navn" text-anchor="middle" transform="translate(64,240) rotate(-90)"><tspan x="0" y="4.5">Dokumentsenteret</tspan></text>
+<text class="bp-navn" text-anchor="middle" transform="translate(64,496) rotate(-90)"><tspan x="0" y="4.5">Saksbehandler</tspan></text>
+<text class="bp-navn" text-anchor="middle" transform="translate(64,688) rotate(-90)"><tspan x="0" y="4.5">Leder</tspan></text>
+<line class="bp-skille" x1="48" y1="368" x2="2192" y2="368"/>
+<line class="bp-skille" x1="48" y1="624" x2="2192" y2="624"/>
+<line class="bp-skille" x1="48" y1="112" x2="48" y2="752"/>
+<line class="bp-skille" x1="80" y1="112" x2="80" y2="752"/>
+<rect class="bp-ramme" x="16" y="112" width="2176" height="640"/>
+<path class="bp-melding" d="M168,64 L168,153"/><polygon class="bp-meldingspil" points="168,160 163.5,151 172.5,151"/><circle class="bp-meldingspil" cx="168" cy="64" r="3.5"/>
+<path class="bp-melding" d="M1752,136 L1752,71"/><polygon class="bp-meldingspil" points="1752,64 1756.5,73 1747.5,73"/><circle class="bp-meldingspil" cx="1752" cy="136" r="3.5"/>
+<path class="bp-melding" d="M1928,264 L1928,71"/><polygon class="bp-meldingspil" points="1928,64 1932.5,73 1923.5,73"/><circle class="bp-meldingspil" cx="1928" cy="264" r="3.5"/>
+<path class="bp-flyt" d="M184,176 L273,176"/><polygon class="bp-pil" points="280,176 271,180.5 271,171.5"/>
+<path class="bp-flyt" d="M408,176 L489,176"/><polygon class="bp-pil" points="496,176 487,180.5 487,171.5"/>
+<path class="bp-flyt" d="M544,176 L1681,176"/><polygon class="bp-pil" points="1688,176 1679,180.5 1679,171.5"/>
+<path class="bp-flyt" d="M520,200 L520,426 Q520,432 526,432 L625,432"/><polygon class="bp-pil" points="632,432 623,436.5 623,427.5"/>
+<path class="bp-flyt" d="M760,432 L841,432"/><polygon class="bp-pil" points="848,432 839,436.5 839,427.5"/>
+<path class="bp-flyt" d="M896,432 L1193,432"/><polygon class="bp-pil" points="1200,432 1191,436.5 1191,427.5"/>
+<path class="bp-flyt" d="M872,456 L872,554 Q872,560 878,560 L977,560"/><polygon class="bp-pil" points="984,560 975,564.5 975,555.5"/>
+<path class="bp-flyt" d="M1112,560 L1178,560 Q1184,560 1184,554 L1184,438 Q1184,432 1190,432 L1193,432"/><polygon class="bp-pil" points="1200,432 1191,436.5 1191,427.5"/>
+<path class="bp-flyt" d="M1248,432 L1545,432"/><polygon class="bp-pil" points="1552,432 1543,436.5 1543,427.5"/>
+<path class="bp-flyt" d="M1224,456 L1224,554 Q1224,560 1230,560 L1329,560"/><polygon class="bp-pil" points="1336,560 1327,564.5 1327,555.5"/>
+<path class="bp-flyt" d="M1464,560 L1506,560 Q1512,560 1512,554 L1512,438 Q1512,432 1518,432 L1545,432"/><polygon class="bp-pil" points="1552,432 1543,436.5 1543,427.5"/>
+<path class="bp-flyt" d="M1576,408 L1576,182 Q1576,176 1582,176 L1681,176"/><polygon class="bp-pil" points="1688,176 1679,180.5 1679,171.5"/>
+<path class="bp-flyt" d="M1600,432 L1666,432 Q1672,432 1672,438 L1672,682 Q1672,688 1678,688 L1681,688"/><polygon class="bp-pil" points="1688,688 1679,692.5 1679,683.5"/>
+<path class="bp-flyt" d="M1816,688 L1842,688 Q1848,688 1848,682 L1848,310 Q1848,304 1854,304 L1857,304"/><polygon class="bp-pil" points="1864,304 1855,308.5 1855,299.5"/>
+<path class="bp-flyt" d="M1816,176 L2081,176"/><polygon class="bp-pil" points="2088,176 2079,180.5 2079,171.5"/>
+<path class="bp-flyt" d="M1992,304 L2081,304"/><polygon class="bp-pil" points="2088,304 2079,308.5 2079,299.5"/>
+<circle class="bp-start" cx="168" cy="176" r="16"/><rect class="bp-ikon" x="160" y="170.5" width="16" height="11"/><path class="bp-ikon" d="M160,170.5 L168,177 L176,170.5"/><text class="bp-etikett" text-anchor="middle"><tspan x="168" y="209">Innsynskrav mottatt</tspan></text>
+<rect class="bp-oppgave" x="280" y="136" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="344" y="165">Føre kravet i</tspan><tspan x="344" y="180">innsynsloggen og</tspan><tspan x="344" y="195">finne dokumentene</tspan></text>
+<polygon class="bp-valg" points="520,152 544,176 520,200 496,176"/><path class="bp-kryss" d="M513,169 L527,183 M527,169 L513,183"/><text class="bp-etikett" text-anchor="middle"><tspan x="520" y="128">Kan dokumentet</tspan><tspan x="520" y="143">åpenbart gis ut?</tspan></text>
+<rect class="bp-oppgave" x="632" y="392" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="696" y="428.5">Lese dokumentet og</tspan><tspan x="696" y="443.5">vurdere konkret</tspan></text>
+<polygon class="bp-valg" points="872,408 896,432 872,456 848,432"/><path class="bp-kryss" d="M865,425 L879,439 M879,425 L865,439"/><text class="bp-etikett" text-anchor="middle"><tspan x="872" y="384">Taushetsbelagte</tspan><tspan x="872" y="399">opplysninger?</tspan></text>
+<rect class="bp-oppgave" x="984" y="520" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="1048" y="549">Sladde</tspan><tspan x="1048" y="564">opplysningene: de</tspan><tspan x="1048" y="579">skal unntas</tspan></text>
+<polygon class="bp-valg" points="1224,408 1248,432 1224,456 1200,432"/><path class="bp-kryss" d="M1217,425 L1231,439 M1231,425 L1217,439"/><text class="bp-etikett" text-anchor="middle"><tspan x="1224" y="384">Adgang til unntak</tspan><tspan x="1224" y="399">etter annen hjemmel?</tspan></text>
+<rect class="bp-oppgave" x="1336" y="520" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="1400" y="549">Vurdere merinnsyn,</tspan><tspan x="1400" y="564">og om resten kan</tspan><tspan x="1400" y="579">gis ut</tspan></text>
+<polygon class="bp-valg" points="1576,408 1600,432 1576,456 1552,432"/><path class="bp-kryss" d="M1569,425 L1583,439 M1583,425 L1569,439"/><text class="bp-etikett" text-anchor="middle"><tspan x="1576" y="473">Blir noe unntatt?</tspan></text>
+<rect class="bp-oppgave" x="1688" y="648" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="1752" y="669.5">Godkjenne</tspan><tspan x="1752" y="684.5">avslaget: hjemmel</tspan><tspan x="1752" y="699.5">med ledd og</tspan><tspan x="1752" y="714.5">bokstav</tspan></text>
+<rect class="bp-oppgave" x="1864" y="264" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="1928" y="293">Sende avslag med</tspan><tspan x="1928" y="308">klagerett, og det</tspan><tspan x="1928" y="323">som kan gis ut</tspan></text>
+<circle class="bp-slutt" cx="2104" cy="304" r="14.5"/><text class="bp-etikett" text-anchor="middle"><tspan x="2104" y="337">Avslag er sendt</tspan></text>
+<rect class="bp-oppgave" x="1688" y="136" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="1752" y="180">Sende dokumentet</tspan></text>
+<circle class="bp-slutt" cx="2104" cy="176" r="14.5"/><text class="bp-etikett" text-anchor="middle"><tspan x="2104" y="209">Innsyn er gitt</tspan></text>
+<text class="bp-etikett bp-flytetikett" x="174" y="79" text-anchor="start">Innsynskrav</text>
+<text class="bp-etikett bp-flytetikett" x="1758" y="129" text-anchor="start">Dokumentet</text>
+<text class="bp-etikett bp-flytetikett" x="1934" y="257" text-anchor="start">Avslag</text>
+<text class="bp-etikett bp-flytetikett" x="549" y="170" text-anchor="start">ja</text>
+<text class="bp-etikett bp-flytetikett" x="526" y="215" text-anchor="start">nei</text>
+<text class="bp-etikett bp-flytetikett" x="901" y="426" text-anchor="start">nei</text>
+<text class="bp-etikett bp-flytetikett" x="878" y="471" text-anchor="start">ja</text>
+<text class="bp-etikett bp-flytetikett" x="1253" y="426" text-anchor="start">nei</text>
+<text class="bp-etikett bp-flytetikett" x="1230" y="471" text-anchor="start">ja</text>
+<text class="bp-etikett bp-flytetikett" x="1582" y="401" text-anchor="start">nei</text>
+<text class="bp-etikett bp-flytetikett" x="1605" y="426" text-anchor="start">ja</text>
+</svg>

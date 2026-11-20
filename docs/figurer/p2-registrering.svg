@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2032 544" width="2032" height="544" role="img" font-family="'Segoe UI', 'Gerd Sans', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="13">
+<title>P2 Registrering og journalføring</title><desc>BPMN-diagram. Basseng: Sirevåg kommune. Baner: Dokumentsenteret, Leder, Saksbehandler. Elementer i rekkefølge: Dokumentsenteret: Dokument klart for registrering. Dokumentsenteret: Søke etter eksisterende sak. Dokumentsenteret: Finnes saken fra før?. Dokumentsenteret: Opprette saksmappe: tittel, klasse og enhet. Dokumentsenteret: Opprette journalpost: avsender, tittel, datoer, dokumenter. Dokumentsenteret: Må noe skjermes?. Dokumentsenteret: Sette tilgangskode og hjemmel. Skjerme minst mulig. Dokumentsenteret: Lese over og sette status Journalført. Dokumentsenteret: Fordele til enheten. Leder: Fordele til saksbehandler. Saksbehandler: Fordelt: restanse til den er besvart.</desc>
+<style>.bp-flate{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF)}.bp-hode{fill:var(--bivrost-farge-bakgrunn-flate-3, #F0F0F0)}.bp-ramme{fill:none;stroke:var(--bivrost-farge-kant-sterk, #616161)}.bp-skille{stroke:var(--bivrost-farge-kant-sterk, #616161)}.bp-navn{fill:var(--bivrost-farge-tekst-standard, #242424);font-weight:600;font-size:12px}.bp-oppgave{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke:var(--bivrost-farge-tekst-standard, #242424);stroke-width:1.25}.bp-valg,.bp-start,.bp-slutt{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke:var(--bivrost-farge-tekst-merkevare, #003366);stroke-width:1.5}.bp-slutt{stroke-width:4}.bp-kryss{fill:none;stroke:var(--bivrost-farge-tekst-merkevare, #003366);stroke-width:2.5;stroke-linecap:round}.bp-ikon{fill:none;stroke:var(--bivrost-farge-tekst-merkevare, #003366);stroke-width:1.25;stroke-linejoin:round}.bp-tekst{fill:var(--bivrost-farge-tekst-standard, #242424);font-size:12px}.bp-etikett{fill:var(--bivrost-farge-tekst-standard, #242424);font-size:12px;paint-order:stroke;stroke:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke-width:4px;stroke-linejoin:round}.bp-flytetikett{fill:var(--bivrost-farge-tekst-merkevare, #003366);font-weight:600}.bp-flyt{fill:none;stroke:var(--bivrost-farge-tekst-dempet, #424242);stroke-width:1.5}.bp-pil{fill:var(--bivrost-farge-tekst-dempet, #424242)}.bp-melding{fill:none;stroke:var(--bivrost-farge-tekst-dempet, #424242);stroke-width:1.25;stroke-dasharray:6 4}.bp-meldingspil{fill:var(--bivrost-farge-bakgrunn-flate-1, #FFFFFF);stroke:var(--bivrost-farge-tekst-dempet, #424242);stroke-width:1.25}@media (prefers-color-scheme: dark){svg{--bivrost-farge-bakgrunn-flate-1:#292929;--bivrost-farge-bakgrunn-flate-3:#0A0A0A;--bivrost-farge-kant-sterk:#ADADAD;--bivrost-farge-tekst-standard:#FFFFFF;--bivrost-farge-tekst-dempet:#D6D6D6;--bivrost-farge-tekst-merkevare:#33CCFF}}</style>
+<rect class="bp-flate" x="16" y="16" width="2000" height="512"/>
+<rect class="bp-hode" x="16" y="16" width="64" height="512"/>
+<text class="bp-navn" text-anchor="middle" transform="translate(32,272) rotate(-90)"><tspan x="0" y="4.5">Sirevåg kommune</tspan></text>
+<text class="bp-navn" text-anchor="middle" transform="translate(64,144) rotate(-90)"><tspan x="0" y="4.5">Dokumentsenteret</tspan></text>
+<text class="bp-navn" text-anchor="middle" transform="translate(64,336) rotate(-90)"><tspan x="0" y="4.5">Leder</tspan></text>
+<text class="bp-navn" text-anchor="middle" transform="translate(64,464) rotate(-90)"><tspan x="0" y="4.5">Saksbehandler</tspan></text>
+<line class="bp-skille" x1="48" y1="272" x2="2016" y2="272"/>
+<line class="bp-skille" x1="48" y1="400" x2="2016" y2="400"/>
+<line class="bp-skille" x1="48" y1="16" x2="48" y2="528"/>
+<line class="bp-skille" x1="80" y1="16" x2="80" y2="528"/>
+<rect class="bp-ramme" x="16" y="16" width="2000" height="512"/>
+<path class="bp-flyt" d="M184,80 L273,80"/><polygon class="bp-pil" points="280,80 271,84.5 271,75.5"/>
+<path class="bp-flyt" d="M408,80 L489,80"/><polygon class="bp-pil" points="496,80 487,84.5 487,75.5"/>
+<path class="bp-flyt" d="M544,80 L801,80"/><polygon class="bp-pil" points="808,80 799,84.5 799,75.5"/>
+<path class="bp-flyt" d="M520,104 L520,202 Q520,208 526,208 L625,208"/><polygon class="bp-pil" points="632,208 623,212.5 623,203.5"/>
+<path class="bp-flyt" d="M760,208 L786,208 Q792,208 792,202 L792,86 Q792,80 798,80 L801,80"/><polygon class="bp-pil" points="808,80 799,84.5 799,75.5"/>
+<path class="bp-flyt" d="M936,80 L1017,80"/><polygon class="bp-pil" points="1024,80 1015,84.5 1015,75.5"/>
+<path class="bp-flyt" d="M1072,80 L1329,80"/><polygon class="bp-pil" points="1336,80 1327,84.5 1327,75.5"/>
+<path class="bp-flyt" d="M1048,104 L1048,202 Q1048,208 1054,208 L1153,208"/><polygon class="bp-pil" points="1160,208 1151,212.5 1151,203.5"/>
+<path class="bp-flyt" d="M1288,208 L1314,208 Q1320,208 1320,202 L1320,86 Q1320,80 1326,80 L1329,80"/><polygon class="bp-pil" points="1336,80 1327,84.5 1327,75.5"/>
+<path class="bp-flyt" d="M1464,80 L1505,80"/><polygon class="bp-pil" points="1512,80 1503,84.5 1503,75.5"/>
+<path class="bp-flyt" d="M1640,80 L1666,80 Q1672,80 1672,86 L1672,330 Q1672,336 1678,336 L1681,336"/><polygon class="bp-pil" points="1688,336 1679,340.5 1679,331.5"/>
+<path class="bp-flyt" d="M1816,336 L1922,336 Q1928,336 1928,342 L1928,441"/><polygon class="bp-pil" points="1928,448 1923.5,439 1932.5,439"/>
+<circle class="bp-start" cx="168" cy="80" r="16"/><text class="bp-etikett" text-anchor="middle"><tspan x="168" y="113">Dokument klart for</tspan><tspan x="168" y="128">registrering</tspan></text>
+<rect class="bp-oppgave" x="280" y="40" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="344" y="76.5">Søke etter</tspan><tspan x="344" y="91.5">eksisterende sak</tspan></text>
+<polygon class="bp-valg" points="520,56 544,80 520,104 496,80"/><path class="bp-kryss" d="M513,73 L527,87 M527,73 L513,87"/><text class="bp-etikett" text-anchor="middle"><tspan x="520" y="47">Finnes saken fra før?</tspan></text>
+<rect class="bp-oppgave" x="632" y="168" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="696" y="197">Opprette</tspan><tspan x="696" y="212">saksmappe: tittel,</tspan><tspan x="696" y="227">klasse og enhet</tspan></text>
+<rect class="bp-oppgave" x="808" y="40" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="872" y="61.5">Opprette</tspan><tspan x="872" y="76.5">journalpost:</tspan><tspan x="872" y="91.5">avsender, tittel,</tspan><tspan x="872" y="106.5">datoer, dokumenter</tspan></text>
+<polygon class="bp-valg" points="1048,56 1072,80 1048,104 1024,80"/><path class="bp-kryss" d="M1041,73 L1055,87 M1055,73 L1041,87"/><text class="bp-etikett" text-anchor="middle"><tspan x="1048" y="47">Må noe skjermes?</tspan></text>
+<rect class="bp-oppgave" x="1160" y="168" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="1224" y="189.5">Sette tilgangskode</tspan><tspan x="1224" y="204.5">og hjemmel.</tspan><tspan x="1224" y="219.5">Skjerme minst</tspan><tspan x="1224" y="234.5">mulig</tspan></text>
+<rect class="bp-oppgave" x="1336" y="40" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="1400" y="76.5">Lese over og sette</tspan><tspan x="1400" y="91.5">status Journalført</tspan></text>
+<rect class="bp-oppgave" x="1512" y="40" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="1576" y="76.5">Fordele til</tspan><tspan x="1576" y="91.5">enheten</tspan></text>
+<rect class="bp-oppgave" x="1688" y="296" width="128" height="80" rx="10"/><text class="bp-tekst" text-anchor="middle"><tspan x="1752" y="332.5">Fordele til</tspan><tspan x="1752" y="347.5">saksbehandler</tspan></text>
+<circle class="bp-slutt" cx="1928" cy="464" r="14.5"/><text class="bp-etikett" text-anchor="middle"><tspan x="1928" y="497">Fordelt: restanse</tspan><tspan x="1928" y="512">til den er besvart</tspan></text>
+<text class="bp-etikett bp-flytetikett" x="549" y="74" text-anchor="start">ja</text>
+<text class="bp-etikett bp-flytetikett" x="526" y="119" text-anchor="start">nei</text>
+<text class="bp-etikett bp-flytetikett" x="1077" y="74" text-anchor="start">nei</text>
+<text class="bp-etikett bp-flytetikett" x="1054" y="119" text-anchor="start">ja</text>
+</svg>

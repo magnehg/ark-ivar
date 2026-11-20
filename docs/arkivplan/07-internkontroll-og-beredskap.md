@@ -8,6 +8,7 @@ gjøres når arkivene er truet.
 ## Internkontrollen i ett bilde
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#FFFFFF", "primaryBorderColor": "#003366", "primaryTextColor": "#242424", "secondaryColor": "#F0F0F0", "tertiaryColor": "#FAFAFA", "lineColor": "#616161", "textColor": "#616161", "clusterBkg": "#FAFAFA", "clusterBorder": "#D1D1D1", "edgeLabelBackground": "#FFFFFF", "noteBkgColor": "#E7F0F8", "noteBorderColor": "#0F6CBD", "actorBorder": "#003366", "signalColor": "#616161", "signalTextColor": "#616161"}}}%%
 flowchart LR
     plan["Planlegge:<br/>arkivplanen, rutinene,<br/>risikovurderingen"] --> gjore["Gjøre:<br/>det daglige arbeidet<br/>etter rutinene"]
     gjore --> ktr["Kontrollere:<br/>faste kontroller,<br/>avvik, nøkkeltall"]
@@ -83,18 +84,9 @@ peker særlig på dem (arkivforskrifta § 13 andre ledd).
 Et avvik er et brudd på lov, forskrift eller arkivplanen. Alle ansatte skal melde avvik. Den som melder, skal ikke
 oppleve ubehag for det.
 
-```mermaid
-flowchart TD
-    opp(["Avvik oppdaget"]) --> straks["Begrense skaden straks:<br/>skjerme, hente tilbake, stanse"]
-    straks --> meld["Melde i kommunens avvikssystem<br/>og til Dokumentsenteret"]
-    meld --> pers{"Kan personopplysninger<br/>ha kommet på avveie?"}
-    pers -->|ja| pvo["Personvernombudet varsles.<br/>Melding til Datatilsynet<br/>vurderes innen 72 timer"]
-    pers -->|nei| arsak
-    pvo --> arsak["Finne årsaken:<br/>rutine, system, opplæring<br/>eller enkeltfeil?"]
-    arsak --> tiltak["Rette feilen og årsaken.<br/>Dokumentere rettingen"]
-    tiltak --> lukk["Arkivlederen lukker avviket"]
-    lukk --> laer(["Avvikene oppsummeres hvert<br/>halvår og brukes i opplæringen"])
-```
+![BPMN-diagram: Avvikshåndtering](../figurer/avvik.svg)
+
+Figuren følger BPMN. Symbolene er forklart i [oversikten over prosessene](../prosesser/README.md#symbolene-i-figurene).
 
 | Alvorlighet | Eksempel | Behandles av | Frist |
 |---|---|---|---|

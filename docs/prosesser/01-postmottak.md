@@ -14,25 +14,12 @@
 
 ## Figur
 
-```mermaid
-flowchart TD
-    inn(["Henvendelse kommer inn"]) --> kanal{"Hvilken kanal?"}
-    kanal -->|"papir"| apne["Åpne, datostemple<br/>og skanne"]
-    kanal -->|"e-post, skjema,<br/>digital post"| hent["Hente fra postmottaket"]
-    kanal -->|"telefon, oppmøte,<br/>SMS, chat"| notat["Skrive ned innholdet<br/>i et notat"]
-    apne --> sd{"Gjelder det kommunens<br/>ansvar eller virksomhet?"}
-    hent --> sd
-    notat --> sd
-    sd -->|"nei, feilsendt"| videre["Sende til rett organ<br/>og gi avsenderen beskjed"]
-    sd -->|"nei, reklame<br/>eller privat"| bort(["Ikke arkiv"])
-    sd -->|ja| arkiv{"Skal det forvaltes<br/>som arkiv?"}
-    arkiv -->|nei| bort
-    arkiv -->|ja| fag{"Hører det til<br/>i et fagsystem?"}
-    fag -->|ja| fagsys(["Sendes til enheten<br/>som bruker fagsystemet"])
-    fag -->|nei| jf{"Blir det saksbehandlet, og<br/>har det verdi som bekreftelse?"}
-    jf -->|ja| p2(["P2: journalføres"])
-    jf -->|nei| uten(["P2: arkiveres uten<br/>journalføring"])
-```
+Henvendelser kommer inn i mange kanaler. Rutinen under sier hvordan hver kanal håndteres. Figuren viser
+vurderingene som gjøres når henvendelsen er hentet inn.
+
+![BPMN-diagram: P1 Mottak og sortering](../figurer/p1-mottak.svg)
+
+Figuren følger BPMN. Symbolene er forklart i [oversikten](README.md#symbolene-i-figurene).
 
 ## Rutine steg for steg
 

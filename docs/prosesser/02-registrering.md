@@ -17,23 +17,9 @@ Prosessen gjelder inngående dokumenter. Utgående og interne dokumenter registr
 
 ## Figur
 
-```mermaid
-flowchart TD
-    start(["Dokument klart<br/>for registrering"]) --> sok["Søke etter eksisterende sak:<br/>avsender, referanse, eiendom, emne"]
-    sok --> finnes{"Finnes saken<br/>fra før?"}
-    finnes -->|ja| velg["Velge saken"]
-    finnes -->|nei| ny["Opprette saksmappe:<br/>tittel, klasse, ansvarlig enhet"]
-    velg --> jp["Opprette journalpost<br/>av typen Inngående"]
-    ny --> jp
-    jp --> meta["Registrere avsender, tittel,<br/>dokumentdato og mottatt dato"]
-    meta --> dok["Knytte til hoveddokument<br/>og vedlegg"]
-    dok --> skj{"Røper tittel, avsender<br/>eller innhold noe som<br/>må skjermes?"}
-    skj -->|ja| kode["Sette tilgangskode og hjemmel,<br/>og skjerme bare det nødvendige"]
-    skj -->|nei| ford
-    kode --> ford["Fordele til enhet<br/>og saksbehandler"]
-    ford --> kontroll["Lese over registreringen"]
-    kontroll --> status(["Status Journalført.<br/>Dokumentet er en restanse<br/>til det er besvart"])
-```
+![BPMN-diagram: P2 Registrering og journalføring](../figurer/p2-registrering.svg)
+
+Figuren følger BPMN. Symbolene er forklart i [oversikten](README.md#symbolene-i-figurene).
 
 ## Rutine steg for steg
 

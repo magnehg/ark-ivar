@@ -27,27 +27,14 @@ som gjelder.
 Resten av prosessen handler om allmennhetens innsyn etter offentleglova. Den som har partsrettigheter, skal få
 veiledning om det, fordi partsinnsynet gir mer.
 
-## Figur: vurderingen av et innsynskrav
+## Figur: behandlingen av et innsynskrav
 
-```mermaid
-flowchart TD
-    krav(["Innsynskrav mottatt"]) --> best{"Gjelder kravet en bestemt sak,<br/>eller saker av en bestemt art<br/>i rimelig omfang?"}
-    best -->|nei| veil["Veilede den som spør,<br/>så kravet kan presiseres"]
-    veil --> krav
-    best -->|ja| finn["Finne dokumentene"]
-    finn --> taus{"Inneholder dokumentet<br/>taushetsbelagte opplysninger?"}
-    taus -->|ja| sladd["Disse opplysningene skal unntas.<br/>De sladdes"]
-    taus -->|nei| unn
-    sladd --> unn{"Finnes det en hjemmel<br/>som gir adgang til<br/>å unnta noe mer?"}
-    unn -->|nei| gi(["Innsyn gis"])
-    unn -->|ja| mer{"Merinnsyn: veier hensynet<br/>til innsyn tyngre enn<br/>behovet for unntak?"}
-    mer -->|ja| gi
-    mer -->|nei| rest{"Er bare deler av<br/>dokumentet unntatt?"}
-    rest -->|"nei, hele"| avslag(["Skriftlig avslag med presis<br/>hjemmel og klageopplysning"])
-    rest -->|ja| tolv{"Kan resten også unntas:<br/>misvisende, urimelig arbeid,<br/>eller det vesentligste er unntatt?"}
-    tolv -->|ja| avslag
-    tolv -->|nei| delvis(["Delvis innsyn i sladdet versjon,<br/>med avslag for resten"])
-```
+Figuren viser hvem som gjør hva. Vurderingen av om resten av dokumentet kan unntas (offentleglova § 12), er en del
+av oppgaven «Vurdere merinnsyn, og om resten kan gis ut».
+
+![BPMN-diagram: P8 Behandling av et innsynskrav](../figurer/p8-innsyn.svg)
+
+Figuren følger BPMN. Symbolene er forklart i [oversikten](README.md#symbolene-i-figurene).
 
 ## Rutine steg for steg
 
@@ -90,6 +77,7 @@ Et avslag skal være skriftlig og inneholde:
 ## Figur: klage på avslag
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#FFFFFF", "primaryBorderColor": "#003366", "primaryTextColor": "#242424", "secondaryColor": "#F0F0F0", "tertiaryColor": "#FAFAFA", "lineColor": "#616161", "textColor": "#616161", "clusterBkg": "#FAFAFA", "clusterBorder": "#D1D1D1", "edgeLabelBackground": "#FFFFFF", "noteBkgColor": "#E7F0F8", "noteBorderColor": "#0F6CBD", "actorBorder": "#003366", "signalColor": "#616161", "signalTextColor": "#616161"}}}%%
 sequenceDiagram
     autonumber
     participant K as Den som krever innsyn

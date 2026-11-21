@@ -78,6 +78,8 @@
   Sirevåg kommune (nøklene begynner med «k1-» til «k10-»).
 - Oversiktene (mapper, dokumentene i en mappe, journalen og søketreffene) kan vises i kolonner, med tittelen først
   eller på to linjer. Brukeren bytter med ikoner over oversikten, og valget lagres på kontoen.
+- Kanten mellom siden og lesevinduet kan dras sidelengs, og bredden huskes i nettleseren. Lenkene i oversiktene står
+  i fet skrift uten understreking.
 - Arkivformatet står før produksjonsformatet. 14 utgående dokumenter har to versjoner, der versjon 1 er
   saksbehandlerens grove utkast.
 - Mappeoversikten: mappeikon ved saksnummeret (åpen mappe under behandling, lukket når saken er avsluttet), saksnummer

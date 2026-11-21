@@ -7,7 +7,7 @@ import { ArrowSort20Regular, ArrowSortDown20Regular, ArrowSortUp20Regular, Chevr
 import { api } from '../api';
 import { useSprak, useT } from '../i18n';
 import { useHent } from './Felles';
-import { SorterbarTabell, TabellProps, useSortering } from './Tabell';
+import { LENKE, SorterbarTabell, TabellProps, useSortering } from './Tabell';
 
 export type Listevisning = 'kolonner' | 'tittel' | 'linjer';
 const VISNINGER: Listevisning[] = ['kolonner', 'tittel', 'linjer'];
@@ -39,7 +39,7 @@ const s = makeStyles({
   sortering: { display: 'flex', alignItems: 'center', gap: '2px' },
   valgt: { fontWeight: tokens.fontWeightSemibold },
   velger: { display: 'flex', gap: '2px', marginLeft: 'auto' },
-  liste: { listStyleType: 'none', margin: 0, padding: 0, borderTop: `1px solid ${tokens.colorNeutralStroke2}` },
+  liste: { listStyleType: 'none', margin: 0, padding: 0, borderTop: `1px solid ${tokens.colorNeutralStroke2}`, '& a': LENKE },
   post: { borderBottom: `1px solid ${tokens.colorNeutralStroke2}` },
   rad: { display: 'flex', alignItems: 'flex-start', gap: '4px', padding: '8px 0' },
   knapp: { flexShrink: 0 },

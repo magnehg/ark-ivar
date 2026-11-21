@@ -159,8 +159,16 @@ export function SorterbarTabell<T>({ rader, kolonner, nokkel, size = 'small', st
   return utenVegg ? tabell : <TabellVegg etikett={aria['aria-label']} etikettId={aria['aria-labelledby']}>{tabell}</TabellVegg>;
 }
 
+/** Stilen på lenkene i oversiktene (tabellene og listevisningene). */
+export const LENKE = {
+  textDecorationLine: 'none', fontWeight: tokens.fontWeightSemibold,
+  ':hover': { textDecorationLine: 'underline' }, ':focus-visible': { textDecorationLine: 'underline' },
+} as const;
+
 const s = makeStyles({
-  tabellvegg: { overflowX: 'auto' },
+  // Lenkene i en oversikt står i fet skrift uten understreking: fet skrift skiller dem fra vanlig tekst uten bare å
+  // bruke farge, og understrekingen kommer når pekeren eller fokus er på lenken.
+  tabellvegg: { overflowX: 'auto', '& a': LENKE },
   // En tabell med utvidbare rader står ved siden av lesevinduet. Den klemmes ikke sammen: veggen rundt ruller sidelengs.
   bred: { minWidth: '1100px' },
   utvidcelle: { width: '40px', paddingLeft: '4px', paddingRight: 0 },

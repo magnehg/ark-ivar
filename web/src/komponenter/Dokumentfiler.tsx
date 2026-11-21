@@ -1,7 +1,7 @@
 // Dokumentfilene til journalpostene: filikoner for produksjonsformat og arkivformat, listen som vises når en rad i en
 // oversikt er utvidet, og lesevinduet som åpnes til høyre når studenten klikker på en fil. Øvingsarkivet har ikke
 // virkelige filer: lesevinduet viser dokumentet slik filen ville sett ut (som ark, eller som ren tekst for txt).
-import { ReactNode, createContext, useCallback, useContext, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { KeyboardEvent as ReactKeyboardEvent, ReactNode, createContext, useCallback, useContext, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Link as Ruterlenke, useLocation } from 'react-router-dom';
 import { Button, MessageBar, MessageBarBody, DrawerBody, DrawerHeader, DrawerHeaderTitle, OverlayDrawer, Text, makeStyles, mergeClasses, tokens } from '@fluentui/react-components';
 import { ChevronDown20Regular, ChevronRight20Regular, Dismiss24Regular } from '@fluentui/react-icons';
@@ -10,8 +10,32 @@ import { useSprak, useT } from '../i18n';
 import { Ark } from './Ark';
 import { Hentefeil, Laster, useHent } from './Felles';
 
-/** Bredden på lesevinduet. Siden ved siden av får like mye marg mens vinduet er åpent. */
-const BREDDE = 'min(680px, 44vw)';
+/**
+ * Bredden på lesevinduet. Siden ved siden av får like mye marg mens vinduet er åpent. Brukeren kan dra i kanten
+ * mellom siden og vinduet; da står bredden i CSS-variabelen, ellers gjelder standarden.
+ */
+const BREDDE = 'var(--arkivar-lesevindu-bredde, min(680px, 44vw))';
+const BREDDEVARIABEL = '--arkivar-lesevindu-bredde';
+/** Minste bredde på lesevinduet og på siden ved siden av, og steget piltastene flytter kanten. */
+const MINST = 360;
+const MINST_SIDE = 420;
+const STEG = 24;
+/** Bredden huskes i nettleseren: den hører til skjermen, ikke kontoen. */
+const LAGERNOKKEL = 'arkivar-lesevindu-bredde';
+
+function lagretBredde(): number | null {
+  try {
+    const tall = Number(window.localStorage.getItem(LAGERNOKKEL));
+    return Number.isFinite(tall) && tall >= MINST ? tall : null;
+  } catch { return null; }
+}
+function huskBredde(bredde: number | null): void {
+  try {
+    if (bredde === null) window.localStorage.removeItem(LAGERNOKKEL); else window.localStorage.setItem(LAGERNOKKEL, String(Math.round(bredde)));
+  } catch { /* uten lager gjelder bredden til siden lastes på nytt */ }
+}
+/** Bredden holdt innenfor det skjermen har plass til: vinduet og siden ved siden av skal begge kunne brukes. */
+const innenfor = (bredde: number): number => Math.round(Math.min(Math.max(bredde, MINST), Math.max(MINST, window.innerWidth - MINST_SIDE)));
 
 const s = makeStyles({
   ikon: { flexShrink: 0, display: 'block' },
@@ -40,6 +64,17 @@ const s = makeStyles({
   vedlegg: { display: 'flex', flexDirection: 'column', gap: '8px', padding: '20px', backgroundColor: tokens.colorNeutralBackground1, border: `1px solid ${tokens.colorNeutralStroke2}` },
   // Siden gir plass til vinduet (plass), så ingenting ligger under det. På smale skjermer dekker vinduet hele bredden.
   skuff: { width: BREDDE, '@media (max-width: 900px)': { width: '100vw' } },
+  // Kanten mellom siden og lesevinduet. Den kan dras sidelengs, og flyttes med piltastene når den har fokus.
+  kant: {
+    position: 'absolute', top: 0, bottom: 0, left: 0, width: '9px', cursor: 'col-resize', zIndex: 10, touchAction: 'none',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    '::after': { content: '""', width: '3px', height: '40px', borderRadius: '2px', backgroundColor: tokens.colorNeutralStroke1 },
+    ':hover': { backgroundColor: tokens.colorNeutralBackground1Hover },
+    ':hover::after': { backgroundColor: tokens.colorBrandStroke1 },
+    ':focus-visible': { outline: `2px solid ${tokens.colorStrokeFocus2}`, outlineOffset: '-2px' },
+    '@media (max-width: 900px)': { display: 'none' },
+  },
+  dras: { backgroundColor: tokens.colorNeutralBackground1Pressed, '::after': { backgroundColor: tokens.colorBrandStroke1 } },
   plass: { '@media (min-width: 901px)': { paddingRight: BREDDE } },
   hodetekst: { display: 'flex', gap: '10px', alignItems: 'center', minWidth: 0 },
   kropp: { backgroundColor: tokens.colorNeutralBackground3, paddingTop: '16px', paddingBottom: '24px' },
@@ -129,6 +164,32 @@ export function LesevinduTilbyder({ children }: { children: ReactNode }) {
     document.addEventListener('keydown', tast);
     return () => document.removeEventListener('keydown', tast);
   }, [apen, lukk]);
+  // Bredden brukeren har dratt vinduet til (null = standarden). Den står i en CSS-variabel på dokumentet, så både
+  // vinduet og margen på siden følger den.
+  const [bredde, settBredde] = useState<number | null>(lagretBredde);
+  const [dras, settDras] = useState(false);
+  useEffect(() => {
+    const rot = document.documentElement;
+    if (bredde === null) rot.style.removeProperty(BREDDEVARIABEL); else rot.style.setProperty(BREDDEVARIABEL, `${innenfor(bredde)}px`);
+  }, [bredde]);
+  // Blir nettleservinduet smalere, holdes bredden innenfor det som er plass til.
+  useEffect(() => {
+    const juster = () => settBredde((b) => (b === null ? null : innenfor(b)));
+    window.addEventListener('resize', juster);
+    return () => window.removeEventListener('resize', juster);
+  }, []);
+  // Bredden vinduet har nå: den brukeren har satt, ellers den vinduet faktisk har på skjermen.
+  const vindu = (): Element | null => document.querySelector('[data-lesevindu]');
+  const naa = (): number => bredde ?? Math.round(vindu()?.getBoundingClientRect().width ?? 680);
+  const settOgHusk = (ny: number | null) => { const b = ny === null ? null : innenfor(ny); settBredde(b); huskBredde(b); };
+  const kanttast = (e: ReactKeyboardEvent) => {
+    if (e.key === 'ArrowLeft') settOgHusk(naa() + STEG);
+    else if (e.key === 'ArrowRight') settOgHusk(naa() - STEG);
+    else if (e.key === 'Home') settOgHusk(window.innerWidth);
+    else if (e.key === 'End') settOgHusk(MINST);
+    else return;
+    e.preventDefault();
+  };
   const verdi = useMemo(() => ({ apen, apne, lukk }), [apen, apne, lukk]);
   return (
     <LesevinduCtx.Provider value={verdi}>
@@ -137,6 +198,15 @@ export function LesevinduTilbyder({ children }: { children: ReactNode }) {
       <OverlayDrawer className={c.skuff} data-lesevindu="" position="end" modalType="non-modal" open={apen !== null} onOpenChange={(_, d) => { if (!d.open) lukk(); }} aria-label={t('arkivar.lesevindu.tittel')}>
         {apen && (
           <>
+            {/* Vinduet står til høyre, så bredden er avstanden fra pekeren til høyre kant. Dobbeltklikk gir standarden. */}
+            <div className={mergeClasses(c.kant, dras && c.dras)} role="separator" aria-orientation="vertical" tabIndex={0} aria-label={t('arkivar.lesevindu.kant')} title={t('arkivar.lesevindu.kant')}
+              aria-valuemin={MINST} aria-valuemax={Math.max(MINST, window.innerWidth - MINST_SIDE)} aria-valuenow={naa()}
+              onPointerDown={(e) => { e.currentTarget.setPointerCapture(e.pointerId); settDras(true); e.preventDefault(); }}
+              onPointerMove={(e) => { if (dras) settBredde(innenfor(window.innerWidth - e.clientX)); }}
+              onPointerUp={(e) => { if (dras) { settDras(false); settOgHusk(window.innerWidth - e.clientX); } }}
+              onPointerCancel={() => settDras(false)}
+              onDoubleClick={() => settOgHusk(null)}
+              onKeyDown={kanttast} />
             <DrawerHeader>
               <DrawerHeaderTitle action={<Button appearance="subtle" icon={<Dismiss24Regular />} aria-label={t('arkivar.lesevindu.lukk')} title={t('arkivar.lesevindu.lukk')} onClick={lukk} />}>
                 <span className={c.hodetekst}>

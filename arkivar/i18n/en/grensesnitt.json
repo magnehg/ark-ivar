@@ -250,6 +250,7 @@
   "arkivar.kriterium.tilgang": "Access code and legal basis",
   "arkivar.kriterium.type": "Entry type",
   "arkivar.lesevindu.journalpost": "Open the journal entry",
+  "arkivar.lesevindu.kant": "Drag to change the width of the reading pane. The arrow keys move the edge, and a double-click restores the default width.",
   "arkivar.lesevindu.lukk": "Close the reading pane",
   "arkivar.lesevindu.tittel": "Reading pane",
   "arkivar.lesevindu.utkast": "Version 1 is the case officer's first draft. The finished document is version 2.",

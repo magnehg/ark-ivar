@@ -250,6 +250,7 @@
   "arkivar.kriterium.tilgang": "Tilgangskode og hjemmel",
   "arkivar.kriterium.type": "Journalposttype",
   "arkivar.lesevindu.journalpost": "Åpne journalposten",
+  "arkivar.lesevindu.kant": "Dra for å endre bredden på lesevinduet. Piltastene flytter kanten, og dobbeltklikk gir standardbredden.",
   "arkivar.lesevindu.lukk": "Lukk lesevinduet",
   "arkivar.lesevindu.tittel": "Lesevindu",
   "arkivar.lesevindu.utkast": "Versjon 1 er saksbehandlerens første utkast. Det ferdige dokumentet er versjon 2.",

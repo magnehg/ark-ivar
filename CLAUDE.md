@@ -60,7 +60,9 @@ uttrekk eller avlevere.
   i `SorterbarTabell` utvides (`utvid`), `Filliste` viser filene med `Filikon` (fylt merke for arkivformat, ramme for
   produksjonsformat, og alltid tekst ved siden av), og `LesevinduTilbyder` (rundt `Skall`) holder lesevinduet til
   høyre: ikke modalt, lukkes med Escape og når adressen endres (side eller filter), og fokus settes tilbake på filen
-  som åpnet det. Siden får like mye høyremarg som vinduet er bredt, så ingenting ligger under det; tabeller med
+  som åpnet det. Kanten mellom siden og vinduet kan dras sidelengs (`role="separator"`, piltaster, dobbeltklikk gir
+  standarden); bredden står i CSS-variabelen `--arkivar-lesevindu-bredde` og huskes i nettleseren.
+  Siden får like mye høyremarg som vinduet er bredt, så ingenting ligger under det; tabeller med
   utvidbare rader har en minstebredde og ruller sidelengs i stedet for å klemmes sammen.
 - **Visningene av oversiktene** (`web/src/komponenter/Oversikt.tsx`, `web/src/sider/arkiv/visninger.tsx`):
   mappeoversikten, dokumentene i en mappe, journalen og søketreffene vises i kolonner (`SorterbarTabell`), med
@@ -69,7 +71,8 @@ uttrekk eller avlevere.
   `GET`/`PUT /api/meg/valg`, bare valgene og verdiene i `Brukervalg::VALG`. En ny oversikt bruker `Oversikt` og
   gir radene for de to listevisningene (`useMappevisning`, `useJournalpostvisning`). På to linjer står typen
   (I, U, N, X, S) i en rute først, så saks- og dokumentnummeret med løpenummeret under i kortform
-  («2026/28-3» og «(104/26)», `kortLopenummer()`), tittelen og dokumentdatoen.
+  («2026/28-3» og «(104/26)», `kortLopenummer()`), tittelen og dokumentdatoen. Lenkene i oversiktene står i fet
+  skrift uten understreking (`LENKE` i `Tabell.tsx`); understrekingen kommer ved peker og fokus.
 - **Kommunevåpenet** (`web/src/bilder/sirevag-kommunevapen.svg`, `Kommunevapen`) er oppdiktet: «I blått en gull bjelke som på
   midten er bøyd ned i en nesten sluttet ring (en våg)». Det er valgt blant tre forslag og sjekket mot virkelige
   kommunevåpen på Jæren og sørvestkysten (ikke uttømmende). Det er et bilde med sine egne heraldiske farger og

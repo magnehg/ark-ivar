@@ -3,7 +3,7 @@
 // (PUT /api/meg/valg), så det følger brukeren fra maskin til maskin og gjelder alle oversiktene.
 import { ReactNode, createContext, useCallback, useContext, useId, useMemo, useState } from 'react';
 import { Button, Menu, MenuButton, MenuItemRadio, MenuList, MenuPopover, MenuTrigger, ToggleButton, makeStyles, tokens } from '@fluentui/react-components';
-import { ArrowSort20Regular, ArrowSortDown20Regular, ArrowSortUp20Regular, ChevronDown20Regular, ChevronRight20Regular, List20Regular, Table20Regular, TextBulletListSquare20Regular } from '@fluentui/react-icons';
+import { ArrowSort20Regular, ArrowSortDown20Regular, ArrowSortUp20Regular, ChevronDown20Regular, ChevronRight20Regular, Filter20Regular, List20Regular, Table20Regular, TextBulletListSquare20Regular } from '@fluentui/react-icons';
 import { api } from '../api';
 import { useSprak, useT } from '../i18n';
 import { Laster, useHent } from './Felles';
@@ -37,7 +37,7 @@ export function VisningTilbyder({ children }: { children: ReactNode }) {
 }
 
 const s = makeStyles({
-  verktoy: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px 16px', flexWrap: 'wrap', marginBottom: '6px' },
+  verktoy: { display: 'flex', alignItems: 'center', gap: '4px 12px', flexWrap: 'wrap', marginBottom: '6px', minHeight: '32px' },
   sortering: { display: 'flex', alignItems: 'center', gap: '2px' },
   valgt: { fontWeight: tokens.fontWeightSemibold },
   velger: { display: 'flex', gap: '2px', marginLeft: 'auto' },
@@ -67,6 +67,8 @@ export function Visningsvelger() {
 type OversiktProps<T> = TabellProps<T> & {
   /** Én rad i visningene uten kolonner: med tittelen først, og på to linjer. */
   visninger: { tittel: (rad: T, indeks: number) => ReactNode; linjer: (rad: T, indeks: number) => ReactNode };
+  /** Det som står først på linjen med ikonene: et filter (som meny) og telleren. */
+  forst?: ReactNode;
 };
 
 /**
@@ -74,7 +76,7 @@ type OversiktProps<T> = TabellProps<T> & {
  * liste med de samme radene. Sorteringen og de utvidede radene eies her, så de står når visningen byttes, og
  * verktøylinjen med ikonene tegnes ett sted, så fokus blir stående på ikonet som ble valgt.
  */
-export function Oversikt<T>({ visninger, ...tabell }: OversiktProps<T>) {
+export function Oversikt<T>({ visninger, forst, ...tabell }: OversiktProps<T>) {
   const c = s(); const t = useT(); const { visning, klar } = useVisning();
   const { rader, kolonner, nokkel, startSortering, utvid } = tabell;
   const [sortering, settSortering] = useState<Sortering | null>(startSortering ?? null);
@@ -91,6 +93,7 @@ export function Oversikt<T>({ visninger, ...tabell }: OversiktProps<T>) {
   return (
     <>
       <div className={c.verktoy}>
+        {forst}
         {/* I kolonner sorteres det med overskriftene. I listene er det en meny, ikke et skjemafelt. */}
         {visning !== 'kolonner' && sorterbare.length > 0 && (
           <div className={c.sortering}>
@@ -148,5 +151,38 @@ function Radliste<T>({ sortert, nokkel, utvid, apne, settApne, kroppSprak, rad, 
         );
       })}
     </ul>
+  );
+}
+
+const t2 = makeStyles({
+  teller: { color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200 },
+  valgt: { fontWeight: tokens.fontWeightSemibold },
+});
+
+/** Telleren på linjen med ikonene («134 av 134»). Den leses opp når tallet endrer seg. */
+export function Teller({ children }: { children: ReactNode }) {
+  return <span className={t2().teller} role="status">{children}</span>;
+}
+
+/**
+ * Et filter som nedtrekksmeny på linjen med ikonene: knappen viser ledeteksten og det som er valgt.
+ * valg er verdiene med navnene; den tomme verdien er «alle».
+ */
+export function Filtermeny({ ledetekst, verdi, valg, velg, sprak }: { ledetekst: string; verdi: string; valg: { verdi: string; navn: string }[]; velg: (verdi: string) => void; sprak?: string }) {
+  const c = t2();
+  const valgt = valg.find((v) => v.verdi === verdi);
+  return (
+    <Menu checkedValues={{ filter: [verdi] }} onCheckedValueChange={(_, d) => velg(d.checkedItems[0] ?? '')}>
+      <MenuTrigger disableButtonEnhancement>
+        <MenuButton appearance="subtle" size="small" icon={<Filter20Regular />}>
+          <span>{ledetekst}: <span className={c.valgt} lang={verdi === '' ? undefined : sprak}>{valgt?.navn ?? ''}</span></span>
+        </MenuButton>
+      </MenuTrigger>
+      <MenuPopover>
+        <MenuList>
+          {valg.map((v) => <MenuItemRadio key={v.verdi} name="filter" value={v.verdi}><span lang={v.verdi === '' ? undefined : sprak}>{v.navn}</span></MenuItemRadio>)}
+        </MenuList>
+      </MenuPopover>
+    </Menu>
   );
 }

@@ -10,13 +10,12 @@ import { Feil, Kort, Laster, Sidehode, useFeiltekst, useHent } from '../../kompo
 import { Dokumenttittel, Journalpostfiler, Mappefiler } from '../../komponenter/Dokumentfiler';
 import { Mappesok } from '../../komponenter/Mappesok';
 import { Status } from '../../komponenter/Status';
-import { Oversikt } from '../../komponenter/Oversikt';
-import { Kolonne, TabellVerktoy } from '../../komponenter/Tabell';
+import { Filtermeny, Oversikt, Teller } from '../../komponenter/Oversikt';
+import { Kolonne } from '../../komponenter/Tabell';
 import { useJournalpostvisning, useMappekolonner, useMappevisning } from './visninger';
 
 const s = makeStyles({
   fakta: { display: 'grid', gridTemplateColumns: 'max-content 1fr', gap: '4px 16px', margin: 0, '& dt': { color: tokens.colorNeutralForeground2 }, '& dd': { margin: 0 } },
-  filter: { maxWidth: '320px', marginBottom: '8px' },
   dempet: { color: tokens.colorNeutralForeground2 },
   venter: { marginBottom: '16px' },
   knapper: { display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' },
@@ -47,14 +46,13 @@ export function Saker() {
       <Kort tittel={t('arkivar.saker.alle')} id="saksliste">
         {liste.laster && !liste.data ? <Laster /> : liste.feil ? <Feil melding={liste.feil} /> : (
           <>
-            <Field label={t('arkivar.saker.filter')} className={c.filter}>
-              <Select value={arkivdel} onChange={(_, d) => settArkivdel(d.value)}>
-                <option value="">{t('arkivar.saker.alle_arkivdeler')}</option>
-                {(struktur.data?.arkivdeler ?? []).map((a) => <option key={a.kode} value={a.kode}>{a.tittel}</option>)}
-              </Select>
-            </Field>
-            <TabellVerktoy tekst={t('arkivar.tabell.antall', { vist: rader.length, alle: alle.length })}>{null}</TabellVerktoy>
-            <Oversikt rader={rader} kolonner={kolonner} visninger={visninger} nokkel={(r) => r.id} aria-labelledby="saksliste" startSortering={{ id: 'nummer', retning: 'descending' }}
+            <Oversikt rader={rader} kolonner={kolonner} visninger={visninger} nokkel={(r) => r.id} aria-labelledby="saksliste"
+              forst={<>
+                <Filtermeny ledetekst={t('arkivar.saker.filter')} verdi={arkivdel} velg={settArkivdel} sprak="nb"
+                  valg={[{ verdi: '', navn: t('arkivar.saker.alle_arkivdeler') }, ...(struktur.data?.arkivdeler ?? []).map((a) => ({ verdi: a.kode, navn: a.tittel }))]} />
+                <Teller>{t('arkivar.tabell.antall', { vist: rader.length, alle: alle.length })}</Teller>
+              </>}
+              startSortering={{ id: 'nummer', retning: 'descending' }}
               utvid={{ innhold: (r) => <Mappefiler sak={r.id} />, vis: t('arkivar.filer.vis'), skjul: t('arkivar.filer.skjul'), beskrevetAv: 'tittel', kan: (r) => r.antall > 0 }} />
           </>
         )}

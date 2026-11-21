@@ -8,8 +8,8 @@ import { useDato, useT } from '../../i18n';
 import { Dokumenttittel, Journalpostfiler, useLesevindu } from '../../komponenter/Dokumentfiler';
 import { Hentefeil, Kort, Laster, Sidehode, useHent } from '../../komponenter/Felles';
 import { Status } from '../../komponenter/Status';
-import { Oversikt } from '../../komponenter/Oversikt';
-import { Kolonne, TabellVerktoy } from '../../komponenter/Tabell';
+import { Oversikt, Teller } from '../../komponenter/Oversikt';
+import { Kolonne } from '../../komponenter/Tabell';
 import { useJournalpostvisning } from './visninger';
 
 const s = makeStyles({ sak: { color: tokens.colorNeutralForeground2, display: 'block', marginTop: '2px' } });
@@ -58,8 +58,8 @@ export default function Journal() {
             titlene fra arkivtjenestens journal skal aldri stå under overskriften «Offentlig journal». */}
         {journal.feil && !journal.data ? <Hentefeil melding={journal.feil} last={journal.last} /> : (
           <div aria-busy={venter}>
-            <TabellVerktoy tekst={venter ? <Laster /> : t('arkivar.journal.antall', { antall: rader.length })}>{null}</TabellVerktoy>
-            <Oversikt rader={rader} kolonner={kolonner} visninger={visninger} nokkel={(r) => r.id} aria-label={t('arkivar.journal.tittel')} startSortering={{ id: 'lopenr', retning: 'descending' }}
+            <Oversikt rader={rader} kolonner={kolonner} visninger={visninger} nokkel={(r) => r.id} aria-label={t('arkivar.journal.tittel')}
+              forst={<Teller>{venter ? <Laster /> : t('arkivar.journal.antall', { antall: rader.length })}</Teller>} startSortering={{ id: 'lopenr', retning: 'descending' }}
               utvid={offentlig ? undefined : { innhold: (r) => <Journalpostfiler post={r} />, vis: t('arkivar.filer.vis'), skjul: t('arkivar.filer.skjul'), beskrevetAv: 'tittel', kan: (r) => r.dokumenter.length > 0 }} />
           </div>
         )}

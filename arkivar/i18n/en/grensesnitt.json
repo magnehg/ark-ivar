@@ -416,6 +416,7 @@
   "arkivar.sok.resultat": "Search result",
   "arkivar.sok.tips": "Search tip:",
   "arkivar.sok.tips.generelt": "Search for what the case is about, and for names, addresses or numbers in the document. If you are looking for a pupil file, search for the pupil’s name and “elevmappe”. If you find nothing, try another word for the same thing before you create a new file.",
+  "arkivar.sok.tips.vis": "Show search tips",
   "arkivar.sok.tittel": "Find a file",
   "arkivar.sok.treff": "{antall, plural, =0 {No files match the search. Try fewer words, or another word for the same thing.} one {# file matches the search} other {# files match the search}}",
   "arkivar.sprak.en": "English",

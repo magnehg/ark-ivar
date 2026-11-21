@@ -1,19 +1,20 @@
 // Søket i mappene. Studenten bruker det til å finne ut om mappen finnes fra før: finnes den, brukes den, ellers
 // opprettes en ny. Alle ordene i søket må finnes i mappen eller i dokumentene som ligger i den.
 import { ReactNode, useEffect, useState } from 'react';
-import { Field, SearchBox, Text, makeStyles, tokens } from '@fluentui/react-components';
-import { Lightbulb20Regular } from '@fluentui/react-icons';
+import { Button, Field, Popover, PopoverSurface, PopoverTrigger, SearchBox, Text, makeStyles, tokens } from '@fluentui/react-components';
+import { QuestionCircle20Regular } from '@fluentui/react-icons';
 import { api } from '../api';
 import { Flyt, Sak, Sokestreff, flytSok, useStruktur } from '../arkiv';
 import { useT } from '../i18n';
 import { useMappekolonner, useMappevisning } from '../sider/arkiv/visninger';
 import { Feil, useFeiltekst } from './Felles';
-import { Oversikt } from './Oversikt';
+import { Oversikt, Teller } from './Oversikt';
 
 const s = makeStyles({
-  felt: { maxWidth: '560px', '& .fui-SearchBox': { width: '100%', maxWidth: 'none' } },
-  tips: { display: 'flex', gap: '8px', alignItems: 'flex-start', background: tokens.colorNeutralBackground2, borderRadius: tokens.borderRadiusMedium, padding: '10px 12px', margin: '12px 0', maxWidth: '72ch' },
-  tipsikon: { flex: 'none', color: tokens.colorNeutralForeground2, marginTop: '2px' },
+  felt: { maxWidth: '600px', display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) auto', columnGap: '4px', alignItems: 'start', marginBottom: '8px', '& .fui-SearchBox': { width: '100%', maxWidth: 'none' } },
+  // Knappen står på høyde med søkefeltet, under ledeteksten.
+  tipsknapp: { marginTop: '24px' },
+  tips: { maxWidth: '44ch' },
   antall: { margin: '12px 0 4px', color: tokens.colorNeutralForeground2 },
   dokument: { display: 'block', fontSize: tokens.fontSizeBase200, fontWeight: tokens.fontWeightRegular, paddingLeft: '12px', borderLeft: `2px solid ${tokens.colorNeutralStroke2}` },
 });
@@ -67,18 +68,24 @@ export function Mappesok({ tips, tipsSprak, handling, sokt, flyt = null }: Egens
         <Field label={t('arkivar.sok.felt')} hint={t('arkivar.sok.hjelp')}>
           <SearchBox value={sok} onChange={(_, d) => settSok(d.value)} placeholder={t('arkivar.sok.plassholder')} dismiss={{ 'aria-label': t('arkivar.felles.tom_sok') }} />
         </Field>
+        {/* Søketipset står bak et spørsmålstegn ved feltet, så det ikke tar plass før studenten ber om det. */}
+        {tips && (
+          <Popover withArrow positioning="below-end">
+            <PopoverTrigger disableButtonEnhancement>
+              <Button className={c.tipsknapp} appearance="subtle" icon={<QuestionCircle20Regular />} aria-label={t('arkivar.sok.tips.vis')} title={t('arkivar.sok.tips.vis')} />
+            </PopoverTrigger>
+            <PopoverSurface className={c.tips} aria-label={t('arkivar.sok.tips.vis')}>
+              <Text weight="semibold" block>{t('arkivar.sok.tips')}</Text>
+              <span lang={tipsSprak}>{tips}</span>
+            </PopoverSurface>
+          </Popover>
+        )}
       </div>
-      {tips && (
-        <div className={c.tips}>
-          <Lightbulb20Regular className={c.tipsikon} aria-hidden />
-          <span><Text weight="semibold">{t('arkivar.sok.tips')}</Text> <span lang={tipsSprak}>{tips}</span></span>
-        </div>
-      )}
       {feil && <Feil melding={feil} />}
       <div role="region" aria-live="polite" aria-label={t('arkivar.sok.resultat')}>
-        {treff && <p className={c.antall}>{t('arkivar.sok.treff', { antall: treff.length })}</p>}
+        {treff && treff.length === 0 && <p className={c.antall}>{t('arkivar.sok.treff', { antall: 0 })}</p>}
         {treff && treff.length > 0 && (
-          <Oversikt rader={treff} kolonner={kolonner} visninger={visninger} nokkel={(r) => r.sak.id} aria-label={t('arkivar.sok.resultat')} />
+          <Oversikt forst={<Teller>{t('arkivar.sok.treff', { antall: treff.length })}</Teller>} rader={treff} kolonner={kolonner} visninger={visninger} nokkel={(r) => r.sak.id} aria-label={t('arkivar.sok.resultat')} />
         )}
       </div>
     </div>

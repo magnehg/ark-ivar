@@ -416,6 +416,7 @@
   "arkivar.sok.resultat": "Resultatet av søket",
   "arkivar.sok.tips": "Søketips:",
   "arkivar.sok.tips.generelt": "Søk på det saken gjelder, og på navn, adresse eller nummer som står i dokumentet. Leter du etter en elevmappe, søker du på navnet til eleven og «elevmappe». Finner du ingenting, prøver du et annet ord for det samme før du oppretter en ny mappe.",
+  "arkivar.sok.tips.vis": "Vis søketips",
   "arkivar.sok.tittel": "Finn en mappe",
   "arkivar.sok.treff": "{antall, plural, =0 {Ingen mapper passer med søket. Prøv færre ord, eller et annet ord for det samme.} one {# mappe passer med søket} other {# mapper passer med søket}}",
   "arkivar.sprak.en": "English",

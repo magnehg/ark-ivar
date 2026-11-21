@@ -12,9 +12,10 @@ use Psr\Clock\ClockInterface;
 /**
  * Dokumentene studenten skriver selv i en mappe, fra en dokumentmal: utgående brev, foreløpig svar, internt
  * notat, møtereferat eller et inngående brev på blankt ark. Dokumentet blir en journalpost med status R (reservert;
- * M, midlertidig registrert, for et inngående brev) og dokumentstatus B (under redigering) til det ferdigstilles; da blir journalposten ekspedert (utgående) eller
- * journalført (de andre), og dokumentet får arkivformat. Hver versjon av dokumentet er en rad i arkivar_dokument,
- * og den høyeste er den gjeldende. Et ferdigstilt dokument kan ikke endres.
+ * M, midlertidig registrert, for et inngående brev) og dokumentstatus B (under redigering) til det ferdigstilles.
+ * Da er saksbehandleren ferdig: journalposten blir ekspedert (utgående), ferdigstilt (internt) eller står som
+ * midlertidig registrert (inngående), og arkivtjenesten journalfører den etterpå (Kontroll). Hver versjon av
+ * dokumentet er en rad i arkivar_dokument, og den høyeste er den gjeldende. Et ferdigstilt dokument kan ikke endres.
  *
  * Dokumentet er avsnitt med tekst (et avsnitt som begynner med «## », er en mellomtittel), som dokumentene i
  * grunndataene. Det er ingen formatering å rense: teksten vises alltid som tekst.
@@ -155,8 +156,8 @@ final class Skriving
     }
 
     /**
-     * Ferdigstiller dokumentet: det kan ikke endres mer, journalposten blir ekspedert (utgående) eller journalført
-     * (de andre) i dag, og dokumentet får arkivformat.
+     * Ferdigstiller dokumentet: det kan ikke endres mer, og journalposten blir ekspedert (utgående), ferdigstilt
+     * (internt) eller står som midlertidig registrert (inngående) til arkivtjenesten journalfører den.
      */
     public function ferdigstill(string $arkivId, string $journalpostId): void
     {
@@ -177,8 +178,14 @@ final class Skriving
                 );
                 unset($this->oversikt[$arkivId]);
             }
-            $status = Felt::tekst($post['type']) === 'U' ? Kodelister::JP_EKSPEDERT : Kodelister::JP_JOURNALFORT;
-            $this->register->ferdigstillJournalpost($arkivId, $journalpostId, $status, $idag);
+            // Saksbehandleren er ferdig: et utgående dokument er ekspedert, et internt er ferdigstilt, og et inngående
+            // står som midlertidig registrert. Arkivtjenesten journalfører det etterpå (kontrolloppgavene).
+            $status = match (Felt::tekst($post['type'])) {
+                'U' => Kodelister::JP_EKSPEDERT,
+                'I' => Kodelister::JP_MIDLERTIDIG,
+                default => Kodelister::JP_FERDIG,
+            };
+            $this->register->ferdigstillJournalpost($arkivId, $journalpostId, $status);
         });
     }
 

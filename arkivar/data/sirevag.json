@@ -2347,7 +2347,7 @@
           "dokumentdato": "2026-10-12",
           "part": "Doffin",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -2424,7 +2424,7 @@
           "dokumentdato": "2026-10-30",
           "part": "Vestkyst Renhold AS med flere",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -2513,8 +2513,8 @@
           "dokumentdato": "2026-11-09",
           "part": "Ane Lyngnes",
           "skjerm_part": true,
-          "status": "J",
-          "journalfort": true,
+          "status": "M",
+          "journalfort": false,
           "tilgangskode": "25",
           "dokument": {
             "kanal": "digitaltskjema",
@@ -2549,7 +2549,7 @@
           "part": "Ane Lyngnes",
           "skjerm_part": true,
           "status": "E",
-          "journalfort": true,
+          "journalfort": false,
           "tilgangskode": "25",
           "dokument": {
             "kanal": "brev",
@@ -2579,8 +2579,8 @@
           "dokumentdato": "2026-11-13",
           "part": "Håvard Oma",
           "skjerm_part": true,
-          "status": "J",
-          "journalfort": true,
+          "status": "M",
+          "journalfort": false,
           "tilgangskode": "25",
           "dokument": {
             "kanal": "digitaltskjema",
@@ -2615,7 +2615,7 @@
           "part": "Håvard Oma",
           "skjerm_part": true,
           "status": "E",
-          "journalfort": true,
+          "journalfort": false,
           "tilgangskode": "25",
           "dokument": {
             "kanal": "brev",
@@ -2825,7 +2825,7 @@
           "part": "Jærposten",
           "skjerm_part": false,
           "status": "E",
-          "journalfort": true,
+          "journalfort": false,
           "tilgangskode": null,
           "dokument": {
             "kanal": "epost",
@@ -3104,7 +3104,7 @@
           "dokumentdato": "2026-09-11",
           "part": "Nasjonalarkivet",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -3181,7 +3181,7 @@
           "part": "Nasjonalarkivet",
           "skjerm_part": false,
           "status": "E",
-          "journalfort": true,
+          "journalfort": false,
           "tilgangskode": null,
           "dokument": {
             "kanal": "brev",
@@ -3240,7 +3240,7 @@
           "dokumentdato": "2026-09-01",
           "part": "Fagforbundet Sirevåg med flere",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -3440,7 +3440,7 @@
           "dokumentdato": "2026-05-11",
           "part": "Rogaland fylkeskommune",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -3544,7 +3544,7 @@
           "dokumentdato": "2026-09-24",
           "part": "Rogaland fylkeskommune",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -3587,7 +3587,7 @@
           "dokumentdato": "2026-09-25",
           "part": "FAU ved Sirevåg skole",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -3668,7 +3668,7 @@
           "dokumentdato": "2026-09-15",
           "part": "Sirevåg idrettslag",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -3818,7 +3818,7 @@
           "dokumentdato": "2026-11-02",
           "part": "Sirevåg idrettslag",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -3853,8 +3853,8 @@
           "dokumentdato": "2026-11-09",
           "part": "Sirevåg idrettslag",
           "skjerm_part": false,
-          "status": "J",
-          "journalfort": true,
+          "status": "S",
+          "journalfort": false,
           "tilgangskode": null,
           "dokument": {
             "kanal": "avtale",
@@ -4001,7 +4001,7 @@
           "dokumentdato": "2026-03-25",
           "part": "Jæren Plan og Landskap AS",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -4246,7 +4246,7 @@
           "part": "Berørte parter og offentlige myndigheter",
           "skjerm_part": false,
           "status": "E",
-          "journalfort": true,
+          "journalfort": false,
           "tilgangskode": null,
           "dokument": {
             "kanal": "brev",
@@ -4331,7 +4331,7 @@
           "dokumentdato": "2026-08-28",
           "part": "Kvassheim kommune",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -4495,7 +4495,7 @@
           "dokumentdato": "2026-11-03",
           "part": "Kvassheim kommune",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -4587,7 +4587,7 @@
           "dokumentdato": "2026-08-03",
           "part": "Beboerne i Fyrveien 2–14",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -4657,7 +4657,7 @@
           "dokumentdato": "2026-09-01",
           "part": "Borghild Særheim",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -4746,7 +4746,7 @@
           "dokumentdato": "2026-05-20",
           "part": "Statsforvalteren i Rogaland",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -4819,7 +4819,7 @@
           "dokumentdato": "2026-10-16",
           "part": "Statsforvalteren i Rogaland",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -5101,7 +5101,7 @@
           "dokumentdato": "2026-08-25",
           "part": "Vibeke og Trond Auglend",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -5169,7 +5169,7 @@
           "dokumentdato": "2026-10-28",
           "part": "Vibeke og Trond Auglend",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -5277,7 +5277,7 @@
           "dokumentdato": "2026-09-14",
           "part": "Statsforvalteren i Rogaland",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -5431,7 +5431,7 @@
           "part": "Oddvar Rauneset",
           "skjerm_part": false,
           "status": "E",
-          "journalfort": true,
+          "journalfort": false,
           "tilgangskode": null,
           "dokument": {
             "kanal": "vedtak",
@@ -5572,8 +5572,8 @@
           "dokumentdato": "2026-11-10",
           "part": "Sirevåg Fiskemottak AS",
           "skjerm_part": false,
-          "status": "J",
-          "journalfort": true,
+          "status": "M",
+          "journalfort": false,
           "tilgangskode": null,
           "dokument": {
             "kanal": "brev",
@@ -5610,7 +5610,7 @@
           "part": "Sirevåg Fiskemottak AS",
           "skjerm_part": false,
           "status": "E",
-          "journalfort": true,
+          "journalfort": false,
           "tilgangskode": null,
           "dokument": {
             "kanal": "brev",
@@ -5833,7 +5833,7 @@
           "dokumentdato": "2021-06-10",
           "part": "Gunnar Grevling",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -5943,7 +5943,7 @@
           "dokumentdato": "2025-10-20",
           "part": "Gunnar Grevling",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -6007,7 +6007,7 @@
           "dokumentdato": "2026-03-16",
           "part": "Gunnar Grevling",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -6067,7 +6067,7 @@
           "dokumentdato": "2022-12-20",
           "part": "Sandra Salamander",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -6178,7 +6178,7 @@
           "dokumentdato": "2025-01-27",
           "part": "Sandra Salamander",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -6350,7 +6350,7 @@
           "dokumentdato": "2026-05-04",
           "part": "Lars Laks",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -6448,7 +6448,7 @@
           "dokumentdato": "2020-03-02",
           "part": "Petra Pinnsvin",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -6486,7 +6486,7 @@
           "dokumentdato": "2025-10-20",
           "part": "Petra Pinnsvin",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -6551,7 +6551,7 @@
           "dokumentdato": "2026-06-08",
           "part": "Petra Pinnsvin",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -6683,7 +6683,7 @@
           "dokumentdato": "2022-03-10",
           "part": "Marit og Rune Måke",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -6760,7 +6760,7 @@
           "dokumentdato": "2026-05-20",
           "part": "PP-tjenesten for Sirevåg og Kvassheim",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -6922,7 +6922,7 @@
           "dokumentdato": "2026-09-21",
           "part": "Anita og Stein Rype",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -6963,7 +6963,7 @@
           "dokumentdato": "2026-10-20",
           "part": "Anita og Stein Rype",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -6994,8 +6994,8 @@
           "dokumentdato": "2026-11-02",
           "part": "Anita og Stein Rype",
           "skjerm_part": true,
-          "status": "J",
-          "journalfort": true,
+          "status": "S",
+          "journalfort": false,
           "tilgangskode": "13-1",
           "dokument": {
             "kanal": "digitaltskjema",
@@ -7025,7 +7025,7 @@
           "dokumentdato": "2026-11-05",
           "part": "Anita og Stein Rype",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -7114,7 +7114,7 @@
           "dokumentdato": "2024-03-11",
           "part": "Kristin og Morten Alke",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -7186,7 +7186,7 @@
           "dokumentdato": "2026-09-01",
           "part": "Kristin og Morten Alke",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -7346,7 +7346,7 @@
           "dokumentdato": "2026-10-15",
           "part": "Jæren Forsikring AS",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -7426,7 +7426,7 @@
           "dokumentdato": "2023-04-12",
           "part": "Ida og Martin Orrfugl",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -7523,7 +7523,7 @@
           "dokumentdato": "2026-06-29",
           "part": "Ida og Martin Orrfugl",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -7610,7 +7610,7 @@
           "dokumentdato": "2022-04-08",
           "part": "Guro og Anders Erle",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -7705,7 +7705,7 @@
           "dokumentdato": "2026-09-10",
           "part": "PP-tjenesten for Sirevåg og Kvassheim",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -7784,7 +7784,7 @@
           "part": "Guro og Anders Erle",
           "skjerm_part": true,
           "status": "E",
-          "journalfort": true,
+          "journalfort": false,
           "tilgangskode": "13-1",
           "dokument": {
             "kanal": "vedtak",
@@ -7874,7 +7874,7 @@
           "dokumentdato": "2022-04-08",
           "part": "Hege og Thomas Nise",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -7969,7 +7969,7 @@
           "dokumentdato": "2026-09-08",
           "part": "Hege og Thomas Nise",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -8574,8 +8574,8 @@
           "dokumentdato": "2026-11-05",
           "part": "Jæren kontrollutvalgssekretariat IKS",
           "skjerm_part": false,
-          "status": "J",
-          "journalfort": true,
+          "status": "S",
+          "journalfort": false,
           "tilgangskode": null,
           "dokument": {
             "kanal": "innkalling",
@@ -8811,7 +8811,7 @@
           "dokumentdato": "2025-10-15",
           "part": "Rogaland fylkeskommune",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -8857,7 +8857,7 @@
           "dokumentdato": "2026-04-14",
           "part": "Maren Mår",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -8900,7 +8900,7 @@
           "dokumentdato": "2026-08-18",
           "part": "Henrik Hare",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "24-1",
           "dokument": {
@@ -8943,7 +8943,7 @@
           "dokumentdato": "2026-01-15",
           "part": "Gunnar Grevling",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "24-1",
           "dokument": {
@@ -8986,7 +8986,7 @@
           "dokumentdato": "2026-01-20",
           "part": "Jon Jerv",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -9020,7 +9020,7 @@
       "enhet": "TEK",
       "saksansvarlig": "LLA",
       "saksdato": "2026-05-11",
-      "status": "A",
+      "status": "S",
       "journalposter": [
         {
           "type": "U",
@@ -9029,7 +9029,7 @@
           "dokumentdato": "2026-06-10",
           "part": "Marit Vagle",
           "skjerm_part": false,
-          "status": "A",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -9072,7 +9072,7 @@
           "dokumentdato": "2026-06-05",
           "part": "Jon Jerv",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -9107,7 +9107,7 @@
       "enhet": "NKB",
       "saksansvarlig": "SST",
       "saksdato": "2026-06-05",
-      "status": "A",
+      "status": "S",
       "journalposter": [
         {
           "type": "U",
@@ -9116,7 +9116,7 @@
           "dokumentdato": "2026-06-05",
           "part": "Foreningen Havnerocken",
           "skjerm_part": false,
-          "status": "A",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -9162,7 +9162,7 @@
           "dokumentdato": "2026-06-24",
           "part": "Maren Mår",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "25",
           "dokument": {
@@ -9206,7 +9206,7 @@
           "dokumentdato": "2026-05-15",
           "part": "Rakel Rådyr",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -9241,7 +9241,7 @@
       "enhet": "OKO",
       "saksansvarlig": "BBE",
       "saksdato": "2026-09-15",
-      "status": "B",
+      "status": "R",
       "journalposter": [
         {
           "type": "X",
@@ -9251,7 +9251,7 @@
           "part": "Bodil Bever",
           "skjerm_part": false,
           "status": "F",
-          "journalfort": true,
+          "journalfort": false,
           "tilgangskode": null,
           "dokument": {
             "kanal": "notat",
@@ -9380,7 +9380,7 @@
           "dokumentdato": "2026-08-14",
           "part": "Petra Pinnsvin",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "14",
           "dokument": {
@@ -9501,7 +9501,7 @@
       "enhet": "KD",
       "saksansvarlig": "UUG",
       "saksdato": "2026-04-01",
-      "status": "A",
+      "status": "S",
       "journalposter": [
         {
           "type": "X",
@@ -9510,7 +9510,7 @@
           "dokumentdato": "2026-04-01",
           "part": "Ulla Ugle",
           "skjerm_part": false,
-          "status": "A",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -9554,7 +9554,7 @@
           "dokumentdato": "2026-03-18",
           "part": "Maren Mår",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "25",
           "dokument": {
@@ -9600,7 +9600,7 @@
           "dokumentdato": "2026-06-15",
           "part": "Stian Stokkand",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -9687,7 +9687,7 @@
           "dokumentdato": "2026-09-14",
           "part": "Petra Pinnsvin",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -9769,7 +9769,7 @@
       "enhet": "TEK",
       "saksansvarlig": "LLA",
       "saksdato": "2026-10-01",
-      "status": "B",
+      "status": "R",
       "journalposter": [
         {
           "type": "X",
@@ -9779,7 +9779,7 @@
           "part": "Lars Laks",
           "skjerm_part": false,
           "status": "F",
-          "journalfort": true,
+          "journalfort": false,
           "tilgangskode": null,
           "dokument": {
             "kanal": "notat",
@@ -9821,7 +9821,7 @@
           "dokumentdato": "2026-07-10",
           "part": "Gunnar Grevling",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -9864,7 +9864,7 @@
           "dokumentdato": "2026-02-05",
           "part": "Bodil Bever",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -9909,7 +9909,7 @@
           "dokumentdato": "2026-06-19",
           "part": "Maren Mår",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "25",
           "dokument": {
@@ -9953,7 +9953,7 @@
           "dokumentdato": "2026-03-02",
           "part": "Berørte parter og offentlige myndigheter",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -9984,7 +9984,7 @@
           "dokumentdato": "2026-05-20",
           "part": "Ulla Ugle",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "23-1",
           "dokument": {
@@ -10028,7 +10028,7 @@
           "dokumentdato": "2026-08-14",
           "part": "Abonnentene i Havnegata og Strandveien",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -10072,7 +10072,7 @@
           "dokumentdato": "2026-04-14",
           "part": "Jon Jerv",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -10118,7 +10118,7 @@
           "dokumentdato": "2026-08-20",
           "part": "Tilskuddsdirektoratet",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -10153,7 +10153,7 @@
       "enhet": "NKB",
       "saksansvarlig": "TTI",
       "saksdato": "2026-10-05",
-      "status": "B",
+      "status": "R",
       "journalposter": [
         {
           "type": "X",
@@ -10163,7 +10163,7 @@
           "part": "Torgeir Tiur",
           "skjerm_part": false,
           "status": "F",
-          "journalfort": true,
+          "journalfort": false,
           "tilgangskode": "24-1",
           "dokument": {
             "kanal": "notat",
@@ -10205,7 +10205,7 @@
           "dokumentdato": "2025-10-10",
           "part": "Raunes hytteeierforening",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -10292,7 +10292,7 @@
           "dokumentdato": "2026-07-02",
           "part": "Statsforvalteren i Rogaland",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -10336,7 +10336,7 @@
           "dokumentdato": "2026-08-28",
           "part": "Stian Stokkand",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -10382,7 +10382,7 @@
           "dokumentdato": "2026-09-02",
           "part": "Fagforbundet Sirevåg",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -10512,7 +10512,7 @@
           "dokumentdato": "2026-05-22",
           "part": "Havbakken naturbarnehage SA",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -10556,7 +10556,7 @@
           "dokumentdato": "2026-07-03",
           "part": "Arne Herikstad",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -10643,7 +10643,7 @@
           "dokumentdato": "2026-04-01",
           "part": "Berørte parter og offentlige myndigheter",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -10686,7 +10686,7 @@
           "dokumentdato": "2026-04-07",
           "part": "Datatilsynet",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -10730,7 +10730,7 @@
           "dokumentdato": "2026-04-09",
           "part": "Jærmegleren AS",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "23-1",
           "dokument": {
@@ -10764,7 +10764,7 @@
       "enhet": "KD",
       "saksansvarlig": "PPI",
       "saksdato": "2026-09-25",
-      "status": "B",
+      "status": "R",
       "journalposter": [
         {
           "type": "U",
@@ -10773,7 +10773,7 @@
           "dokumentdato": "2026-09-25",
           "part": "Turid Malmin",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -10816,7 +10816,7 @@
           "dokumentdato": "2025-11-03",
           "part": "Ole Vagle",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -10934,7 +10934,7 @@
           "dokumentdato": "2026-05-05",
           "part": "Statsforvalteren i Rogaland",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -10978,7 +10978,7 @@
           "dokumentdato": "2026-09-28",
           "part": "Taushetsdirektoratet",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -11013,7 +11013,7 @@
       "enhet": "OKO",
       "saksansvarlig": "BBE",
       "saksdato": "2026-05-20",
-      "status": "A",
+      "status": "S",
       "journalposter": [
         {
           "type": "X",
@@ -11022,7 +11022,7 @@
           "dokumentdato": "2026-05-20",
           "part": "Bodil Bever",
           "skjerm_part": false,
-          "status": "A",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -11101,7 +11101,7 @@
       "enhet": "NKB",
       "saksansvarlig": "SST",
       "saksdato": "2026-02-20",
-      "status": "A",
+      "status": "S",
       "journalposter": [
         {
           "type": "X",
@@ -11110,7 +11110,7 @@
           "dokumentdato": "2026-02-20",
           "part": "Stian Stokkand",
           "skjerm_part": false,
-          "status": "A",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -11144,7 +11144,7 @@
       "enhet": "KD",
       "saksansvarlig": "PPI",
       "saksdato": "2026-10-01",
-      "status": "B",
+      "status": "R",
       "journalposter": [
         {
           "type": "X",
@@ -11195,7 +11195,7 @@
           "dokumentdato": "2026-05-04",
           "part": "Viktor Vipe",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -11288,7 +11288,7 @@
           "dokumentdato": "2026-01-14",
           "part": "Taushetsdirektoratet",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -11377,7 +11377,7 @@
           "dokumentdato": "2026-03-24",
           "part": "Jaktrettshavere og valdansvarlige i Sirevåg kommune",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -11501,7 +11501,7 @@
       "enhet": "KD",
       "saksansvarlig": "UUG",
       "saksdato": "2026-10-05",
-      "status": "B",
+      "status": "R",
       "journalposter": [
         {
           "type": "X",
@@ -11555,7 +11555,7 @@
           "dokumentdato": "2026-01-27",
           "part": "FAU ved Sirevåg ungdomsskole",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -11776,7 +11776,7 @@
           "dokumentdato": "2026-03-05",
           "part": "Kaikanten Drift AS",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -11813,7 +11813,7 @@
       "enhet": "KD",
       "saksansvarlig": "PPI",
       "saksdato": "2026-09-16",
-      "status": "B",
+      "status": "R",
       "journalposter": [
         {
           "type": "X",
@@ -11823,7 +11823,7 @@
           "part": "Petra Pinnsvin",
           "skjerm_part": false,
           "status": "F",
-          "journalfort": true,
+          "journalfort": false,
           "tilgangskode": null,
           "dokument": {
             "kanal": "vedtak",
@@ -11866,7 +11866,7 @@
           "dokumentdato": "2026-02-20",
           "part": "Maren Mår",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -11897,7 +11897,7 @@
           "dokumentdato": "2026-05-06",
           "part": "Maren Mår",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "25",
           "dokument": {
@@ -11986,7 +11986,7 @@
           "dokumentdato": "2026-03-03",
           "part": "Ulla Ugle",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "23-1",
           "dokument": {
@@ -12029,7 +12029,7 @@
           "dokumentdato": "2026-09-03",
           "part": "Stian Stokkand",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "14",
           "dokument": {
@@ -12064,7 +12064,7 @@
       "enhet": "OPP",
       "saksansvarlig": "RRA",
       "saksdato": "2026-11-02",
-      "status": "B",
+      "status": "R",
       "journalposter": [
         {
           "type": "X",
@@ -12074,7 +12074,7 @@
           "part": "Rakel Rådyr",
           "skjerm_part": false,
           "status": "F",
-          "journalfort": true,
+          "journalfort": false,
           "tilgangskode": "24-1",
           "dokument": {
             "kanal": "notat",
@@ -12116,7 +12116,7 @@
           "dokumentdato": "2026-02-19",
           "part": "Astrid Voll",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -12161,7 +12161,7 @@
           "dokumentdato": "2026-08-10",
           "part": "Festerne på Raunes",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -12205,7 +12205,7 @@
           "dokumentdato": "2026-09-02",
           "part": "Tilskuddsdirektoratet",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -12252,7 +12252,7 @@
           "dokumentdato": "2026-04-01",
           "part": "Jon Jerv",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -12340,7 +12340,7 @@
           "dokumentdato": "2026-04-22",
           "part": "Rune Strandheim",
           "skjerm_part": true,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
@@ -12404,7 +12404,7 @@
       "enhet": "NKB",
       "saksansvarlig": "SST",
       "saksdato": "2026-04-27",
-      "status": "A",
+      "status": "S",
       "journalposter": [
         {
           "type": "U",
@@ -12413,7 +12413,7 @@
           "dokumentdato": "2026-05-15",
           "part": "Sirevåg næringsforening",
           "skjerm_part": false,
-          "status": "A",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -12456,7 +12456,7 @@
           "dokumentdato": "2026-06-30",
           "part": "Tilskuddsdirektoratet",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -12503,7 +12503,7 @@
           "dokumentdato": "2026-04-01",
           "part": "Kontorlunden AS",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -12591,7 +12591,7 @@
           "dokumentdato": "2026-08-12",
           "part": "Maren Mår",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "14",
           "dokument": {
@@ -12636,7 +12636,7 @@
           "dokumentdato": "2026-09-28",
           "part": "Jærposten",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -12723,7 +12723,7 @@
           "dokumentdato": "2026-02-01",
           "part": "Torgeir Tiur",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "24-3",
           "dokument": {
@@ -12765,7 +12765,7 @@
           "dokumentdato": "2026-01-20",
           "part": "Viktor Vipe",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -12795,7 +12795,7 @@
           "dokumentdato": "2026-09-15",
           "part": "Tilskuddsdirektoratet",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -12840,7 +12840,7 @@
           "part": "Jon Jerv",
           "skjerm_part": false,
           "status": "F",
-          "journalfort": true,
+          "journalfort": false,
           "tilgangskode": "13-1",
           "dokument": {
             "kanal": "notat",
@@ -12925,7 +12925,7 @@
           "dokumentdato": "2026-02-27",
           "part": "Jærposten",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -12970,7 +12970,7 @@
           "dokumentdato": "2026-02-28",
           "part": "Jon Jerv",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {
@@ -13013,7 +13013,7 @@
           "dokumentdato": "2026-06-10",
           "part": "Ulla Ugle",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "23-1",
           "dokument": {
@@ -13056,7 +13056,7 @@
           "dokumentdato": "2025-11-15",
           "part": "Lars Laks",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "24-3",
           "dokument": {
@@ -13101,7 +13101,7 @@
           "dokumentdato": "2026-01-08",
           "part": "Jon Jerv",
           "skjerm_part": false,
-          "status": "F",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": "24-1",
           "dokument": {
@@ -13144,7 +13144,7 @@
           "dokumentdato": "2026-08-01",
           "part": "Foresatte ved Sirevåg skole og Sirevåg ungdomsskole",
           "skjerm_part": false,
-          "status": "E",
+          "status": "J",
           "journalfort": true,
           "tilgangskode": null,
           "dokument": {

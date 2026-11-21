@@ -7,6 +7,7 @@ import { AlignStretchHorizontal20Regular, ArrowAutofitWidthDotted20Regular, Desk
 import { Innlogget, api, harRolle, kanAdministrere } from '../api';
 import { SPRAK, Sprakkode, useSprak, useT } from '../i18n';
 import { Kommunevapen } from './Kommunevapen';
+import { Kontrollmeny } from './Kontrolloppgaver';
 import { Fargeprove, Logo, useTema } from '../tema';
 import { TEMA_REKKEFOLGE, type TemaId } from '../../../grensesnitt/src/temaer.ts';
 import { Feilgrense, Laster, useOkt } from './Felles';
@@ -161,6 +162,8 @@ export function Skall() {
                 <NavLink key={l.til} to={l.til} end={l.til === '/'} className={({ isActive }) => `${c.sideLenke} ${isActive ? c.sideAktiv : ''}`}>{l.ikon}{l.tekst}</NavLink>))}
             </div>
           ))}
+          {/* Kontrolloppgavene til arkivtjenesten, med en teller per liste. */}
+          {aktiv?.id === 'arkiv' && harRolle(innlogget, 'student') && <Kontrollmeny />}
           {/* Lenkene ut av appen (arkivplanen) står nederst i menyen og følger med nederst i venstre hjørne når siden rulles. */}
           {filer.length > 0 && (
             <div className={c.sideBunn}>

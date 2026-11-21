@@ -1214,16 +1214,31 @@ final class ArkivTest extends AppTestCase
         self::assertSame([422, 'dokument_ikke_utfylt'], [$svar->status, $j['kode']]);
         [$svar] = $this->kari->kall('PUT', "/api/arkiv/journalposter/$id/dokument", ['tekst' => ['Andre versjon.']] + $brev);
         self::assertSame(200, $svar->status, $svar->kropp);
-        // Ferdigstilt: ekspedert (utgående), i journalen, med arkivformat, og kan ikke endres mer.
+        // Ferdigstilt: ekspedert (utgående), med arkivformat, og kan ikke endres mer. Arkivtjenesten journalfører det etterpå.
         [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/journalposter/$id/ferdigstill", []);
         self::assertSame(200, $svar->status, $svar->kropp);
         self::assertIsArray($j['journalpost']);
-        self::assertSame(['E', 'F', 'A', false, true], [$j['journalpost']['status'], $j['journalpost']['dokumentstatus'], $j['journalpost']['variantformat'], $j['journalpost']['redigerbar'], $j['journalpost']['journalfort']]);
+        self::assertSame(['E', 'F', 'A', false, false], [$j['journalpost']['status'], $j['journalpost']['dokumentstatus'], $j['journalpost']['variantformat'], $j['journalpost']['redigerbar'], $j['journalpost']['journalfort']]);
         self::assertSame([[2, 'A', 'pdf'], [2, 'P', 'docx'], [1, 'P', 'docx']], array_map(static fn (array $f): array => [$f['versjon'], $f['variantformat'], $f['format']], self::rader($j['journalpost']['filer'])));
         [$svar, $j] = $this->kari->kall('PUT', "/api/arkiv/journalposter/$id/dokument", $brev);
         self::assertSame([409, 'dokument_ferdigstilt'], [$svar->status, $j['kode']]);
         [$svar] = $this->kari->kall('POST', "/api/arkiv/journalposter/$id/ferdigstill", []);
         self::assertSame(409, $svar->status);
+        // Det ekspederte brevet står til journalføring. Når det er journalført, står det i journalen, uten dokumentet i den offentlige.
+        [, $tall] = $this->kari->kall('GET', '/api/arkiv/kontroll');
+        self::assertIsArray($tall['journalforing']);
+        $for = Felt::tall($tall['journalforing']['utgaende']);
+        [, $liste] = $this->kari->kall('GET', '/api/arkiv/kontroll/journalposter/utgaende');
+        self::assertContains($id, array_column(self::rader($liste['journalposter']), 'id'));
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/journalposter/$id/journalfor", []);
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertIsArray($j['journalpost']);
+        self::assertSame(['J', true, '2026-11-20'], [$j['journalpost']['status'], $j['journalpost']['journalfort'], $j['journalpost']['journaldato']]);
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/journalposter/$id/journalfor", []);
+        self::assertSame([409, 'ikke_til_journalforing'], [$svar->status, $j['kode']]);
+        [, $tall] = $this->kari->kall('GET', '/api/arkiv/kontroll');
+        self::assertIsArray($tall['journalforing']);
+        self::assertSame($for - 1, $tall['journalforing']['utgaende']);
         [, $journal] = $this->kari->kall('GET', '/api/arkiv/journal?offentlig=1');
         $rad = array_column(self::rader($journal['journalposter']), null, 'id')[$id];
         self::assertSame([[], [], null, false], [$rad['filer'], $rad['dokumenter'], $rad['mal'], $rad['redigerbar']], 'Den offentlige journalen har ikke dokumentet.');
@@ -1238,9 +1253,14 @@ final class ArkivTest extends AppTestCase
         $inn = Felt::tekst($j['journalpost']['id']);
         self::assertSame(['tif'], array_column(self::rader($j['journalpost']['filer']), 'format'), 'Et brev på papir er skannet.');
         self::assertSame('M', $j['journalpost']['status'], 'Et inngående brev er midlertidig registrert til det journalføres.');
+        // Et brev som fortsatt er under arbeid, er ikke en kontrolloppgave. Ferdigstilt står det til journalføring.
+        [$svar] = $this->kari->kall('POST', "/api/arkiv/journalposter/$inn/journalfor", []);
+        self::assertSame(409, $svar->status);
         [, $j] = $this->kari->kall('POST', "/api/arkiv/journalposter/$inn/ferdigstill", []);
         self::assertIsArray($j['journalpost']);
-        self::assertSame('J', $j['journalpost']['status']);
+        self::assertSame(['M', 'F', false], [$j['journalpost']['status'], $j['journalpost']['dokumentstatus'], $j['journalpost']['journalfort']]);
+        [, $liste] = $this->kari->kall('GET', '/api/arkiv/kontroll/journalposter/inngaende');
+        self::assertContains($inn, array_column(self::rader($liste['journalposter']), 'id'));
         [, $j] = $this->kari->kall('GET', "/api/arkiv/journalposter/$inn");
         self::assertIsArray($j['dokument']);
         self::assertSame('2026-11-20', $j['dokument']['mottatt']);
@@ -1256,5 +1276,80 @@ final class ArkivTest extends AppTestCase
         [$svar] = $this->kari->kall('POST', '/api/arkiv/nullstill', []);
         self::assertSame(200, $svar->status, $svar->kropp);
         self::assertSame(0, Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_dokument')));
+    }
+
+    public function testKontrolloppgaveneTellesOgLoses(): void
+    {
+        // Arkivet har kontrolloppgaver fra start: dokumenter til journalføring og mapper til kontroll og avslutning.
+        [$svar, $tall] = $this->kari->kall('GET', '/api/arkiv/kontroll');
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertSame(['journalforing' => ['inngaende' => 6, 'interne' => 6, 'utgaende' => 8], 'saker' => ['kontroll' => 8, 'avslutning' => 6]], $tall);
+        $krav = ['inngaende' => [['I'], ['S', 'M']], 'interne' => [['N', 'X', 'S'], ['F', 'E']], 'utgaende' => [['U'], ['E']]];
+        foreach ($krav as $gruppe => [$typer, $statuser]) {
+            [, $j] = $this->kari->kall('GET', "/api/arkiv/kontroll/journalposter/$gruppe");
+            $poster = self::rader($j['journalposter']);
+            self::assertCount(6 + ($gruppe === 'utgaende' ? 2 : 0), $poster);
+            foreach ($poster as $post) {
+                self::assertContains($post['type'], $typer, $gruppe);
+                self::assertContains($post['status'], $statuser, $gruppe);
+                self::assertFalse($post['journalfort'], 'Det som står til journalføring, står ikke i journalen.');
+                self::assertNotSame('', $post['saksnummer'] ?? '');
+            }
+        }
+        [$svar] = $this->kari->kall('GET', '/api/arkiv/kontroll/journalposter/ukjent');
+        self::assertSame(404, $svar->status);
+
+        // Journalføring: status J, i journalen, og telleren går ned. En annen student når ikke dokumentet.
+        [, $j] = $this->kari->kall('GET', '/api/arkiv/kontroll/journalposter/interne');
+        $intern = self::rader($j['journalposter'])[0];
+        $id = Felt::tekst($intern['id']);
+        $ola = $this->student('ola@hogskolen.example', 'Ola Student', null, '10.0.0.2');
+        [$svar] = $ola->kall('POST', "/api/arkiv/journalposter/$id/journalfor", []);
+        self::assertSame(404, $svar->status);
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/journalposter/$id/journalfor", []);
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertIsArray($j['journalpost']);
+        self::assertSame(['J', true, 'A'], [$j['journalpost']['status'], $j['journalpost']['journalfort'], $j['journalpost']['variantformat']]);
+        [, $tall] = $this->kari->kall('GET', '/api/arkiv/kontroll');
+        self::assertIsArray($tall['journalforing']);
+        self::assertSame(5, $tall['journalforing']['interne']);
+        // Et dokument som alt er journalført, kan ikke journalføres på nytt.
+        [, $journal] = $this->kari->kall('GET', '/api/arkiv/journal');
+        $journalfort = Felt::tekst(self::rader($journal['journalposter'])[0]['id']);
+        [$svar] = $this->kari->kall('POST', "/api/arkiv/journalposter/$journalfort/journalfor", []);
+        self::assertSame(409, $svar->status);
+
+        // Mapper til kontroll: R blir B. En mappe som ikke står til kontroll, avvises.
+        [, $j] = $this->kari->kall('GET', '/api/arkiv/saker');
+        $saker = self::rader($j['saker']);
+        $etter = static fn (string $status): array => array_values(array_filter($saker, static fn (array $s): bool => $s['status'] === $status));
+        $ny = Felt::tekst($etter('R')[0]['id']);
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$ny/kontroller", []);
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertIsArray($j['sak']);
+        self::assertSame('B', $j['sak']['status']);
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$ny/kontroller", []);
+        self::assertSame([409, 'ikke_til_kontroll'], [$svar->status, $j['kode']]);
+        [$svar] = $ola->kall('POST', '/api/arkiv/saker/' . Felt::tekst($etter('R')[1]['id']) . '/kontroller', []);
+        self::assertSame(404, $svar->status);
+
+        // Mapper til avslutning: S blir A, og dokumentene blir arkivert. En mappe under behandling kan ikke avsluttes her.
+        $ferdig = Felt::tekst($etter('S')[0]['id']);
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$ferdig/avslutt", []);
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertIsArray($j['sak']);
+        self::assertSame('A', $j['sak']['status']);
+        [, $j] = $this->kari->kall('GET', "/api/arkiv/saker/$ferdig");
+        self::assertSame(['A'], self::ulike(self::rader($j['journalposter']), 'status'));
+        self::assertSame([Kodelister::VARIANT_ARKIV], self::ulike(self::rader($j['journalposter']), 'variantformat'));
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$ny/avslutt", []);
+        self::assertSame([409, 'ikke_til_avslutning'], [$svar->status, $j['kode']]);
+        // En mappe til avslutning med et dokument som ikke er journalført, kan ikke avsluttes.
+        $neste = Felt::tekst($etter('S')[1]['id']);
+        $this->db->utfor('UPDATE arkivar_journalpost SET status = ?, journalfort = 0 WHERE sak_id = ? LIMIT 1', ['E', $neste]);
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$neste/avslutt", []);
+        self::assertSame([409, 'mappe_har_restanser'], [$svar->status, $j['kode']]);
+        [, $tall] = $this->kari->kall('GET', '/api/arkiv/kontroll');
+        self::assertSame(['kontroll' => 7, 'avslutning' => 5], $tall['saker']);
     }
 }

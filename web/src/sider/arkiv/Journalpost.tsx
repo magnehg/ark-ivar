@@ -9,6 +9,7 @@ import { useDato, useKode, useT } from '../../i18n';
 import { Ark } from '../../komponenter/Ark';
 import { Dokumentliste } from '../../komponenter/Dokumentfiler';
 import { Feil, Kort, Laster, Ok, Sidehode, useFeiltekst, useHent } from '../../komponenter/Felles';
+import { useKontrolltall } from '../../komponenter/Kontrolloppgaver';
 import { Status } from '../../komponenter/Status';
 
 const s = makeStyles({
@@ -31,13 +32,13 @@ export default function Journalpost() {
   if (hentet.feil) return <Feil melding={hentet.feil} />;
   if (!hentet.data) return <Laster />;
   const { journalpost: p, sak, dokument } = hentet.data;
-  const ferdigstill = () => {
+  const ferdigstill = () => utfor(`/api/arkiv/journalposter/${del(id)}/ferdigstill`, () => settFerdigstilt(true));
+  const kontroll = useKontrolltall();
+  const utfor = (sti: string, etter: () => void) => {
     settFeil(null); settOpptatt(true);
-    api.post(`/api/arkiv/journalposter/${del(id)}/ferdigstill`)
-      .then(() => { settFerdigstilt(true); hentet.last(); })
-      .catch((e: unknown) => settFeil(feiltekst(e)))
-      .finally(() => settOpptatt(false));
+    api.post(sti).then(() => { etter(); hentet.last(); kontroll.oppdater(); }).catch((e: unknown) => settFeil(feiltekst(e))).finally(() => settOpptatt(false));
   };
+  const journalfor = () => utfor(`/api/arkiv/journalposter/${del(id)}/journalfor`, () => undefined);
   const slett = () => { settFeil(null); api.slett(`/api/arkiv/journalposter/${del(id)}`).then(() => naviger(`/arkiv/saker/${sak.id}`)).catch((e: unknown) => settFeil(feiltekst(e))); };
   return (
     <>
@@ -69,6 +70,7 @@ export default function Journalpost() {
           <div className={c.knapper}>
             {/* Et dokument studenten har skrevet, kan endres og ferdigstilles til det er ferdigstilt. */}
             {p.redigerbar && <Button appearance="primary" icon={<DocumentEdit20Regular />} disabled={opptatt} onClick={() => naviger(`/arkiv/saker/${sak.id}/journalposter/${p.id}/rediger`)}>{t('arkivar.journalpost.rediger')}</Button>}
+            {p.til_journalforing && <Button appearance="primary" disabled={opptatt} onClick={journalfor}>{t('arkivar.kontroll.journalfor')}</Button>}
             {p.redigerbar && <Button disabled={opptatt} onClick={ferdigstill}>{t('arkivar.skriv.ferdigstill')}</Button>}
             {p.oppgave && <Ruterlenke to={`/arkiv/postmottak/${p.oppgave}`}>{t('arkivar.journalpost.vurdering')}</Ruterlenke>}
             {p.kan_slettes && <Button icon={<Delete20Regular />} onClick={slett}>{t('arkivar.journalpost.slett')}</Button>}

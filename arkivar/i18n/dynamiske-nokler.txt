@@ -20,3 +20,4 @@ arkivar.variantformat.
 arkivar.struktur.statuskoder.
 arkivar.filformat.
 arkivar.visning.
+arkivar.kontroll.

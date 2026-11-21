@@ -65,6 +65,11 @@ final class Arkivruter
         return $this->skriving ??= new Skriving($this->kjerne->db(), $this->klokke, $this->grunndata(), $this->maler(), $this->register());
     }
 
+    private function kontroll(): Kontroll
+    {
+        return new Kontroll($this->kjerne->db(), $this->klokke, $this->register());
+    }
+
     private function mapper(): Mapper
     {
         return new Mapper($this->kjerne->db(), $this->klokke, $this->grunndata(), $this->register());
@@ -128,6 +133,20 @@ final class Arkivruter
         }
 
         return $post;
+    }
+
+    /**
+     * Mappen etter at arkivtjenesten har kontrollert eller avsluttet den, og hendelsen i loggen (saksnummeret).
+     *
+     * @return array<string, mixed>
+     */
+    private function mappeEtter(string $arkivId, string $id, string $hendelse): array
+    {
+        $register = $this->register();
+        $sak = $register->visSak($register->sak($arkivId, $id) ?? throw new HttpFeil(500, 'intern_feil', 'bivrost.feil.intern'));
+        $this->kjerne->logg()->skriv($hendelse, $this->loggobjekt('mappe', $id, Felt::tekst($sak['saksnummer'])));
+
+        return $sak;
     }
 
     /** ID-en til arkivet til den innloggede. Arkivet lages første gang det åpnes. */
@@ -269,6 +288,32 @@ final class Arkivruter
             $versjon = isset($f->query['versjon']) ? max(1, (int) Felt::tekst($f->query['versjon'])) : null;
 
             return Svar::json(['journalpost' => $this->postmottak()->visJournalpost($post), 'sak' => $register->visSak($sak), 'dokument' => $this->dokument($arkiv, $post, $versjon)]);
+        });
+        // Kontrolloppgavene til arkivtjenesten: tellerne, dokumentene til journalføring, og handlingene.
+        $r->legg('GET', '/api/arkiv/kontroll', fn (): Svar => Svar::json($this->kontroll()->tall($this->arkiv())));
+        $r->legg('GET', '/api/arkiv/kontroll/journalposter/{gruppe}', function (Foresporsel $f, array $v): Svar {
+            $arkiv = $this->arkiv();
+            $postmottak = $this->postmottak();
+
+            return Svar::json(['journalposter' => array_map(static fn (array $p): array => $postmottak->visJournalpost($p), $this->kontroll()->journalposter($arkiv, $v['gruppe']))]);
+        });
+        $r->legg('POST', '/api/arkiv/journalposter/{id}/journalfor', function (Foresporsel $f, array $v): Svar {
+            $arkiv = $this->arkiv();
+            $this->kontroll()->journalfor($arkiv, $v['id']);
+
+            return Svar::json(['journalpost' => $this->skrevet($arkiv, $v['id'], 'urn:arkivar:hendelse:journalpost:journalfort')]);
+        });
+        $r->legg('POST', '/api/arkiv/saker/{id}/kontroller', function (Foresporsel $f, array $v): Svar {
+            $arkiv = $this->arkiv();
+            $this->kontroll()->kontroller($arkiv, $v['id']);
+
+            return Svar::json(['sak' => $this->mappeEtter($arkiv, $v['id'], 'urn:arkivar:hendelse:mappe:kontrollert')]);
+        });
+        $r->legg('POST', '/api/arkiv/saker/{id}/avslutt', function (Foresporsel $f, array $v): Svar {
+            $arkiv = $this->arkiv();
+            $this->kontroll()->avslutt($arkiv, $v['id']);
+
+            return Svar::json(['sak' => $this->mappeEtter($arkiv, $v['id'], 'urn:arkivar:hendelse:mappe:avsluttet')]);
         });
         // Dokumenter studenten skriver selv: opprett fra en mal, lagre mens det er under redigering, og ferdigstill.
         $r->legg('POST', '/api/arkiv/saker/{id}/dokumenter', function (Foresporsel $f, array $v): Svar {

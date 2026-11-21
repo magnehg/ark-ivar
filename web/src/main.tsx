@@ -6,6 +6,7 @@ import { Sprak, useT } from './i18n';
 import { TemaTilbyder } from './tema';
 import { Feil, Laster, OktCtx } from './komponenter/Felles';
 import { LesevinduTilbyder } from './komponenter/Dokumentfiler';
+import { KontrolltallTilbyder } from './komponenter/Kontrolloppgaver';
 import { VisningTilbyder } from './komponenter/Oversikt';
 import { Skall } from './komponenter/Skall';
 import Konto from './sider/Konto';
@@ -40,6 +41,7 @@ const EnSak = lastSide(() => import('./sider/arkiv/Saker').then((m) => ({ defaul
 const NyMappe = lastSide(() => import('./sider/arkiv/NyMappe'));
 const NyJournalpost = lastSide(() => import('./sider/arkiv/NyJournalpost'));
 const Skriv = lastSide(() => import('./sider/arkiv/Skriv'));
+const Kontroll = lastSide(() => import('./sider/arkiv/Kontroll'));
 const Journal = lastSide(() => import('./sider/arkiv/Journal'));
 const Journalpost = lastSide(() => import('./sider/arkiv/Journalpost'));
 const Struktur = lastSide(() => import('./sider/arkiv/Struktur'));
@@ -71,7 +73,7 @@ function App() {
       {!innlogget ? <Konto /> : (
         <Suspense fallback={<Laster />}>
           <Routes>
-            <Route element={<VisningTilbyder><LesevinduTilbyder><Skall /></LesevinduTilbyder></VisningTilbyder>}>
+            <Route element={<KontrolltallTilbyder aktiv={student}><VisningTilbyder><LesevinduTilbyder><Skall /></LesevinduTilbyder></VisningTilbyder></KontrolltallTilbyder>}>
               <Route index element={<Hjem />} />
               {student && <Route path="min-side" element={<MinSide />} />}
               {student && <Route path="arkiv/postmottak" element={<Postmottak />} />}
@@ -83,6 +85,7 @@ function App() {
               {student && <Route path="arkiv/saker/:id/nytt-dokument" element={<Skriv />} />}
               {student && <Route path="arkiv/saker/:sakId/journalposter/:journalpost/rediger" element={<Skriv />} />}
               {student && <Route path="arkiv/journal" element={<Journal />} />}
+              {student && <Route path="arkiv/kontroll/:liste" element={<Kontroll />} />}
               {student && <Route path="arkiv/saker/:sakId/journalposter/:id" element={<Journalpost />} />}
               {student && <Route path="arkiv/struktur" element={<Struktur />} />}
               {laerer && <Route path="klasser" element={<Klasser />} />}

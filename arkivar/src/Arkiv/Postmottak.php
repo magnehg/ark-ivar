@@ -355,6 +355,8 @@ final class Postmottak
         $skrevet = $oppgaveId === null && $startdokument === null ? ($this->skriving->oversikt($arkivId)[Felt::tekst($rad['id'])] ?? null) : null;
         $ut['mal'] = $offentlig ? null : ($skrevet['mal'] ?? null);
         $ut['redigerbar'] = !$offentlig && $skrevet !== null && Felt::valgfriTekst($rad['dokumentstatus'] ?? null) === Kodelister::DOK_UNDER_REDIGERING;
+        // Ferdig fra saksbehandleren, og venter på at arkivtjenesten journalfører det.
+        $ut['til_journalforing'] = !$offentlig && Kontroll::gruppe($rad) !== null;
         $ut['dokumenter'] = [];
         if (!$offentlig && $skrevet !== null) {
             $ut['har_dokument'] = true;

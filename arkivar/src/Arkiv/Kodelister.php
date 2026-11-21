@@ -22,7 +22,11 @@ final class Kodelister
      */
     public const SAK_UNDER_BEHANDLING = 'B';
     public const SAK_AVSLUTTET = 'A';
-    public const SAKSSTATUSER = [self::SAK_UNDER_BEHANDLING, self::SAK_AVSLUTTET, 'U', 'R', 'S', 'P', 'F'];
+    /** Opprettet av saksbehandleren: arkivtjenesten har ikke kontrollert mappen ennå. */
+    public const SAK_OPPRETTET = 'R';
+    /** Avsluttet av saksbehandleren: arkivtjenesten skal avslutte mappen. */
+    public const SAK_FERDIG = 'S';
+    public const SAKSSTATUSER = [self::SAK_UNDER_BEHANDLING, self::SAK_AVSLUTTET, 'U', self::SAK_OPPRETTET, self::SAK_FERDIG, 'P', 'F'];
 
     /**
      * Journalstatus (på journalposten): journalført, ferdigstilt fra saksbehandler, godkjent av leder, ekspedert,
@@ -35,7 +39,11 @@ final class Kodelister
     public const JP_RESERVERT = 'R';
     /** Midlertidig registrering av innkommet dokument: brevet er registrert, men ikke kontrollert og journalført. */
     public const JP_MIDLERTIDIG = 'M';
-    public const JOURNALSTATUSER = [self::JP_JOURNALFORT, 'F', 'G', self::JP_EKSPEDERT, self::JP_ARKIVERT, 'U', self::JP_MIDLERTIDIG, 'S', self::JP_RESERVERT];
+    /** Ferdigstilt fra saksbehandleren: dokumentet er ferdig, og journalposten venter på journalføring. */
+    public const JP_FERDIG = 'F';
+    /** Saksbehandleren har registrert et innkommet dokument selv. */
+    public const JP_REGISTRERT = 'S';
+    public const JOURNALSTATUSER = [self::JP_JOURNALFORT, self::JP_FERDIG, 'G', self::JP_EKSPEDERT, self::JP_ARKIVERT, 'U', self::JP_MIDLERTIDIG, self::JP_REGISTRERT, self::JP_RESERVERT];
 
     /** Dokumentstatus (på dokumentfilen): under redigering, ferdigstilt. */
     public const DOK_UNDER_REDIGERING = 'B';

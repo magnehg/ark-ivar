@@ -122,7 +122,8 @@ export default function Skriv() {
       .catch((e: unknown) => { settFeil(feiltekst(e)); settOpptatt(false); });
   };
   const send = (e: FormEvent) => { e.preventDefault(); lagre(false, false); };
-  const ferdig = v.type === 'U' ? 'E' : 'J';
+  // Statusen saksbehandleren setter når dokumentet er ferdig. Arkivtjenesten journalfører det etterpå.
+  const ferdig = v.type === 'U' ? 'E' : v.type === 'I' ? 'M' : 'F';
   return (
     <>
       <Sidehode tittel={t(journalpost ? 'arkivar.skriv.tittel.endre' : 'arkivar.skriv.tittel')} ingress={t('arkivar.skriv.ingress')} />

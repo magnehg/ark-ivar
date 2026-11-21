@@ -8,6 +8,7 @@ import { Behandling, Journalpost, Sak, del, flytSok, lesFlyt, useStruktur } from
 import { useDato, useKode, useT } from '../../i18n';
 import { Feil, Kort, Laster, Sidehode, useFeiltekst, useHent } from '../../komponenter/Felles';
 import { Dokumenttittel, Journalpostfiler, Mappefiler } from '../../komponenter/Dokumentfiler';
+import { useKontrolltall } from '../../komponenter/Kontrolloppgaver';
 import { Mappesok } from '../../komponenter/Mappesok';
 import { Status } from '../../komponenter/Status';
 import { Filtermeny, Oversikt, Teller } from '../../komponenter/Oversikt';
@@ -74,6 +75,8 @@ export function EnSak() {
   const aktivFlyt = flyt && venter.data?.behandlet !== true ? flyt : null;
   const struktur = useStruktur();
   const [feil, settFeil] = useState<string | null>(null);
+  const [opptatt, settOpptatt] = useState(false);
+  const kontroll = useKontrolltall();
   // I mappen står det korte navnet på tilgangskoden. Hele hjemmelen står på journalposten og i journalen.
   const tilgangsnavn = (kode: string) => struktur.data?.tilgangskoder.find((k) => k.kode === kode)?.navn ?? kode;
   const tilgang = (r: Journalpost) => (r.tilgangskode ? <Status slag="skjermet"><span lang="nb">{tilgangsnavn(r.tilgangskode)}</span></Status> : t('arkivar.tilgang.offentlig'));
@@ -83,6 +86,10 @@ export function EnSak() {
   if (!sak.data) return <Laster />;
   const d = sak.data.sak;
   const avsluttet = d.status === 'A';
+  const kontrollhandling = (handling: 'kontroller' | 'avslutt') => {
+    settFeil(null); settOpptatt(true);
+    api.post(`/api/arkiv/saker/${del(id)}/${handling}`).then(() => { sak.last(); kontroll.oppdater(); }).catch((e: unknown) => settFeil(feiltekst(e))).finally(() => settOpptatt(false));
+  };
   const slett = () => { settFeil(null); api.slett(`/api/arkiv/saker/${del(id)}`).then(() => naviger('/arkiv/saker')).catch((e: unknown) => settFeil(feiltekst(e))); };
   const kolonner: Kolonne<Journalpost>[] = [
     { id: 'nr', overskrift: t('arkivar.journalpost.nr'), stil: { width: '70px' }, celle: (r) => r.postnr, sorter: (r) => r.postnr },
@@ -132,6 +139,9 @@ export function EnSak() {
       </Kort>
       <div className={c.knapper}>
         <Ruterlenke to="/arkiv/saker">{t('arkivar.sak.tilbake')}</Ruterlenke>
+        {/* Kontrolloppgavene til arkivtjenesten kan løses fra mappen også. */}
+        {d.status === 'R' && <Button appearance="primary" disabled={opptatt} onClick={() => kontrollhandling('kontroller')}>{t('arkivar.kontroll.kontroller')}</Button>}
+        {d.status === 'S' && <Button appearance="primary" disabled={opptatt} onClick={() => kontrollhandling('avslutt')}>{t('arkivar.kontroll.avslutt')}</Button>}
         {sak.data.kan_slettes && <Button icon={<Delete20Regular />} onClick={slett}>{t('arkivar.sak.slett')}</Button>}
       </div>
     </>

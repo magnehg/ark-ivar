@@ -31,7 +31,7 @@ const s = makeStyles({
   meta: { display: 'flex', flexWrap: 'wrap', gap: '2px 16px', color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200, marginTop: '4px', fontVariantNumeric: 'tabular-nums' },
   verdi: { color: tokens.colorNeutralForeground1 },
   sak: { display: 'block', marginTop: '2px' },
-  ekstra: { marginTop: '4px' },
+  ekstra: { display: 'block', marginTop: '4px', fontWeight: tokens.fontWeightRegular },
   liten: { display: 'block', color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200 },
 });
 
@@ -46,10 +46,12 @@ type Postvalg = {
   sak?: Sak;
   /** Tilgangen slik oversikten viser den (kort navn i en mappe, hele hjemmelen i journalen). */
   tilgang: (rad: Journalpost) => ReactNode;
+  /** Det som står under journalposten i listevisningene, for eksempel knappen som journalfører den. */
+  handling?: (rad: Journalpost) => ReactNode;
 };
 
 /** Radene for journalposter i visningene «tittel først» og «to linjer». */
-export function useJournalpostvisning({ sak, tilgang }: Postvalg) {
+export function useJournalpostvisning({ sak, tilgang, handling }: Postvalg) {
   const c = s(); const t = useT(); const dato = useDato(); const { sprak } = useSprak();
   const saksnummer = (r: Journalpost) => `${sak?.saksnummer ?? r.saksnummer ?? ''}-${r.postnr}`;
   const sakstittel = (r: Journalpost) => sak?.tittel ?? r.sakstittel ?? '';
@@ -75,6 +77,7 @@ export function useJournalpostvisning({ sak, tilgang }: Postvalg) {
           {felt(t('arkivar.visning.saksbehandler'), `${r.enhet} / ${r.saksbehandler_navn}`, true)}
           <span>{t('arkivar.visning.tilgang')} <span className={c.verdi}>{tilgang(r)}</span></span>
         </div>
+        {handling && <div className={c.ekstra}>{handling(r)}</div>}
       </div>
     ),
     linjer: (r: Journalpost) => (
@@ -89,6 +92,7 @@ export function useJournalpostvisning({ sak, tilgang }: Postvalg) {
           <span className={c.under}>
             {part(r)}{!sak && <> · {t('arkivar.journal.sak')} <span className={c.verdi} lang="nb">{sakstittel(r)}</span></>} · <span className={c.verdi}>{tilgang(r)}</span>
           </span>
+          {handling && <span className={c.ekstra}>{handling(r)}</span>}
         </span>
         <span className={c.dato}>{dato(r.dokumentdato)}</span>
       </div>

@@ -80,12 +80,23 @@ uttrekk eller avlevere.
   `{{saksbehandler}}` og `{{stilling}}` settes inn av grensesnittet. Dokumentet lagres som avsnitt (ingen
   formatering) i `arkivar_dokument` (migrering 004), én rad per versjon. Journalposten har status R (M for et inngående brev) og
   dokumentstatus B til dokumentet ferdigstilles (`POST /api/arkiv/journalposter/{id}/ferdigstill`): da blir den
-  ekspedert (U) eller journalført (de andre), står i journalen og får arkivformat, og dokumentet kan ikke endres.
+  ekspedert (U), ferdigstilt (N, X) eller står som midlertidig registrert (I), dokumentet kan ikke endres, og
+  journalposten står til journalføring under kontrolloppgavene.
   `POST /api/arkiv/saker/{id}/dokumenter` oppretter, `PUT /api/arkiv/journalposter/{id}/dokument` lagrer (med
   `ny_versjon` som ny versjon), og `GET /api/arkiv/journalposter/{id}?versjon=N` gir en bestemt versjon.
   Et dokument kan ha høyst 30 versjoner, et utgående dokument må ha mottaker, og ferdigstillingen avvises så lenge
   tittelen eller dokumentet har en hakeparentes fra malen.
   Registreringsfeltene kontrolleres av `Registreringsfelt`, som også postmottaket bruker.
+- **Kontrolloppgavene** (`Kontroll`, `web/src/komponenter/Kontrolloppgaver.tsx`, `web/src/sider/arkiv/Kontroll.tsx`):
+  det saksbehandlerne har gjort ferdig, og som arkivtjenesten skal kontrollere. Til journalføring: inngående i
+  status S eller M, interne (N, X, S) i F eller E, og utgående i E; et dokument studenten fortsatt skriver på
+  (dokumentstatus B), er ikke med. Saksmapper: til kontroll (R, blir B) og til avslutning (S, blir A sammen med
+  dokumentene, og bare når alle er journalført). Sidemenyen har den utvidbare undermenyen «Kontrolloppgaver» med
+  en teller per liste (`GET /api/arkiv/kontroll`); sidene kaller `useKontrolltall().oppdater()` når en oppgave er
+  løst. Handlingene er `POST /api/arkiv/journalposter/{id}/journalfor` og
+  `POST /api/arkiv/saker/{id}/kontroller` og `/avslutt`. Det som står til journalføring, har `journalfort = 0` og
+  står ikke i journalen. `bygg.py` (utenfor repoet) lar de nyeste dokumentene og mappene i grunndataene stå i disse
+  statusene, så arkivet har 6 + 6 + 8 dokumenter og 8 + 6 mapper til kontroll fra start (`ArkivTest`).
 - **Kommunevåpenet** (`web/src/bilder/sirevag-kommunevapen.svg`, `Kommunevapen`) er oppdiktet: «I blått en gull bjelke som på
   midten er bøyd ned i en nesten sluttet ring (en våg)». Det er valgt blant tre forslag og sjekket mot virkelige
   kommunevåpen på Jæren og sørvestkysten (ikke uttømmende). Det er et bilde med sine egne heraldiske farger og

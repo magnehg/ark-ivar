@@ -37,6 +37,8 @@ export type Journalpost = {
   dokumenter: Dokumentbeskrivelse[];
   /** Malen dokumentet er skrevet fra, når studenten har skrevet det selv, og om det fortsatt kan endres. */
   mal: string | null; redigerbar: boolean;
+  /** Dokumentet er ferdig fra saksbehandleren og venter på at arkivtjenesten journalfører det. */
+  til_journalforing: boolean;
 };
 export type Behandling = {
   dokument: Dokument; behandlet: boolean; handling?: Handling; vurdering?: Kriterium[]; poeng?: number; maks?: number;

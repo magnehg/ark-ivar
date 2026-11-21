@@ -219,15 +219,43 @@ final class Register
     }
 
     /**
-     * Ferdigstiller dokumentet i en journalpost: journalposten får den nye statusen og journaldatoen, den står i
-     * journalen, og dokumentfilen er ferdigstilt og gjort om til arkivformat.
+     * Ferdigstiller dokumentet i en journalpost: dokumentfilen er ferdigstilt, og journalposten får statusen
+     * saksbehandleren setter når dokumentet er ferdig (ekspedert, ferdigstilt eller midlertidig registrert). Den
+     * står ikke i journalen før arkivtjenesten har journalført den.
      */
-    public function ferdigstillJournalpost(string $arkivId, string $id, string $status, string $journaldato): void
+    public function ferdigstillJournalpost(string $arkivId, string $id, string $status): void
     {
         $this->db->utfor(
-            'UPDATE arkivar_journalpost SET status = ?, journalfort = 1, journaldato = ?, dokumentstatus = ?, variantformat = ? WHERE arkiv_id = ? AND id = ?',
-            [$status, $journaldato, Kodelister::DOK_FERDIGSTILT, Kodelister::variantformat($status), $arkivId, $id],
+            'UPDATE arkivar_journalpost SET status = ?, journalfort = 0, dokumentstatus = ?, variantformat = ? WHERE arkiv_id = ? AND id = ?',
+            [$status, Kodelister::DOK_FERDIGSTILT, Kodelister::variantformat($status), $arkivId, $id],
         );
+    }
+
+    /**
+     * Setter journalstatusen. $journalfort sier om journalposten står i journalen, og $journaldato settes når den
+     * journalføres. Dokumentfilen får variantformatet som hører til statusen.
+     */
+    public function settJournalstatus(string $arkivId, string $id, string $status, bool $journalfort, string $journaldato): void
+    {
+        $this->db->utfor(
+            'UPDATE arkivar_journalpost SET status = ?, journalfort = ?, journaldato = ?, variantformat = CASE WHEN dokumentstatus IS NULL THEN NULL ELSE ? END
+              WHERE arkiv_id = ? AND id = ?',
+            [$status, $journalfort ? 1 : 0, $journaldato, Kodelister::variantformat($status), $arkivId, $id],
+        );
+    }
+
+    /** Arkiverer de journalførte dokumentene i en mappe som avsluttes. */
+    public function arkiverJournalposter(string $arkivId, string $sakId): void
+    {
+        $this->db->utfor(
+            'UPDATE arkivar_journalpost SET status = ?, variantformat = CASE WHEN dokumentstatus IS NULL THEN NULL ELSE ? END WHERE arkiv_id = ? AND sak_id = ? AND status = ?',
+            [Kodelister::JP_ARKIVERT, Kodelister::VARIANT_ARKIV, $arkivId, $sakId, Kodelister::JP_JOURNALFORT],
+        );
+    }
+
+    public function settSaksstatus(string $arkivId, string $sakId, string $status): void
+    {
+        $this->db->utfor('UPDATE arkivar_sak SET status = ? WHERE arkiv_id = ? AND id = ?', [$status, $arkivId, $sakId]);
     }
 
     /** Sletter en mappe studenten har opprettet selv, når den er tom. Gir om den ble slettet. */

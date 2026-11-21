@@ -7,6 +7,7 @@
   "arkivar.epost.passord.tekst": "Hi {navn}\n\nYour code is: {kode}\n\nEnter the code in {appnavn} and choose a new password. The code is valid for {minutter} minutes.\n\nIf you have not asked for a new password, you can ignore this email. Your password has not been changed.",
   "arkivar.feil.alt_behandlet": "The document has already been processed. Undo it to process it again.",
   "arkivar.feil.arkivdel": "Choose a series.",
+  "arkivar.feil.brukervalg": "The choice cannot be saved.",
   "arkivar.feil.dokumentdato": "The document date must be a valid date that is not in the future.",
   "arkivar.feil.domene": "The email address must be from an approved institution. If your teacher has given you a class code, you can register with that.",
   "arkivar.feil.domene_finnes": "The domain is already in the list.",

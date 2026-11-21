@@ -424,8 +424,8 @@ final class GrunndataTest extends TestCase
                     continue;
                 }
                 $hvor = "$fil: $sti";
-                $felt = $fil === 'sirevag.json' ? '/^\d+\.journalposter\.\d+\.dokument\.(emne|tekst\.\d+|vedlegg\.\d+)$/' : '/^\d+\.(emne|tekst\.\d+|vedlegg\.\d+)$/';
-                self::assertMatchesRegularExpression($felt, $sti, "$hvor: plassholdere byttes bare ut i emne, tekst og vedlegg.");
+                $felt = $fil === 'sirevag.json' ? '/^\d+\.journalposter\.\d+\.dokument\.(emne|tekst\.\d+|vedlegg\.\d+|utkast\.\d+)$/' : '/^\d+\.(emne|tekst\.\d+|vedlegg\.\d+)$/';
+                self::assertMatchesRegularExpression($felt, $sti, "$hvor: plassholdere byttes bare ut i emne, tekst, vedlegg og utkast.");
                 self::assertGreaterThan(0, preg_match_all('/\{\{sak(?::([a-z0-9-]+))?\}\}/', $tekst, $treff), "$hvor: plassholderen er feil skrevet.");
                 $rest = (string) preg_replace('/\{\{sak(?::[a-z0-9-]+)?\}\}/', '', $tekst);
                 self::assertFalse(str_contains($rest, '{{') || str_contains($rest, '}}'), "$hvor: plassholderen er feil skrevet.");

@@ -51,8 +51,9 @@ uttrekk eller avlevere.
 - **Dokumentfilene** (`Dokumentfiler`, `filer` på journalposten i API-svarene): øvingsarkivet har ikke virkelige filer,
   men hver journalpost med dokument har en fil i produksjonsformat (`eml` for e-post, `tif` for skannet brev og
   skjema, `pdf` for andre dokumenter utenfra, `docx` for kommunens egne) og, når journalposten er journalført, ekspedert
-  eller arkivert, en i arkivformat (`txt` for e-post, ellers `pdf`). Hver fil har `versjon`; øvingsarkivet har bare
-  versjon 1. En journalpost har `dokumenter`: hoveddokumentet (rolle H) og ett per vedlegg (V, bare tittel, uten
+  eller arkivert, en i arkivformat (`txt` for e-post, ellers `pdf`). Hver fil har `versjon`, og arkivformatet står først. De
+  fleste dokumentene har én versjon; noen utgående har saksbehandlerens grove utkast som versjon 1 (`utkast` på
+  dokumentet i `sirevag.json`, bare i produksjonsformat) og det ferdige dokumentet som versjon 2. En journalpost har `dokumenter`: hoveddokumentet (rolle H) og ett per vedlegg (V, bare tittel, uten
   innhold). I listene står ikonet til arkivformatet foran tittelen (`Dokumenttittel`, `hovedfil()`). En utvidet
   journalpost viser hoveddokumentet og vedleggene (`Dokumentliste`), og hvert av dem kan utvides til versjonene med
   variantene under (`Filliste`). Den offentlige journalen har aldri filene. I grensesnittet kan radene
@@ -61,6 +62,14 @@ uttrekk eller avlevere.
   høyre: ikke modalt, lukkes med Escape og når adressen endres (side eller filter), og fokus settes tilbake på filen
   som åpnet det. Siden får like mye høyremarg som vinduet er bredt, så ingenting ligger under det; tabeller med
   utvidbare rader har en minstebredde og ruller sidelengs i stedet for å klemmes sammen.
+- **Visningene av oversiktene** (`web/src/komponenter/Oversikt.tsx`, `web/src/sider/arkiv/visninger.tsx`):
+  mappeoversikten, dokumentene i en mappe, journalen og søketreffene vises i kolonner (`SorterbarTabell`), med
+  tittelen først eller på to linjer. Brukeren bytter med tre ikoner (`Visningsvelger`), og valget gjelder alle
+  oversiktene og lagres på kontoen: `Brukervalg` (tabellen `arkivar_brukervalg`, migrering 003),
+  `GET`/`PUT /api/meg/valg`, bare valgene og verdiene i `Brukervalg::VALG`. En ny oversikt bruker `Oversikt` og
+  gir radene for de to listevisningene (`useMappevisning`, `useJournalpostvisning`). På to linjer står typen
+  (I, U, N, X, S) i en rute først, så saks- og dokumentnummeret med løpenummeret under i kortform
+  («2026/28-3» og «(104/26)», `kortLopenummer()`), tittelen og dokumentdatoen.
 - **Kommunevåpenet** (`web/src/bilder/sirevag-kommunevapen.svg`, `Kommunevapen`) er oppdiktet: «I blått en gull bjelke som på
   midten er bøyd ned i en nesten sluttet ring (en våg)». Det er valgt blant tre forslag og sjekket mot virkelige
   kommunevåpen på Jæren og sørvestkysten (ikke uttømmende). Det er et bilde med sine egne heraldiske farger og

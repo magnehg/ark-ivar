@@ -9,20 +9,18 @@ import { useDato, useKode, useT } from '../../i18n';
 import { Feil, Kort, Laster, Sidehode, useFeiltekst, useHent } from '../../komponenter/Felles';
 import { Dokumenttittel, Journalpostfiler, Mappefiler } from '../../komponenter/Dokumentfiler';
 import { Mappesok } from '../../komponenter/Mappesok';
-import { Mappeikon, Status } from '../../komponenter/Status';
-import { Kolonne, SorterbarTabell, TabellVerktoy } from '../../komponenter/Tabell';
+import { Status } from '../../komponenter/Status';
+import { Oversikt } from '../../komponenter/Oversikt';
+import { Kolonne, TabellVerktoy } from '../../komponenter/Tabell';
+import { useJournalpostvisning, useMappekolonner, useMappevisning } from './visninger';
 
 const s = makeStyles({
   fakta: { display: 'grid', gridTemplateColumns: 'max-content 1fr', gap: '4px 16px', margin: 0, '& dt': { color: tokens.colorNeutralForeground2 }, '& dd': { margin: 0 } },
   filter: { maxWidth: '320px', marginBottom: '8px' },
   dempet: { color: tokens.colorNeutralForeground2 },
-  under: { display: 'block', color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200 },
   venter: { marginBottom: '16px' },
   knapper: { display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' },
 });
-
-/** Saksnummeret som tall til sortering: 2026/7 → 2026 0007. */
-const sorterbart = (nummer: string) => nummer.split('/').map((del) => del.padStart(6, '0')).join('/');
 
 export function Saker() {
   const t = useT(); const dato = useDato(); const kode = useKode(); const naviger = useNavigate();
@@ -35,20 +33,10 @@ export function Saker() {
   const settArkivdel = (kode: string) => settSok(kode ? { arkivdel: kode } : {}, { replace: true });
   const alle = liste.data?.saker ?? [];
   const rader = arkivdel === '' ? alle : alle.filter((r) => r.arkivdel === arkivdel);
-  // Tittelen får mest plass. Uten en bredde på den klemmer de andre kolonnene den sammen.
   const enhetsnavn = (kode: string) => struktur.data?.enheter.find((e) => e.kode === kode)?.navn ?? kode;
-  // Saksnummeret med mappeikonet og tittelen står først, så enheten og saksansvarlig; klasseringen står sist.
-  const kolonner: Kolonne<Sak>[] = [
-    { id: 'nummer', overskrift: t('arkivar.sak.nummer'), stil: { width: '108px' }, celle: (r) => <Mappeikon status={r.status}>{r.saksnummer}</Mappeikon>, sorter: (r) => sorterbart(r.saksnummer) },
-    { id: 'tittel', overskrift: t('arkivar.sak.tittel'), sprak: 'nb', celle: (r) => <Ruterlenke to={`/arkiv/saker/${r.id}`}>{r.tittel}</Ruterlenke>, sorter: (r) => r.tittel },
-    { id: 'enhet', overskrift: t('arkivar.sak.enhet.kort'), stil: { width: '64px' }, sprak: 'nb', celle: (r) => <abbr title={enhetsnavn(r.enhet)}>{r.enhet}</abbr>, sorter: (r) => r.enhet },
-    { id: 'ansvarlig', overskrift: t('arkivar.sak.ansvarlig'), stil: { width: '120px' }, sprak: 'nb', celle: (r) => r.saksansvarlig_navn, sorter: (r) => r.saksansvarlig_navn },
-    { id: 'dato', overskrift: t('arkivar.sak.dato'), stil: { width: '96px' }, celle: (r) => dato(r.saksdato), sorter: (r) => r.saksdato },
-    { id: 'status', overskrift: t('arkivar.sak.status'), stil: { width: '64px' }, celle: (r) => <abbr title={t(`arkivar.saksstatus.${r.status.toLowerCase()}`)}>{r.status}</abbr>, sorter: (r) => r.status },
-    { id: 'antall', overskrift: t('arkivar.sak.antall'), stil: { width: '92px' }, celle: (r) => r.antall, sorter: (r) => r.antall },
-    // Klasseringen står sist, med arkivdelen under: arkivdelen sier hva slags klassering det er.
-    { id: 'klasse', overskrift: t('arkivar.sak.primaer'), stil: { width: '230px' }, sprak: 'nb', celle: (r) => (<>{r.klasse_tekst}<span className={c.under}>{r.arkivdel_tekst}</span></>), sorter: (r) => `${r.arkivdel_tekst} ${r.klasse_tekst}` },
-  ];
+  const mappevalg = { sak: (r: Sak) => r, lenke: (r: Sak) => `/arkiv/saker/${r.id}`, enhetsnavn };
+  const kolonner = useMappekolonner<Sak>(mappevalg);
+  const visninger = useMappevisning<Sak>(mappevalg);
   return (
     <>
       <Sidehode tittel={t('arkivar.saker.tittel')} ingress={t('arkivar.saker.ingress')}
@@ -66,7 +54,7 @@ export function Saker() {
               </Select>
             </Field>
             <TabellVerktoy tekst={t('arkivar.tabell.antall', { vist: rader.length, alle: alle.length })}>{null}</TabellVerktoy>
-            <SorterbarTabell rader={rader} kolonner={kolonner} nokkel={(r) => r.id} aria-labelledby="saksliste" startSortering={{ id: 'nummer', retning: 'descending' }}
+            <Oversikt rader={rader} kolonner={kolonner} visninger={visninger} nokkel={(r) => r.id} aria-labelledby="saksliste" startSortering={{ id: 'nummer', retning: 'descending' }}
               utvid={{ innhold: (r) => <Mappefiler sak={r.id} />, vis: t('arkivar.filer.vis'), skjul: t('arkivar.filer.skjul'), beskrevetAv: 'tittel', kan: (r) => r.antall > 0 }} />
           </>
         )}
@@ -88,14 +76,16 @@ export function EnSak() {
   const aktivFlyt = flyt && venter.data?.behandlet !== true ? flyt : null;
   const struktur = useStruktur();
   const [feil, settFeil] = useState<string | null>(null);
+  // I mappen står det korte navnet på tilgangskoden. Hele hjemmelen står på journalposten og i journalen.
+  const tilgangsnavn = (kode: string) => struktur.data?.tilgangskoder.find((k) => k.kode === kode)?.navn ?? kode;
+  const tilgang = (r: Journalpost) => (r.tilgangskode ? <Status slag="skjermet"><span lang="nb">{tilgangsnavn(r.tilgangskode)}</span></Status> : t('arkivar.tilgang.offentlig'));
+  // Krokene må kalles før de tidlige returene under. Mappen er ikke hentet ennå første gang.
+  const postvisninger = useJournalpostvisning({ sak: sak.data?.sak, tilgang });
   if (sak.feil) return <Feil melding={sak.feil} />;
   if (!sak.data) return <Laster />;
   const d = sak.data.sak;
   const avsluttet = d.status === 'A';
   const slett = () => { settFeil(null); api.slett(`/api/arkiv/saker/${del(id)}`).then(() => naviger('/arkiv/saker')).catch((e: unknown) => settFeil(feiltekst(e))); };
-  // I mappen står det korte navnet på tilgangskoden. Hele hjemmelen står på journalposten og i journalen.
-  const tilgangsnavn = (kode: string) => struktur.data?.tilgangskoder.find((k) => k.kode === kode)?.navn ?? kode;
-  const tilgang = (r: Journalpost) => (r.tilgangskode ? <Status slag="skjermet"><span lang="nb">{tilgangsnavn(r.tilgangskode)}</span></Status> : t('arkivar.tilgang.offentlig'));
   const kolonner: Kolonne<Journalpost>[] = [
     { id: 'nr', overskrift: t('arkivar.journalpost.nr'), stil: { width: '70px' }, celle: (r) => r.postnr, sorter: (r) => r.postnr },
     { id: 'type', overskrift: t('arkivar.journalpost.type'), stil: { width: '70px' }, celle: (r) => (<abbr title={t(`arkivar.jptype.${r.type.toLowerCase()}`)}>{r.type}</abbr>), sorter: (r) => r.type },
@@ -135,7 +125,7 @@ export function EnSak() {
         {avsluttet && <Text block className={c.dempet}>{t('arkivar.sak.avsluttet.hjelp')}</Text>}
         {sak.data.journalposter.length === 0
           ? <Text block className={c.dempet}>{t('arkivar.sak.tom')}</Text>
-          : <SorterbarTabell rader={sak.data.journalposter} kolonner={kolonner} nokkel={(r) => r.id} aria-labelledby="sak-journalposter" startSortering={{ id: 'nr', retning: 'ascending' }}
+          : <Oversikt rader={sak.data.journalposter} kolonner={kolonner} visninger={postvisninger} nokkel={(r) => r.id} aria-labelledby="sak-journalposter" startSortering={{ id: 'nr', retning: 'ascending' }}
             utvid={{ innhold: (r) => <Journalpostfiler post={r} />, vis: t('arkivar.filer.vis'), skjul: t('arkivar.filer.skjul'), beskrevetAv: 'tittel', kan: (r) => r.dokumenter.length > 0 }} />}
       </Kort>
       <div className={c.knapper}>

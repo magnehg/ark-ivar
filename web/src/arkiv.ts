@@ -7,6 +7,8 @@ export type Postmottaksrad = { id: string; kanal: string; mottatt: string; emne:
 export type Dokument = {
   id?: string; kanal: string; mottatt: string | null; dokumentdato: string; emne: string; tekst: string[]; vedlegg: string[];
   avsender: { navn: string; adresse: string | null; epost: string | null }; mottaker: string | null;
+  /** Saksbehandlerens første utkast (versjon 1), for dokumentene som har to versjoner. */
+  utkast?: string[];
 };
 export type Kriterium = { id: string; ok: boolean; ditt: string; riktig: string; forklaring: string };
 /** En mappe. klasse er primærklasseringen; skjerm_klasse sier at den ikke vises i den offentlige journalen. */

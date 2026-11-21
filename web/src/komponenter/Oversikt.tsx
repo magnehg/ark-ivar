@@ -1,0 +1,137 @@
+// Oversiktene (mapper, dokumenter i en mappe, journalen og søketreff) kan vises på tre måter: i kolonner (tabell),
+// med tittelen først, eller på to linjer. Brukeren velger med ikonene over oversikten, og valget lagres på kontoen
+// (PUT /api/meg/valg), så det følger brukeren fra maskin til maskin og gjelder alle oversiktene.
+import { ReactNode, createContext, useCallback, useContext, useEffect, useId, useMemo, useState } from 'react';
+import { Button, Select, ToggleButton, makeStyles, tokens } from '@fluentui/react-components';
+import { ArrowSortDown20Regular, ArrowSortUp20Regular, ChevronDown20Regular, ChevronRight20Regular, List20Regular, Table20Regular, TextBulletListSquare20Regular } from '@fluentui/react-icons';
+import { api } from '../api';
+import { useSprak, useT } from '../i18n';
+import { useHent } from './Felles';
+import { SorterbarTabell, TabellProps, useSortering } from './Tabell';
+
+export type Listevisning = 'kolonner' | 'tittel' | 'linjer';
+const VISNINGER: Listevisning[] = ['kolonner', 'tittel', 'linjer'];
+const erVisning = (v: unknown): v is Listevisning => VISNINGER.includes(v as Listevisning);
+
+type Visningsverdi = { visning: Listevisning; settVisning: (v: Listevisning) => void };
+const VisningCtx = createContext<Visningsverdi>({ visning: 'kolonner', settVisning: () => undefined });
+export const useVisning = (): Visningsverdi => useContext(VisningCtx);
+
+/**
+ * Henter valget fra kontoen og lagrer det når brukeren bytter. Lar det seg ikke hente eller lagre (driftsbrukeren
+ * har ingen konto i appen), gjelder valget bare til siden lastes på nytt.
+ */
+export function VisningTilbyder({ children }: { children: ReactNode }) {
+  const hentet = useHent<{ valg: { listevisning?: string } }>('/api/meg/valg');
+  const [valgt, settValgt] = useState<Listevisning | null>(null);
+  const lagret = hentet.data?.valg.listevisning;
+  const visning = valgt ?? (erVisning(lagret) ? lagret : 'kolonner');
+  const settVisning = useCallback((v: Listevisning) => {
+    settValgt(v);
+    api.put('/api/meg/valg', { valg: 'listevisning', verdi: v }).catch(() => undefined);
+  }, []);
+  const verdi = useMemo(() => ({ visning, settVisning }), [visning, settVisning]);
+  return <VisningCtx.Provider value={verdi}>{children}</VisningCtx.Provider>;
+}
+
+const s = makeStyles({
+  verktoy: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px 16px', flexWrap: 'wrap', marginBottom: '6px' },
+  sortering: { display: 'flex', alignItems: 'center', gap: '6px', color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200 },
+  velger: { display: 'flex', gap: '2px', marginLeft: 'auto' },
+  liste: { listStyleType: 'none', margin: 0, padding: 0, borderTop: `1px solid ${tokens.colorNeutralStroke2}` },
+  post: { borderBottom: `1px solid ${tokens.colorNeutralStroke2}` },
+  rad: { display: 'flex', alignItems: 'flex-start', gap: '4px', padding: '8px 0' },
+  knapp: { flexShrink: 0 },
+  utenknapp: { width: '24px', flexShrink: 0 },
+  innhold: { flexGrow: 1, minWidth: 0 },
+  under: { backgroundColor: tokens.colorNeutralBackground2, padding: '0 8px' },
+});
+
+const IKON: Record<Listevisning, JSX.Element> = { kolonner: <Table20Regular />, tittel: <TextBulletListSquare20Regular />, linjer: <List20Regular /> };
+
+/** De tre ikonene som bytter visning. Det valgte er trykket inn, og hvert ikon har navnet som tekst for skjermlesere. */
+export function Visningsvelger() {
+  const c = s(); const t = useT(); const { visning, settVisning } = useVisning();
+  return (
+    <div className={c.velger} role="group" aria-label={t('arkivar.visning.velg')}>
+      {VISNINGER.map((v) => (
+        <ToggleButton key={v} appearance="subtle" size="small" icon={IKON[v]} checked={visning === v} aria-label={t(`arkivar.visning.${v}`)} title={t(`arkivar.visning.${v}`)} onClick={() => settVisning(v)} />
+      ))}
+    </div>
+  );
+}
+
+type OversiktProps<T> = TabellProps<T> & {
+  /** Én rad i visningene uten kolonner: med tittelen først, og på to linjer. */
+  visninger: { tittel: (rad: T, indeks: number) => ReactNode; linjer: (rad: T, indeks: number) => ReactNode };
+};
+
+/**
+ * En oversikt i den visningen brukeren har valgt. I kolonner er den tabellen (SorterbarTabell). Ellers er den en
+ * liste med de samme radene, den samme sorteringen (valgt i en nedtrekksliste, siden det ikke er overskrifter å
+ * klikke på) og den samme utvidingen.
+ */
+export function Oversikt<T>({ visninger, ...tabell }: OversiktProps<T>) {
+  const c = s(); const { visning } = useVisning();
+  return (
+    <>
+      {visning === 'kolonner' && <div className={c.verktoy}><Visningsvelger /></div>}
+      {visning === 'kolonner' ? <SorterbarTabell {...tabell} /> : <Radliste {...tabell} rad={visninger[visning]} />}
+    </>
+  );
+}
+
+function Radliste<T>({ rader, kolonner, nokkel, startSortering, utvid, kroppSprak, rad, ...aria }: TabellProps<T> & { rad: (rad: T, indeks: number) => ReactNode }) {
+  const c = s(); const t = useT(); const { sprak } = useSprak();
+  const { sortert, sortering, velg } = useSortering(rader, kolonner, startSortering ?? null);
+  const sorterbare = kolonner.filter((k) => k.sorter);
+  const idStart = useId();
+  const [apne, settApne] = useState<ReadonlySet<string | number>>(new Set());
+  const veksle = (n: string | number) => settApne((gml) => { const ny = new Set(gml); if (!ny.delete(n)) ny.add(n); return ny; });
+  // En rad som forsvinner (filter), er lukket når den kommer tilbake.
+  const finnes = rader.map((r, i) => nokkel(r, i)).join('\u0000');
+  useEffect(() => {
+    const igjen = new Set(finnes.split('\u0000'));
+    settApne((gml) => ([...gml].every((n) => igjen.has(String(n))) ? gml : new Set([...gml].filter((n) => igjen.has(String(n))))));
+  }, [finnes]);
+  const stigende = sortering?.retning !== 'descending';
+  const retning = t(stigende ? 'arkivar.visning.stigende' : 'arkivar.visning.synkende');
+  return (
+    <>
+      <div className={c.verktoy}>
+        {sorterbare.length > 0 && (
+          <label className={c.sortering}>
+            {t('arkivar.visning.sorter')}
+            <Select size="small" value={sortering?.id ?? ''} onChange={(_, d) => velg(d.value, sortering?.retning ?? 'ascending')}>
+              {!sortering && <option value="" />}
+              {sorterbare.map((k) => <option key={k.id} value={k.id}>{k.overskrift}</option>)}
+            </Select>
+            <Button appearance="subtle" size="small" icon={stigende ? <ArrowSortUp20Regular /> : <ArrowSortDown20Regular />} aria-label={retning} title={retning}
+              disabled={!sortering} onClick={() => sortering && velg(sortering.id, stigende ? 'descending' : 'ascending')} />
+          </label>
+        )}
+        <Visningsvelger />
+      </div>
+      <ul className={c.liste} aria-label={aria['aria-label']} aria-labelledby={aria['aria-labelledby']} lang={kroppSprak}>
+        {sortert.map(({ rad: r, indeks }) => {
+          const n = nokkel(r, indeks);
+          const apen = utvid !== undefined && apne.has(n);
+          const under = `${idStart}-${n}`;
+          const navn = utvid ? (apen ? utvid.skjul : utvid.vis) : '';
+          return (
+            <li key={n} className={c.post}>
+              <div className={c.rad}>
+                {utvid && ((utvid.kan?.(r, indeks) ?? true)
+                  ? <Button className={c.knapp} appearance="subtle" size="small" icon={apen ? <ChevronDown20Regular /> : <ChevronRight20Regular />} aria-expanded={apen} aria-controls={apen ? under : undefined}
+                      aria-label={navn} title={navn} aria-describedby={`${under}-rad`} lang={sprak} onClick={() => veksle(n)} />
+                  : <span className={c.utenknapp} />)}
+                <div className={c.innhold} id={`${under}-rad`}>{rad(r, indeks)}</div>
+              </div>
+              {apen && <div id={under} className={c.under}>{utvid.innhold(r, indeks)}</div>}
+            </li>
+          );
+        })}
+      </ul>
+    </>
+  );
+}

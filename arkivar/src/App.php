@@ -7,6 +7,7 @@ namespace ArkIvar;
 use ArkIvar\Arkiv\Arkivruter;
 use ArkIvar\Arkiv\Oppgavesett;
 use ArkIvar\Brukere\Brukere;
+use ArkIvar\Brukere\Brukervalg;
 use ArkIvar\Brukere\Domener;
 use ArkIvar\Brukere\Engangskoder;
 use ArkIvar\Brukere\Klasser;
@@ -98,6 +99,11 @@ final class App
     public function brukere(): Brukere
     {
         return $this->brukere ??= new Brukere($this->kjerne->db(), $this->klokke);
+    }
+
+    private function brukervalg(): Brukervalg
+    {
+        return new Brukervalg($this->kjerne->db(), $this->klokke);
     }
 
     private function domener(): Domener
@@ -261,6 +267,23 @@ final class App
                 'bruker' => Brukere::offentlig($rad),
                 'klasser' => array_map(static fn (array $kl): array => Klasser::offentlig($kl, false), $this->klasser()->forStudent(Felt::tekst($rad['id']))),
             ]);
+        });
+        // Valgene i grensesnittet som følger kontoen (hvordan oversiktene vises).
+        $r->legg('GET', '/api/meg/valg', function () use ($k): Svar {
+            $rad = $this->egenBruker($k->krev(Roller::urn(Roller::STUDENT)));
+
+            return Svar::json(['valg' => $this->brukervalg()->hent(Felt::tekst($rad['id']))]);
+        });
+        $r->legg('PUT', '/api/meg/valg', function (Foresporsel $f) use ($k): Svar {
+            $rad = $this->egenBruker($k->krev(Roller::urn(Roller::STUDENT)));
+            $nokkel = (string) $f->tekst('valg', 40);
+            $verdi = (string) $f->tekst('verdi', 100);
+            if (!Brukervalg::gyldig($nokkel, $verdi)) {
+                throw new HttpFeil(422, 'ugyldig_felt', 'arkivar.feil.brukervalg');
+            }
+            $this->brukervalg()->sett(Felt::tekst($rad['id']), $nokkel, $verdi);
+
+            return Svar::json(['valg' => $this->brukervalg()->hent(Felt::tekst($rad['id']))]);
         });
         $r->legg('PUT', '/api/meg', function (Foresporsel $f) use ($k): Svar {
             $rad = $this->egenBruker($k->krev(Roller::urn(Roller::STUDENT)));

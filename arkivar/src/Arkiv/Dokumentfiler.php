@@ -7,7 +7,8 @@ namespace ArkIvar\Arkiv;
 /**
  * Dokumentfilene til en journalpost, slik de ligger i et sak- og arkivsystem: filen i produksjonsformat (slik den
  * ble laget eller mottatt), og i tillegg filen i arkivformat når journalposten er journalført, ekspedert eller
- * arkivert. Filene hører til en versjon av dokumentet; øvingsarkivet har bare én versjon av hvert dokument. Øvingsarkivet har ikke
+ * arkivert. Filene hører til en versjon av dokumentet. De fleste dokumentene har én versjon; noen utgående har
+ * også saksbehandlerens første utkast som versjon 1. Øvingsarkivet har ikke
  * virkelige filer: innholdet er dokumentet i grunndataene, og listen her sier hvilke filer det ville ligget som.
  *
  * Filformatet følger av hvordan dokumentet ble til: e-post er lagret som e-postfil, brev og skjemaer som er kommet
@@ -34,7 +35,7 @@ final class Dokumentfiler
     /** Dokumenter som kommer på papir og skannes av arkivtjenesten. */
     private const PAPIR = ['brev', 'skjema'];
     private const NAVNELENGDE = 60;
-    /** Versjonsnummeret: dokumentene i øvingsarkivet har én versjon. */
+    /** Det første versjonsnummeret. */
     private const VERSJON = 1;
 
     /** Formatet filen ble laget eller mottatt i. $mottatt er datoen et dokument utenfra kom inn (null for kommunens egne). */
@@ -77,14 +78,20 @@ final class Dokumentfiler
         return $kanal === self::KANAL_EPOST ? self::PDF : self::produksjonsformat($kanal, $mottatt);
     }
 
-    /** @return list<Dokumentfil> */
-    private static function varianter(string $produksjon, string $arkiv, string $journalstatus, string $tittel): array
+    /**
+     * Variantene av én versjon, arkivformatet først. $ferdig sier om versjonen er den ferdige: et utkast finnes bare
+     * i produksjonsformat.
+     *
+     * @return list<Dokumentfil>
+     */
+    private static function varianter(string $produksjon, string $arkiv, string $journalstatus, string $tittel, int $versjon = self::VERSJON, bool $ferdig = true): array
     {
-        $navn = self::filnavn($tittel);
-        $filer = [['versjon' => self::VERSJON, 'variantformat' => Kodelister::VARIANT_PRODUKSJON, 'format' => $produksjon, 'filnavn' => $navn . '.' . $produksjon]];
-        if (Kodelister::variantformat($journalstatus) === Kodelister::VARIANT_ARKIV) {
-            $filer[] = ['versjon' => self::VERSJON, 'variantformat' => Kodelister::VARIANT_ARKIV, 'format' => $arkiv, 'filnavn' => $navn . '.' . $arkiv];
+        $navn = self::filnavn($tittel) . ($ferdig ? '' : '-utkast');
+        $filer = [];
+        if ($ferdig && Kodelister::variantformat($journalstatus) === Kodelister::VARIANT_ARKIV) {
+            $filer[] = ['versjon' => $versjon, 'variantformat' => Kodelister::VARIANT_ARKIV, 'format' => $arkiv, 'filnavn' => $navn . '.' . $arkiv];
         }
+        $filer[] = ['versjon' => $versjon, 'variantformat' => Kodelister::VARIANT_PRODUKSJON, 'format' => $produksjon, 'filnavn' => $navn . '.' . $produksjon];
 
         return $filer;
     }
@@ -98,11 +105,19 @@ final class Dokumentfiler
      * arkiveres alltid som PDF.
      *
      * @param list<string> $vedlegg titlene på vedleggene
+     * @param bool $harUtkast om hoveddokumentet også har saksbehandlerens første utkast (da har det to versjoner)
      * @return list<Dokumentbeskrivelse>
      */
-    public static function dokumenter(string $kanal, ?string $mottatt, string $journalstatus, string $tittel, array $vedlegg): array
+    public static function dokumenter(string $kanal, ?string $mottatt, string $journalstatus, string $tittel, array $vedlegg, bool $harUtkast = false): array
     {
-        $ut = [['nr' => 1, 'rolle' => self::HOVEDDOKUMENT, 'tittel' => $tittel, 'filer' => self::filer($kanal, $mottatt, $journalstatus, $tittel)]];
+        $hoved = self::filer($kanal, $mottatt, $journalstatus, $tittel);
+        if ($harUtkast) {
+            // Saksbehandlerens første utkast er versjon 1, og det ferdige dokumentet versjon 2. Den nyeste står først.
+            $ferdig = self::varianter(self::produksjonsformat($kanal, $mottatt), self::arkivformat($kanal), $journalstatus, $tittel, self::VERSJON + 1);
+            $utkast = self::varianter(self::produksjonsformat($kanal, $mottatt), self::arkivformat($kanal), $journalstatus, $tittel, self::VERSJON, false);
+            $hoved = [...$ferdig, ...$utkast];
+        }
+        $ut = [['nr' => 1, 'rolle' => self::HOVEDDOKUMENT, 'tittel' => $tittel, 'filer' => $hoved]];
         foreach ($vedlegg as $indeks => $navn) {
             $ut[] = ['nr' => $indeks + 2, 'rolle' => self::VEDLEGG, 'tittel' => $navn, 'filer' => self::varianter(self::vedleggsformat($kanal, $mottatt), self::PDF, $journalstatus, $navn)];
         }

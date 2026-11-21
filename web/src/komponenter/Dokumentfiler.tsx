@@ -3,7 +3,7 @@
 // virkelige filer: lesevinduet viser dokumentet slik filen ville sett ut (som ark, eller som ren tekst for txt).
 import { ReactNode, createContext, useCallback, useContext, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Link as Ruterlenke, useLocation } from 'react-router-dom';
-import { Button, DrawerBody, DrawerHeader, DrawerHeaderTitle, OverlayDrawer, Text, makeStyles, mergeClasses, tokens } from '@fluentui/react-components';
+import { Button, MessageBar, MessageBarBody, DrawerBody, DrawerHeader, DrawerHeaderTitle, OverlayDrawer, Text, makeStyles, mergeClasses, tokens } from '@fluentui/react-components';
 import { ChevronDown20Regular, ChevronRight20Regular, Dismiss24Regular } from '@fluentui/react-icons';
 import { Dokument, Dokumentbeskrivelse, Dokumentfil, Journalpost, del, hovedfil } from '../arkiv';
 import { useSprak, useT } from '../i18n';
@@ -66,7 +66,7 @@ export function Filikon({ fil, storrelse = 32 }: { fil: Dokumentfil; storrelse?:
 
 // ------------------------------------------------------------------ lesevinduet
 /** Filen som er åpen: journalposten, dokumentet i den (1 = hoveddokumentet) og varianten. */
-type Apen = { journalpost: string; sak: string; dokument: number; tittel: string; fil: Dokumentfil };
+type Apen = { journalpost: string; sak: string; dokument: number; tittel: string; fil: Dokumentfil; utkast: boolean };
 type Lesevindu = { apen: Apen | null; apne: (valg: Apen) => void; lukk: () => void };
 const LesevinduCtx = createContext<Lesevindu>({ apen: null, apne: () => undefined, lukk: () => undefined });
 export const useLesevindu = (): Lesevindu => useContext(LesevinduCtx);
@@ -95,6 +95,10 @@ function Filinnhold({ valg }: { valg: Apen }) {
   if (!dok) return <Text>{t('arkivar.journalpost.uten_dokument')}</Text>;
   // Vedleggene i øvingsarkivet har bare tittel.
   if (valg.dokument > 1) return <div className={c.vedlegg}><Text weight="semibold" lang="nb" block>{valg.tittel}</Text><Text block>{t('arkivar.lesevindu.vedlegg')}</Text></div>;
+  // Versjon 1 av et dokument med to versjoner er saksbehandlerens utkast.
+  if (valg.utkast && dok.utkast && dok.utkast.length > 0) {
+    return <><MessageBar className={c.lenke} intent="info"><MessageBarBody>{t('arkivar.lesevindu.utkast')}</MessageBarBody></MessageBar><Ark dok={{ ...dok, tekst: dok.utkast, vedlegg: [] }} /></>;
+  }
   return valg.fil.format === 'txt' ? <pre className={c.tekstfil} lang="nb">{somTekst(dok)}</pre> : <Ark dok={dok} />;
 }
 
@@ -166,18 +170,20 @@ export function Filliste({ post, dokument }: { post: Postref; dokument: Dokument
   const c = s(); const t = useT(); const { sprak } = useSprak(); const vindu = useLesevindu();
   if (dokument.filer.length === 0) return <Text className={c.dempet}>{t('arkivar.filer.ingen')}</Text>;
   const versjoner = [...new Set(dokument.filer.map((f) => f.versjon))].sort((a, b) => b - a);
+  // Med flere versjoner er alle unntatt den nyeste utkast.
+  const erUtkast = (versjon: number): boolean => versjoner[0] > versjon;
   return (
     <ul className={c.versjoner} aria-label={t('arkivar.filer.tittel')} lang={sprak}>
       {versjoner.map((versjon) => (
         <li key={versjon}>
-          <span className={c.versjon}>{t('arkivar.filer.versjon', { nr: versjon })}</span>
+          <span className={c.versjon}>{t('arkivar.filer.versjon', { nr: versjon })}{erUtkast(versjon) && <> · {t('arkivar.filer.utkast')}</>}</span>
           <ul className={c.liste}>
             {dokument.filer.filter((f) => f.versjon === versjon).map((fil) => {
               const valgt = vindu.apen?.journalpost === post.id && vindu.apen.dokument === dokument.nr && vindu.apen.fil.filnavn === fil.filnavn;
               return (
                 <li key={fil.filnavn}>
                   <Button appearance="subtle" className={mergeClasses(c.fil, valgt && c.valgt)} icon={<Filikon fil={fil} />} aria-pressed={valgt}
-                    onClick={() => vindu.apne({ journalpost: post.id, sak: post.sak_id, dokument: dokument.nr, tittel: dokument.tittel, fil })}>
+                    onClick={() => vindu.apne({ journalpost: post.id, sak: post.sak_id, dokument: dokument.nr, tittel: dokument.tittel, fil, utkast: erUtkast(versjon) })}>
                     <span className={c.filtekst}>
                       <span>{t(`arkivar.variantformat.${fil.variantformat.toLowerCase()}`)} · {t(`arkivar.filformat.${fil.format}`)}</span>
                       <span className={mergeClasses(c.filnavn, c.dempet)} lang="nb">{fil.filnavn}</span>

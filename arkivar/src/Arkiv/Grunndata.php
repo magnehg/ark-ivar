@@ -39,6 +39,7 @@ use Bivrost\Kjerne\Database\Felt;
  *     emne: string,
  *     tekst: list<string>,
  *     vedlegg: list<string>,
+ *     utkast: list<string>,
  * }
  * @phpstan-type Startpost array{
  *     nr: int,
@@ -183,6 +184,8 @@ final class Grunndata
             'emne' => Felt::tekst($d['emne'] ?? null),
             'tekst' => self::tekster($d['tekst'] ?? null),
             'vedlegg' => self::tekster($d['vedlegg'] ?? null),
+            // Saksbehandlerens første utkast, for dokumentene som har to versjoner.
+            'utkast' => self::tekster($d['utkast'] ?? null),
         ];
     }
 
@@ -202,7 +205,7 @@ final class Grunndata
             static fn (array $treff): string => $saksnumre[$treff[1] ?? $denne ?? ''] ?? '',
             $tekst,
         );
-        foreach (['emne', 'tekst', 'vedlegg'] as $felt) {
+        foreach (['emne', 'tekst', 'vedlegg', 'utkast'] as $felt) {
             $verdi = $dokument[$felt] ?? null;
             if (is_string($verdi)) {
                 $dokument[$felt] = $bytt($verdi);

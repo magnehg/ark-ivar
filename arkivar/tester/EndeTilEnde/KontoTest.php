@@ -56,6 +56,23 @@ final class KontoTest extends AppTestCase
         self::assertSame('student', $j['bruker']['rolle']);
         self::assertArrayNotHasKey('passord_hash', $j['bruker']);
 
+        // Valget av visning lagres på kontoen. Standarden er kolonner, og bare kjente valg og verdier godtas.
+        [$svar, $j] = $n->kall('GET', '/api/meg/valg');
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertSame(['listevisning' => 'kolonner'], $j['valg']);
+        [$svar, $j] = $n->kall('PUT', '/api/meg/valg', ['valg' => 'listevisning', 'verdi' => 'linjer']);
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertSame(['listevisning' => 'linjer'], $j['valg']);
+        [$svar, $j] = $n->kall('PUT', '/api/meg/valg', ['valg' => 'listevisning', 'verdi' => 'tittel']);
+        self::assertSame(['listevisning' => 'tittel'], $j['valg'], 'Et nytt valg erstatter det forrige.');
+        foreach ([['listevisning', 'store'], ['ukjent', 'kolonner'], ['', '']] as [$valg, $verdi]) {
+            [$svar, $j] = $n->kall('PUT', '/api/meg/valg', ['valg' => $valg, 'verdi' => $verdi]);
+            self::assertSame(422, $svar->status, $svar->kropp);
+            self::assertSame('ugyldig_felt', $j['kode']);
+        }
+        [, $j] = $n->kall('GET', '/api/meg/valg');
+        self::assertSame(['listevisning' => 'tittel'], $j['valg']);
+
         // Koden virker bare én gang.
         [$svar] = $this->nettleser('10.0.0.2')->kall('POST', '/api/registrering/bekreft', ['epost' => 'kari@stud.hogskolen.example', 'kode' => $kode]);
         self::assertSame(403, $svar->status, 'Uten CSRF-nøkkel avvises forespørselen.');

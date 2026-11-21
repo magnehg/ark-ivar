@@ -8,7 +8,9 @@ import { useDato, useT } from '../../i18n';
 import { Dokumenttittel, Journalpostfiler, useLesevindu } from '../../komponenter/Dokumentfiler';
 import { Hentefeil, Kort, Laster, Sidehode, useHent } from '../../komponenter/Felles';
 import { Status } from '../../komponenter/Status';
-import { Kolonne, SorterbarTabell, TabellVerktoy } from '../../komponenter/Tabell';
+import { Oversikt } from '../../komponenter/Oversikt';
+import { Kolonne, TabellVerktoy } from '../../komponenter/Tabell';
+import { useJournalpostvisning } from './visninger';
 
 const s = makeStyles({ sak: { color: tokens.colorNeutralForeground2, display: 'block', marginTop: '2px' } });
 
@@ -37,6 +39,7 @@ export default function Journal() {
       {r.sak_hjemmel && r.sak_hjemmel !== r.hjemmel && <span className={c.sak}>{t('arkivar.journal.mappehjemmel')} <span lang="nb">{r.sak_hjemmel}</span></span>}
     </>
   );
+  const visninger = useJournalpostvisning({ tilgang });
   const kolonner: Kolonne<Journalpost>[] = [
     { id: 'lopenr', overskrift: t('arkivar.journal.lopenummer'), stil: { width: '90px' }, celle: (r) => r.lopenummer, sorter: (r) => sorterbart(r.lopenummer) },
     { id: 'jdato', overskrift: t('arkivar.journal.journaldato'), stil: { width: '110px' }, celle: (r) => dato(r.journaldato), sorter: (r) => r.journaldato },
@@ -56,7 +59,7 @@ export default function Journal() {
         {journal.feil && !journal.data ? <Hentefeil melding={journal.feil} last={journal.last} /> : (
           <div aria-busy={venter}>
             <TabellVerktoy tekst={venter ? <Laster /> : t('arkivar.journal.antall', { antall: rader.length })}>{null}</TabellVerktoy>
-            <SorterbarTabell rader={rader} kolonner={kolonner} nokkel={(r) => r.id} aria-label={t('arkivar.journal.tittel')} startSortering={{ id: 'lopenr', retning: 'descending' }}
+            <Oversikt rader={rader} kolonner={kolonner} visninger={visninger} nokkel={(r) => r.id} aria-label={t('arkivar.journal.tittel')} startSortering={{ id: 'lopenr', retning: 'descending' }}
               utvid={offentlig ? undefined : { innhold: (r) => <Journalpostfiler post={r} />, vis: t('arkivar.filer.vis'), skjul: t('arkivar.filer.skjul'), beskrevetAv: 'tittel', kan: (r) => r.dokumenter.length > 0 }} />
           </div>
         )}

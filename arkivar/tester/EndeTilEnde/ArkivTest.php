@@ -228,8 +228,10 @@ final class ArkivTest extends AppTestCase
         // Hver journalpost har én versjon av dokumentet, med filen i produksjonsformat og i arkivformat.
         foreach ($poster as $post) {
             self::assertIsArray($post['filer']);
-            self::assertSame(['P', 'A'], array_column($post['filer'], 'variantformat'), Felt::tekst($post['tittel']));
-            self::assertSame([1, 1], array_column($post['filer'], 'versjon'));
+            // Arkivformatet står først. Har dokumentet et utkast, er det versjon 1 og finnes bare i produksjonsformat.
+            $varianter = array_column($post['filer'], 'variantformat');
+            self::assertContains($varianter, [['A', 'P'], ['A', 'P', 'P']], Felt::tekst($post['tittel']));
+            self::assertSame(count($varianter) === 3 ? [2, 2, 1] : [1, 1], array_column($post['filer'], 'versjon'));
             // Dokumentene: hoveddokumentet først, så ett per vedlegg.
             $dokumenter = self::rader($post['dokumenter']);
             self::assertSame('H', $dokumenter[0]['rolle']);
@@ -247,8 +249,8 @@ final class ArkivTest extends AppTestCase
         // Arkiverte journalposter har også filen i arkivformat, som er PDF eller ren tekst.
         foreach ($arkiverte as $post) {
             self::assertIsArray($post['filer']);
-            self::assertSame(['P', 'A'], array_column($post['filer'], 'variantformat'), Felt::tekst($post['tittel']));
-            self::assertContains(array_column($post['filer'], 'format')[1], Dokumentfiler::ARKIVFORMATER);
+            self::assertSame(['A', 'P'], array_slice(array_column($post['filer'], 'variantformat'), 0, 2), Felt::tekst($post['tittel']));
+            self::assertContains(array_column($post['filer'], 'format')[0], Dokumentfiler::ARKIVFORMATER);
         }
         self::assertSame([Kodelister::DOK_FERDIGSTILT], self::ulike($arkiverte, 'dokumentstatus'));
 
@@ -587,7 +589,7 @@ final class ArkivTest extends AppTestCase
         self::assertIsArray($j['journalpost']);
         self::assertSame('J', $j['journalpost']['status']);
         self::assertSame(['F', 'A'], [$j['journalpost']['dokumentstatus'], $j['journalpost']['variantformat']], 'Dokumentfilen er ferdigstilt og gjort om til arkivformat.');
-        self::assertSame(['tif', 'pdf'], array_column(self::rader($j['journalpost']['filer']), 'format'), 'Et journalført skjema på papir har den skannede filen og en PDF.');
+        self::assertSame(['pdf', 'tif'], array_column(self::rader($j['journalpost']['filer']), 'format'), 'Et journalført skjema på papir har en PDF og den skannede filen.');
         self::assertSame('2026-11-20', $j['journalpost']['journaldato']);
         self::assertTrue($j['journalpost']['har_dokument']);
         self::assertSame('innmelding-lerke', $j['journalpost']['oppgave']);
@@ -733,7 +735,7 @@ final class ArkivTest extends AppTestCase
         self::assertIsArray($j['journalpost']);
         self::assertFalse($j['journalpost']['journalfort']);
         self::assertSame(['A', 'F', 'A'], [$j['journalpost']['status'], $j['journalpost']['dokumentstatus'], $j['journalpost']['variantformat']], 'Arkivert uten journalføring: dokumentet ligger i arkivformat.');
-        self::assertSame(['eml', 'txt'], array_column(self::rader($j['journalpost']['filer']), 'format'), 'En arkivert e-post har også filen i arkivformat, som ren tekst.');
+        self::assertSame(['txt', 'eml'], array_column(self::rader($j['journalpost']['filer']), 'format'), 'En arkivert e-post har filen i arkivformat, som ren tekst, og e-postfilen.');
 
         // Reklamen journalføres: bare behandlingen vurderes. Og et dokument som skal i arkivet, kan ikke bare få valget registrert.
         $kurs = $this->nyMappe($this->kari, ['tittel' => 'Kurs i dokumenthåndtering', 'arkivdel' => 'SAK', 'klasse' => '274', 'enhet' => 'DOK']);

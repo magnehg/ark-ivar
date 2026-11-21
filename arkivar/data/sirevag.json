@@ -2995,6 +2995,14 @@
               "Klage fra Jærposten 12. oktober 2026",
               "Avtale om vintervedlikehold av kommunale veger 2025–2028, sladdet versjon",
               "Avtale om vintervedlikehold av kommunale veger 2025–2028, usladdet versjon (unntatt offentlighet, offl. § 13)"
+            ],
+            "utkast": [
+              "Oversendelse til Statsforvalteren i Rogaland av klage fra Jærposten ved journalist Oda Nærland over delvis avslag på innsyn, jf. offentleglova § 32. Vi har vurdert saken på nytt og opprettholder avslaget. Vår ref.: {{sak}}.",
+              "Bakgrunn: krav 5. oktober 2026 om innsyn i avtalen med Jærbrøyt AS om vintervedlikehold av kommunale veger 2025–2028, med alle vedlegg. Svar 7. oktober: innsyn i alt unntatt enhetsprisene i prisskjemaet. Hjemmel offentleglova § 13 første ledd, jf. forvaltningsloven § 13 [første ledd nr. 2 – dobbeltsjekk]. Klage 12. oktober, innen fristen.",
+              "Klagerens syn: enhetsprisene er ikke forretningshemmeligheter. Avtalen er over ett år gammel, konkurransen er avsluttet, og det gjelder offentlige midler og kontroll med utgiftene.",
+              "Vår vurdering: enhetsprisene (timepriser per maskintype, pris per tonn strøsand, beredskapssatser) viser hvordan tilbudet er satt sammen, og marginene. Selskapet merket prisskjemaet som forretningshemmelighet. Enig i at tiden har betydning, men avtalen løper til [sluttdato – se avtalen] og skal lyses ut på nytt før det. Få leverandører i området, og konkurrentene kan legge seg like under. Fortsatt konkurransemessig betydning.",
+              "Kontrollhensynet er ivaretatt: avisen har fått hele avtalen, den faste årlige godtgjørelsen, anslått verdi og kravspesifikasjonen. Vi kan også gi regnskapstallene om de ber om det. [få med at taushetsplikten ikke gir oss noe valg]",
+              "Vedlegg: kravet, svaret, klagen, avtalen sladdet og usladdet. [merk den usladdede tydelig som unntatt offentlighet] Kopi til klageren uten vedlegg."
             ]
           }
         },
@@ -3199,7 +3207,16 @@
               "Kontrollutvalget blir orientert om tilsynet i møtet 12. november 2026 og har bestilt en forvaltningsrevisjon av dokumentasjonsforvaltningen og journalføringen i kommunen. Kommunedirektøren vil orientere kommunestyret om arbeidet med påleggene når den endelige tilsynsrapporten foreligger.",
               "Med hilsen Ulla Ugle, kommunedirektør, og Ellen Ekorn, arkivleder"
             ],
-            "vedlegg": []
+            "vedlegg": [],
+            "utkast": [
+              "Uttalelse til den foreløpige tilsynsrapporten datert 23. oktober 2026, mottatt 26. oktober. Vår ref.: {{sak}}. [Ulla leser gjennom før utsending]",
+              "De faktiske forholdene: vi kjenner oss igjen og har ingen innvendinger mot funnene. Én rettelse. Rapporten sier at minst åtte fagsystemer mangler i dokumentasjonsplanen, og vår egen gjennomgang viser flere. [endelig tall – tell opp på nytt] Endrer ikke konklusjonen.",
+              "## Pålegg 1: Dokumentasjonsplanen",
+              "Arbeidsgruppe satt ned av kommunedirektøren 2. november 2026. Arkivlederen leder, alle enhetene deltar. Skal kartlegge systemene, avgjøre hva som forvaltes som arkiv, og plassere ansvaret. Ingen merknader til fristen 1. mars 2027.",
+              "Pålegg 2, e-post og tekstmeldinger: enig i at registreringen avhenger for mye av den enkelte. Ny rutine for e-post, tekstmeldinger og samhandlingsløsninger [når kan den være vedtatt? avklar med kommunedirektøren]. Opplæring av ledere og saksbehandlere innen fristen 1. februar 2027, de folkevalgte i første kommunestyremøte i 2027. Løsning for å overføre tekstmeldinger fra tjenestetelefoner til sak- og arkivsystemet.",
+              "Pålegg 3, de eldre papirarkivene: strakstiltak er gjort – ny lås på begge rommene i kjelleren, boksene på de nederste hyllene flyttet opp, fuktmålere med varsling. Varig løsning krever ombygging eller flytting. Foreslått i investeringsbudsjettet for 2027 [beløp], arkivsak {{sak:budsjett-2027}}, kommunestyret 10. desember 2026. Plan for sikring innen fristen 1. april 2027.",
+              "Oppfølging: kontrollutvalget orienteres 12. november 2026 og har bestilt forvaltningsrevisjon. Kommunestyret orienteres når den endelige rapporten foreligger."
+            ]
           }
         }
       ]
@@ -3552,6 +3569,14 @@
             "vedlegg": [
               "Henvendelse fra FAU ved Sirevåg skole datert 8. september 2026",
               "Kart og bilder fra befaringen 17. september 2026"
+            ],
+            "utkast": [
+              "Til Rogaland fylkeskommune som eier av fylkesvegen Raunesvegen og ansvarlig for skoleskyssen: vi ber om at de vurderer tiltak ved bussholdeplassen i krysset mellom Raunesvegen og Kvernhusvegen. Vår ref.: {{sak}}.",
+              "Bakgrunn: henvendelse fra FAU ved Sirevåg skole datert 8. september 2026 (legges ved). Bekymret for elevene som venter på rute 1 om morgenen. [antall elever som går på her, og hvor mange i 1. og 2. trinn – få liste fra rektor]",
+              "Befaring torsdag 17. september 2026 fra klokka 07.30 med FAU og rektor. Skilt i vegkanten, ingen busslomme, fortau eller belysning. Smal grusskulder [bredde – se notatene]. Fartsgrense 60, dårlig sikt mot vest på grunn av kurve og vegetasjon. Trafikktelling i 20 minutter: [tall fra tellingen, også tunge kjøretøy]. Om ettermiddagen stopper bussen på motsatt side, og elevene krysser uten gangfelt.",
+              "Det kommunen gjør selv: to lyspunkt i krysset, på kommunal grunn ved Kvernhusvegen [når kan de være oppe?]. Rydder vegetasjon. Skolen deler ut refleksvester til de yngste skysselevene og tar opp i klassene hvordan en venter på bussen.",
+              "Resten rår fylkeskommunen over. Be dem vurdere: lavere fartsgrense, gangfelt eller annen sikker kryssing, venteareal eller busslomme, og om rute 1 kan stoppe i Kvernhusvegen (fortau og snuplass der) til en varig løsning er på plass.",
+              "Tilbakemelding innen 1. desember 2026 – hvilke tiltak, og når. Tilby felles befaring. Kopi til rektor. FAU får kopi sammen med svaret vårt på henvendelsen."
             ]
           }
         },
@@ -4329,7 +4354,16 @@
               "Vi ber om et revidert utkast innen 1. oktober 2026. Saken skal etter planen legges fram for kommunestyret i Sirevåg 29. oktober 2026.",
               "Med hilsen Jon Jerv, rådgiver helse og omsorg"
             ],
-            "vedlegg": []
+            "vedlegg": [],
+            "utkast": [
+              "Viser til brevet fra Kvassheim kommune datert 19. juni 2026 med utkast til ny samarbeidsavtale om Jæren sør legevakt 2027–2030, og til møtet 20. august 2026. Vår ref.: {{sak}}.",
+              "Innledning: vi ønsker å videreføre samarbeidet, er godt fornøyd med driften og støtter forslaget om legevaktbil. Fire innspill som bør vurderes før avtalen går til kommunestyrene.",
+              "1. Sykebesøk og utrykning. Legevaktbilen må betjene begge kommunene på like vilkår, også Sirevåg omsorgssenter. [reisetid fra Sirevåg til legevakten – ta med tallet] Rapportering hvert halvår fordelt på kommune: henvendelser, konsultasjoner og utrykninger.",
+              "2. Administrasjonstillegget. Holdes på dagens nivå [sjekk prosentsatsen i gjeldende avtale], ellers må en økning dokumenteres med faktiske kostnader.",
+              "3. Budsjett og møter. Kommunedirektøren legger fram budsjettforslaget sitt i begynnelsen av november, så vi trenger budsjettforslaget for legevakten innen 1. september. Faste samarbeidsmøter to ganger i året mellom helselederne og kommuneoverlegene.",
+              "4. Oppsigelse og evaluering. Oppsigelsesfristen fortsatt tolv måneder. Evaluering av samarbeidet [foreslå dato].",
+              "Be om revidert utkast innen 1. oktober 2026. Saken skal etter planen til kommunestyret i Sirevåg 29. oktober 2026."
+            ]
           }
         },
         {
@@ -4645,7 +4679,14 @@
               "Vi beklager skaden og ulempene den har ført til. Entreprenøren har gått gjennom rutinene med førerne og setter opp sperrebånd foran hekker og gjerder i resten av anleggstiden. Kopi av dette brevet er sendt til Sirevåg Maskin og Anlegg AS.",
               "Med hilsen Lars Laks, ingeniør vann og avløp"
             ],
-            "vedlegg": []
+            "vedlegg": [],
+            "utkast": [
+              "Svar til Borghild Særheim, Fyrveien 12, på krav om erstatning for hekken. Brevet hennes er datert 19. august 2026, mottatt 21. august. Vår ref.: {{sak}}.",
+              "Befaring 25. august sammen med anleggslederen fra Sirevåg Maskin og Anlegg AS. Entreprenøren bekrefter at gravemaskinen kom borti hekken 18. august. [hvor mange meter er ødelagt? se bildene fra befaringen] Bildene entreprenøren tok før arbeidet, viser hel og frisk hekk.",
+              "Konklusjon: kommunen erkjenner ansvaret, kravet innvilges fullt ut. 6 500 kroner, som i pristilbudet fra hagesenteret. Utbetales til kontoen hun har oppgitt [utbetalingsdato – avklar].",
+              "Entreprenøren fjerner de ødelagte plantene og røttene uten kostnad om hun ønsker det – hun kan ta kontakt med meg. Råd: vent med å plante til gravearbeidet utenfor eiendommen er ferdig [hvilken uke? sjekk framdriftsplanen].",
+              "Vi krever beløpet dekket av entreprenøren etter kontrakten – har ikke noe å si for utbetalingen til henne. Beklag skaden. Nevn at entreprenøren setter opp sperrebånd foran hekker og gjerder i resten av anleggstiden. Kopi til entreprenøren."
+            ]
           }
         }
       ]
@@ -5168,6 +5209,14 @@
             "vedlegg": [
               "Godkjent situasjonsplan",
               "Godkjente tegninger"
+            ],
+            "utkast": [
+              "Viser til søknad datert 14. august 2026 (mottatt 17. august) og tilleggsdokumentasjonen vi fikk 2. september 2026. Vår ref.: {{sak}}.",
+              "## Vedtak",
+              "Tillatelse til tilbygg til bolig, Fyrveien 8, gnr. 9 bnr. 112. Søknadspliktig etter plan- og bygningsloven § 20-1 [finn riktig ledd og bokstav]. Delegert vedtak – meldes til plan- og teknisk utvalg. [list opp hvilke tegninger som godkjennes, med mottaksdato]",
+              "Tilbygg i én etasje mot øst, 38 m² bruksareal, saltak, mønehøyde 4,3 meter. Avstand til grensen mot Fyrveien 10 er 4,6 meter, altså over fire meter – ingen dispensasjon. Regulert til boligformål, planen tillater 30 prosent bebygd areal. [regn ut utnyttelsen etter utbygging] Søker uten ansvarlige foretak – husk setningen om eget ansvar.",
+              "Nabomerknad fra Solveig Mæland, brev 5. august 2026: tilbygget tar kveldssola på terrassen og utsikten mot sjøen. Tiltakshaverne har senket mønet fra 4,7 til 4,3 meter. Vurdering: ulempene går ikke ut over det en nabo må tåle i et regulert boligområde, og merknaden gir ikke grunnlag for avslag eller flytting. [skriv ut vurderingen av sol og skygge – se skissen] [nytt nabovarsel etter endringen? Neppe, endringen er til fordel for naboen]",
+              "Vilkår: bygges som tegningene, overvann på egen eiendom, bortfall etter tre år, ferdigattest før tilbygget tas i bruk. Gebyr [slå opp i gebyrregulativet 2026]. Klage: standardteksten, tre uker, Statsforvalteren i Rogaland. Kopi til Solveig Mæland."
             ]
           }
         }
@@ -5415,6 +5464,15 @@
               "Saksframlegg til plan- og teknisk utvalg datert 21. oktober 2026",
               "Saksprotokoll fra plan- og teknisk utvalg 4. november 2026",
               "Kart med tomten inntegnet"
+            ],
+            "utkast": [
+              "Melding om vedtak til Oddvar Rauneset. Søknad datert 4. september 2026 om fradeling av boligtomt fra gnr. 14 bnr. 3, Raunesvegen 120, med dispensasjon fra LNF-formålet. Vår ref.: {{sak}}.",
+              "Behandlet i plan- og teknisk utvalg 4. november 2026, sak PS 42/26. Innvilget. [stemmetall – sjekk saksprotokollen]",
+              "## Vedtak",
+              "[Lim inn vedtaket ordrett fra saksprotokollen, punkt 1–4.] Hovedtrekk: dispensasjon etter plan- og bygningsloven § 19-2 for en tomt på inntil 1,2 dekar, tillatelse til deling og samtykke etter jordlova. Vilkår: grenser som på kartet, dyrka mark skal ikke berøres, vegrett tinglyses, avkjørselen til Raunesvegen avklares med vegmyndigheten. Faller bort om oppmålingsforretning ikke er rekvirert innen tre år.",
+              "Begrunnelse – kort, vis til saksframlegget. Udyrkbar mark inntil veg og to boliger. Statsforvalteren i Rogaland har ikke frarådet dispensasjon (uttalelse 6. oktober 2026), men forutsetter at dyrka mark ikke berøres. Vilkårene følger opp det.",
+              "Videre saksgang: han bestiller oppmålingsforretning når klagefristen er ute. Erklæringen om vegrett må være underskrevet før tomten kan opprettes. Tillatelsen gjelder bare delingen – byggetillatelse og utslippstillatelse er egne saker. Gebyr [fyll inn beløp fra gebyrregulativet 2026], oppmålingsgebyret kommer i tillegg.",
+              "Klage: tre uker, forvaltningsloven §§ 28 og 29, går til Statsforvalteren i Rogaland om utvalget ikke tar klagen til følge. Kopi til Statsforvalteren. [husk vedleggene: saksframlegg, saksprotokoll, kart]"
             ]
           }
         }
@@ -5575,6 +5633,14 @@
             ],
             "vedlegg": [
               "Referat fra forhåndskonferanse 13. oktober 2026"
+            ],
+            "utkast": [
+              "Foreløpig svar etter forvaltningsloven § 11 a og brev om mangler i ett. Søknad om bruksendring av sjøhuset i Havnegata 12, datert 10. november 2026, mottatt 11. november. Vår ref.: {{sak}}.",
+              "Søknaden er ikke komplett. Vi kan ikke behandle den før vi har fått dette:",
+              "– ansvarsrett: sendt av tiltakshaveren, må sendes av ansvarlig søker (sagt i forhåndskonferansen 13. oktober 2026, legg ved referatet)\n– forholdet til plan: eiendommen er satt av til havne- og næringsformål. Søke dispensasjon nå eller vente på detaljreguleringen? [hjemmel for dispensasjon – slå opp]\n– brannkonsept med rømningsveier og persontall\n– situasjonsplan med atkomst, parkering og varelevering\n– stormflo\n– støy og lukt\n– samtykke fra Arbeidstilsynet",
+              "Forklar valget de har: detaljreguleringen for Havneområdet nord, arkivsak {{sak:detaljregulering-havneomradet-nord}}, ligger ute til offentlig ettersyn til 21. desember 2026. [når kan kommunestyret tidligst behandle planen?] Venter de, slipper de å søke dispensasjon. Søker de nå, må saken til berørte myndigheter, og utfallet er usikkert.",
+              "Nabovarsel sendt 9. november 2026, dagen før søknaden. [regn ut når merknadsfristen går ut – to uker] Vi tar ikke saken til behandling før fristen er ute. Merknader skal sendes oss med redegjørelse.",
+              "Frist for dokumentasjonen [sett dato]. Husk: saksbehandlingsfristen løper ikke før søknaden er komplett, ombyggingen kan ikke starte uten tillatelse, og søknaden kan bli avvist om vi ikke får det vi ber om."
             ]
           }
         }
@@ -5671,6 +5737,14 @@
             "vedlegg": [
               "Godkjent situasjonsplan",
               "Godkjente tegninger"
+            ],
+            "utkast": [
+              "Viser til søknad om tillatelse til tiltak uten ansvarsrett, datert 7. mars 2025, mottatt 10. mars 2025. Vår ref.: {{sak}}.",
+              "## Vedtak",
+              "Tillatelse til frittliggende garasje, Strandveien 16, gnr. 12 bnr. 46. Plassering 1,5 meter fra grensen mot Strandveien 14 godkjennes. Delegert vedtak. [hjemmel – § 20-1, sjekk ledd og bokstav]",
+              "Garasje for to biler, 36 m² bebygd areal, saltak og kledning som boligen. [gesims- og mønehøyde – les av tegningene] Regulert til boligformål, og planen tillater garasjer på inntil 36 m². Innenfor, ingen dispensasjon.",
+              "Avstand til nabogrensen: hovedregelen er fire meter, men kommunen kan godkjenne garasjer og andre mindre bygninger nærmere. Under 50 m², og Gudmund Refsnes i Strandveien 14 har samtykket skriftlig. Ingen merknader til nabovarselet 17. februar 2025. [mål avstanden til boligen på nr. 14 på kartet – brannsikkerhet]",
+              "Vilkår: bygges som tegningene, ikke beboelse, overvann på egen eiendom, tre års frist, ferdigattest. Gebyr [fyll inn beløp]. Klage – standardavsnittet."
             ]
           }
         },
@@ -5962,7 +6036,14 @@
               "Kopi av vedtaket er sendt til enhetslederen for Plan, bygg og eiendom og til lønnsmedarbeideren i Økonomi og innkjøp.",
               "Med hilsen Maren Mår, personalrådgiver"
             ],
-            "vedlegg": []
+            "vedlegg": [],
+            "utkast": [
+              "Søknad 2. mars 2026: ulønnet permisjon i 20 prosent av stillingen som byggesaksbehandler for å ta et videreutdanningsemne ved Universitetet i Stavanger høsten 2026. Vår ref.: {{sak}}",
+              "Vedtak: innvilget. Fra 17. august til og med 18. desember 2026, tas ut som fri hver fredag. Tilbake i full stilling uten ny søknad [første arbeidsdag etter permisjonen – sjekk kalenderen].",
+              "Begrunnelse: arbeidsmiljøloven gir rett til utdanningspermisjon etter minst tre år i arbeidslivet og to år hos arbeidsgiveren. [sjekk vilkårene mot lovteksten] Ansatt siden 1. august 2021, så vilkårene er oppfylt. Emnet er yrkesrelatert – tilsyn og ulovlighetsoppfølging. Enhetslederen har uttalt at permisjonen ikke hindrer forsvarlig drift. Ingen vikar.",
+              "Lønnen ned 20 prosent. Pensjonsopptjeningen følger utbetalt lønn. Feriepengene i 2027 regnes av faktisk lønn i 2026. Lønnsansiennitet [påvirkes den? spør lønnsmedarbeideren].",
+              "Vilkår: gjelder bare dette emnet. Får han ikke studieplass, eller avbryter han, skal han melde fra med en gang og gå tilbake til full stilling. Karakterutskrift til personalmappen. Klage til kommunedirektøren innen tre uker etter permisjonsreglementet. Kopi til enhetslederen og lønnsmedarbeideren."
+            ]
           }
         }
       ]
@@ -6501,6 +6582,15 @@
             ],
             "vedlegg": [
               "Avtale om bindingstid i to eksemplarer"
+            ],
+            "utkast": [
+              "Søknad 26. mai 2026 om støtte til videreutdanningen offentlig rett for saksbehandlere (30 studiepoeng) ved Universitetet i Stavanger, studieåret 2026/2027. Avgjøres av Personal og organisasjon etter fullmakt. Kommunedirektøren har anbefalt søknaden som nærmeste leder. Vår ref.: {{sak}}",
+              "## Vedtak",
+              "Kommunen dekker studieavgiften med inntil [beløp – se søknaden] og pensumlitteratur med inntil 4 000 kroner. Permisjon med lønn: seks samlinger (tolv dager), to eksamensdager og to lesedager før hver eksamen. [summer dagene] Reiseutgifter dekkes ikke. Vilkår: underskrevet avtale om bindingstid.",
+              "Begrunnelse: retningslinjene for kompetanseutvikling, og utdanningen er i samsvar med kompetanseplanen. Politisk sekretær må kunne kommuneloven, forvaltningsloven og offentleglova, og vi sparer kjøp av juridisk bistand. Reise: retningslinjene dekker bare reise når arbeidsgiveren har pålagt utdanningen. Dette er hennes eget initiativ.",
+              "Utbetaling: studieavgiften hvert semester mot kopi av fakturaen, litteratur mot kvittering. Permisjonsdagene føres i personalsystemet etter avtale med kommunedirektøren.",
+              "Bindingstid tolv måneder fra siste eksamen, etter planen juni 2027. Sier hun opp før: tilbakebetaling av en tolvdel for hver hele måned som står igjen. Avbrutt studium: kan kreves tilbake, unntatt ved sykdom og lignende. Lønn under permisjonen kreves ikke tilbake. [sjekk at dette stemmer med avtaleteksten] Avtalen legges ved i to eksemplarer, ett tilbake innen 15. juni 2026.",
+              "Klage (gjelder i praksis reiseutgiftene): til kommunedirektøren innen tre uker, sendes Personal og organisasjon."
             ]
           }
         },
@@ -6620,7 +6710,16 @@
               "Dette er et enkeltvedtak. Dere kan klage på vedtaket etter forvaltningsloven § 28, og klagefristen er tre uker fra dere mottok dette brevet, jf. forvaltningsloven § 29. Klagen sendes til Sirevåg kommune, Rådhusgata 1, 4399 Sirevåg. Dersom kommunen ikke endrer vedtaket, sender vi klagen til Statsforvalteren i Rogaland, som avgjør saken. Dere har rett til å se dokumentene i saken.",
               "Med hilsen Tora Trane, rektor ved Sirevåg skole"
             ],
-            "vedlegg": []
+            "vedlegg": [],
+            "utkast": [
+              "Innskriving av Mathias Måke, født 14. mars 2016, mottatt på skolen 7. februar 2022. Vår ref.: {{sak}}",
+              "## Vedtak",
+              "Skoleplass i 1. trinn ved Sirevåg skole fra skoleåret 2022/2023. Første skoledag [sjekk skoleruta].",
+              "Begrunnelse, kort: fyller seks år i 2022. Bakkevegen 3 ligger i nærområdet til Sirevåg skole, altså nærskolen hans. Ikke søkt om annen skole eller utsatt skolestart. [vis til opplæringslova – retten til nærskolen]",
+              "SFO: de har krysset av for hel plass i innskrivingsskjemaet, men dette vedtaket gjelder bare skoleplassen. De må søke i oppvekstportalen [søknadsfrist?]. Eget svar derfra.",
+              "Før skolestart: førskoledag onsdag 8. juni 2022 [klokkeslett], invitasjon med program kommer i mai. Overgangssamtale med Fyrlykta barnehage i mai, de har samtykket. Opplysningene om språkutviklingen tas med til kontaktlæreren.",
+              "Klage: enkeltvedtak. Standardteksten – tre uker, Statsforvalteren i Rogaland, rett til å se dokumentene."
+            ]
           }
         },
         {
@@ -6952,7 +7051,14 @@
               "Dette er et enkeltvedtak. Dere kan klage på vedtaket etter forvaltningsloven § 28, og klagefristen er tre uker fra dere mottok dette brevet, jf. forvaltningsloven § 29. Klagen sendes til Sirevåg kommune, Rådhusgata 1, 4399 Sirevåg. Dersom kommunen ikke endrer vedtaket, sender vi klagen til Statsforvalteren i Rogaland, som avgjør saken. Dere har rett til å se dokumentene i saken.",
               "Med hilsen Ivar Ilder, rektor ved Sirevåg ungdomsskole"
             ],
-            "vedlegg": []
+            "vedlegg": [],
+            "utkast": [
+              "Søknad 2. november 2026 fra Anita og Stein Rype om permisjon fra opplæringen for Runa Rype, 9B. Vår ref.: {{sak}}",
+              "Vedtak: innvilges fullt ut. Mandag 23. november til og med fredag 27. november 2026, fem skoledager.",
+              "Begrunnelse: opplæringslova – permisjon i inntil to uker når det er forsvarlig. [trenger vi paragrafhenvisning? sjekk malen] Runa ligger godt an i fagene. Fravær i høst [tell opp dagene i fraværsoversikten], alt før slutten av september, og skolen kjenner årsaken. Familiebegivenhet som ikke kan legges til en ferie. Hun tar med skolearbeid. Forsvarlig.",
+              "Praktisk: faglærerne legger arbeidsoppgavene på læringsplattformen innen fredag 20. november. Matematikkprøven tas senere [avtal dato med faglæreren]. De foresatte har ansvaret for skolearbeidet, ikke krav på ekstra undervisning. Føres som dokumentert fravær. Evalueringsmøtet om aktivitetsplanen går som avtalt mandag 30. november [klokkeslett?].",
+              "Klage: enkeltvedtak, tre uker, Statsforvalteren i Rogaland. Bruk standardteksten."
+            ]
           }
         }
       ]
@@ -7892,7 +7998,15 @@
               "Avdeling Røsslyngen og Økonomi og innkjøp har fått melding om endringen.",
               "Med hilsen Lise Lemen, styrer i Tjørnhaugen barnehage"
             ],
-            "vedlegg": []
+            "vedlegg": [],
+            "utkast": [
+              "Søknad 31. august 2026 fra Hege og Thomas Nise om å utvide plassen til Nora fra 80 til 100 prosent. Vår ref.: {{sak}}",
+              "Innvilges. Hel plass i Tjørnhaugen barnehage, avdeling Røsslyngen, fra 1. oktober 2026. Gjelder som før fram til skolestart høsten 2027.",
+              "Begrunnelse: etter vedtektene kan styreren innvilge endret oppholdstid i løpet av barnehageåret når barnehagen har kapasitet. [finn punktet i vedtektene] Røsslyngen har bemanning til det fra 1. oktober, ingen flere ansatte, og det går ikke ut over barn på venteliste. I tillegg: førskolegruppa har samlingene sine på fredager, første samling fredag 2. oktober. Fint at Nora er med fra starten.",
+              "Fredagene i september: nei, dessverre. Vaktlistene er lagt etter plassene barna har i dag, og fredagene er bemannet for færre barn. [formuler dette vennlig]",
+              "Foreldrebetaling fra og med oktober 2026: [fyll inn ny sats for hel plass og nye kostpenger – se betalingssatsene]. Juli er betalingsfri. Satsene kan bli endret fra 1. januar 2027. Faktura til Hege Nise som før.",
+              "Klage etter forvaltningsloven § 28, tre uker. Tar vi ikke klagen til følge, avgjør kommunens klagenemnd. Husk melding til avdelingen og til Økonomi og innkjøp."
+            ]
           }
         }
       ]

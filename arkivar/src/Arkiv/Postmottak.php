@@ -389,9 +389,10 @@ final class Postmottak
             $this->saksnumre[$arkivId] ??= $this->register->saksnumre($arkivId);
             $nokkel = $oppgave === null && $startdokument !== null ? explode('#', $startdokument)[0] : null;
             $vedlegg = Grunndata::tekster(Grunndata::medSaksnumre(['vedlegg' => $dokument['vedlegg']], $this->saksnumre[$arkivId], $nokkel)['vedlegg'] ?? null);
-            $ut['dokumenter'] = Dokumentfiler::dokumenter($dokument['kanal'], $dokument['mottatt'], Felt::tekst($rad['status']), Felt::tekst($rad['tittel']), $vedlegg);
+            $harUtkast = ($dokument['utkast'] ?? []) !== [];
+            $ut['dokumenter'] = Dokumentfiler::dokumenter($dokument['kanal'], $dokument['mottatt'], Felt::tekst($rad['status']), Felt::tekst($rad['tittel']), $vedlegg, $harUtkast);
         }
-        // Filene til hoveddokumentet, som listene viser ikonet til.
+        // Filene til hoveddokumentet. Den første er arkivformatet av den nyeste versjonen, som listene viser ikonet til.
         $ut['filer'] = $ut['dokumenter'][0]['filer'] ?? [];
 
         return $ut;

@@ -1,25 +1,21 @@
 // Søket i mappene. Studenten bruker det til å finne ut om mappen finnes fra før: finnes den, brukes den, ellers
 // opprettes en ny. Alle ordene i søket må finnes i mappen eller i dokumentene som ligger i den.
 import { ReactNode, useEffect, useState } from 'react';
-import { Link as Ruterlenke } from 'react-router-dom';
 import { Field, SearchBox, Text, makeStyles, tokens } from '@fluentui/react-components';
 import { Lightbulb20Regular } from '@fluentui/react-icons';
 import { api } from '../api';
-import { Flyt, Sak, Sokestreff, flytSok } from '../arkiv';
-import { useKode, useT } from '../i18n';
+import { Flyt, Sak, Sokestreff, flytSok, useStruktur } from '../arkiv';
+import { useT } from '../i18n';
+import { useMappekolonner, useMappevisning } from '../sider/arkiv/visninger';
 import { Feil, useFeiltekst } from './Felles';
-import { Mappeikon, Status } from './Status';
+import { Oversikt } from './Oversikt';
 
 const s = makeStyles({
   felt: { maxWidth: '560px', '& .fui-SearchBox': { width: '100%', maxWidth: 'none' } },
   tips: { display: 'flex', gap: '8px', alignItems: 'flex-start', background: tokens.colorNeutralBackground2, borderRadius: tokens.borderRadiusMedium, padding: '10px 12px', margin: '12px 0', maxWidth: '72ch' },
   tipsikon: { flex: 'none', color: tokens.colorNeutralForeground2, marginTop: '2px' },
   antall: { margin: '12px 0 4px', color: tokens.colorNeutralForeground2 },
-  liste: { listStyle: 'none', margin: 0, padding: 0 },
-  treff: { padding: '10px 0', borderTop: `1px solid ${tokens.colorNeutralStroke2}`, display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) auto', gap: '2px 12px', alignItems: 'start' },
-  tittel: { fontWeight: tokens.fontWeightSemibold, minWidth: 0 },
-  dempet: { gridColumn: '1 / -1', color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200 },
-  dokument: { gridColumn: '1 / -1', fontSize: tokens.fontSizeBase200, paddingLeft: '12px', borderLeft: `2px solid ${tokens.colorNeutralStroke2}` },
+  dokument: { display: 'block', fontSize: tokens.fontSizeBase200, fontWeight: tokens.fontWeightRegular, paddingLeft: '12px', borderLeft: `2px solid ${tokens.colorNeutralStroke2}` },
 });
 
 type Egenskaper = {
@@ -36,7 +32,7 @@ type Egenskaper = {
 };
 
 export function Mappesok({ tips, tipsSprak, handling, sokt, flyt = null }: Egenskaper) {
-  const c = s(); const t = useT(); const kode = useKode(); const feiltekst = useFeiltekst();
+  const c = s(); const t = useT(); const feiltekst = useFeiltekst();
   const [sok, settSok] = useState('');
   // null betyr at det ikke er søkt ennå.
   const [treff, settTreff] = useState<Sokestreff[] | null>(null);
@@ -53,6 +49,18 @@ export function Mappesok({ tips, tipsSprak, handling, sokt, flyt = null }: Egens
     }, 300);
     return () => { aktiv = false; window.clearTimeout(vent); };
   }, [sok]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Dokumentene i mappen som ga treff i søket, står under mappen i alle visningene.
+  const ekstra = (r: Sokestreff) => r.journalposter.map((p) => (
+    <span key={p.postnr} className={c.dokument}>{t('arkivar.sok.dokument', { nr: p.postnr })}: <span lang="nb">{p.tittel}{p.part_navn && ` (${p.part_navn})`}</span></span>
+  ));
+  const struktur = useStruktur();
+  const mappevalg = {
+    sak: (r: Sokestreff) => r.sak, lenke: (m: Sak) => `/arkiv/saker/${m.id}${flytSok(flyt)}`,
+    enhetsnavn: (kode: string) => struktur.data?.enheter.find((e) => e.kode === kode)?.navn ?? kode,
+    handling: handling ? (r: Sokestreff) => handling(r.sak) : undefined, ekstra,
+  };
+  const kolonner = useMappekolonner<Sokestreff>(mappevalg);
+  const visninger = useMappevisning<Sokestreff>(mappevalg);
   return (
     <div>
       <div className={c.felt}>
@@ -70,21 +78,7 @@ export function Mappesok({ tips, tipsSprak, handling, sokt, flyt = null }: Egens
       <div role="region" aria-live="polite" aria-label={t('arkivar.sok.resultat')}>
         {treff && <p className={c.antall}>{t('arkivar.sok.treff', { antall: treff.length })}</p>}
         {treff && treff.length > 0 && (
-          <ul className={c.liste}>
-            {treff.map(({ sak, journalposter }) => (
-              <li key={sak.id} className={c.treff}>
-                <span className={c.tittel} lang="nb"><Mappeikon status={sak.status}>{sak.saksnummer}</Mappeikon> <Ruterlenke to={`/arkiv/saker/${sak.id}${flytSok(flyt)}`}>{sak.tittel}</Ruterlenke></span>
-                <span>{handling?.(sak)}</span>
-                <span className={c.dempet}>
-                  <span lang="nb">{sak.arkivdel_tekst} · {sak.klasse_tekst}</span>{sak.skjerm_klasse && <> <Status slag="skjermet">{t('arkivar.sak.skjermet_klasse')}</Status></>}
-                  {' · '}{kode('saksstatus', sak.status)} · {t('arkivar.sok.dokumenter', { antall: sak.antall })}
-                </span>
-                {journalposter.map((p) => (
-                  <span key={p.postnr} className={c.dokument}>{t('arkivar.sok.dokument', { nr: p.postnr })}: <span lang="nb">{p.tittel}{p.part_navn && ` (${p.part_navn})`}</span></span>
-                ))}
-              </li>
-            ))}
-          </ul>
+          <Oversikt rader={treff} kolonner={kolonner} visninger={visninger} nokkel={(r) => r.sak.id} aria-label={t('arkivar.sok.resultat')} />
         )}
       </div>
     </div>

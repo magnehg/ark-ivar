@@ -7,6 +7,7 @@
   "arkivar.epost.passord.tekst": "Hei {navn}\n\nKoden din er: {kode}\n\nSkriv koden i {appnavn} og velg et nytt passord. Koden virker i {minutter} minutter.\n\nHar du ikke bedt om nytt passord, kan du se bort fra denne e-posten. Passordet ditt er ikke endret.",
   "arkivar.feil.alt_behandlet": "Dokumentet er alt behandlet. Angre behandlingen for å gjøre den på nytt.",
   "arkivar.feil.arkivdel": "Velg en arkivdel.",
+  "arkivar.feil.brukervalg": "Valget kan ikke lagres.",
   "arkivar.feil.dokumentdato": "Dokumentdatoen må være en gyldig dato som ikke ligger frem i tid.",
   "arkivar.feil.domene": "E-postadressen må være fra et godkjent lærested. Har du fått en klassekode av læreren, kan du registrere deg med den.",
   "arkivar.feil.domene_finnes": "Domenet står alt i listen.",

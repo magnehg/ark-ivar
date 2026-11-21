@@ -76,6 +76,10 @@
 - Reglene for innholdet står i `docs/innhold.md`.
 - 100 nye saksmapper i sakarkivet med 105 dokumenter, skrevet om fra dokumentene i Paragrafkarusellen og tilpasset
   Sirevåg kommune (nøklene begynner med «k1-» til «k10-»).
+- Oversiktene (mapper, dokumentene i en mappe, journalen og søketreffene) kan vises i kolonner, med tittelen først
+  eller på to linjer. Brukeren bytter med ikoner over oversikten, og valget lagres på kontoen.
+- Arkivformatet står før produksjonsformatet. 14 utgående dokumenter har to versjoner, der versjon 1 er
+  saksbehandlerens grove utkast.
 - Mappeoversikten: mappeikon ved saksnummeret (åpen mappe under behandling, lukket når saken er avsluttet), saksnummer
   og tittel først, så enhet og saksansvarlig, og primærklasseringen sist med arkivdelen under. Søketreffene har samme ikon.
 - Løpenummeret til journalpostene skrives med nummeret først og året sist («104/2026»).

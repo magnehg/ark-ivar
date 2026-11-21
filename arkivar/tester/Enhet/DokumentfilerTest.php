@@ -41,8 +41,8 @@ final class DokumentfilerTest extends TestCase
         foreach (Kodelister::MED_ARKIVFORMAT as $status) {
             self::assertSame(
                 [
-                    ['versjon' => 1, 'variantformat' => 'P', 'format' => 'eml', 'filnavn' => 'sporsmal-om-apningstider.eml'],
                     ['versjon' => 1, 'variantformat' => 'A', 'format' => 'txt', 'filnavn' => 'sporsmal-om-apningstider.txt'],
+                    ['versjon' => 1, 'variantformat' => 'P', 'format' => 'eml', 'filnavn' => 'sporsmal-om-apningstider.eml'],
                 ],
                 Dokumentfiler::filer('epost', '2026-11-10', $status, 'Spørsmål om åpningstider'),
             );
@@ -55,9 +55,13 @@ final class DokumentfilerTest extends TestCase
         self::assertSame([1, 2, 3], array_column($dokumenter, 'nr'));
         self::assertSame(['H', 'V', 'V'], array_column($dokumenter, 'rolle'));
         self::assertSame(['Spørsmål om åpningstider', 'Kart', 'Bilde av skiltet'], array_column($dokumenter, 'tittel'));
-        self::assertSame(['eml', 'txt'], array_column($dokumenter[0]['filer'], 'format'));
+        self::assertSame(['txt', 'eml'], array_column($dokumenter[0]['filer'], 'format'), 'Arkivformatet står først.');
         self::assertSame(['pdf', 'pdf'], array_column($dokumenter[1]['filer'], 'format'), 'Et vedlegg til en e-post er en PDF, og arkiveres som PDF.');
         self::assertSame('kart.pdf', $dokumenter[1]['filer'][0]['filnavn']);
+        // Med et utkast har hoveddokumentet to versjoner: den ferdige først, og utkastet bare i produksjonsformat.
+        $med = Dokumentfiler::dokumenter('brev', null, Kodelister::JP_EKSPEDERT, 'Svar på søknad', ['Kart'], true);
+        self::assertSame([[2, 'A', 'svar-pa-soknad.pdf'], [2, 'P', 'svar-pa-soknad.docx'], [1, 'P', 'svar-pa-soknad-utkast.docx']], array_map(static fn (array $f): array => [$f['versjon'], $f['variantformat'], $f['filnavn']], $med[0]['filer']));
+        self::assertSame([1, 1], array_column($med[1]['filer'], 'versjon'), 'Vedleggene har én versjon.');
         // Vedlegg til et skannet brev er skannet, og vedlegg til kommunens egne dokumenter er skrevet i tekstbehandler.
         self::assertSame('tif', Dokumentfiler::vedleggsformat('brev', '2026-11-10'));
         self::assertSame('docx', Dokumentfiler::vedleggsformat('brev', null));

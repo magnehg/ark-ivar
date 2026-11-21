@@ -26,7 +26,7 @@ export type Kolonne<T> = {
   sprak?: string;
 };
 
-type Sortering = { id: string; retning: 'ascending' | 'descending' };
+export type Sortering = { id: string; retning: 'ascending' | 'descending' };
 
 const tom = (v: Sorteringsverdi) => v === null || v === undefined || v === '';
 
@@ -51,7 +51,9 @@ export function useSortering<T>(rader: T[], kolonner: Kolonne<T>[], start: Sorte
     });
   }, [rader, kolonner, sortering, sammenlign]);
   const klikk = (id: string) => settSortering((s) => (s?.id === id ? { id, retning: s.retning === 'ascending' ? 'descending' : 'ascending' } : { id, retning: 'ascending' }));
-  return { sortert, sortering, klikk };
+  /** Setter kolonnen og retningen direkte (visningene uten overskrifter å klikke på). */
+  const velg = (id: string, retning: Sortering['retning']) => settSortering(id ? { id, retning } : null);
+  return { sortert, sortering, klikk, velg };
 }
 
 /**
@@ -63,7 +65,7 @@ export function TabellVegg({ children, etikett, etikettId }: { children: ReactNo
   return <div className={s().tabellvegg} tabIndex={0} role="region" aria-label={etikettId ? undefined : etikett ?? t('arkivar.tabell.vegg')} aria-labelledby={etikettId}>{children}</div>;
 }
 
-type TabellProps<T> = {
+export type TabellProps<T> = {
   rader: T[];
   kolonner: Kolonne<T>[];
   nokkel: (rad: T, indeks: number) => string | number;

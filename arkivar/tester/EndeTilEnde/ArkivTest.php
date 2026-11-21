@@ -1205,6 +1205,15 @@ final class ArkivTest extends AppTestCase
         [$svar] = $ola->kall('POST', "/api/arkiv/journalposter/$id/ferdigstill", []);
         self::assertSame(404, $svar->status);
 
+        // Et utgående dokument må ha mottaker, og hakeparentesene fra malen må være byttet ut før ferdigstillingen.
+        [$svar, $j] = $this->kari->kall('PUT', "/api/arkiv/journalposter/$id/dokument", ['mottaker' => ''] + $brev);
+        self::assertSame(422, $svar->status, $svar->kropp);
+        [$svar] = $this->kari->kall('PUT', "/api/arkiv/journalposter/$id/dokument", ['tekst' => ['Vi viser til søknaden datert [dato].']] + $brev);
+        self::assertSame(200, $svar->status, $svar->kropp);
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/journalposter/$id/ferdigstill", []);
+        self::assertSame([422, 'dokument_ikke_utfylt'], [$svar->status, $j['kode']]);
+        [$svar] = $this->kari->kall('PUT', "/api/arkiv/journalposter/$id/dokument", ['tekst' => ['Andre versjon.']] + $brev);
+        self::assertSame(200, $svar->status, $svar->kropp);
         // Ferdigstilt: ekspedert (utgående), i journalen, med arkivformat, og kan ikke endres mer.
         [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/journalposter/$id/ferdigstill", []);
         self::assertSame(200, $svar->status, $svar->kropp);
@@ -1228,6 +1237,7 @@ final class ArkivTest extends AppTestCase
         self::assertIsArray($j['journalpost']);
         $inn = Felt::tekst($j['journalpost']['id']);
         self::assertSame(['tif'], array_column(self::rader($j['journalpost']['filer']), 'format'), 'Et brev på papir er skannet.');
+        self::assertSame('M', $j['journalpost']['status'], 'Et inngående brev er midlertidig registrert til det journalføres.');
         [, $j] = $this->kari->kall('POST', "/api/arkiv/journalposter/$inn/ferdigstill", []);
         self::assertIsArray($j['journalpost']);
         self::assertSame('J', $j['journalpost']['status']);

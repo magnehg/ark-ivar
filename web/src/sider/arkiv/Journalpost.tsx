@@ -8,7 +8,7 @@ import { Dokument, Journalpost as Post, Sak, del } from '../../arkiv';
 import { useDato, useKode, useT } from '../../i18n';
 import { Ark } from '../../komponenter/Ark';
 import { Dokumentliste } from '../../komponenter/Dokumentfiler';
-import { Feil, Kort, Laster, Sidehode, useFeiltekst, useHent } from '../../komponenter/Felles';
+import { Feil, Kort, Laster, Ok, Sidehode, useFeiltekst, useHent } from '../../komponenter/Felles';
 import { Status } from '../../komponenter/Status';
 
 const s = makeStyles({
@@ -25,10 +25,19 @@ export default function Journalpost() {
   const { id = '' } = useParams();
   const hentet = useHent<{ journalpost: Post; sak: Sak; dokument: Dokument | null }>(`/api/arkiv/journalposter/${del(id)}`);
   const [feil, settFeil] = useState<string | null>(null);
+  // Mens et kall går, er knappene utilgjengelige, så et dobbeltklikk ikke sender to.
+  const [opptatt, settOpptatt] = useState(false);
+  const [ferdigstilt, settFerdigstilt] = useState(false);
   if (hentet.feil) return <Feil melding={hentet.feil} />;
   if (!hentet.data) return <Laster />;
   const { journalpost: p, sak, dokument } = hentet.data;
-  const ferdigstill = () => { settFeil(null); api.post(`/api/arkiv/journalposter/${del(id)}/ferdigstill`).then(() => hentet.last()).catch((e: unknown) => settFeil(feiltekst(e))); };
+  const ferdigstill = () => {
+    settFeil(null); settOpptatt(true);
+    api.post(`/api/arkiv/journalposter/${del(id)}/ferdigstill`)
+      .then(() => { settFerdigstilt(true); hentet.last(); })
+      .catch((e: unknown) => settFeil(feiltekst(e)))
+      .finally(() => settOpptatt(false));
+  };
   const slett = () => { settFeil(null); api.slett(`/api/arkiv/journalposter/${del(id)}`).then(() => naviger(`/arkiv/saker/${sak.id}`)).catch((e: unknown) => settFeil(feiltekst(e))); };
   return (
     <>
@@ -55,10 +64,12 @@ export default function Journalpost() {
             {p.dokumenter.length > 0 && <><dt>{t('arkivar.dokumenter.tittel')}</dt><dd><Dokumentliste post={p} /></dd></>}
           </dl>
           {feil && <Feil melding={feil} />}
+          {/* Bekreftelsen leses opp: knappene forsvinner når dokumentet er ferdigstilt. */}
+          {ferdigstilt && !p.redigerbar && <Ok melding={t('arkivar.skriv.ferdigstilt')} />}
           <div className={c.knapper}>
             {/* Et dokument studenten har skrevet, kan endres og ferdigstilles til det er ferdigstilt. */}
-            {p.redigerbar && <Button appearance="primary" icon={<DocumentEdit20Regular />} onClick={() => naviger(`/arkiv/saker/${sak.id}/journalposter/${p.id}/rediger`)}>{t('arkivar.journalpost.rediger')}</Button>}
-            {p.redigerbar && <Button onClick={ferdigstill}>{t('arkivar.skriv.ferdigstill')}</Button>}
+            {p.redigerbar && <Button appearance="primary" icon={<DocumentEdit20Regular />} disabled={opptatt} onClick={() => naviger(`/arkiv/saker/${sak.id}/journalposter/${p.id}/rediger`)}>{t('arkivar.journalpost.rediger')}</Button>}
+            {p.redigerbar && <Button disabled={opptatt} onClick={ferdigstill}>{t('arkivar.skriv.ferdigstill')}</Button>}
             {p.oppgave && <Ruterlenke to={`/arkiv/postmottak/${p.oppgave}`}>{t('arkivar.journalpost.vurdering')}</Ruterlenke>}
             {p.kan_slettes && <Button icon={<Delete20Regular />} onClick={slett}>{t('arkivar.journalpost.slett')}</Button>}
           </div>

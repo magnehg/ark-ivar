@@ -46,7 +46,7 @@ uttrekk eller avlevere.
   (P, A, O). Navnet og forklaringen («.bruk») står i språkfilene (`arkivar.saksstatus.`, `arkivar.jpstatus.`,
   `arkivar.dokstatus.`, `arkivar.variantformat.`); `KodelisterTest` krever begge på alle språk, og `useKode()` viser
   «J – Journalført». Dokumentfilen (`arkivar_journalpost.dokumentstatus` og `variantformat`, NULL uten dokument) er
-  ferdigstilt, og i arkivformat når journalposten er journalført, ekspedert eller arkivert (J, E, A;
+  ferdigstilt (et dokument studenten skriver selv, er under redigering til det ferdigstilles), og i arkivformat når journalposten er journalført, ekspedert eller arkivert (J, E, A;
   `Kodelister::variantformat()`, som også avgjør visningen for rader lagret med en eldre regel).
 - **Dokumentfilene** (`Dokumentfiler`, `filer` på journalposten i API-svarene): øvingsarkivet har ikke virkelige filer,
   men hver journalpost med dokument har en fil i produksjonsformat (`eml` for e-post, `tif` for skannet brev og
@@ -78,11 +78,13 @@ uttrekk eller avlevere.
   § 11 a, internt notat, møtereferat som notat eller brev, og et blankt ark for et inngående brev). Malen gir
   journalposttypene som kan velges, kanalen og om avsenderen er kommunen eller skrives av studenten; `{{sak}}`,
   `{{saksbehandler}}` og `{{stilling}}` settes inn av grensesnittet. Dokumentet lagres som avsnitt (ingen
-  formatering) i `arkivar_dokument` (migrering 004), én rad per versjon. Journalposten har status R og
+  formatering) i `arkivar_dokument` (migrering 004), én rad per versjon. Journalposten har status R (M for et inngående brev) og
   dokumentstatus B til dokumentet ferdigstilles (`POST /api/arkiv/journalposter/{id}/ferdigstill`): da blir den
   ekspedert (U) eller journalført (de andre), står i journalen og får arkivformat, og dokumentet kan ikke endres.
   `POST /api/arkiv/saker/{id}/dokumenter` oppretter, `PUT /api/arkiv/journalposter/{id}/dokument` lagrer (med
   `ny_versjon` som ny versjon), og `GET /api/arkiv/journalposter/{id}?versjon=N` gir en bestemt versjon.
+  Et dokument kan ha høyst 30 versjoner, et utgående dokument må ha mottaker, og ferdigstillingen avvises så lenge
+  tittelen eller dokumentet har en hakeparentes fra malen.
   Registreringsfeltene kontrolleres av `Registreringsfelt`, som også postmottaket bruker.
 - **Kommunevåpenet** (`web/src/bilder/sirevag-kommunevapen.svg`, `Kommunevapen`) er oppdiktet: «I blått en gull bjelke som på
   midten er bøyd ned i en nesten sluttet ring (en våg)». Det er valgt blant tre forslag og sjekket mot virkelige

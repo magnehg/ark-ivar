@@ -33,7 +33,9 @@ final class Kodelister
     public const JP_ARKIVERT = 'A';
     /** Reservert dokument: saksbehandleren har opprettet journalposten og skriver på dokumentet. */
     public const JP_RESERVERT = 'R';
-    public const JOURNALSTATUSER = [self::JP_JOURNALFORT, 'F', 'G', self::JP_EKSPEDERT, self::JP_ARKIVERT, 'U', 'M', 'S', self::JP_RESERVERT];
+    /** Midlertidig registrering av innkommet dokument: brevet er registrert, men ikke kontrollert og journalført. */
+    public const JP_MIDLERTIDIG = 'M';
+    public const JOURNALSTATUSER = [self::JP_JOURNALFORT, 'F', 'G', self::JP_EKSPEDERT, self::JP_ARKIVERT, 'U', self::JP_MIDLERTIDIG, 'S', self::JP_RESERVERT];
 
     /** Dokumentstatus (på dokumentfilen): under redigering, ferdigstilt. */
     public const DOK_UNDER_REDIGERING = 'B';

@@ -3,7 +3,7 @@
 // registreringen. Dokumentet kan lagres flere ganger og som nye versjoner til det ferdigstilles.
 import { FormEvent, useEffect, useState } from 'react';
 import { Link as Ruterlenke, useNavigate, useParams } from 'react-router-dom';
-import { Button, Caption1, Checkbox, Field, Input, Select, Text, Textarea, makeStyles, tokens } from '@fluentui/react-components';
+import { Button, Caption1, Checkbox, Field, Input, MessageBar, MessageBarBody, Select, Text, Textarea, makeStyles, tokens } from '@fluentui/react-components';
 import { api } from '../../api';
 import { Dokument, Dokumentmal, Journalpost, Sak, Struktur, del, useStruktur } from '../../arkiv';
 import { useKode, useSprak, useT } from '../../i18n';
@@ -38,8 +38,12 @@ const TOMT: Verdier = {
 };
 
 /** Avsnittene i skriveflaten: en tom linje skiller avsnitt, og en linje som begynner med «## », er en mellomtittel. */
-const tilAvsnitt = (tekst: string): string[] => tekst.split(/\n\s*\n/).map((a) => a.trim()).filter((a) => a !== '');
+// En mellomtittel blir alltid sitt eget avsnitt, også når det ikke står en tom linje over og under den.
+const tilAvsnitt = (tekst: string): string[] => tekst.split('\n').map((l) => (l.startsWith('## ') ? `\n${l.trim()}\n` : l)).join('\n')
+  .split(/\n\s*\n/).map((a) => a.trim()).filter((a) => a !== '');
 const fraAvsnitt = (avsnitt: string[]): string => avsnitt.join('\n\n');
+/** Navnet i mottakerfeltet: den første linjen. Avsender eller mottaker i registreringen følger det til studenten endrer selv. */
+const forsteLinje = (tekst: string): string => tekst.split('\n')[0].trim();
 const linjer = (tekst: string): string[] => tekst.split('\n').map((l) => l.trim()).filter((l) => l !== '');
 
 /** Malen med saksnummeret og den som har saken, satt inn der malen har plassholdere. */
@@ -55,8 +59,13 @@ export default function Skriv() {
   const { id = '', sakId = '', journalpost = '' } = useParams();
   const mappeId = journalpost ? sakId : id;
   const strukturdata = useStruktur();
-  const sak = useHent<{ sak: Sak }>(`/api/arkiv/saker/${del(mappeId)}`);
-  const lagret = useHent<{ journalpost: Journalpost; dokument: Dokument | null }>(journalpost ? `/api/arkiv/journalposter/${del(journalpost)}` : null);
+  const lagret = useHent<{ journalpost: Journalpost; sak: Sak; dokument: Dokument | null }>(journalpost ? `/api/arkiv/journalposter/${del(journalpost)}` : null);
+  // Et nytt dokument hører til mappen i adressen. Et dokument under arbeid hører til mappen journalposten ligger i.
+  const nySak = useHent<{ sak: Sak }>(journalpost ? null : `/api/arkiv/saker/${del(mappeId)}`);
+  const sak = journalpost ? { data: lagret.data ? { sak: lagret.data.sak } : null, feil: null } : nySak;
+  // Forslaget malen sist fylte inn, og om studenten er varslet om at teksten er beholdt ved bytte av mal.
+  const [forslag, settForslag] = useState({ emne: '', tekst: '' });
+  const [beholdt, settBeholdt] = useState(false);
   const [v, sett] = useState<Verdier>(TOMT);
   // Tittelen på journalposten følger emnet til studenten skriver i den selv.
   const [egenTittel, settEgenTittel] = useState(false);
@@ -86,7 +95,14 @@ export default function Skriv() {
     const valgt = struktur.dokumentmaler.find((m) => m.kode === kode);
     if (!valgt) { endre({ mal: '' }); return; }
     const fylt = fraMal(valgt, mappe, struktur);
-    endre({ ...fylt, tittel: egenTittel ? v.tittel : fylt.emne ?? '' });
+    // Det studenten har skrevet selv, byttes aldri ut: forslaget fylles bare inn i et felt som er tomt eller fortsatt
+    // har forslaget fra forrige mal.
+    const urort = (verdi: string, forrige: string) => verdi.trim() === '' || verdi === forrige;
+    const emne = urort(v.emne, forslag.emne) ? fylt.emne ?? '' : v.emne;
+    const tekst = urort(v.tekst, forslag.tekst) ? fylt.tekst ?? '' : v.tekst;
+    settBeholdt(emne !== fylt.emne || tekst !== fylt.tekst);
+    settForslag({ emne: fylt.emne ?? '', tekst: fylt.tekst ?? '' });
+    endre({ mal: valgt.kode, type: fylt.type, emne, tekst, tittel: egenTittel ? v.tittel : emne });
   };
   const blank = mal?.avsender === 'blank';
   const kropp = (nyVersjon: boolean) => ({
@@ -131,7 +147,7 @@ export default function Skriv() {
                   </div>
                 )}
                 <div lang={sprak} className={c.kolonne}>
-                  {!blank && <Field label={t('arkivar.skriv.mottaker')} hint={t('arkivar.skriv.mottaker.hjelp')}><Textarea lang="nb" rows={3} value={v.mottaker} onChange={(_, d) => endre({ mottaker: d.value })} /></Field>}
+                  {!blank && <Field label={t('arkivar.skriv.mottaker')} hint={t('arkivar.skriv.mottaker.hjelp')}><Textarea lang="nb" rows={3} value={v.mottaker} onChange={(_, d) => endre({ mottaker: d.value, part: v.part === forsteLinje(v.mottaker) ? forsteLinje(d.value) : v.part })} /></Field>}
                   <Field label={t('arkivar.skriv.emne')} required>
                     <Input lang="nb" value={v.emne} onChange={(_, d) => endre({ emne: d.value, tittel: egenTittel ? v.tittel : d.value })} />
                   </Field>
@@ -153,6 +169,7 @@ export default function Skriv() {
                   {struktur.dokumentmaler.map((m) => <option key={m.kode} value={m.kode} lang="nb">{m.navn}</option>)}
                 </Select>
               </Field>
+              {mal && beholdt && <MessageBar intent="info" role="status"><MessageBarBody>{t('arkivar.skriv.mal.beholdt')}</MessageBarBody></MessageBar>}
               {mal && (
                 <>
                   <Field label={t('arkivar.journalpost.tittel')} required hint={t('arkivar.nyjp.tittel.hjelp')}>
@@ -176,7 +193,7 @@ export default function Skriv() {
                   <Checkbox checked={v.skjermTittel} onChange={(_, d) => endre({ skjermTittel: d.checked === true })} label={t('arkivar.registrering.skjerm_tittel')} />
                   {v.skjermTittel && <Field label={t('arkivar.journalpost.offentlig_tittel')} hint={t('arkivar.registrering.offentlig.hjelp')}><Input value={v.offentlig} onChange={(_, d) => endre({ offentlig: d.value })} /></Field>}
                   <Checkbox checked={v.skjermPart} onChange={(_, d) => endre({ skjermPart: d.checked === true })} label={t('arkivar.registrering.skjerm_part')} />
-                  <Caption1 className={c.dempet}>{t('arkivar.skriv.status', { under: kode('jpstatus', 'R'), ferdig: kode('jpstatus', ferdig) })}</Caption1>
+                  <Caption1 className={c.dempet}>{t('arkivar.skriv.status', { under: kode('jpstatus', v.type === 'I' ? 'M' : 'R'), ferdig: kode('jpstatus', ferdig) })}</Caption1>
                   {feil && <Feil melding={feil} />}
                   <div className={c.knapper}>
                     <Button appearance="primary" type="submit" disabled={opptatt}>{t('arkivar.skriv.lagre')}</Button>

@@ -11,8 +11,8 @@ use Psr\Clock\ClockInterface;
 
 /**
  * Dokumentene studenten skriver selv i en mappe, fra en dokumentmal: utgående brev, foreløpig svar, internt
- * notat, møtereferat eller et inngående brev på blankt ark. Dokumentet blir en journalpost med status R (reservert)
- * og dokumentstatus B (under redigering) til det ferdigstilles; da blir journalposten ekspedert (utgående) eller
+ * notat, møtereferat eller et inngående brev på blankt ark. Dokumentet blir en journalpost med status R (reservert;
+ * M, midlertidig registrert, for et inngående brev) og dokumentstatus B (under redigering) til det ferdigstilles; da blir journalposten ekspedert (utgående) eller
  * journalført (de andre), og dokumentet får arkivformat. Hver versjon av dokumentet er en rad i arkivar_dokument,
  * og den høyeste er den gjeldende. Et ferdigstilt dokument kan ikke endres.
  *
@@ -40,6 +40,10 @@ final class Skriving
     private const MAKS_AVSNITTLENGDE = 5000;
     private const MAKS_VEDLEGG = 20;
     private const MAKS_VEDLEGGSLENGDE = 200;
+    /** Høyst så mange versjoner av ett dokument: nok til å øve på versjoner, og tabellen kan ikke fylles uten grense. */
+    public const MAKS_VERSJONER = 30;
+    /** En hakeparentes fra malen som ikke er byttet ut: «[dato]». */
+    private const IKKE_UTFYLT = '/\[[^\]]*\]/u';
 
     /** @var array<string, array<string, Oversiktsrad>> det skrevne dokumentet per journalpost, per arkiv */
     private array $oversikt = [];
@@ -66,9 +70,17 @@ final class Skriving
             return $this->oversikt[$arkivId];
         }
         $ut = [];
-        foreach ($this->db->alle('SELECT journalpost_id, versjon, mal, innhold FROM arkivar_dokument WHERE arkiv_id = ? ORDER BY journalpost_id, versjon', [$arkivId]) as $rad) {
+        // Bare den gjeldende (høyeste) versjonen av hvert dokument leses: teksten i de eldre trengs ikke i en liste.
+        $rader = $this->db->alle(
+            'SELECT d.journalpost_id, d.versjon, d.mal, d.innhold
+               FROM arkivar_dokument d
+               JOIN (SELECT journalpost_id, MAX(versjon) AS siste FROM arkivar_dokument WHERE arkiv_id = ? GROUP BY journalpost_id) s
+                 ON s.journalpost_id = d.journalpost_id AND s.siste = d.versjon
+              WHERE d.arkiv_id = ?',
+            [$arkivId, $arkivId],
+        );
+        foreach ($rader as $rad) {
             $innhold = self::tolk(Felt::tekst($rad['innhold']));
-            // Radene kommer i stigende versjon, så den siste for hver journalpost er den gjeldende.
             $ut[Felt::tekst($rad['journalpost_id'])] = [
                 'mal' => Felt::tekst($rad['mal']), 'versjoner' => Felt::tall($rad['versjon']),
                 'kanal' => $innhold['kanal'], 'mottatt' => $innhold['mottatt'], 'vedlegg' => $innhold['vedlegg'],
@@ -98,9 +110,10 @@ final class Skriving
             }
             $enhet = Felt::tekst($sak['enhet']);
             // Et inngående brev på blankt ark er mottatt i dag. Kommunens egne dokumenter har ingen mottaksdato.
-            $innhold = $this->innhold($inn, $mal, $enhet, $mal['avsender'] === Dokumentmaler::BLANK ? $idag : null);
+            $innhold = $this->innhold($inn, $mal, $enhet, $mal['avsender'] === Dokumentmaler::BLANK ? $idag : null, $felt['type']);
             $id = $this->register->opprettJournalpost($arkivId, $sakId, $felt + [
-                'status' => Kodelister::JP_RESERVERT, 'journalfort' => false, 'journaldato' => $idag,
+                // Kommunens eget dokument er reservert mens det skrives. Et brev som er kommet inn, er midlertidig registrert.
+                'status' => $felt['type'] === 'I' ? Kodelister::JP_MIDLERTIDIG : Kodelister::JP_RESERVERT, 'journalfort' => false, 'journaldato' => $idag,
                 'saksbehandler' => Felt::tekst($sak['saksansvarlig']), 'enhet' => $enhet,
                 'dokumentstatus' => Kodelister::DOK_UNDER_REDIGERING, 'variantformat' => Kodelister::VARIANT_PRODUKSJON,
             ]);
@@ -123,9 +136,13 @@ final class Skriving
             $this->register->laas($arkivId);
             [$post, $mal, $gjeldende, $versjon] = $this->underRedigering($arkivId, $journalpostId);
             $felt = $this->felt($inn, $mal, $idag);
-            $innhold = $this->innhold($inn, $mal, Felt::tekst($post['enhet']), $gjeldende['mottatt']);
+            // Et inngående brev regnes som mottatt den dagen det sist ble registrert, så det aldri er mottatt før det er datert.
+            $innhold = $this->innhold($inn, $mal, Felt::tekst($post['enhet']), $gjeldende['mottatt'] !== null ? $idag : null, $felt['type']);
             $this->register->oppdaterJournalpost($arkivId, $journalpostId, $felt);
             if (($inn['ny_versjon'] ?? false) === true) {
+                if ($versjon >= self::MAKS_VERSJONER) {
+                    throw new HttpFeil(409, 'for_mange_versjoner', 'arkivar.feil.for_mange_versjoner');
+                }
                 $this->lagreVersjon($arkivId, $journalpostId, $versjon + 1, $mal['kode'], $innhold);
             } else {
                 $this->db->utfor(
@@ -146,7 +163,20 @@ final class Skriving
         $idag = Dato::idag($this->klokke);
         $this->db->transaksjon(function () use ($arkivId, $journalpostId, $idag): void {
             $this->register->laas($arkivId);
-            [$post] = $this->underRedigering($arkivId, $journalpostId);
+            [$post, , $innhold, $versjon] = $this->underRedigering($arkivId, $journalpostId);
+            // Malene har hakeparenteser der studenten skal skrive selv. De må være byttet ut før dokumentet sendes.
+            $alt = implode("\n", [Felt::tekst($post['tittel']), $innhold['emne'], $innhold['mottaker'] ?? '', ...$innhold['tekst'], ...$innhold['vedlegg']]);
+            if (preg_match(self::IKKE_UTFYLT, $alt) === 1) {
+                throw new HttpFeil(422, 'dokument_ikke_utfylt', 'arkivar.feil.dokument_ikke_utfylt');
+            }
+            if ($innhold['mottatt'] !== null) {
+                // Et inngående brev er mottatt den dagen det journalføres.
+                $this->db->utfor(
+                    'UPDATE arkivar_dokument SET innhold = ? WHERE journalpost_id = ? AND versjon = ?',
+                    [json_encode(['mottatt' => $idag] + $innhold, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE), $journalpostId, $versjon],
+                );
+                unset($this->oversikt[$arkivId]);
+            }
             $status = Felt::tekst($post['type']) === 'U' ? Kodelister::JP_EKSPEDERT : Kodelister::JP_JOURNALFORT;
             $this->register->ferdigstillJournalpost($arkivId, $journalpostId, $status, $idag);
         });
@@ -219,9 +249,10 @@ final class Skriving
      *
      * @param array<string, mixed> $inn
      * @param Dokumentmal $mal
+     * @param string $type journalposttypen: et utgående dokument må ha mottaker
      * @return Innhold
      */
-    private function innhold(array $inn, array $mal, string $enhet, ?string $mottatt): array
+    private function innhold(array $inn, array $mal, string $enhet, ?string $mottatt, string $type): array
     {
         $emne = trim(Felt::tekst($inn['emne'] ?? null));
         $lengde = mb_strlen($emne, 'UTF-8');
@@ -233,7 +264,8 @@ final class Skriving
             throw new HttpFeil(422, 'ugyldig_felt', 'arkivar.feil.dokumenttekst');
         }
         $mottaker = trim(Felt::tekst($inn['mottaker'] ?? null));
-        if (mb_strlen($mottaker, 'UTF-8') > self::MAKS_MOTTAKER) {
+        // Et utgående dokument må ha en mottaker på arket.
+        if (mb_strlen($mottaker, 'UTF-8') > self::MAKS_MOTTAKER || ($type === 'U' && $mottaker === '')) {
             throw new HttpFeil(422, 'ugyldig_felt', 'arkivar.feil.mottaker');
         }
         if ($mal['avsender'] === Dokumentmaler::BLANK) {

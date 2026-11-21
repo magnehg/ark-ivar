@@ -31,6 +31,7 @@ function lastSide(hent: Sidehenter) {
 }
 const Hjem = lastSide(() => import('./sider/Hjem'));
 const MinSide = lastSide(() => import('./sider/MinSide'));
+const Hjelp = lastSide(() => import('./sider/Hjelp'));
 const Klasser = lastSide(() => import('./sider/Klasser'));
 const Brukere = lastSide(() => import('./sider/Brukere'));
 const Domener = lastSide(() => import('./sider/Domener'));
@@ -76,6 +77,7 @@ function App() {
             <Route element={<KontrolltallTilbyder aktiv={student}><VisningTilbyder><LesevinduTilbyder><Skall /></LesevinduTilbyder></VisningTilbyder></KontrolltallTilbyder>}>
               <Route index element={<Hjem />} />
               {student && <Route path="min-side" element={<MinSide />} />}
+              <Route path="hjelp" element={<Hjelp />} />
               {student && <Route path="arkiv/postmottak" element={<Postmottak />} />}
               {student && <Route path="arkiv/postmottak/:id" element={<Dokument />} />}
               {student && <Route path="arkiv/saker" element={<Saker />} />}

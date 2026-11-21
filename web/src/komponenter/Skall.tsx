@@ -3,7 +3,7 @@
 import { CSSProperties, ReactNode, Suspense } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Avatar, Button, Menu, MenuDivider, MenuGroup, MenuGroupHeader, MenuItem, MenuItemRadio, MenuList, MenuPopover, MenuProps, MenuTrigger, Text, makeStyles, mergeClasses, tokens } from '@fluentui/react-components';
-import { AlignStretchHorizontal20Regular, ArrowAutofitWidthDotted20Regular, Desktop20Regular, DocumentBulletList20Regular, Folder20Regular, Globe20Regular, Home20Regular, MailInbox20Regular, BookOpen20Regular, TextBulletListTree20Regular, People20Regular, PeopleTeam20Regular, Person20Regular, SignOut20Regular, WeatherMoon20Regular, WeatherSunny20Regular } from '@fluentui/react-icons';
+import { AlignStretchHorizontal20Regular, ArrowAutofitWidthDotted20Regular, Desktop20Regular, DocumentBulletList20Regular, Folder20Regular, Globe20Regular, Home20Regular, MailInbox20Regular, BookOpen20Regular, TextBulletListTree20Regular, People20Regular, PeopleTeam20Regular, Person20Regular, QuestionCircle20Regular, SignOut20Regular, WeatherMoon20Regular, WeatherSunny20Regular } from '@fluentui/react-icons';
 import { Innlogget, api, harRolle, kanAdministrere } from '../api';
 import { SPRAK, Sprakkode, useSprak, useT } from '../i18n';
 import { Kommunevapen } from './Kommunevapen';
@@ -63,6 +63,7 @@ function useModuser(innlogget: Innlogget | null): Modus[] {
     { id: 'hjem', til: '/', tekst: t('arkivar.modus.hjem'), grupper: [{ tittel: t('arkivar.modus.hjem'), lenker: [
       { til: '/', tekst: t('arkivar.nav.hjem'), ikon: <Home20Regular /> },
       { til: '/min-side', tekst: t('arkivar.nav.min_side'), ikon: <Person20Regular />, vis: student },
+      { til: '/hjelp', tekst: t('arkivar.nav.hjelp'), ikon: <QuestionCircle20Regular /> },
     ] }] },
     { id: 'arkiv', til: '/arkiv/postmottak', tekst: t('arkivar.modus.arkiv'), grupper: [{ tittel: t('arkivar.modus.arkiv'), lenker: [
       { til: '/arkiv/postmottak', tekst: t('arkivar.nav.postmottak'), ikon: <MailInbox20Regular />, vis: student },

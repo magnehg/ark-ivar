@@ -2,8 +2,8 @@
 // med tittelen først, eller på to linjer. Brukeren velger med ikonene over oversikten, og valget lagres på kontoen
 // (PUT /api/meg/valg), så det følger brukeren fra maskin til maskin og gjelder alle oversiktene.
 import { ReactNode, createContext, useCallback, useContext, useEffect, useId, useMemo, useState } from 'react';
-import { Button, Select, ToggleButton, makeStyles, tokens } from '@fluentui/react-components';
-import { ArrowSortDown20Regular, ArrowSortUp20Regular, ChevronDown20Regular, ChevronRight20Regular, List20Regular, Table20Regular, TextBulletListSquare20Regular } from '@fluentui/react-icons';
+import { Button, Menu, MenuButton, MenuItemRadio, MenuList, MenuPopover, MenuTrigger, ToggleButton, makeStyles, tokens } from '@fluentui/react-components';
+import { ArrowSort20Regular, ArrowSortDown20Regular, ArrowSortUp20Regular, ChevronDown20Regular, ChevronRight20Regular, List20Regular, Table20Regular, TextBulletListSquare20Regular } from '@fluentui/react-icons';
 import { api } from '../api';
 import { useSprak, useT } from '../i18n';
 import { useHent } from './Felles';
@@ -36,7 +36,8 @@ export function VisningTilbyder({ children }: { children: ReactNode }) {
 
 const s = makeStyles({
   verktoy: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px 16px', flexWrap: 'wrap', marginBottom: '6px' },
-  sortering: { display: 'flex', alignItems: 'center', gap: '6px', color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200 },
+  sortering: { display: 'flex', alignItems: 'center', gap: '2px' },
+  valgt: { fontWeight: tokens.fontWeightSemibold },
   velger: { display: 'flex', gap: '2px', marginLeft: 'auto' },
   liste: { listStyleType: 'none', margin: 0, padding: 0, borderTop: `1px solid ${tokens.colorNeutralStroke2}` },
   post: { borderBottom: `1px solid ${tokens.colorNeutralStroke2}` },
@@ -94,21 +95,30 @@ function Radliste<T>({ rader, kolonner, nokkel, startSortering, utvid, kroppSpra
     const igjen = new Set(finnes.split('\u0000'));
     settApne((gml) => ([...gml].every((n) => igjen.has(String(n))) ? gml : new Set([...gml].filter((n) => igjen.has(String(n))))));
   }, [finnes]);
+  const valgt = sorterbare.find((k) => k.id === sortering?.id);
   const stigende = sortering?.retning !== 'descending';
   const retning = t(stigende ? 'arkivar.visning.stigende' : 'arkivar.visning.synkende');
   return (
     <>
       <div className={c.verktoy}>
         {sorterbare.length > 0 && (
-          <label className={c.sortering}>
-            {t('arkivar.visning.sorter')}
-            <Select size="small" value={sortering?.id ?? ''} onChange={(_, d) => velg(d.value, sortering?.retning ?? 'ascending')}>
-              {!sortering && <option value="" />}
-              {sorterbare.map((k) => <option key={k.id} value={k.id}>{k.overskrift}</option>)}
-            </Select>
+          <div className={c.sortering}>
+            {/* En meny, ikke et skjemafelt: sorteringen er en visning av listen, ikke noe som fylles ut. */}
+            <Menu checkedValues={{ kolonne: sortering ? [sortering.id] : [] }} onCheckedValueChange={(_, d) => velg(d.checkedItems[0] ?? '', sortering?.retning ?? 'ascending')}>
+              <MenuTrigger disableButtonEnhancement>
+                <MenuButton appearance="subtle" size="small" icon={<ArrowSort20Regular />}>
+                  {t('arkivar.visning.sorter')}{valgt && <>:{' '}<span className={c.valgt}>{valgt.overskrift}</span></>}
+                </MenuButton>
+              </MenuTrigger>
+              <MenuPopover>
+                <MenuList>
+                  {sorterbare.map((k) => <MenuItemRadio key={k.id} name="kolonne" value={k.id}>{k.overskrift}</MenuItemRadio>)}
+                </MenuList>
+              </MenuPopover>
+            </Menu>
             <Button appearance="subtle" size="small" icon={stigende ? <ArrowSortUp20Regular /> : <ArrowSortDown20Regular />} aria-label={retning} title={retning}
               disabled={!sortering} onClick={() => sortering && velg(sortering.id, stigende ? 'descending' : 'ascending')} />
-          </label>
+          </div>
         )}
         <Visningsvelger />
       </div>

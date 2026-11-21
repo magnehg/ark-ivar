@@ -92,6 +92,7 @@
   "arkivar.hjelp.navn.tekst": "Ark-Ivar er ein figur som stod på alle saksomslaga i Jernbaneverket. Der hadde eg den første sivile jobben min i dagleg arkivdanning, frå våren til hausten 2005. Det er altså ikkje ein tidlegare riksarkivar som har gitt namn til programmet.",
   "arkivar.hjelp.navn.tittel": "Om namnet",
   "arkivar.hjelp.om.formaal": "Føremålet med programmet er å gi arkivstudentar ved høgskular og universitet trening i korleis Noark-system fungerer, slik at dei er betre rusta når dei skal ut i praksis. Programmet har ikkje funksjonalitet som gjer det eigna til faktisk arkivering. Det er berre ei simulering av eit fiktivt system som byggjer på Noark-standarden.",
+  "arkivar.hjelp.om.kontakt": "Magne Haagen Grøtting. Kontaktinformasjon finst hos 1881.",
   "arkivar.hjelp.om.realisme": "Funksjonaliteten i Ark-Ivar er meint å vere realistisk samanlikna med kommersielle Noark-system. Han er òg forsøkt utforma etter beste praksis for universell utforming, brukaroppleving og grensesnitt. Det kan i enkelte tilfelle gi funksjonalitet som kan verke som ein kopi av eksisterande system. Eg vil i den samanhengen understreke at dette ikkje er eit alternativ til systema, men ei simulering. Meiner de likevel at noko bør endrast, så ta kontakt.",
   "arkivar.hjelp.om.tittel": "Om programmet",
   "arkivar.hjelp.tittel": "Hjelp",

@@ -15,6 +15,7 @@ export default function Hjelp() {
       <Kort tittel={t('arkivar.hjelp.om.tittel')} id="hjelp-om">
         <Body1 className={c.tekst}>{t('arkivar.hjelp.om.formaal')}</Body1>
         <Body1 className={c.tekst}>{t('arkivar.hjelp.om.realisme')}</Body1>
+        <Body1 className={c.tekst}>{t('arkivar.hjelp.om.kontakt')}</Body1>
       </Kort>
       <Kort tittel={t('arkivar.hjelp.navn.tittel')} id="hjelp-navn">
         <Body1 className={c.tekst}>{t('arkivar.hjelp.navn.tekst')}</Body1>

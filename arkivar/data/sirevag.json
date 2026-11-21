@@ -2517,7 +2517,7 @@
           "journalfort": true,
           "tilgangskode": "25",
           "dokument": {
-            "kanal": "epost",
+            "kanal": "digitaltskjema",
             "mottatt": "2026-11-09",
             "avsender": {
               "navn": "Ane Lyngnes",
@@ -2583,7 +2583,7 @@
           "journalfort": true,
           "tilgangskode": "25",
           "dokument": {
-            "kanal": "epost",
+            "kanal": "digitaltskjema",
             "mottatt": "2026-11-13",
             "avsender": {
               "navn": "Håvard Oma",
@@ -5915,7 +5915,7 @@
           "journalfort": true,
           "tilgangskode": "26-1",
           "dokument": {
-            "kanal": "epost",
+            "kanal": "digitaltskjema",
             "mottatt": "2023-05-22",
             "avsender": {
               "navn": "Gunnar Grevling",
@@ -5978,7 +5978,7 @@
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
-            "kanal": "epost",
+            "kanal": "digitaltskjema",
             "mottatt": "2026-03-02",
             "avsender": {
               "navn": "Gunnar Grevling",
@@ -6149,7 +6149,7 @@
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
-            "kanal": "epost",
+            "kanal": "digitaltskjema",
             "mottatt": "2025-01-13",
             "avsender": {
               "navn": "Sandra Salamander",
@@ -6521,7 +6521,7 @@
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
-            "kanal": "epost",
+            "kanal": "digitaltskjema",
             "mottatt": "2026-05-26",
             "avsender": {
               "navn": "Petra Pinnsvin",
@@ -6895,7 +6895,7 @@
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
-            "kanal": "epost",
+            "kanal": "digitaltskjema",
             "mottatt": "2026-09-14",
             "avsender": {
               "navn": "Anita og Stein Rype",
@@ -6906,7 +6906,7 @@
             "emne": "Runa i 9B har det ikke trygt og godt på skolen",
             "tekst": [
               "Til rektor Ivar Ilder. Vi skriver fordi datteren vår, Runa Rype i klasse 9B, ikke har det bra på skolen. Vi har ventet for å se om det gikk over, men det har blitt verre siden skolestart i august, og nå må vi be skolen om hjelp.",
-              "Runa blir holdt utenfor av jentene hun pleide å være sammen med. Ingen slår eller roper stygge ting, og derfor er det kanskje ikke så lett for lærerne å se det. Men hun blir ikke spurt når de andre lager grupper, de flytter seg når hun setter seg ved bordet i kantina, og hun er tatt ut av gruppepraten til klassen. Forrige uke fikk hun vite at nesten alle jentene i klassen hadde vært i en bursdag som hun ikke var bedt i. Vi vil ikke nevne navn på de andre elevene i en e-post, men vi kan fortelle mer i et møte.",
+              "Runa blir holdt utenfor av jentene hun pleide å være sammen med. Ingen slår eller roper stygge ting, og derfor er det kanskje ikke så lett for lærerne å se det. Men hun blir ikke spurt når de andre lager grupper, de flytter seg når hun setter seg ved bordet i kantina, og hun er tatt ut av gruppepraten til klassen. Forrige uke fikk hun vite at nesten alle jentene i klassen hadde vært i en bursdag som hun ikke var bedt i. Vi vil ikke nevne navn på de andre elevene i skjemaet, men vi kan fortelle mer i et møte.",
               "Vi merker det godt hjemme. Runa har vondt i magen om morgenen, hun var borte fra skolen to dager forrige uke, og hun har sluttet på håndballtreningene fordi de samme jentene går der. Hun gråter om kvelden og sier at hun er usynlig. Runa har alltid likt skolen og gjort det godt i fagene, så dette er ikke likt henne.",
               "Runa sa fra til kontaktlæreren før sommerferien om at hun følte seg utenfor, men hun opplever ikke at det skjedde noe etter det. Hun er redd for at det skal bli verre hvis de andre får vite at hun har sagt fra. Vi ber derfor om at skolen går varsomt fram og snakker med henne først.",
               "Vi ber om at skolen undersøker saken og setter inn tiltak, slik skolen har plikt til etter reglene om skolemiljø i opplæringslova. Vi ber også om et møte med rektor og kontaktlæreren så snart som mulig, helst denne uka. Vi kan komme på kort varsel.",
@@ -6998,7 +6998,7 @@
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
-            "kanal": "epost",
+            "kanal": "digitaltskjema",
             "mottatt": "2026-11-02",
             "avsender": {
               "navn": "Anita og Stein Rype",
@@ -7464,7 +7464,7 @@
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
-            "kanal": "epost",
+            "kanal": "digitaltskjema",
             "mottatt": "2023-04-18",
             "avsender": {
               "navn": "Ida og Martin Orrfugl",
@@ -7913,7 +7913,7 @@
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
-            "kanal": "epost",
+            "kanal": "digitaltskjema",
             "mottatt": "2022-04-11",
             "avsender": {
               "navn": "Hege og Thomas Nise",
@@ -7926,7 +7926,7 @@
               "Vi viser til tilbudet datert 8. april 2022, deres ref. {{sak}}. Vi takker ja til 80 prosent plass for Nora i Tjørnhaugen barnehage fra 15. august 2022.",
               "Dagene mandag til torsdag passer godt for oss. Hege begynner i arbeid igjen 22. august, så vi kan bruke hele den første uka på tilvenningen. Vi vil gjerne begynne mandag 15. august dersom det passer for avdelingen.",
               "Vi kommer på foreldremøtet 8. juni. Nora spiser vanlig mat og sover én gang midt på dagen. Si fra om det er noe dere vil at vi skal øve på før hun begynner.",
-              "Fakturaen kan sendes til Hege på denne e-postadressen.",
+              "Fakturaen kan sendes til Hege på e-postadressen som står i skjemaet.",
               "Med vennlig hilsen Hege og Thomas Nise"
             ],
             "vedlegg": []
@@ -7943,7 +7943,7 @@
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
-            "kanal": "epost",
+            "kanal": "digitaltskjema",
             "mottatt": "2026-08-31",
             "avsender": {
               "navn": "Hege og Thomas Nise",
@@ -9342,7 +9342,7 @@
           "journalfort": true,
           "tilgangskode": "13-1",
           "dokument": {
-            "kanal": "epost",
+            "kanal": "digitaltskjema",
             "mottatt": "2026-02-03",
             "avsender": {
               "navn": "Marius Tveit",

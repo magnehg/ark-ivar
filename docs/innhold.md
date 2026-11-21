@@ -322,7 +322,10 @@ Mappene står i listen `saker` i `arkivar/data/sirevag.json`. Hver mappe:
   bruksnummer; i personarkivene fødselsdato og navn, skrevet nøyaktig som `kode` i registeret («14.03.2016 Måke,
   Mathias»); i møtearkivet utvalgskoden. Alt står i `sirevag.json`.
 - `status` på mappen: B (under behandling) eller A (avsluttet).
-- `kanal`: brev, epost, skjema (inngående), notat, saksframlegg, protokoll, innkalling, avtale, vedtak.
+- `kanal`: brev, epost, skjema (på papir), digitaltskjema og svarinn (inngående), notat, saksframlegg, protokoll,
+  innkalling, avtale, vedtak. Det som er taushetsbelagt eller på annen måte sensitivt, kommer ikke på e-post: en
+  innbygger, foresatt, ansatt eller søker bruker kommunens digitale skjema (`digitaltskjema`), og et annet offentlig
+  organ eller en virksomhet sender gjennom SvarInn (`svarinn`).
 - Inngående (I): `mottatt` er datoen kommunen fikk dokumentet (samme dag for e-post, 1–4 dager etter dokumentdatoen
   for brev), `mottaker` er `null`, og `part` er lik `avsender.navn`.
 - Alle andre typer: `mottatt` er `null`, og `avsender.navn` er «Sirevåg kommune» eller «Sirevåg kommune, <enhet>»

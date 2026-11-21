@@ -76,6 +76,8 @@
 - Reglene for innholdet står i `docs/innhold.md`.
 - 100 nye saksmapper i sakarkivet med 105 dokumenter, skrevet om fra dokumentene i Paragrafkarusellen og tilpasset
   Sirevåg kommune (nøklene begynner med «k1-» til «k10-»).
+- Sensitive henvendelser (taushetsbelagte opplysninger, søknader på stilling og vitnemål) står ikke lenger som
+  e-post: de er kommet i kommunens digitale skjema. SvarInn er lagt til som kanal.
 - Skriveflate: studenten skriver egne dokumenter i en mappe fra en dokumentmal (utgående brev, foreløpig svar etter
   forvaltningsloven, internt notat, møtereferat og et blankt ark for inngående brev), lagrer versjoner og
   ferdigstiller dokumentet.

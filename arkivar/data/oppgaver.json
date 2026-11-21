@@ -243,7 +243,7 @@
     },
     {
       "id": "foreldrebetaling-orrfugl",
-      "kanal": "epost",
+      "kanal": "digitaltskjema",
       "dokumentdato": "2026-11-17",
       "mottatt": "2026-11-17",
       "avsender": {
@@ -410,7 +410,7 @@
     },
     {
       "id": "permisjon-salamander",
-      "kanal": "epost",
+      "kanal": "digitaltskjema",
       "dokumentdato": "2026-11-11",
       "mottatt": "2026-11-11",
       "avsender": {
@@ -557,7 +557,7 @@
     },
     {
       "id": "jobbsoknad-byggesak",
-      "kanal": "epost",
+      "kanal": "digitaltskjema",
       "dokumentdato": "2026-11-15",
       "mottatt": "2026-11-15",
       "avsender": {
@@ -609,7 +609,7 @@
     },
     {
       "id": "varsel-arbeidsmiljo",
-      "kanal": "epost",
+      "kanal": "digitaltskjema",
       "dokumentdato": "2026-11-14",
       "mottatt": "2026-11-14",
       "avsender": {

@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 final class GrunndataTest extends TestCase
 {
     private const ARKIVDELER = ['SAK' => 'emne', 'EIENDOM' => 'eiendom', 'PERSONAL' => 'person', 'ELEV' => 'person', 'BARNEHAGE' => 'person', 'MOTE' => 'utvalg'];
-    private const KANALER = ['brev', 'epost', 'skjema', 'notat', 'saksframlegg', 'protokoll', 'innkalling', 'avtale', 'vedtak'];
+    private const KANALER = ['brev', 'epost', 'skjema', 'notat', 'saksframlegg', 'protokoll', 'innkalling', 'avtale', 'vedtak', 'digitaltskjema', 'svarinn'];
     private const I_DAG = '2026-11-20';
 
     public function testArkivdeleneHarHverSinOrdning(): void
@@ -441,5 +441,24 @@ final class GrunndataTest extends TestCase
             }
         }
         self::assertGreaterThan(50, $antall, 'Dokumentene viser til saksnumrene.');
+    }
+
+    public function testSensitiveDokumenterKommerIkkePaaEpost(): void
+    {
+        // Det som er taushetsbelagt (offl. § 13), søknader på stilling (§ 25) og vitnemål (§ 26), sendes ikke på
+        // e-post til kommunen: innbyggere, foresatte, ansatte og søkere bruker det digitale skjemaet.
+        $sensitive = ['13-1', '13-2', '13-3', '25', '25-3', '26-1', '26-5'];
+        foreach ((new Grunndata())->saker() as $sak) {
+            foreach ($sak['journalposter'] as $post) {
+                if ($post['type'] === 'I' && in_array($post['tilgangskode'], $sensitive, true)) {
+                    self::assertNotSame('epost', $post['dokument']['kanal'] ?? null, $sak['nokkel'] . ' ' . $post['tittel']);
+                }
+            }
+        }
+        foreach ((new Oppgavesett())->alle() as $oppgave) {
+            if (array_intersect($oppgave['fasit']['tilgangskode'], $sensitive) !== []) {
+                self::assertNotSame('epost', $oppgave['kanal'], $oppgave['id']);
+            }
+        }
     }
 }

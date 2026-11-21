@@ -21,6 +21,10 @@ final class DokumentfilerTest extends TestCase
         self::assertSame('tif', Dokumentfiler::produksjonsformat('brev', '2026-11-10'), 'Et brev på papir er skannet.');
         self::assertSame('tif', Dokumentfiler::produksjonsformat('skjema', '2026-11-10'));
         self::assertSame('pdf', Dokumentfiler::produksjonsformat('avtale', '2026-11-10'), 'Andre dokumenter utenfra er mottatt som PDF.');
+        // Sensitive henvendelser kommer ikke på e-post, men i kommunens digitale skjema eller gjennom SvarInn: begge gir en PDF.
+        self::assertSame('pdf', Dokumentfiler::produksjonsformat('digitaltskjema', '2026-11-10'));
+        self::assertSame('pdf', Dokumentfiler::produksjonsformat('svarinn', '2026-11-10'));
+        self::assertSame('pdf', Dokumentfiler::arkivformat('digitaltskjema'));
         self::assertSame('docx', Dokumentfiler::produksjonsformat('brev', null), 'Kommunens egne dokumenter er skrevet i tekstbehandler.');
         self::assertSame('docx', Dokumentfiler::produksjonsformat('saksframlegg', null));
     }

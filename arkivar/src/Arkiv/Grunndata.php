@@ -425,6 +425,16 @@ final class Grunndata
      */
     public function startdokument(string $referanse): ?array
     {
+        return $this->startpost($referanse)['dokument'] ?? null;
+    }
+
+    /**
+     * Journalposten som fulgte med arkivet, slik den står i grunndataene. Referansen er «<mappens nøkkel>#<nummer>».
+     *
+     * @return Startpost|null
+     */
+    public function startpost(string $referanse): ?array
+    {
         [$nokkel, $nr] = explode('#', $referanse, 2) + [1 => ''];
         foreach ($this->saker() as $sak) {
             if ($sak['nokkel'] !== $nokkel) {
@@ -432,7 +442,7 @@ final class Grunndata
             }
             foreach ($sak['journalposter'] as $post) {
                 if ((string) $post['nr'] === $nr) {
-                    return $post['dokument'];
+                    return $post;
                 }
             }
         }

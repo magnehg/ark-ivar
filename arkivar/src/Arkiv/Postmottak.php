@@ -38,6 +38,9 @@ final class Postmottak
     /** @var array<string, array<string, string>> saksnumrene per arkiv, hentet én gang per forespørsel */
     private array $saksnumre = [];
 
+    /** @var array<string, ?string> statusen på mappene journalpostene ligger i, hentet én gang per mappe */
+    private array $sakstatus = [];
+
     /**
      * Dokumentene i postmottaket med status for dette arkivet, eldste mottatt først.
      *
@@ -260,9 +263,10 @@ final class Postmottak
 
     /**
      * Vurderer dokumentene fra postmottaket i mappen på nytt, uten $unntatt. Om mappen er riktig for et dokument,
-     * avhenger av hva som ellers ligger i den, så vurderingen må følge med når et dokument kommer til eller tas ut.
+     * avhenger av hva som ellers ligger i den, så vurderingen må følge med når et dokument kommer til eller tas ut,
+     * og når en registrering rettes eller flyttes (Journalposter). Må kalles i en transaksjon med arkivet låst.
      */
-    private function revurder(string $arkivId, string $sakId, ?string $unntatt = null): void
+    public function revurder(string $arkivId, string $sakId, ?string $unntatt = null): void
     {
         $sak = $this->register->sak($arkivId, $sakId);
         if ($sak === null) {
@@ -357,6 +361,18 @@ final class Postmottak
         $ut['redigerbar'] = !$offentlig && $skrevet !== null && Felt::valgfriTekst($rad['dokumentstatus'] ?? null) === Kodelister::DOK_UNDER_REDIGERING;
         // Ferdig fra saksbehandleren, og venter på at arkivtjenesten journalfører det.
         $ut['til_journalforing'] = !$offentlig && Kontroll::gruppe($rad) !== null;
+        // Det som kan gjøres med journalposten i statusen den har nå. «neste» er det neste steget i saksgangen
+        // (hovedknappen), og «rediger_felt» sier om hele registreringen kan rettes eller bare tittelen og skjermingen.
+        if ($offentlig) {
+            $ut += ['handlinger' => [], 'neste' => null, 'rediger_felt' => null];
+        } else {
+            // Listene på tvers av mapper har statusen på mappen i raden. Ellers slås den opp, én gang per mappe.
+            $sakId = Felt::tekst($rad['sak_id']);
+            if (!array_key_exists('sak_status', $rad) && !array_key_exists($sakId, $this->sakstatus)) {
+                $this->sakstatus[$sakId] = Felt::valgfriTekst($this->register->sak($arkivId, $sakId)['status'] ?? null);
+            }
+            $ut += self::handlinger($rad, $ut, Felt::valgfriTekst($rad['sak_status'] ?? $this->sakstatus[$sakId] ?? null));
+        }
         $ut['dokumenter'] = [];
         if (!$offentlig && $skrevet !== null) {
             $ut['har_dokument'] = true;
@@ -374,6 +390,50 @@ final class Postmottak
         $ut['filer'] = $ut['dokumenter'][0]['filer'] ?? [];
 
         return $ut;
+    }
+
+    /**
+     * Handlingene journalposten tilbyr i statusen den har. Statusen på mappen avgjør om noe kan endres: i en
+     * avsluttet mappe er alt låst.
+     *
+     * @param array<string, mixed> $rad raden fra arkivar_journalpost
+     * @param array<string, mixed> $vist journalposten slik den sendes til nettleseren så langt
+     * @return array{handlinger: list<string>, neste: ?string, rediger_felt: ?string}
+     */
+    private static function handlinger(array $rad, array $vist, ?string $sakStatus): array
+    {
+        $apen = $sakStatus !== Kodelister::SAK_AVSLUTTET;
+        $handlinger = [];
+        $neste = null;
+        if ($vist['redigerbar'] === true) {
+            $handlinger = ['rediger_dokument', 'ferdigstill'];
+            $neste = 'ferdigstill';
+        }
+        if ($vist['til_journalforing'] === true && $apen) {
+            $handlinger[] = 'journalfor';
+            $neste = 'journalfor';
+        }
+        $felt = Journalposter::kanRettes($rad, $sakStatus);
+        if ($felt !== null) {
+            $handlinger[] = 'rediger';
+        }
+        if ($apen && Avskrivning::gjelder($rad)) {
+            if ($vist['avskrivning'] === null) {
+                array_push($handlinger, 'svar', 'avskriv');
+                // En restanse skal avskrives: det er neste steg for et journalført inngående dokument.
+                $neste ??= $vist['restanse'] === true ? 'avskriv' : null;
+            } elseif (is_array($vist['avskrivning']) && $vist['avskrivning']['mate'] !== Kodelister::AVSKR_SAK_AVSLUTTET) {
+                $handlinger[] = 'angre_avskrivning';
+            }
+        }
+        if (Journalposter::kanFlyttes($rad, $sakStatus)) {
+            $handlinger[] = 'flytt';
+        }
+        if ($vist['kan_slettes'] === true && $apen) {
+            $handlinger[] = 'slett';
+        }
+
+        return ['handlinger' => $handlinger, 'neste' => $neste, 'rediger_felt' => $felt];
     }
 
     /**

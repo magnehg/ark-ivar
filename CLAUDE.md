@@ -91,12 +91,57 @@ uttrekk eller avlevere.
   det saksbehandlerne har gjort ferdig, og som arkivtjenesten skal kontrollere. Til journalføring: inngående i
   status S eller M, interne (N, X, S) i F eller E, og utgående i E; et dokument studenten fortsatt skriver på
   (dokumentstatus B), er ikke med. Saksmapper: til kontroll (R, blir B) og til avslutning (S, blir A sammen med
-  dokumentene, og bare når alle er journalført). Sidemenyen har den utvidbare undermenyen «Kontrolloppgaver» med
+  dokumentene, og bare når sjekklisten er tom) og restansene. Sidemenyen har den utvidbare undermenyen «Kontrolloppgaver» med
   en teller per liste (`GET /api/arkiv/kontroll`); sidene kaller `useKontrolltall().oppdater()` når en oppgave er
   løst. Handlingene er `POST /api/arkiv/journalposter/{id}/journalfor` og
   `POST /api/arkiv/saker/{id}/kontroller` og `/avslutt`. Det som står til journalføring, har `journalfort = 0` og
   står ikke i journalen. `bygg.py` (utenfor repoet) lar de nyeste dokumentene og mappene i grunndataene stå i disse
   statusene, så arkivet har 6 + 6 + 8 dokumenter og 8 + 6 mapper til kontroll fra start (`ArkivTest`).
+- **Avskrivning og restanser** (`Avskrivning`, `Register`, migrering 005, `web/src/komponenter/Avskrivning.tsx`):
+  et inngående dokument avskrives (tabellen `arkivar_avskrivning`: måte, dato og journalposten som avskriver). Et
+  journalført inngående dokument (status J) uten avskrivning er en restanse, og `restanse_dager` regnes fra
+  journaldatoen i norsk tid. Avskrivningsmåtene (`Kodelister::AVSKRIVNINGSMATER`) er kodelisten i Noark 5
+  tjenestegrensesnitt versjon 1.1, kontrollert 21.11.2026 mot spesifikasjonen på GitHub
+  (arkivverket/noark5-tjenestegrensesnitt-standard, kapittel 7, «Avskrivningsmaate») og mot metadatakatalogen i
+  Noark 5 v5 (M619): BU, BE, TLF, TE, TO, BN og SA. Navn og forklaring står i språkfilene
+  (`arkivar.avskrivningsmate.<kode>` og `.bruk`, `KodelisterTest`). Uten svar kan bare TE, TO, TLF, BE og BN velges
+  (`POST /api/arkiv/journalposter/{id}/avskriv` med `mate` og `merknad`): BU settes av svaret og SA hører til
+  avslutningen av mappen, og de står grået ut i dialogen. «Svar» (`GET …/{id}/svar` gir forslaget, og dokumentet
+  opprettes på skriveflaten med `svar_paa`) kobler et utgående dokument til det inngående i samme mappe
+  (`arkivar_svar`); når svaret ferdigstilles (E), avskrives det inngående med BU. En mal med `avskriver: false`
+  (foreløpig svar) avskriver ikke. Slettes svaret, forsvinner koblingen og avskrivningen
+  (`Register::slettJournalpost`). Avskrivningen kan angres (`DELETE …/{id}/avskrivning`) så lenge mappen er åpen.
+  Tittelen på svaret («Svar på …») lages av serveren fra `svar.tittel` i `dokumentmaler.json`: den er
+  arkivinnhold, ikke en tekstnøkkel. Koblingene hentes én gang per forespørsel (`Register::koblinger()`), og den
+  offentlige journalen har dem ikke.
+- **Avskrivningene fra start** (`Ovingsarkiv::avskrivStartdokumenter()`): et inngående dokument med et senere
+  utgående i samme mappe er besvart med det (BU), inngående uten svar i avsluttede mapper har SA, og av de
+  journalførte uten svar i åpne mapper står de ti nyeste (`RESTANSER_FRA_START`) som restanser, mens de eldre er
+  tatt til etterretning (TE). `ArbeidsflytTest` og `ArkivTest` sjekker tallene. `Ovingsarkiv::FYLLING` økes når
+  påfyllingen endres uten at datafilene gjør det, så eldre arkiver blir «utdatert».
+- **Merknader** (`Merknader`, `arkivar_merknad`): en merknad hører til en mappe eller en journalpost og har tekst,
+  tidspunkt og hvem. Avskrivning uten svar lagrer merknaden på journalposten, og
+  `GET /api/arkiv/journalposter/{id}` gir `merknader`.
+- **Handlingene på en journalpost** (`Postmottak::handlinger()`, `web/src/komponenter/Journalposthandlinger.tsx`):
+  serveren sier hva som er lov i statusen (`handlinger`), hva som er neste steg (`neste`: ferdigstill, journalfor
+  eller avskriv) og hva som kan rettes (`rediger_felt`). `useJournalposthandlinger()` gir hovedknappen, menyen
+  (hamburgermeny i listene, «Mer» ved hovedknappen), dialogene og kvitteringen; et nytt menyvalg legges i `VALG`
+  der og i `Postmottak::handlinger()`. Det som ikke kan angres, bekreftes først (`Bekreft`). Journalføringen
+  setter status J (løpenummeret er tildelt fra før) og kan angres samme dag
+  (`POST …/{id}/angre-journalforing`, `Kontroll::forJournalforing()`). I en avsluttet mappe er alt låst.
+- **Retting og flytting** (`Journalposter`, `web/src/komponenter/RedigerJournalpost.tsx`): `PUT
+  /api/arkiv/journalposter/{id}` retter registreringen: alle feltene før journalføringen, bare tittelen og
+  skjermingen når statusen er J. `POST …/{id}/flytt` flytter journalposten til en annen åpen mappe: neste ledige
+  dokumentnummer der, samme løpenummer. Dokumentene som fulgte med, kan også flyttes (dokumentteksten viser
+  fortsatt til saken den er skrevet i), og avskrivningskoblingene følger journalpostene på tvers av mapper. Er
+  journalposten et dokument fra postmottaket, vurderes begge mappene på nytt (`Postmottak::revurder()`).
+- **Stegene for mappen og sjekklisten** (`Kontroll`, `web/src/komponenter/Mappehandlinger.tsx` og
+  `Sjekkliste.tsx`): R blir kontrollert (B), B sendes til avslutning (S, `POST …/saker/{id}/til-avslutning`), og
+  S avsluttes (A) eller sendes tilbake (`…/tilbake`). `GET …/saker/{id}/sjekkliste` gir det som mangler før
+  avslutning (`ikke_journalfort`, `restanse`, `under_redigering`), og `Kontroll::avslutt()` avviser til listen er
+  tom. Sjekklisten vises på mappen og i listen «Til avslutning», og avskrivning løses rett under punktet.
+- **Dokumentnummeret** står alene (1, 2, 3) i visningen av én mappe. Listene på tvers av mapper (journalen,
+  søket, kontrolloppgavene) har hele nummeret (2026/28-3).
 - **Kommunevåpenet** (`web/src/bilder/sirevag-kommunevapen.svg`, `Kommunevapen`) er oppdiktet: «I blått en gull bjelke som på
   midten er bøyd ned i en nesten sluttet ring (en våg)». Det er valgt blant tre forslag og sjekket mot virkelige
   kommunevåpen på Jæren og sørvestkysten (ikke uttømmende). Det er et bilde med sine egne heraldiske farger og
@@ -167,7 +212,9 @@ uttrekk eller avlevere.
 - **Migreringen `002_arkiv.sql`** er endret på stedet flere ganger før første utgivelse. Kjernen lagrer sjekksummen
   av hver kjørte fil og stopper på en endret fil, så en database installert fra en eldre commit må slettes og
   installeres på nytt. Fra første utgivelse fryses filen, og endringer kommer i en ny fil med neste ledige nummer.
-  `003_brukervalg.sql` og `004_dokument.sql` er nye og endres ikke.
+  `003_brukervalg.sql`, `004_dokument.sql` og `005_avskrivning.sql` er nye og endres ikke. Nye opplysninger om
+  en journalpost legges i egne tabeller (MySQL 8 har ikke `ADD COLUMN IF NOT EXISTS`), og `Ovingsarkiv::nullstill()`
+  må slette radene i dem.
 - **Utgaven av innholdet:** `arkivar_arkiv.innhold` er et fingeravtrykk av `sirevag.json` og `oppgaver.json` da
   arkivet ble fylt. Er filene byttet siden, gir `GET /api/arkiv` `utdatert`, og forsiden ber studenten nullstille:
   dokumentene leses fra filene og kan ha endret seg under mappene i arkivet. En behandling av et dokument som siden

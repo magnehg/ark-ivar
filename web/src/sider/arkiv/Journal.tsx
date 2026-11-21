@@ -5,6 +5,7 @@ import { Link as Ruterlenke } from 'react-router-dom';
 import { Switch, Text, makeStyles, tokens } from '@fluentui/react-components';
 import { Journalpost } from '../../arkiv';
 import { useDato, useT } from '../../i18n';
+import { Avskrivningsmerke } from '../../komponenter/Avskrivning';
 import { Dokumenttittel, Journalpostfiler, useLesevindu } from '../../komponenter/Dokumentfiler';
 import { Hentefeil, Kort, Laster, Sidehode, useHent } from '../../komponenter/Felles';
 import { Status } from '../../komponenter/Status';
@@ -29,6 +30,7 @@ export default function Journal() {
       <Text block lang="nb">{r.tittel}</Text>
       <span className={c.sak}>{t('arkivar.journal.sak')} <Ruterlenke to={`/arkiv/saker/${r.sak_id}`}>{r.saksnummer}-{r.postnr}</Ruterlenke> <span lang="nb">{r.sakstittel}</span></span>
       <span className={c.sak}>{t('arkivar.journal.klassering')} <span lang="nb">{r.klasse_tekst ?? ''}</span></span>
+      {!offentlig && r.restanse && <span className={c.sak}><Avskrivningsmerke post={r} /></span>}
     </Dokumenttittel>
   );
   // Hjemmelen for skjermingen står alltid i journalen. Er mappen skjermet (tittelen eller klasseringen) med en annen
@@ -39,7 +41,8 @@ export default function Journal() {
       {r.sak_hjemmel && r.sak_hjemmel !== r.hjemmel && <span className={c.sak}>{t('arkivar.journal.mappehjemmel')} <span lang="nb">{r.sak_hjemmel}</span></span>}
     </>
   );
-  const visninger = useJournalpostvisning({ tilgang });
+  // Avskrivningen står i arkivtjenestens journal, ikke i den offentlige.
+  const visninger = useJournalpostvisning({ tilgang, avskrivning: !offentlig });
   const kolonner: Kolonne<Journalpost>[] = [
     { id: 'lopenr', overskrift: t('arkivar.journal.lopenummer'), stil: { width: '90px' }, celle: (r) => r.lopenummer, sorter: (r) => sorterbart(r.lopenummer) },
     { id: 'jdato', overskrift: t('arkivar.journal.journaldato'), stil: { width: '110px' }, celle: (r) => dato(r.journaldato), sorter: (r) => r.journaldato },

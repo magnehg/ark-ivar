@@ -1,15 +1,15 @@
-// Én journalpost: opplysningene om registreringen og selve dokumentet som et ark.
-import { useState } from 'react';
+// Én journalpost: opplysningene om registreringen og selve dokumentet som et ark. I hodet står hovedknappen for det
+// neste steget i saksgangen (ferdigstill, journalfør, avskriv) og menyen «Mer» med resten av det som er lov i
+// statusen journalposten har.
 import { Link as Ruterlenke, useNavigate, useParams } from 'react-router-dom';
-import { Button, Text, makeStyles, tokens } from '@fluentui/react-components';
-import { Delete20Regular, DocumentEdit20Regular } from '@fluentui/react-icons';
-import { api } from '../../api';
-import { Dokument, Journalpost as Post, Sak, del } from '../../arkiv';
-import { useDato, useKode, useT } from '../../i18n';
+import { Text, makeStyles, tokens } from '@fluentui/react-components';
+import { Dokument, Journalpost as Post, Merknad, Sak, del } from '../../arkiv';
+import { useDato, useKode, useT, useTidspunkt } from '../../i18n';
 import { Ark } from '../../komponenter/Ark';
+import { Avskrivningsmerke, dokumentnummer, harAvskrivning } from '../../komponenter/Avskrivning';
 import { Dokumentliste } from '../../komponenter/Dokumentfiler';
-import { Feil, Kort, Laster, Ok, Sidehode, useFeiltekst, useHent } from '../../komponenter/Felles';
-import { useKontrolltall } from '../../komponenter/Kontrolloppgaver';
+import { Feil, Kort, Laster, Sidehode, useHent } from '../../komponenter/Felles';
+import { useJournalposthandlinger } from '../../komponenter/Journalposthandlinger';
 import { Status } from '../../komponenter/Status';
 
 const s = makeStyles({
@@ -19,30 +19,36 @@ const s = makeStyles({
   fakta: { display: 'grid', gridTemplateColumns: 'max-content 1fr', gap: '6px 16px', margin: 0, '& dt': { color: tokens.colorNeutralForeground2 }, '& dd': { margin: 0, minWidth: 0 } },
   dempet: { color: tokens.colorNeutralForeground2 },
   knapper: { display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center', marginTop: '16px' },
+  hode: { display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' },
+  neste: { display: 'block', color: tokens.colorNeutralForeground2, marginBottom: '12px' },
+  merknader: { listStyleType: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '8px' },
+  merknad: { borderLeft: `2px solid ${tokens.colorNeutralStroke2}`, paddingLeft: '10px' },
+  liten: { display: 'block', color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200 },
 });
 
 export default function Journalpost() {
-  const c = s(); const t = useT(); const dato = useDato(); const kode = useKode(); const feiltekst = useFeiltekst(); const naviger = useNavigate();
+  const c = s(); const t = useT(); const dato = useDato(); const kode = useKode(); const tidspunkt = useTidspunkt(); const naviger = useNavigate();
   const { id = '' } = useParams();
-  const hentet = useHent<{ journalpost: Post; sak: Sak; dokument: Dokument | null }>(`/api/arkiv/journalposter/${del(id)}`);
-  const [feil, settFeil] = useState<string | null>(null);
-  // Mens et kall går, er knappene utilgjengelige, så et dobbeltklikk ikke sender to.
-  const [opptatt, settOpptatt] = useState(false);
-  const [ferdigstilt, settFerdigstilt] = useState(false);
-  if (hentet.feil) return <Feil melding={hentet.feil} />;
+  const hentet = useHent<{ journalpost: Post; sak: Sak; dokument: Dokument | null; merknader: Merknad[] }>(`/api/arkiv/journalposter/${del(id)}`);
+  const mappe = hentet.data?.sak;
+  // Krokene må kalles før de tidlige returene under. Journalposten er ikke hentet ennå første gang.
+  const handlinger = useJournalposthandlinger({
+    etter: hentet.last, sak: mappe,
+    // Slettet: tilbake til mappen. Flyttet: journalposten har fått ny adresse i mappen den kom til.
+    etterSlett: () => naviger(mappe ? `/arkiv/saker/${mappe.id}` : '/arkiv/saker'),
+    etterFlytt: (ny) => naviger(`/arkiv/saker/${ny.sak_id}/journalposter/${ny.id}`, { replace: true }),
+  });
+  if (hentet.feil && !hentet.data) return <Feil melding={hentet.feil} />;
   if (!hentet.data) return <Laster />;
-  const { journalpost: p, sak, dokument } = hentet.data;
-  const ferdigstill = () => utfor(`/api/arkiv/journalposter/${del(id)}/ferdigstill`, () => settFerdigstilt(true));
-  const kontroll = useKontrolltall();
-  const utfor = (sti: string, etter: () => void) => {
-    settFeil(null); settOpptatt(true);
-    api.post(sti).then(() => { etter(); hentet.last(); kontroll.oppdater(); }).catch((e: unknown) => settFeil(feiltekst(e))).finally(() => settOpptatt(false));
-  };
-  const journalfor = () => utfor(`/api/arkiv/journalposter/${del(id)}/journalfor`, () => undefined);
-  const slett = () => { settFeil(null); api.slett(`/api/arkiv/journalposter/${del(id)}`).then(() => naviger(`/arkiv/saker/${sak.id}`)).catch((e: unknown) => settFeil(feiltekst(e))); };
+  const { journalpost: p, sak, dokument, merknader } = hentet.data;
   return (
     <>
-      <Sidehode tittel={p.tittel} tittelSprak="nb" ingress={t('arkivar.journalpost.ingress', { nummer: `${sak.saksnummer}-${p.postnr}` })} />
+      <Sidehode tittel={p.tittel} tittelSprak="nb" ingress={t('arkivar.journalpost.ingress', { nummer: dokumentnummer(sak.saksnummer, p.postnr) })}
+        handlinger={<div className={c.hode}>{handlinger.hovedknapp(p)}{handlinger.meny(p, true)}</div>} />
+      {/* Hva hovedknappen gjør: det neste steget i statusen journalposten har nå. */}
+      {p.neste && <Text className={c.neste}>{t(`arkivar.neste.${p.neste}`, { status: kode('jpstatus', p.status) })}</Text>}
+      {hentet.feil && <Feil melding={hentet.feil} />}
+      {handlinger.flater}
       <div className={c.ramme}><div className={c.to}>
         {dokument ? <Ark dok={dokument} /> : <Kort><Text className={c.dempet}>{t(p.kan_slettes ? 'arkivar.journalpost.egen' : 'arkivar.journalpost.uten_dokument')}</Text></Kort>}
         <Kort tittel={t('arkivar.journalpost.opplysninger')} id="jp-opplysninger">
@@ -52,10 +58,11 @@ export default function Journalpost() {
             <dt>{t('arkivar.sak.primaer')}</dt><dd><span lang="nb">{sak.klasse_tekst}</span>{sak.skjerm_klasse && <> <Status slag="skjermet">{t('arkivar.sak.skjermet_klasse')}</Status></>}</dd>
             <dt>{t('arkivar.journalpost.type')}</dt><dd>{p.type} – {t(`arkivar.jptype.${p.type.toLowerCase()}`)}</dd>
             <dt>{t('arkivar.journalpost.status')}</dt><dd>{p.journalfort || p.status !== 'A' ? kode('jpstatus', p.status) : `${p.status} – ${t('arkivar.jpstatus.uten')}`}</dd>
+            {harAvskrivning(p) && <><dt>{t('arkivar.avskrivning.kolonne')}</dt><dd><Avskrivningsmerke post={p} sakId={sak.id} /></dd></>}
             <dt>{t('arkivar.journalpost.part')}</dt><dd><span lang="nb">{p.part_navn}</span>{p.skjerm_part && <> <Status slag="skjermet">{t('arkivar.journalpost.skjermet')}</Status></>}</dd>
             <dt>{t('arkivar.journalpost.dokumentdato')}</dt><dd>{dato(p.dokumentdato)}</dd>
             <dt>{t('arkivar.journal.journaldato')}</dt><dd>{dato(p.journaldato)}</dd>
-            <dt>{t('arkivar.journal.lopenummer')}</dt><dd>{p.lopenummer}</dd>
+            <dt>{t('arkivar.journal.lopenummer')}</dt><dd>{p.lopenummer}{!p.journalfort && p.status !== 'A' && <span className={c.liten}>{t('arkivar.journalpost.ikke_journalfort')}</span>}</dd>
             <dt>{t('arkivar.sak.ansvarlig')}</dt><dd lang="nb">{p.saksbehandler_navn} ({p.enhet})</dd>
             <dt>{t('arkivar.journalpost.tilgang')}</dt><dd>{p.tilgangskode ? <Status slag="skjermet"><span lang="nb">{p.hjemmel}</span></Status> : t('arkivar.tilgang.offentlig')}</dd>
             {p.skjerm_tittel && <><dt>{t('arkivar.journalpost.offentlig_tittel')}</dt><dd lang="nb">{p.offentlig_tittel}</dd></>}
@@ -63,18 +70,23 @@ export default function Journalpost() {
             {p.dokumentstatus && <><dt>{t('arkivar.journalpost.dokumentstatus')}</dt><dd>{kode('dokstatus', p.dokumentstatus)}</dd></>}
             {p.variantformat && <><dt>{t('arkivar.journalpost.variantformat')}</dt><dd>{kode('variantformat', p.variantformat)}</dd></>}
             {p.dokumenter.length > 0 && <><dt>{t('arkivar.dokumenter.tittel')}</dt><dd><Dokumentliste post={p} /></dd></>}
+            {merknader.length > 0 && (
+              <>
+                <dt>{t('arkivar.merknader.tittel')}</dt>
+                <dd>
+                  <ul className={c.merknader}>
+                    {merknader.map((m) => (
+                      <li key={m.id} className={c.merknad}>
+                        <span lang="nb">{m.tekst}</span>
+                        <span className={c.liten}><span lang="nb">{m.av}</span>{m.av && ', '}{tidspunkt(m.tidspunkt)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </dd>
+              </>
+            )}
           </dl>
-          {feil && <Feil melding={feil} />}
-          {/* Bekreftelsen leses opp: knappene forsvinner når dokumentet er ferdigstilt. */}
-          {ferdigstilt && !p.redigerbar && <Ok melding={t('arkivar.skriv.ferdigstilt')} />}
-          <div className={c.knapper}>
-            {/* Et dokument studenten har skrevet, kan endres og ferdigstilles til det er ferdigstilt. */}
-            {p.redigerbar && <Button appearance="primary" icon={<DocumentEdit20Regular />} disabled={opptatt} onClick={() => naviger(`/arkiv/saker/${sak.id}/journalposter/${p.id}/rediger`)}>{t('arkivar.journalpost.rediger')}</Button>}
-            {p.til_journalforing && <Button appearance="primary" disabled={opptatt} onClick={journalfor}>{t('arkivar.kontroll.journalfor')}</Button>}
-            {p.redigerbar && <Button disabled={opptatt} onClick={ferdigstill}>{t('arkivar.skriv.ferdigstill')}</Button>}
-            {p.oppgave && <Ruterlenke to={`/arkiv/postmottak/${p.oppgave}`}>{t('arkivar.journalpost.vurdering')}</Ruterlenke>}
-            {p.kan_slettes && <Button icon={<Delete20Regular />} onClick={slett}>{t('arkivar.journalpost.slett')}</Button>}
-          </div>
+          {p.oppgave && <div className={c.knapper}><Ruterlenke to={`/arkiv/postmottak/${p.oppgave}`}>{t('arkivar.journalpost.vurdering')}</Ruterlenke></div>}
         </Kort>
       </div></div>
     </>

@@ -21,3 +21,7 @@ arkivar.struktur.statuskoder.
 arkivar.filformat.
 arkivar.visning.
 arkivar.kontroll.
+arkivar.avskrivningsmate.
+arkivar.avskriv.merk.
+arkivar.neste.
+arkivar.statushjelp.utgaende.

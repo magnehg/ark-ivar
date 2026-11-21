@@ -1,13 +1,18 @@
 // Skriveflaten: studenten skriver et dokument i en mappe fra en dokumentmal (utgående brev, foreløpig svar, internt
 // notat, møtereferat eller et inngående brev på blankt ark). Arket til venstre er dokumentet, skjemaet til høyre er
 // registreringen. Dokumentet kan lagres flere ganger og som nye versjoner til det ferdigstilles.
+//
+// Med «?svar=<journalpost>» i adressen er dokumentet et svar på et inngående dokument i mappen: malene for utgående
+// dokumenter står som valg, mottakeren og tittelen er fylt ut, og det inngående avskrives når svaret er ekspedert
+// (ikke av et foreløpig svar).
 import { FormEvent, useEffect, useState } from 'react';
-import { Link as Ruterlenke, useNavigate, useParams } from 'react-router-dom';
-import { Button, Caption1, Checkbox, Field, Input, MessageBar, MessageBarBody, Select, Text, Textarea, makeStyles, tokens } from '@fluentui/react-components';
+import { Link as Ruterlenke, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { Button, Caption1, Checkbox, Field, Input, MessageBar, MessageBarBody, Radio, RadioGroup, Select, Text, Textarea, makeStyles, tokens } from '@fluentui/react-components';
 import { api } from '../../api';
 import { Dokument, Dokumentmal, Journalpost, Sak, Struktur, del, useStruktur } from '../../arkiv';
 import { useKode, useSprak, useT } from '../../i18n';
-import { Feil, Hentefeil, Kort, Laster, Sidehode, useFeiltekst, useHent, useOkt } from '../../komponenter/Felles';
+import { Avskrivningsmate, Henvisningslenke, dokumentnummer } from '../../komponenter/Avskrivning';
+import { Feil, Hentefeil, Hjelp, Kort, Laster, Sidehode, useFeiltekst, useHent, useOkt } from '../../komponenter/Felles';
 import { Kommunevapen } from '../../komponenter/Kommunevapen';
 
 const s = makeStyles({
@@ -26,7 +31,16 @@ const s = makeStyles({
   mappe: { background: tokens.colorNeutralBackground2, borderRadius: tokens.borderRadiusMedium, padding: '10px 12px' },
   dempet: { color: tokens.colorNeutralForeground2 },
   knapper: { display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' },
+  svar: { marginBottom: '16px' },
+  malvalg: { display: 'flex', flexDirection: 'column' },
+  malhjelp: { display: 'block', color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200, fontWeight: tokens.fontWeightRegular },
+  statuser: { margin: 0, display: 'grid', gridTemplateColumns: 'max-content 1fr', gap: '6px 10px', '& dt': { fontWeight: tokens.fontWeightSemibold }, '& dd': { margin: 0 } },
 });
+
+/** Forslaget til et svar på et inngående dokument: det som besvares, mappen, og tittelen og mottakeren til svaret. */
+type Svarforslag = { journalpost: Journalpost; sak: Sak; forslag: { tittel: string; mottaker: string } };
+/** Statusene et utgående dokument går gjennom, i rekkefølgen de kommer. Forklaringene står i språkfilene. */
+const UTGAENDE_STATUSER = ['R', 'F', 'E', 'J', 'A'];
 
 type Verdier = {
   mal: string; type: string; tittel: string; dokumentdato: string; part: string; tilgangskode: string; skjermTittel: boolean; offentlig: string; skjermPart: boolean;
@@ -57,7 +71,12 @@ export default function Skriv() {
   const c = s(); const t = useT(); const kode = useKode(); const { sprak } = useSprak(); const feiltekst = useFeiltekst(); const naviger = useNavigate(); const { oppsett } = useOkt();
   // Nytt dokument i en mappe (id), eller et dokument som er under arbeid (sakId og journalpost).
   const { id = '', sakId = '', journalpost = '' } = useParams();
+  const [sok] = useSearchParams();
   const mappeId = journalpost ? sakId : id;
+  // Et nytt dokument kan være et svar på et inngående dokument i mappen.
+  const svarId = journalpost ? '' : sok.get('svar') ?? '';
+  const svar = useHent<Svarforslag>(svarId ? `/api/arkiv/journalposter/${del(svarId)}/svar` : null);
+  const [svarFylt, settSvarFylt] = useState(false);
   const strukturdata = useStruktur();
   const lagret = useHent<{ journalpost: Journalpost; sak: Sak; dokument: Dokument | null }>(journalpost ? `/api/arkiv/journalposter/${del(journalpost)}` : null);
   // Et nytt dokument hører til mappen i adressen. Et dokument under arbeid hører til mappen journalposten ligger i.
@@ -83,11 +102,26 @@ export default function Skriv() {
     });
     settEgenTittel(true);
   }, [hentet]);
+  // Et svar fylles inn én gang, når forslaget, mappen og malene er hentet: den første malen for utgående brev,
+  // mottakeren fra avsenderen, og tittelen «Svar på …».
+  const svarforslag = svar.data; const maler = strukturdata.data; const svarmappe = nySak.data?.sak;
+  useEffect(() => {
+    if (svarFylt || !svarforslag || !maler || !svarmappe) return;
+    const forste = maler.dokumentmaler.find((m) => m.typer.includes('U'));
+    if (!forste) return;
+    const fylt = fraMal(forste, svarmappe, maler);
+    const f = svarforslag.forslag;
+    settForslag({ emne: f.tittel, tekst: fylt.tekst ?? '' });
+    sett((forrige) => ({ ...forrige, mal: forste.kode, type: 'U', emne: f.tittel, tekst: fylt.tekst ?? '', tittel: f.tittel, mottaker: f.mottaker, part: f.mottaker, dokumentdato: new Date().toLocaleDateString('sv-SE') }));
+    settEgenTittel(true);
+    settSvarFylt(true);
+  }, [svarFylt, svarforslag, maler, svarmappe]);
   if (sak.feil && !sak.data) return <Feil melding={sak.feil} />;
   if (lagret.feil && !lagret.data) return <Feil melding={lagret.feil} />;
+  if (svar.feil && !svar.data) return <Feil melding={svar.feil} />;
   if (strukturdata.feil) return <Hentefeil melding={strukturdata.feil} last={strukturdata.last} />;
   const struktur = strukturdata.data;
-  if (!struktur || !sak.data || (journalpost && !lagret.data)) return <Laster />;
+  if (!struktur || !sak.data || (journalpost && !lagret.data) || (svarId && !svar.data)) return <Laster />;
   const mappe = sak.data.sak;
   const mal = struktur.dokumentmaler.find((m) => m.kode === v.mal);
   if (journalpost && lagret.data && !lagret.data.journalpost.redigerbar) return <Feil melding={t('arkivar.skriv.ikke_redigerbar')} />;
@@ -95,6 +129,8 @@ export default function Skriv() {
     const valgt = struktur.dokumentmaler.find((m) => m.kode === kode);
     if (!valgt) { endre({ mal: '' }); return; }
     const fylt = fraMal(valgt, mappe, struktur);
+    // I et svar er emnet «Svar på …», også når malen byttes.
+    if (svar.data) fylt.emne = svar.data.forslag.tittel;
     // Det studenten har skrevet selv, byttes aldri ut: forslaget fylles bare inn i et felt som er tomt eller fortsatt
     // har forslaget fra forrige mal.
     const urort = (verdi: string, forrige: string) => verdi.trim() === '' || verdi === forrige;
@@ -108,7 +144,7 @@ export default function Skriv() {
   const kropp = (nyVersjon: boolean) => ({
     mal: v.mal, type: v.type, tittel: v.tittel, offentlig_tittel: v.offentlig, dokumentdato: v.dokumentdato, part_navn: v.part, tilgangskode: v.tilgangskode,
     skjerm_tittel: v.skjermTittel, skjerm_part: v.skjermPart, emne: v.emne, mottaker: v.mottaker, tekst: tilAvsnitt(v.tekst), vedlegg: linjer(v.vedlegg),
-    avsender: { navn: v.avsenderNavn, adresse: v.avsenderAdresse, epost: v.avsenderEpost }, ny_versjon: nyVersjon,
+    avsender: { navn: v.avsenderNavn, adresse: v.avsenderAdresse, epost: v.avsenderEpost }, ny_versjon: nyVersjon, svar_paa: svarId,
   });
   // Lagrer dokumentet (nytt, eller endringer i et som er under arbeid) og ferdigstiller det når det er bedt om.
   const lagre = (nyVersjon: boolean, ferdigstill: boolean) => {
@@ -124,9 +160,28 @@ export default function Skriv() {
   const send = (e: FormEvent) => { e.preventDefault(); lagre(false, false); };
   // Statusen saksbehandleren setter når dokumentet er ferdig. Arkivtjenesten journalfører det etterpå.
   const ferdig = v.type === 'U' ? 'E' : v.type === 'I' ? 'M' : 'F';
+  // Dokumentet som besvares: fra adressen (nytt svar), eller fra journalposten (et svar under arbeid).
+  const besvares = svar.data ? { ...svar.data.journalpost, saksnummer: svar.data.sak.saksnummer } : null;
+  const besvarer = lagret.data?.journalpost.svar_paa ?? [];
+  const erSvar = besvares !== null || besvarer.length > 0;
+  // I et svar står malene for utgående dokumenter som valg. Ellers velges malen i en liste.
+  const svarmaler = struktur.dokumentmaler.filter((m) => m.typer.includes('U'));
   return (
     <>
-      <Sidehode tittel={t(journalpost ? 'arkivar.skriv.tittel.endre' : 'arkivar.skriv.tittel')} ingress={t('arkivar.skriv.ingress')} />
+      <Sidehode tittel={t(journalpost ? 'arkivar.skriv.tittel.endre' : erSvar ? 'arkivar.svar.tittel' : 'arkivar.skriv.tittel')} ingress={t('arkivar.skriv.ingress')} />
+      {erSvar && (
+        <MessageBar className={c.svar} intent="info" layout="multiline">
+          <MessageBarBody>
+            {t('arkivar.svar.paa')}{' '}
+            {besvares
+              ? <><Ruterlenke to={`/arkiv/saker/${mappe.id}/journalposter/${besvares.id}`}>{dokumentnummer(besvares.saksnummer, besvares.postnr)}</Ruterlenke> <span lang="nb">«{besvares.tittel}»</span>.</>
+              : <>{besvarer.map((b, i) => <span key={b.id}>{i > 0 && ', '}<Henvisningslenke til={b} /></span>)}.</>}
+            <br />
+            {/* Et foreløpig svar avskriver ikke: restansen står til det endelige svaret er sendt. */}
+            {mal && !mal.avskriver ? t('arkivar.svar.avskriver_ikke') : <>{t('arkivar.svar.avskriver.for')} <Avskrivningsmate kode="BU" /> {t('arkivar.svar.avskriver.etter')}</>}
+          </MessageBarBody>
+        </MessageBar>
+      )}
       <form onSubmit={send} noValidate className={c.ramme}>
         <div className={c.to}>
           <div className={c.ark} lang="nb">
@@ -163,13 +218,21 @@ export default function Skriv() {
           <Kort tittel={t('arkivar.registrering.tittel')} id="skriv-skjema">
             <div className={c.skjema}>
               <div className={c.mappe}><Text weight="semibold" lang="nb"><Ruterlenke to={`/arkiv/saker/${mappe.id}`}>{mappe.saksnummer} {mappe.tittel}</Ruterlenke></Text></div>
-              <Field label={t('arkivar.skriv.mal')} required hint={mal ? <span lang="nb">{mal.beskrivelse}</span> : undefined}>
-                {/* Malen kan ikke byttes når dokumentet er opprettet: teksten er da studentens egen. */}
-                <Select value={v.mal} disabled={journalpost !== ''} onChange={(_, d) => velgMal(d.value)}>
-                  <option value="">{t('arkivar.registrering.velg')}</option>
-                  {struktur.dokumentmaler.map((m) => <option key={m.kode} value={m.kode} lang="nb">{m.navn}</option>)}
-                </Select>
-              </Field>
+              {besvares ? (
+                <Field label={t('arkivar.skriv.mal')} required>
+                  <RadioGroup value={v.mal} onChange={(_, d) => velgMal(d.value)} className={c.malvalg}>
+                    {svarmaler.map((m) => <Radio key={m.kode} value={m.kode} label={<span lang="nb">{m.navn}<span className={c.malhjelp}>{m.beskrivelse}</span></span>} />)}
+                  </RadioGroup>
+                </Field>
+              ) : (
+                <Field label={t('arkivar.skriv.mal')} required hint={mal ? <span lang="nb">{mal.beskrivelse}</span> : undefined}>
+                  {/* Malen kan ikke byttes når dokumentet er opprettet: teksten er da studentens egen. */}
+                  <Select value={v.mal} disabled={journalpost !== ''} onChange={(_, d) => velgMal(d.value)}>
+                    <option value="">{t('arkivar.registrering.velg')}</option>
+                    {struktur.dokumentmaler.map((m) => <option key={m.kode} value={m.kode} lang="nb">{m.navn}</option>)}
+                  </Select>
+                </Field>
+              )}
               {mal && beholdt && <MessageBar intent="info" role="status"><MessageBarBody>{t('arkivar.skriv.mal.beholdt')}</MessageBarBody></MessageBar>}
               {mal && (
                 <>
@@ -194,7 +257,18 @@ export default function Skriv() {
                   <Checkbox checked={v.skjermTittel} onChange={(_, d) => endre({ skjermTittel: d.checked === true })} label={t('arkivar.registrering.skjerm_tittel')} />
                   {v.skjermTittel && <Field label={t('arkivar.journalpost.offentlig_tittel')} hint={t('arkivar.registrering.offentlig.hjelp')}><Input value={v.offentlig} onChange={(_, d) => endre({ offentlig: d.value })} /></Field>}
                   <Checkbox checked={v.skjermPart} onChange={(_, d) => endre({ skjermPart: d.checked === true })} label={t('arkivar.registrering.skjerm_part')} />
-                  <Caption1 className={c.dempet}>{t('arkivar.skriv.status', { under: kode('jpstatus', v.type === 'I' ? 'M' : 'R'), ferdig: kode('jpstatus', ferdig) })}</Caption1>
+                  <Caption1 className={c.dempet}>
+                    {t('arkivar.skriv.status', { under: kode('jpstatus', v.type === 'I' ? 'M' : 'R'), ferdig: kode('jpstatus', ferdig) })}
+                    {/* Statuskodene et utgående dokument går gjennom, bak et hjelpeikon. */}
+                    {v.type === 'U' && (
+                      <Hjelp navn={t('arkivar.statushjelp.utgaende.tittel')}>
+                        <Text weight="semibold" block>{t('arkivar.statushjelp.utgaende.tittel')}</Text>
+                        <dl className={c.statuser}>
+                          {UTGAENDE_STATUSER.map((k) => <div key={k} style={{ display: 'contents' }}><dt>{k}</dt><dd>{t(`arkivar.statushjelp.utgaende.${k.toLowerCase()}`)}</dd></div>)}
+                        </dl>
+                      </Hjelp>
+                    )}
+                  </Caption1>
                   {feil && <Feil melding={feil} />}
                   <div className={c.knapper}>
                     <Button appearance="primary" type="submit" disabled={opptatt}>{t('arkivar.skriv.lagre')}</Button>

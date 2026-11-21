@@ -7,8 +7,8 @@ namespace ArkIvar\Arkiv;
 /**
  * Kodelistene Ark-Ivar bruker, med kodene fra Noark 5. Navnene til visning og forklaringen av når hver kode brukes,
  * står i språkfilene (arkivar.jptype.<kode>, arkivar.saksstatus.<kode>, arkivar.jpstatus.<kode>,
- * arkivar.dokstatus.<kode>, arkivar.variantformat.<kode> og arkivar.handling.<kode>; forklaringen har «.bruk» etter
- * koden). Statuskodene er hele kodelisten fra standarden, også kodene Ark-Ivar ikke setter selv: studentene skal
+ * arkivar.dokstatus.<kode>, arkivar.variantformat.<kode>, arkivar.avskrivningsmate.<kode> og arkivar.handling.<kode>;
+ * forklaringen har «.bruk» etter koden). Statuskodene er hele kodelisten fra standarden, også kodene Ark-Ivar ikke setter selv: studentene skal
  * kjenne dem igjen fra et sak- og arkivsystem. Siden Arkivstruktur viser listene.
  */
 final class Kodelister
@@ -68,6 +68,28 @@ final class Kodelister
     {
         return in_array($journalstatus, self::MED_ARKIVFORMAT, true) ? self::VARIANT_ARKIV : self::VARIANT_PRODUKSJON;
     }
+
+    /**
+     * Avskrivningsmåte (på et inngående dokument), fra kodelisten i Noark 5 tjenestegrensesnitt: besvart med brev,
+     * besvart med e-post, besvart på telefon, tatt til etterretning, tatt til orientering, besvart med notat og
+     * saken ble avsluttet.
+     */
+    public const AVSKR_BREV = 'BU';
+    public const AVSKR_EPOST = 'BE';
+    public const AVSKR_TELEFON = 'TLF';
+    public const AVSKR_ETTERRETNING = 'TE';
+    public const AVSKR_ORIENTERING = 'TO';
+    public const AVSKR_NOTAT = 'BN';
+    public const AVSKR_SAK_AVSLUTTET = 'SA';
+    public const AVSKRIVNINGSMATER = [
+        self::AVSKR_BREV, self::AVSKR_EPOST, self::AVSKR_TELEFON, self::AVSKR_ETTERRETNING, self::AVSKR_ORIENTERING, self::AVSKR_NOTAT, self::AVSKR_SAK_AVSLUTTET,
+    ];
+
+    /**
+     * Avskrivningsmåtene arkivtjenesten kan velge selv når et dokument avskrives uten svar. BU settes når svaret er
+     * ekspedert, og SA når saksmappen avsluttes.
+     */
+    public const AVSKRIVNING_UTEN_SVAR = [self::AVSKR_ETTERRETNING, self::AVSKR_ORIENTERING, self::AVSKR_TELEFON, self::AVSKR_EPOST, self::AVSKR_NOTAT];
 
     /** Det arkivtjenesten kan gjøre med et dokument i postmottaket. */
     public const JOURNALFOR = 'journalfor';

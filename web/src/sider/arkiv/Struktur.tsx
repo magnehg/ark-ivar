@@ -66,6 +66,7 @@ export default function Struktur() {
     { liste: 'jpstatus', koder: struktur.journalstatuser },
     { liste: 'dokstatus', koder: struktur.dokumentstatuser },
     { liste: 'variantformat', koder: struktur.variantformater },
+    { liste: 'avskrivningsmate', koder: struktur.avskrivningsmater },
   ];
   // Innholdet i tabellene kommer fra arkivet og er norsk; overskriftene og tekstene rundt er oversatt.
   return (

@@ -19,6 +19,8 @@ saksgangen, i hvert sitt øvingsarkiv. Systemet lager ikke uttrekk og avleverer 
 | Mapper med dokumenter som kan åpnes og leses (134 mapper med 259 dokumenter fra start) | På plass |
 | Dokumentfiler i produksjonsformat og arkivformat (PDF eller tekst), utvidbare rader og lesevindu til høyre | På plass |
 | Kontrolloppgaver med tellere: dokumenter til journalføring og saksmapper til kontroll og avslutning | På plass |
+| Avskrivning og restanser: svar på et inngående dokument, avskrivning uten svar (Noark 5), merknader og restanseliste | På plass |
+| Meny og hovedknapp på journalposten (rediger, svar, avskriv, flytt), stegene for mappen og sjekkliste før avslutning | På plass |
 | Skriveflate med dokumentmaler: utgående brev, foreløpig svar, internt notat, møtereferat og blankt ark for inngående brev | På plass |
 | Arbeidsgangen: søk etter mappen, opprett den fra en saksmal hvis den ikke finnes, registrer journalposter i mappen | På plass |
 | Postmottaket: 24 eksempeldokumenter som vurderes, registreres og journalføres, med skjerming | På plass |

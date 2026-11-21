@@ -18,6 +18,8 @@ use Psr\Clock\ClockInterface;
  * Arkivet husker hvilken utgave av mappene og oppgavene det ble fylt med (innhold). Er datafilene byttet siden
  * (en ny versjon av Ark-Ivar), er arkivet utdatert: dokumentene leses fra filene, så de kan ha endret seg under
  * mappene i arkivet. Studenten får da beskjed om å nullstille.
+ *
+ * @phpstan-import-type Startsak from Grunndata
  */
 final class Ovingsarkiv
 {
@@ -30,10 +32,22 @@ final class Ovingsarkiv
     ) {
     }
 
-    /** Utgaven av innholdet: mappene som følger med, og oppgavene i postmottaket. */
+    /**
+     * Utgaven av påfyllingen: økes når fyll() legger inn noe nytt fra de samme datafilene (2: avskrivningene), så
+     * arkiver som er fylt på den gamle måten, regnes som utdaterte.
+     */
+    private const FYLLING = '2';
+
+    /**
+     * Så mange av de nyeste inngående dokumentene uten svar i åpne mapper står som restanser i et nytt arkiv. De
+     * eldre er tatt til etterretning.
+     */
+    public const RESTANSER_FRA_START = 10;
+
+    /** Utgaven av innholdet: mappene som følger med, oppgavene i postmottaket, og måten arkivet fylles på. */
     private function utgave(): string
     {
-        return substr(hash('sha256', $this->grunndata->utgave() . $this->oppgaver->utgave()), 0, 32);
+        return substr(hash('sha256', $this->grunndata->utgave() . $this->oppgaver->utgave() . self::FYLLING), 0, 32);
     }
 
     /** ID-en til brukerens arkiv. Lager og fyller arkivet når brukeren ikke har noe. */
@@ -93,7 +107,7 @@ final class Ovingsarkiv
                 if ($this->db->verdi('SELECT 1 FROM arkivar_arkiv WHERE id = ?', [$arkivId]) === null) {
                     throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
                 }
-                foreach (['arkivar_oppgavestatus', 'arkivar_dokument', 'arkivar_journalpost', 'arkivar_sak'] as $tabell) {
+                foreach (['arkivar_oppgavestatus', 'arkivar_dokument', 'arkivar_avskrivning', 'arkivar_svar', 'arkivar_merknad', 'arkivar_journalpost', 'arkivar_sak'] as $tabell) {
                     $this->db->utfor("DELETE FROM $tabell WHERE arkiv_id = ?", [$arkivId]);
                 }
                 $this->db->utfor('UPDATE arkivar_arkiv SET sak_sekvens = 0, journal_sekvens = 0, nullstilt = ? WHERE id = ?', [Db::tid($this->klokke->now()), $arkivId]);
@@ -107,6 +121,7 @@ final class Ovingsarkiv
     /**
      * Legger inn mappene og journalpostene som følger med arkivet. Mappene får saksnummer etter saksdatoen, og
      * journalpostene løpenummer etter journaldatoen på tvers av mappene, slik de ville fått i et arkiv i bruk.
+     * De inngående dokumentene avskrives slik de ville vært i et arkiv i bruk (avskrivStartdokumenter).
      */
     private function fyll(string $arkivId): void
     {
@@ -135,8 +150,9 @@ final class Ovingsarkiv
         }
         usort($poster, static fn (array $a, array $b): int => [$a['post']['journaldato'], $a['sak']['saksdato'], $a['sak']['nokkel'], $a['post']['nr']]
             <=> [$b['post']['journaldato'], $b['sak']['saksdato'], $b['sak']['nokkel'], $b['post']['nr']]);
+        $ider = [];
         foreach ($poster as ['sak' => $sak, 'sak_id' => $sakId, 'post' => $post]) {
-            $this->register->opprettJournalpost($arkivId, $sakId, [
+            $ider[$sak['nokkel']][$post['nr']] = $this->register->opprettJournalpost($arkivId, $sakId, [
                 'type' => $post['type'],
                 'status' => $post['status'],
                 'tittel' => $post['tittel'],
@@ -152,6 +168,55 @@ final class Ovingsarkiv
                 'journalfort' => $post['journalfort'],
                 'startdokument' => $post['dokument'] !== null ? $sak['nokkel'] . '#' . $post['nr'] : null,
             ]);
+        }
+        $this->avskrivStartdokumenter($arkivId, $saker, $ider);
+    }
+
+    /**
+     * Avskriver de inngående dokumentene som fulgte med, så arkivet ser ut som et arkiv i bruk og ikke har alt som
+     * restanser:
+     * - Et inngående dokument med et senere utgående dokument i samme mappe (ekspedert eller journalført) er besvart
+     *   med det første av dem (BU), på datoen svaret ble sendt.
+     * - Inngående dokumenter uten svar i en avsluttet mappe er avskrevet da saken ble avsluttet (SA), på datoen til
+     *   det siste dokumentet i mappen.
+     * - Av de journalførte inngående dokumentene uten svar i åpne mapper står de nyeste (RESTANSER_FRA_START) som
+     *   restanser, og de eldre er tatt til etterretning (TE) den dagen de ble journalført.
+     * Inngående dokumenter som står til journalføring uten svar, er ikke avskrevet. Valget følger datoene i
+     * grunndataene, så alle arkiver får de samme restansene.
+     *
+     * @param list<Startsak> $saker
+     * @param array<string, array<int, string>> $ider ID-ene til journalpostene, etter mappens nøkkel og nummeret i mappen
+     */
+    private function avskrivStartdokumenter(string $arkivId, array $saker, array $ider): void
+    {
+        $utenSvar = [];
+        foreach ($saker as $sak) {
+            $sisteDato = max([$sak['saksdato'], ...array_column($sak['journalposter'], 'journaldato')]);
+            foreach ($sak['journalposter'] as $post) {
+                if ($post['type'] !== 'I') {
+                    continue;
+                }
+                $id = $ider[$sak['nokkel']][$post['nr']];
+                $svar = null;
+                foreach ($sak['journalposter'] as $senere) {
+                    if ($senere['nr'] > $post['nr'] && $senere['type'] === 'U' && in_array($senere['status'], Kodelister::MED_ARKIVFORMAT, true)) {
+                        $svar = $senere;
+                        break;
+                    }
+                }
+                if ($svar !== null) {
+                    $this->register->avskriv($arkivId, $id, Kodelister::AVSKR_BREV, max($svar['journaldato'], $post['journaldato']), $ider[$sak['nokkel']][$svar['nr']]);
+                } elseif ($sak['status'] === Kodelister::SAK_AVSLUTTET) {
+                    $this->register->avskriv($arkivId, $id, Kodelister::AVSKR_SAK_AVSLUTTET, $sisteDato);
+                } elseif ($post['status'] === Kodelister::JP_JOURNALFORT && $post['journalfort']) {
+                    $utenSvar[] = ['dato' => $post['journaldato'], 'nokkel' => $sak['nokkel'], 'nr' => $post['nr'], 'id' => $id];
+                }
+            }
+        }
+        // Nyeste først. De første står som restanser, resten er tatt til etterretning.
+        usort($utenSvar, static fn (array $a, array $b): int => [$b['dato'], $b['nokkel'], $b['nr']] <=> [$a['dato'], $a['nokkel'], $a['nr']]);
+        foreach (array_slice($utenSvar, self::RESTANSER_FRA_START) as $post) {
+            $this->register->avskriv($arkivId, $post['id'], Kodelister::AVSKR_ETTERRETNING, $post['dato']);
         }
     }
 

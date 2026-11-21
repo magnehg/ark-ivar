@@ -7,9 +7,9 @@ import { ChevronDown16Regular, ChevronRight16Regular, ClipboardTaskListLtr20Regu
 import { useT } from '../i18n';
 import { useHent } from './Felles';
 
-export type Kontrolltall = { journalforing: { inngaende: number; interne: number; utgaende: number }; saker: { kontroll: number; avslutning: number } };
+export type Kontrolltall = { journalforing: { inngaende: number; interne: number; utgaende: number }; saker: { kontroll: number; avslutning: number }; restanser: number };
 /** Listene med kontrolloppgaver, i den rekkefølgen de står i menyen. Navnet er også siste ledd i adressen. */
-export const KONTROLLISTER = ['inngaende', 'interne', 'utgaende', 'saker-kontroll', 'saker-avslutning'] as const;
+export const KONTROLLISTER = ['inngaende', 'interne', 'utgaende', 'restanser', 'saker-kontroll', 'saker-avslutning'] as const;
 export type Kontrolliste = typeof KONTROLLISTER[number];
 
 type Verdi = { tall: Kontrolltall | null; oppdater: () => void };
@@ -21,6 +21,7 @@ export function antallI(tall: Kontrolltall | null, liste: Kontrolliste): number 
   if (!tall) return 0;
   if (liste === 'saker-kontroll') return tall.saker.kontroll;
   if (liste === 'saker-avslutning') return tall.saker.avslutning;
+  if (liste === 'restanser') return tall.restanser;
   return tall.journalforing[liste];
 }
 
@@ -61,6 +62,7 @@ function Teller({ antall }: { antall: number }) {
 
 const GRUPPER: { tittel: string; lister: Kontrolliste[] }[] = [
   { tittel: 'arkivar.kontroll.journalforing', lister: ['inngaende', 'interne', 'utgaende'] },
+  { tittel: 'arkivar.kontroll.oppfolging', lister: ['restanser'] },
   { tittel: 'arkivar.kontroll.saksmapper', lister: ['saker-kontroll', 'saker-avslutning'] },
 ];
 

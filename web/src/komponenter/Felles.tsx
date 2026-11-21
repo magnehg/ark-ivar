@@ -1,6 +1,10 @@
 // Felles komponenter og økten. Status vises alltid med ikon og tekst, aldri bare med farge.
 import { Component, ReactNode, createContext, useContext, useEffect, useState } from 'react';
-import { Body1, Button, MessageBar, MessageBarBody, Spinner, Title2, makeStyles, tokens } from '@fluentui/react-components';
+import {
+  Body1, Button, Dialog, DialogActions, DialogBody, DialogContent, DialogSurface, DialogTitle, MessageBar, MessageBarBody, Popover, PopoverSurface, PopoverTrigger, Spinner, Title2,
+  makeStyles, tokens,
+} from '@fluentui/react-components';
+import { QuestionCircle16Regular } from '@fluentui/react-icons';
 import { ApiFeil, Innlogget, Oppsett, api } from '../api';
 import { useT } from '../i18n';
 
@@ -29,6 +33,10 @@ const s = makeStyles({
   kort: { background: tokens.colorNeutralBackground1, borderRadius: tokens.borderRadiusLarge, boxShadow: tokens.shadow4, padding: '16px', minWidth: 0, marginBottom: '16px' },
   korthode: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '12px', flexWrap: 'wrap' },
   korttittel: { margin: 0, fontSize: tokens.fontSizeBase400, fontWeight: tokens.fontWeightSemibold },
+  hjelp: { maxWidth: '44ch' },
+  hjelpknapp: { minWidth: '24px', verticalAlign: 'middle' },
+  dialog: { maxWidth: 'min(760px, calc(100vw - 32px))' },
+  dialoginnhold: { display: 'flex', flexDirection: 'column', gap: '8px', '& p': { margin: 0 } },
 });
 
 /**
@@ -60,6 +68,60 @@ export function Kort({ tittel, handlinger, children, id }: { tittel?: ReactNode;
 export function Laster() { const t = useT(); return <Spinner label={t('arkivar.felles.laster')} />; }
 export function Feil({ melding }: { melding: string }) { return <MessageBar intent="error" role="alert"><MessageBarBody>{melding}</MessageBarBody></MessageBar>; }
 export function Ok({ melding }: { melding: string }) { return <MessageBar intent="success" role="status"><MessageBarBody>{melding}</MessageBarBody></MessageBar>; }
+
+/**
+ * Et hjelpeikon (spørsmålstegn) som viser en forklaring når det trykkes. navn sier hva forklaringen gjelder, og leses
+ * opp som navnet på knappen.
+ */
+export function Hjelp({ navn, children }: { navn: string; children: ReactNode }) {
+  const c = s();
+  return (
+    <Popover withArrow>
+      <PopoverTrigger disableButtonEnhancement>
+        <Button className={c.hjelpknapp} appearance="subtle" size="small" icon={<QuestionCircle16Regular />} aria-label={navn} title={navn} />
+      </PopoverTrigger>
+      <PopoverSurface className={c.hjelp} aria-label={navn}>{children}</PopoverSurface>
+    </Popover>
+  );
+}
+
+type Dialogegenskaper = {
+  tittel: ReactNode; children: ReactNode; lukk: () => void;
+  /** Knappene nederst. Uten har innholdet sine egne (et skjema med Lagre og Avbryt). */
+  knapper?: ReactNode;
+};
+
+/** En dialog over siden. Den lukkes med Escape og med knappene, og fokus går tilbake til det som åpnet den. */
+export function Dialogvindu({ tittel, children, lukk, knapper }: Dialogegenskaper) {
+  const c = s();
+  return (
+    <Dialog open onOpenChange={(_, d) => { if (!d.open) lukk(); }}>
+      <DialogSurface className={c.dialog}>
+        <DialogBody>
+          <DialogTitle>{tittel}</DialogTitle>
+          <DialogContent className={c.dialoginnhold}>{children}</DialogContent>
+          {knapper && <DialogActions>{knapper}</DialogActions>}
+        </DialogBody>
+      </DialogSurface>
+    </Dialog>
+  );
+}
+
+type Bekreftelse = { tittel: ReactNode; children: ReactNode; bekreft: () => void; bekreftTekst: string; avbryt: () => void; opptatt?: boolean; feil?: string | null };
+
+/** Bekreftelsen før noe som ikke kan angres: hva som skjer, og knappene som gjør det eller avbryter. */
+export function Bekreft({ tittel, children, bekreft, bekreftTekst, avbryt, opptatt, feil }: Bekreftelse) {
+  const t = useT();
+  return (
+    <Dialogvindu tittel={tittel} lukk={avbryt} knapper={<>
+      <Button appearance="primary" disabled={opptatt} onClick={bekreft}>{bekreftTekst}</Button>
+      <Button disabled={opptatt} onClick={avbryt}>{t('arkivar.felles.avbryt')}</Button>
+    </>}>
+      {children}
+      {feil && <Feil melding={feil} />}
+    </Dialogvindu>
+  );
+}
 
 /** En feil ved henting, med en knapp som prøver på nytt. */
 export function Hentefeil({ melding, last }: { melding: string; last: () => void }) {

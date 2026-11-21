@@ -79,6 +79,23 @@
 - Kontrolloppgaver: en utvidbar undermeny med tellere for dokumenter til journalføring (inngående, interne og
   utgående) og saksmapper til kontroll og til avslutning. Oppgavene løses fra listene, fra journalposten eller fra
   mappen. Et dokument studenten ferdigstiller, står til journalføring.
+- Arbeidsflyten etter registreringen:
+  - Hver journalpost har en meny (Rediger, Svar, Avskriv, Flytt og det som ellers er lov i statusen), og én
+    hovedknapp for det neste steget i saksgangen. Det som ikke kan angres, bekreftes først, og etterpå kommer en
+    kvittering med «Angre» der det går an. Journalføringen kan angres samme dag.
+  - Avskrivning og restanser: «Svar» lager et utgående dokument i samme mappe med valg av dokumentmal, mottaker og
+    tittel fylt ut. Når svaret er ekspedert, avskrives det inngående med BU, og de to viser til hverandre. Et
+    foreløpig svar avskriver ikke. «Avskriv» uten svar har avskrivningsmåtene fra Noark 5 og en merknad.
+    Inngående dokumenter uten avskrivning merkes «Restanse, N dager», og «Restanser» er en ny liste under
+    Kontrolloppgaver. Arkivet har ti restanser fra start; de andre inngående dokumentene er avskrevet.
+  - «Flytt» flytter en journalpost til en annen åpen mappe: nytt dokumentnummer, samme løpenummer.
+  - Registreringen kan rettes: alt før journalføringen, bare tittelen og skjermingen etterpå.
+  - Mappene går R → B → S → A: «Kontroller», «Send til avslutning», «Avslutt mappen» og «Send tilbake til
+    behandling». Sjekklisten før avslutning viser hva som mangler (ikke journalført, restanser, under redigering),
+    med en knapp som løser hvert punkt, og serveren stopper avslutningen til listen er tom.
+  - I en mappe står dokumentnummeret alene (1, 2, 3); hele nummeret står i listene på tvers av mapper.
+  - Merknader på journalposter (tabellen `arkivar_merknad`, som også kan ha merknader på mapper).
+  - Arkiver fylt før denne endringen regnes som utdaterte og må nullstilles (avskrivningene legges inn ved påfyllingen).
 - Sensitive henvendelser (taushetsbelagte opplysninger, søknader på stilling og vitnemål) står ikke lenger som
   e-post: de er kommet i kommunens digitale skjema. SvarInn er lagt til som kanal.
 - Skriveflate: studenten skriver egne dokumenter i en mappe fra en dokumentmal (utgående brev, foreløpig svar etter

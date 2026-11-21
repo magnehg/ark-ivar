@@ -18,8 +18,15 @@ use Psr\Clock\ClockInterface;
  * kontrolloppgave ennå.
  *
  * Journalføringen setter journalposten til J med dagens dato som journaldato, og dokumentet får arkivformat.
- * Kontrollen av en mappe setter den til B (under behandling). Avslutningen setter mappen til A og dokumentene til
- * A (arkivert), og kan bare gjøres når alle dokumentene i mappen er journalført.
+ * Løpenummeret er tildelt da journalposten ble opprettet, og endres ikke. Journalføringen kan angres samme dag.
+ * Kontrollen av en mappe setter den til B (under behandling). Fra B sendes mappen til avslutning (S), og fra S kan
+ * den sendes tilbake til behandling. Avslutningen setter mappen til A og dokumentene til A (arkivert), og kan bare
+ * gjøres når sjekklisten er tom: alle dokumentene er journalført, ingen inngående dokumenter står uten avskrivning
+ * (restanser), og ingen dokumenter er under redigering.
+ *
+ * Restansene (journalførte inngående dokumenter uten avskrivning) er også en liste under kontrolloppgavene.
+ *
+ * @phpstan-type Mangel array{slag: string, journalpost: array<string, mixed>}
  */
 final class Kontroll
 {
@@ -34,7 +41,12 @@ final class Kontroll
         self::UTGAENDE => [['U'], [Kodelister::JP_EKSPEDERT]],
     ];
 
-    public function __construct(private readonly Db $db, private readonly ClockInterface $klokke, private readonly Register $register)
+    /** Det som kan mangle før en mappe kan avsluttes. */
+    public const IKKE_JOURNALFORT = 'ikke_journalfort';
+    public const RESTANSE = 'restanse';
+    public const UNDER_REDIGERING = 'under_redigering';
+
+    public function __construct(private readonly Db $db, private readonly ClockInterface $klokke, private readonly Register $register, private readonly Grunndata $grunndata)
     {
     }
 
@@ -45,9 +57,10 @@ final class Kontroll
     }
 
     /**
-     * Antall kontrolloppgaver: dokumenter til journalføring per gruppe, og mapper til kontroll og til avslutning.
+     * Antall kontrolloppgaver: dokumenter til journalføring per gruppe, mapper til kontroll og til avslutning, og
+     * restansene.
      *
-     * @return array{journalforing: array<string, int>, saker: array{kontroll: int, avslutning: int}}
+     * @return array{journalforing: array<string, int>, saker: array{kontroll: int, avslutning: int}, restanser: int}
      */
     public function tall(string $arkivId): array
     {
@@ -61,7 +74,11 @@ final class Kontroll
             $saker[Felt::tekst($rad['status'])] = Felt::tall($rad['antall']);
         }
 
-        return ['journalforing' => $journalforing, 'saker' => ['kontroll' => $saker[Kodelister::SAK_OPPRETTET], 'avslutning' => $saker[Kodelister::SAK_FERDIG]]];
+        return [
+            'journalforing' => $journalforing,
+            'saker' => ['kontroll' => $saker[Kodelister::SAK_OPPRETTET], 'avslutning' => $saker[Kodelister::SAK_FERDIG]],
+            'restanser' => $this->register->antallRestanser($arkivId),
+        ];
     }
 
     /**
@@ -74,9 +91,7 @@ final class Kontroll
         [$vilkar, $verdier] = self::vilkar($gruppe);
 
         return $this->db->alle(
-            "SELECT j.*, s.saksaar, s.sekvens AS sakssekvens, s.tittel AS sakstittel, s.skjerm_tittel AS sak_skjermet, s.offentlig_tittel AS sak_offentlig_tittel,
-                    s.arkivdel AS sak_arkivdel, s.klasse AS sak_klasse, s.skjerm_klasse AS sak_skjerm_klasse, s.tilgangskode AS sak_tilgangskode
-               FROM arkivar_journalpost j JOIN arkivar_sak s ON s.id = j.sak_id
+            'SELECT ' . Register::MED_SAK . " FROM arkivar_journalpost j JOIN arkivar_sak s ON s.id = j.sak_id
               WHERE j.arkiv_id = ? AND $vilkar ORDER BY j.dokumentdato, j.sekvens",
             [$arkivId, ...$verdier],
         );
@@ -92,26 +107,130 @@ final class Kontroll
             if (self::gruppe($post) === null) {
                 throw new HttpFeil(409, 'ikke_til_journalforing', 'arkivar.feil.ikke_til_journalforing');
             }
+            $this->krevApenMappe($arkivId, $post);
             $this->register->settJournalstatus($arkivId, $journalpostId, Kodelister::JP_JOURNALFORT, true, $idag);
         });
+    }
+
+    /**
+     * Statusen journalposten hadde før arkivtjenesten journalførte den, og journaldatoen den hadde da. Null når
+     * journalføringen ikke kan angres: bare samme dag, og bare for et dokument som sto til journalføring (ikke et
+     * dokument fra postmottaket eller en registrering uten dokument, som ble journalført da de ble registrert).
+     *
+     * @param array<string, mixed> $post raden fra arkivar_journalpost
+     * @return array{status: string, journaldato: string}|null
+     */
+    public function forJournalforing(array $post): ?array
+    {
+        $idag = Dato::idag($this->klokke);
+        if (Felt::tekst($post['status']) !== Kodelister::JP_JOURNALFORT || Felt::tekst($post['journaldato']) !== $idag || $post['oppgave_id'] !== null) {
+            return null;
+        }
+        $startdokument = Felt::valgfriTekst($post['startdokument']);
+        if ($startdokument !== null) {
+            // Et dokument som fulgte med arkivet: statusen og journaldatoen står i grunndataene.
+            $start = $this->grunndata->startpost($startdokument);
+
+            return $start !== null && self::gruppe($start) !== null ? ['status' => $start['status'], 'journaldato' => $start['journaldato']] : null;
+        }
+        if ($this->db->verdi('SELECT 1 FROM arkivar_dokument WHERE journalpost_id = ? LIMIT 1', [Felt::tekst($post['id'])]) === null) {
+            return null;
+        }
+        // Et dokument studenten har skrevet: statusen saksbehandleren satte da dokumentet ble ferdigstilt.
+        $status = match (Felt::tekst($post['type'])) {
+            'U' => Kodelister::JP_EKSPEDERT,
+            'I' => Kodelister::JP_MIDLERTIDIG,
+            default => Kodelister::JP_FERDIG,
+        };
+
+        return ['status' => $status, 'journaldato' => $idag];
+    }
+
+    /** Angrer journalføringen: journalposten står igjen til journalføring og er ute av journalen. */
+    public function angreJournalforing(string $arkivId, string $journalpostId): void
+    {
+        $this->db->transaksjon(function () use ($arkivId, $journalpostId): void {
+            $this->register->laas($arkivId);
+            $post = $this->register->journalpost($arkivId, $journalpostId) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
+            $for = $this->forJournalforing($post) ?? throw new HttpFeil(409, 'kan_ikke_angres', 'arkivar.feil.journalforing_kan_ikke_angres');
+            $this->krevApenMappe($arkivId, $post);
+            $this->register->settJournalstatus($arkivId, $journalpostId, $for['status'], false, $for['journaldato']);
+        });
+    }
+
+    /**
+     * Ingenting endres i en avsluttet mappe.
+     *
+     * @param array<string, mixed> $post raden fra arkivar_journalpost
+     */
+    private function krevApenMappe(string $arkivId, array $post): void
+    {
+        $sak = $this->register->sak($arkivId, Felt::tekst($post['sak_id']));
+        if ($sak === null || Felt::tekst($sak['status']) === Kodelister::SAK_AVSLUTTET) {
+            throw new HttpFeil(409, 'mappe_avsluttet', 'arkivar.feil.mappe_laast');
+        }
+    }
+
+    /** Setter mappen fra en status til en annen. Står den ikke i $fra, avvises det med feilkoden og teksten. */
+    private function settMappestatus(string $arkivId, string $sakId, string $fra, string $til, string $feil, string $tekst): void
+    {
+        $this->db->transaksjon(function () use ($arkivId, $sakId, $fra, $til, $feil, $tekst): void {
+            $this->register->laas($arkivId);
+            $sak = $this->register->sak($arkivId, $sakId) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
+            if (Felt::tekst($sak['status']) !== $fra) {
+                throw new HttpFeil(409, $feil, $tekst);
+            }
+            $this->register->settSaksstatus($arkivId, $sakId, $til);
+        });
+    }
+
+    /** Saksbehandlingen er ferdig: mappen sendes til avslutning (S), der arkivtjenesten kontrollerer og avslutter den. */
+    public function sendTilAvslutning(string $arkivId, string $sakId): void
+    {
+        $this->settMappestatus($arkivId, $sakId, Kodelister::SAK_UNDER_BEHANDLING, Kodelister::SAK_FERDIG, 'ikke_under_behandling', 'arkivar.feil.ikke_under_behandling');
+    }
+
+    /** Mappen var ikke ferdig likevel: den sendes tilbake til behandling (B). */
+    public function sendTilbake(string $arkivId, string $sakId): void
+    {
+        $this->settMappestatus($arkivId, $sakId, Kodelister::SAK_FERDIG, Kodelister::SAK_UNDER_BEHANDLING, 'ikke_til_avslutning', 'arkivar.feil.ikke_til_avslutning');
+    }
+
+    /**
+     * Sjekklisten før en mappe avsluttes: dokumentene som ikke er journalført, restansene (inngående uten
+     * avskrivning) og dokumentene som fortsatt er under redigering, i den rekkefølgen dokumentene står i mappen.
+     * Mappen kan avsluttes når listen er tom.
+     *
+     * @return array{mangler: list<Mangel>, dokumenter: int}
+     */
+    public function sjekkliste(string $arkivId, string $sakId): array
+    {
+        $sak = $this->register->sak($arkivId, $sakId) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
+        $poster = $this->register->journalposter($arkivId, $sakId);
+        $mangler = [];
+        foreach ($poster as $post) {
+            $post['sak_status'] = $sak['status'];
+            if (Felt::valgfriTekst($post['dokumentstatus']) === Kodelister::DOK_UNDER_REDIGERING) {
+                $mangler[] = ['slag' => self::UNDER_REDIGERING, 'journalpost' => $post];
+            } elseif (!in_array(Felt::tekst($post['status']), [Kodelister::JP_JOURNALFORT, Kodelister::JP_ARKIVERT], true)) {
+                $mangler[] = ['slag' => self::IKKE_JOURNALFORT, 'journalpost' => $post];
+            } elseif (Register::kanVaereRestanse($post) && $this->register->avskrivning($arkivId, Felt::tekst($post['id'])) === null) {
+                $mangler[] = ['slag' => self::RESTANSE, 'journalpost' => $post];
+            }
+        }
+
+        return ['mangler' => $mangler, 'dokumenter' => count($poster)];
     }
 
     /** Arkivtjenesten har kontrollert en mappe saksbehandleren har opprettet: den er under behandling. */
     public function kontroller(string $arkivId, string $sakId): void
     {
-        $this->db->transaksjon(function () use ($arkivId, $sakId): void {
-            $this->register->laas($arkivId);
-            $sak = $this->register->sak($arkivId, $sakId) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
-            if (Felt::tekst($sak['status']) !== Kodelister::SAK_OPPRETTET) {
-                throw new HttpFeil(409, 'ikke_til_kontroll', 'arkivar.feil.ikke_til_kontroll');
-            }
-            $this->register->settSaksstatus($arkivId, $sakId, Kodelister::SAK_UNDER_BEHANDLING);
-        });
+        $this->settMappestatus($arkivId, $sakId, Kodelister::SAK_OPPRETTET, Kodelister::SAK_UNDER_BEHANDLING, 'ikke_til_kontroll', 'arkivar.feil.ikke_til_kontroll');
     }
 
     /**
-     * Avslutter en mappe saksbehandleren har avsluttet. Alle dokumentene må være journalført først; de blir
-     * arkivert sammen med mappen.
+     * Avslutter en mappe saksbehandleren har avsluttet. Sjekklisten må være tom først (alt journalført, ingen
+     * restanser og ingenting under redigering); dokumentene blir arkivert sammen med mappen.
      */
     public function avslutt(string $arkivId, string $sakId): void
     {
@@ -121,10 +240,8 @@ final class Kontroll
             if (Felt::tekst($sak['status']) !== Kodelister::SAK_FERDIG) {
                 throw new HttpFeil(409, 'ikke_til_avslutning', 'arkivar.feil.ikke_til_avslutning');
             }
-            foreach ($this->register->journalposter($arkivId, $sakId) as $post) {
-                if (!in_array(Felt::tekst($post['status']), [Kodelister::JP_JOURNALFORT, Kodelister::JP_ARKIVERT], true)) {
-                    throw new HttpFeil(409, 'mappe_har_restanser', 'arkivar.feil.mappe_har_restanser');
-                }
+            if ($this->sjekkliste($arkivId, $sakId)['mangler'] !== []) {
+                throw new HttpFeil(409, 'mappe_har_restanser', 'arkivar.feil.mappe_har_restanser');
             }
             $this->register->arkiverJournalposter($arkivId, $sakId);
             $this->register->settSaksstatus($arkivId, $sakId, Kodelister::SAK_AVSLUTTET);

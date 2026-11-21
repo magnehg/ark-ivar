@@ -1,4 +1,6 @@
-// Mappene i arkivet med søk, og én mappe med journalpostene. Fra mappen registreres nye journalposter.
+// Mappene i arkivet med søk, og én mappe med journalpostene. Fra mappen registreres nye journalposter, hver
+// journalpost har en meny med handlingene (Rediger, Svar, Avskriv, Flytt …), og mappen har én hovedknapp for det
+// neste steget i saksgangen. En mappe som står til avslutning, viser sjekklisten med det som mangler.
 import { useState } from 'react';
 import { Link as Ruterlenke, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Button, Field, MessageBar, MessageBarBody, Select, Text, makeStyles, tokens } from '@fluentui/react-components';
@@ -7,9 +9,12 @@ import { api } from '../../api';
 import { Behandling, Journalpost, Sak, del, flytSok, lesFlyt, useStruktur } from '../../arkiv';
 import { useDato, useKode, useT } from '../../i18n';
 import { Feil, Kort, Laster, Sidehode, useFeiltekst, useHent } from '../../komponenter/Felles';
+import { Avskrivningsmerke } from '../../komponenter/Avskrivning';
 import { Dokumenttittel, Journalpostfiler, Mappefiler } from '../../komponenter/Dokumentfiler';
-import { useKontrolltall } from '../../komponenter/Kontrolloppgaver';
+import { useJournalposthandlinger } from '../../komponenter/Journalposthandlinger';
+import { useMappehandlinger } from '../../komponenter/Mappehandlinger';
 import { Mappesok } from '../../komponenter/Mappesok';
+import { Sjekkliste } from '../../komponenter/Sjekkliste';
 import { Status } from '../../komponenter/Status';
 import { Filtermeny, Oversikt, Teller } from '../../komponenter/Oversikt';
 import { Kolonne } from '../../komponenter/Tabell';
@@ -20,6 +25,8 @@ const s = makeStyles({
   dempet: { color: tokens.colorNeutralForeground2 },
   venter: { marginBottom: '16px' },
   knapper: { display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' },
+  under: { display: 'block', color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200, fontWeight: tokens.fontWeightRegular, marginTop: '2px' },
+  skjult: { position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clipPath: 'inset(50%)', whiteSpace: 'nowrap' },
 });
 
 export function Saker() {
@@ -75,30 +82,37 @@ export function EnSak() {
   const aktivFlyt = flyt && venter.data?.behandlet !== true ? flyt : null;
   const struktur = useStruktur();
   const [feil, settFeil] = useState<string | null>(null);
-  const [opptatt, settOpptatt] = useState(false);
-  const kontroll = useKontrolltall();
+  const handlinger = useJournalposthandlinger({ etter: sak.last, sak: sak.data?.sak });
+  const mappe = useMappehandlinger({ etter: sak.last });
   // I mappen står det korte navnet på tilgangskoden. Hele hjemmelen står på journalposten og i journalen.
   const tilgangsnavn = (kode: string) => struktur.data?.tilgangskoder.find((k) => k.kode === kode)?.navn ?? kode;
   const tilgang = (r: Journalpost) => (r.tilgangskode ? <Status slag="skjermet"><span lang="nb">{tilgangsnavn(r.tilgangskode)}</span></Status> : t('arkivar.tilgang.offentlig'));
   // Krokene må kalles før de tidlige returene under. Mappen er ikke hentet ennå første gang.
-  const postvisninger = useJournalpostvisning({ sak: sak.data?.sak, tilgang });
+  const postvisninger = useJournalpostvisning({ sak: sak.data?.sak, tilgang, handling: handlinger.begge });
   if (sak.feil) return <Feil melding={sak.feil} />;
   if (!sak.data) return <Laster />;
   const d = sak.data.sak;
   const avsluttet = d.status === 'A';
-  const kontrollhandling = (handling: 'kontroller' | 'avslutt') => {
-    settFeil(null); settOpptatt(true);
-    api.post(`/api/arkiv/saker/${del(id)}/${handling}`).then(() => { sak.last(); kontroll.oppdater(); }).catch((e: unknown) => settFeil(feiltekst(e))).finally(() => settOpptatt(false));
-  };
   const slett = () => { settFeil(null); api.slett(`/api/arkiv/saker/${del(id)}`).then(() => naviger('/arkiv/saker')).catch((e: unknown) => settFeil(feiltekst(e))); };
   const kolonner: Kolonne<Journalpost>[] = [
-    { id: 'nr', overskrift: t('arkivar.journalpost.nr'), stil: { width: '70px' }, celle: (r) => r.postnr, sorter: (r) => r.postnr },
-    { id: 'type', overskrift: t('arkivar.journalpost.type'), stil: { width: '70px' }, celle: (r) => (<abbr title={t(`arkivar.jptype.${r.type.toLowerCase()}`)}>{r.type}</abbr>), sorter: (r) => r.type },
-    { id: 'tittel', overskrift: t('arkivar.journalpost.tittel'), sprak: 'nb', celle: (r) => <Dokumenttittel filer={r.filer}><Ruterlenke to={`/arkiv/saker/${d.id}/journalposter/${r.id}`}>{r.tittel}</Ruterlenke></Dokumenttittel>, sorter: (r) => r.tittel },
-    { id: 'part', overskrift: t('arkivar.journalpost.part'), stil: { width: '15%' }, sprak: 'nb', celle: (r) => r.part_navn, sorter: (r) => r.part_navn },
-    { id: 'dato', overskrift: t('arkivar.journalpost.dokumentdato'), stil: { width: '110px' }, celle: (r) => dato(r.dokumentdato), sorter: (r) => r.dokumentdato },
-    { id: 'status', overskrift: t('arkivar.journalpost.status'), stil: { width: '150px' }, celle: (r) => (r.journalfort || r.status !== 'A' ? kode('jpstatus', r.status) : `${r.status} – ${t('arkivar.jpstatus.uten')}`), sorter: (r) => r.status },
-    { id: 'tilgang', overskrift: t('arkivar.journalpost.tilgang'), stil: { width: '18%' }, celle: tilgang, sorter: (r) => r.tilgangskode ?? '' },
+    // Inne i mappen står dokumentnummeret alene. Hele nummeret (2026/28-3) står i listene på tvers av mapper.
+    { id: 'nr', overskrift: t('arkivar.journalpost.nr'), stil: { width: '64px' }, celle: (r) => r.postnr, sorter: (r) => r.postnr },
+    { id: 'type', overskrift: t('arkivar.journalpost.type'), stil: { width: '56px' }, celle: (r) => (<abbr title={t(`arkivar.jptype.${r.type.toLowerCase()}`)}>{r.type}</abbr>), sorter: (r) => r.type },
+    // Avsenderen eller mottakeren står under tittelen, så kolonnene til høyre får plass til avskrivningen og menyen.
+    {
+      id: 'tittel', overskrift: t('arkivar.journalpost.tittel'), sorter: (r) => r.tittel,
+      celle: (r) => (
+        <Dokumenttittel filer={r.filer}>
+          <Ruterlenke to={`/arkiv/saker/${d.id}/journalposter/${r.id}`} lang="nb">{r.tittel}</Ruterlenke>
+          {r.part_navn && <span className={c.under}>{t(r.type === 'U' ? 'arkivar.part.til' : 'arkivar.part.fra')} <span lang="nb">{r.part_navn}</span></span>}
+        </Dokumenttittel>
+      ),
+    },
+    { id: 'dato', overskrift: t('arkivar.journalpost.dokumentdato'), stil: { width: '104px' }, celle: (r) => dato(r.dokumentdato), sorter: (r) => r.dokumentdato },
+    { id: 'status', overskrift: t('arkivar.journalpost.status'), stil: { width: '140px' }, celle: (r) => (r.journalfort || r.status !== 'A' ? kode('jpstatus', r.status) : `${r.status} – ${t('arkivar.jpstatus.uten')}`), sorter: (r) => r.status },
+    { id: 'avskrivning', overskrift: t('arkivar.avskrivning.kolonne'), stil: { width: '180px' }, celle: (r) => <Avskrivningsmerke post={r} sakId={d.id} />, sorter: (r) => (r.restanse ? `0${String(100000 - (r.restanse_dager ?? 0)).padStart(6, '0')}` : r.avskrivning?.mate ?? '') },
+    { id: 'tilgang', overskrift: t('arkivar.journalpost.tilgang'), stil: { width: '14%' }, celle: tilgang, sorter: (r) => r.tilgangskode ?? '' },
+    { id: 'meny', overskrift: <span className={c.skjult}>{t('arkivar.kontroll.handling')}</span>, stil: { width: '48px' }, celle: (r) => handlinger.meny(r) },
   ];
   const nyJournalpost = (
     <div className={c.knapper}>
@@ -109,8 +123,10 @@ export function EnSak() {
 
   return (
     <>
-      <Sidehode tittel={`${d.saksnummer} ${d.tittel}`} tittelSprak="nb" />
+      <Sidehode tittel={`${d.saksnummer} ${d.tittel}`} tittelSprak="nb" handlinger={mappe.hovedknapp(d)} />
       {feil && <Feil melding={feil} />}
+      {mappe.flater}
+      {handlinger.flater}
       {venter.data && !venter.data.behandlet && flyt && (
         <MessageBar className={c.venter} intent="info">
           <MessageBarBody>
@@ -130,6 +146,12 @@ export function EnSak() {
           {d.tilgangskode && <><dt>{t('arkivar.sak.hjemmel')}</dt><dd lang="nb"><Status slag="skjermet">{d.hjemmel}</Status></dd></>}
         </dl>
       </Kort>
+      {/* En mappe som står til avslutning, viser hva som mangler før arkivtjenesten kan avslutte den. */}
+      {d.status === 'S' && (
+        <Kort tittel={t('arkivar.sjekkliste.tittel')} id="sak-sjekkliste">
+          <Sjekkliste sak={d} etter={sak.last} avsluttet={(antall) => { mappe.kvitter(t('arkivar.sjekkliste.avsluttet', { saksnummer: d.saksnummer, antall })); sak.last(); }} />
+        </Kort>
+      )}
       <Kort tittel={t('arkivar.sak.journalposter')} id="sak-journalposter" handlinger={nyJournalpost}>
         {avsluttet && <Text block className={c.dempet}>{t('arkivar.sak.avsluttet.hjelp')}</Text>}
         {sak.data.journalposter.length === 0
@@ -139,9 +161,6 @@ export function EnSak() {
       </Kort>
       <div className={c.knapper}>
         <Ruterlenke to="/arkiv/saker">{t('arkivar.sak.tilbake')}</Ruterlenke>
-        {/* Kontrolloppgavene til arkivtjenesten kan løses fra mappen også. */}
-        {d.status === 'R' && <Button appearance="primary" disabled={opptatt} onClick={() => kontrollhandling('kontroller')}>{t('arkivar.kontroll.kontroller')}</Button>}
-        {d.status === 'S' && <Button appearance="primary" disabled={opptatt} onClick={() => kontrollhandling('avslutt')}>{t('arkivar.kontroll.avslutt')}</Button>}
         {sak.data.kan_slettes && <Button icon={<Delete20Regular />} onClick={slett}>{t('arkivar.sak.slett')}</Button>}
       </div>
     </>

@@ -1283,7 +1283,8 @@ final class ArkivTest extends AppTestCase
         // Arkivet har kontrolloppgaver fra start: dokumenter til journalføring og mapper til kontroll og avslutning.
         [$svar, $tall] = $this->kari->kall('GET', '/api/arkiv/kontroll');
         self::assertSame(200, $svar->status, $svar->kropp);
-        self::assertSame(['journalforing' => ['inngaende' => 6, 'interne' => 6, 'utgaende' => 8], 'saker' => ['kontroll' => 8, 'avslutning' => 6]], $tall);
+        // Restansene er de ti nyeste journalførte inngående dokumentene uten svar i åpne mapper (Ovingsarkiv::RESTANSER_FRA_START).
+        self::assertSame(['journalforing' => ['inngaende' => 6, 'interne' => 6, 'utgaende' => 8], 'saker' => ['kontroll' => 8, 'avslutning' => 6], 'restanser' => 10], $tall);
         $krav = ['inngaende' => [['I'], ['S', 'M']], 'interne' => [['N', 'X', 'S'], ['F', 'E']], 'utgaende' => [['U'], ['E']]];
         foreach ($krav as $gruppe => [$typer, $statuser]) {
             [, $j] = $this->kari->kall('GET', "/api/arkiv/kontroll/journalposter/$gruppe");

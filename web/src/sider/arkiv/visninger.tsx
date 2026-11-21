@@ -7,6 +7,7 @@ import { makeStyles, tokens } from '@fluentui/react-components';
 import { Journalpost, Sak } from '../../arkiv';
 import { useDato, useSprak, useT } from '../../i18n';
 import { Kolonne } from '../../komponenter/Tabell';
+import { Avskrivningsmerke, harAvskrivning } from '../../komponenter/Avskrivning';
 import { Dokumenttittel } from '../../komponenter/Dokumentfiler';
 import { Mappeikon, Status } from '../../komponenter/Status';
 
@@ -33,6 +34,8 @@ const s = makeStyles({
   sak: { display: 'block', marginTop: '2px' },
   ekstra: { display: 'block', marginTop: '4px', fontWeight: tokens.fontWeightRegular },
   liten: { display: 'block', color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200 },
+  // Avskrivningen under journalposten i listevisningene: «Restanse, 9 dager» eller måten den er avskrevet på.
+  avskrivning: { display: 'block', marginTop: '4px', fontSize: tokens.fontSizeBase200, fontWeight: tokens.fontWeightRegular },
 });
 
 /** Løpenummeret i kortform, slik det står under saks- og dokumentnummeret: «3490/2026» blir «(3490/26)». */
@@ -46,14 +49,18 @@ type Postvalg = {
   sak?: Sak;
   /** Tilgangen slik oversikten viser den (kort navn i en mappe, hele hjemmelen i journalen). */
   tilgang: (rad: Journalpost) => ReactNode;
-  /** Det som står under journalposten i listevisningene, for eksempel knappen som journalfører den. */
+  /** Det som står under journalposten i listevisningene, for eksempel knappen som journalfører den, og menyen. */
   handling?: (rad: Journalpost) => ReactNode;
+  /** Usann når avskrivningen ikke skal vises (den offentlige journalen har den ikke). */
+  avskrivning?: boolean;
 };
 
 /** Radene for journalposter i visningene «tittel først» og «to linjer». */
-export function useJournalpostvisning({ sak, tilgang, handling }: Postvalg) {
+export function useJournalpostvisning({ sak, tilgang, handling, avskrivning = true }: Postvalg) {
   const c = s(); const t = useT(); const dato = useDato(); const { sprak } = useSprak();
-  const saksnummer = (r: Journalpost) => `${sak?.saksnummer ?? r.saksnummer ?? ''}-${r.postnr}`;
+  // Inne i en mappe står dokumentnummeret alene («3»). På tvers av mapper står hele nummeret («2026/28-3»).
+  const saksnummer = (r: Journalpost) => (sak ? String(r.postnr) : `${r.saksnummer ?? ''}-${r.postnr}`);
+  const merke = (r: Journalpost) => (avskrivning && harAvskrivning(r) ? <span className={c.avskrivning}><Avskrivningsmerke post={r} sakId={sak?.id} /></span> : null);
   const sakstittel = (r: Journalpost) => sak?.tittel ?? r.sakstittel ?? '';
   const sakId = (r: Journalpost) => sak?.id ?? r.sak_id;
   const lenke = (r: Journalpost) => <Ruterlenke to={`/arkiv/saker/${sakId(r)}/journalposter/${r.id}`} lang="nb">{r.tittel}</Ruterlenke>;
@@ -77,6 +84,7 @@ export function useJournalpostvisning({ sak, tilgang, handling }: Postvalg) {
           {felt(t('arkivar.visning.saksbehandler'), `${r.enhet} / ${r.saksbehandler_navn}`, true)}
           <span>{t('arkivar.visning.tilgang')} <span className={c.verdi}>{tilgang(r)}</span></span>
         </div>
+        {merke(r)}
         {handling && <div className={c.ekstra}>{handling(r)}</div>}
       </div>
     ),
@@ -92,6 +100,7 @@ export function useJournalpostvisning({ sak, tilgang, handling }: Postvalg) {
           <span className={c.under}>
             {part(r)}{!sak && <> · {t('arkivar.journal.sak')} <span className={c.verdi} lang="nb">{sakstittel(r)}</span></>} · <span className={c.verdi}>{tilgang(r)}</span>
           </span>
+          {merke(r)}
           {handling && <span className={c.ekstra}>{handling(r)}</span>}
         </span>
         <span className={c.dato}>{dato(r.dokumentdato)}</span>

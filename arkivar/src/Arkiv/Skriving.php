@@ -17,6 +17,11 @@ use Psr\Clock\ClockInterface;
  * midlertidig registrert (inngående), og arkivtjenesten journalfører den etterpå (Kontroll). Hver versjon av
  * dokumentet er en rad i arkivar_dokument, og den høyeste er den gjeldende. Et ferdigstilt dokument kan ikke endres.
  *
+ * Et utgående dokument kan skrives som svar på et inngående dokument i samme mappe («svar_paa»). Når svaret
+ * ferdigstilles (ekspederes), avskrives det inngående med BU og de to journalpostene viser til hverandre. Et
+ * foreløpig svar avskriver ikke: restansen står til det endelige svaret er sendt. Slettes svaret, forsvinner
+ * koblingen (Register::slettJournalpost).
+ *
  * Dokumentet er avsnitt med tekst (et avsnitt som begynner med «## », er en mellomtittel), som dokumentene i
  * grunndataene. Det er ingen formatering å rense: teksten vises alltid som tekst.
  *
@@ -95,19 +100,24 @@ final class Skriving
      * Oppretter journalposten og første versjon av dokumentet. Gir ID-en til journalposten.
      *
      * @param array<string, mixed> $inn JSON-kroppen: mal, type, registreringsfeltene (Registreringsfelt), part_navn og
-     *                                  dokumentet (emne, tekst, mottaker, avsender og vedlegg)
+     *                                  dokumentet (emne, tekst, mottaker, avsender og vedlegg), og svar_paa (ID-en
+     *                                  til det inngående dokumentet dette er svar på)
      */
     public function opprett(string $arkivId, string $sakId, array $inn): string
     {
         $mal = $this->maler->hent(Felt::tekst($inn['mal'] ?? null)) ?? throw new HttpFeil(422, 'ugyldig_felt', 'arkivar.feil.dokumentmal');
         $idag = Dato::idag($this->klokke);
         $felt = $this->felt($inn, $mal, $idag);
+        $svarPaa = trim(Felt::tekst($inn['svar_paa'] ?? null));
 
-        return $this->db->transaksjon(function () use ($arkivId, $sakId, $inn, $mal, $felt, $idag): string {
+        return $this->db->transaksjon(function () use ($arkivId, $sakId, $inn, $mal, $felt, $idag, $svarPaa): string {
             $this->register->laas($arkivId);
             $sak = $this->register->sak($arkivId, $sakId) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
             if (Felt::tekst($sak['status']) === Kodelister::SAK_AVSLUTTET) {
                 throw new HttpFeil(409, 'mappe_avsluttet', 'arkivar.feil.mappe_avsluttet');
+            }
+            if ($svarPaa !== '') {
+                $this->krevKanBesvares($arkivId, $sakId, $svarPaa, $felt['type']);
             }
             $enhet = Felt::tekst($sak['enhet']);
             // Et inngående brev på blankt ark er mottatt i dag. Kommunens egne dokumenter har ingen mottaksdato.
@@ -119,9 +129,27 @@ final class Skriving
                 'dokumentstatus' => Kodelister::DOK_UNDER_REDIGERING, 'variantformat' => Kodelister::VARIANT_PRODUKSJON,
             ]);
             $this->lagreVersjon($arkivId, $id, 1, $mal['kode'], $innhold);
+            if ($svarPaa !== '') {
+                $this->register->settSvar($arkivId, $id, $svarPaa);
+            }
 
             return $id;
         });
+    }
+
+    /**
+     * Et svar må være et utgående dokument, og det besvarer et inngående dokument i samme mappe som ikke er
+     * avskrevet fra før.
+     */
+    private function krevKanBesvares(string $arkivId, string $sakId, string $svarPaa, string $type): void
+    {
+        $besvares = $this->register->journalpost($arkivId, $svarPaa);
+        if ($type !== 'U' || $besvares === null || Felt::tekst($besvares['sak_id']) !== $sakId || !Avskrivning::gjelder($besvares)) {
+            throw new HttpFeil(422, 'ugyldig_felt', 'arkivar.feil.svar_paa');
+        }
+        if ($this->register->avskrivning($arkivId, $svarPaa) !== null) {
+            throw new HttpFeil(409, 'alt_avskrevet', 'arkivar.feil.alt_avskrevet');
+        }
     }
 
     /**
@@ -164,7 +192,7 @@ final class Skriving
         $idag = Dato::idag($this->klokke);
         $this->db->transaksjon(function () use ($arkivId, $journalpostId, $idag): void {
             $this->register->laas($arkivId);
-            [$post, , $innhold, $versjon] = $this->underRedigering($arkivId, $journalpostId);
+            [$post, $mal, $innhold, $versjon] = $this->underRedigering($arkivId, $journalpostId);
             // Malene har hakeparenteser der studenten skal skrive selv. De må være byttet ut før dokumentet sendes.
             $alt = implode("\n", [Felt::tekst($post['tittel']), $innhold['emne'], $innhold['mottaker'] ?? '', ...$innhold['tekst'], ...$innhold['vedlegg']]);
             if (preg_match(self::IKKE_UTFYLT, $alt) === 1) {
@@ -186,6 +214,12 @@ final class Skriving
                 default => Kodelister::JP_FERDIG,
             };
             $this->register->ferdigstillJournalpost($arkivId, $journalpostId, $status);
+            // Et svar som er ekspedert, avskriver dokumentet det besvarer. Et foreløpig svar gjør det ikke, og er
+            // dokumentet avskrevet på annen måte i mellomtiden, står den avskrivningen.
+            $svarPaa = $status === Kodelister::JP_EKSPEDERT && $mal['avskriver'] ? $this->register->svarPaa($arkivId, $journalpostId) : null;
+            if ($svarPaa !== null && $this->register->journalpost($arkivId, $svarPaa) !== null && $this->register->avskrivning($arkivId, $svarPaa) === null) {
+                $this->register->avskriv($arkivId, $svarPaa, Kodelister::AVSKR_BREV, $idag, $journalpostId);
+            }
         });
     }
 

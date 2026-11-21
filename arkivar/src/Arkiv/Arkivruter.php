@@ -22,6 +22,10 @@ use Psr\Clock\ClockInterface;
  * Arbeidsgangen: studenten søker etter mappen (GET sok), oppretter den hvis den ikke finnes (POST saker), og
  * registrerer dokumentet som en journalpost i mappen (POST saker/{id}/journalposter). Dokumenter som ikke skal i
  * arkivet, får bare valget registrert (POST postmottak/{id}).
+ *
+ * Etterpå følger saksgangen: journalposten rettes (PUT journalposter/{id}), flyttes (flytt), besvares (svar gir
+ * forslaget til svaret, som skrives på skriveflaten) eller avskrives uten svar (avskriv), og mappen kontrolleres,
+ * sendes til avslutning og avsluttes når sjekklisten (saker/{id}/sjekkliste) er tom.
  */
 final class Arkivruter
 {
@@ -67,7 +71,22 @@ final class Arkivruter
 
     private function kontroll(): Kontroll
     {
-        return new Kontroll($this->kjerne->db(), $this->klokke, $this->register());
+        return new Kontroll($this->kjerne->db(), $this->klokke, $this->register(), $this->grunndata());
+    }
+
+    private function merknader(): Merknader
+    {
+        return new Merknader($this->kjerne->db(), $this->klokke);
+    }
+
+    private function avskrivning(): Avskrivning
+    {
+        return new Avskrivning($this->kjerne->db(), $this->klokke, $this->register(), $this->merknader());
+    }
+
+    private function journalposter(): Journalposter
+    {
+        return new Journalposter($this->kjerne->db(), $this->klokke, $this->grunndata(), $this->register(), $this->postmottak());
     }
 
     private function mapper(): Mapper
@@ -127,7 +146,7 @@ final class Arkivruter
     private function skrevet(string $arkivId, string $id, ?string $hendelse): array
     {
         $rad = $this->register()->journalpost($arkivId, $id) ?? throw new HttpFeil(500, 'intern_feil', 'bivrost.feil.intern');
-        $post = $this->postmottak()->visJournalpost($rad);
+        $post = $this->visPost($rad);
         if ($hendelse !== null) {
             $this->kjerne->logg()->skriv($hendelse, $this->loggobjekt('journalpost', $id, Felt::tekst($post['lopenummer'])), [], [], ['mal' => $post['mal']]);
         }
@@ -147,6 +166,29 @@ final class Arkivruter
         $this->kjerne->logg()->skriv($hendelse, $this->loggobjekt('mappe', $id, Felt::tekst($sak['saksnummer'])));
 
         return $sak;
+    }
+
+    /** ID-en til brukeren som er logget inn (den som står på en merknad). */
+    private function bruker(): ?string
+    {
+        return $this->kjerne->krev(Roller::urn(Roller::STUDENT))->aktor->id;
+    }
+
+    /**
+     * Journalposten slik siden for én journalpost viser den: med mappen, og med «angre_journalforing» blant
+     * handlingene når journalføringen kan angres (samme dag).
+     *
+     * @param array<string, mixed> $post raden fra arkivar_journalpost
+     * @return array<string, mixed>
+     */
+    private function visPost(array $post): array
+    {
+        $vist = $this->postmottak()->visJournalpost($post);
+        if (is_array($vist['handlinger']) && $this->kontroll()->forJournalforing($post) !== null) {
+            $vist['handlinger'][] = 'angre_journalforing';
+        }
+
+        return $vist;
     }
 
     /** ID-en til arkivet til den innloggede. Arkivet lages første gang det åpnes. */
@@ -186,6 +228,8 @@ final class Arkivruter
                 'arkivdeler' => $g->arkivdeler(), 'klasser' => $g->klasser(), 'registre' => $registre, 'saksmaler' => $g->saksmaler(), 'enheter' => $g->enheter(),
                 'ansatte' => $g->ansatte(), 'tilgangskoder' => $g->tilgangskoder(), 'dokumentmaler' => $this->maler()->alle(),
                 'journalposttyper' => Kodelister::JOURNALPOSTTYPER, 'handlinger' => Kodelister::HANDLINGER,
+                // Avskrivningsmåtene fra Noark 5, og dem arkivtjenesten kan velge når et dokument avskrives uten svar.
+                'avskrivningsmater' => Kodelister::AVSKRIVNINGSMATER, 'avskrivning_uten_svar' => Kodelister::AVSKRIVNING_UTEN_SVAR,
                 // Statuskodene fra Noark 5 for mappen, journalposten og dokumentfilen. Navnene står i språkfilene.
                 'saksstatuser' => Kodelister::SAKSSTATUSER, 'journalstatuser' => Kodelister::JOURNALSTATUSER,
                 'dokumentstatuser' => Kodelister::DOKUMENTSTATUSER, 'variantformater' => Kodelister::VARIANTFORMATER,
@@ -287,10 +331,64 @@ final class Arkivruter
             // Lesevinduet ber om en bestemt versjon av dokumentet. Uten gis den gjeldende.
             $versjon = isset($f->query['versjon']) ? max(1, (int) Felt::tekst($f->query['versjon'])) : null;
 
-            return Svar::json(['journalpost' => $this->postmottak()->visJournalpost($post), 'sak' => $register->visSak($sak), 'dokument' => $this->dokument($arkiv, $post, $versjon)]);
+            return Svar::json([
+                'journalpost' => $this->visPost($post), 'sak' => $register->visSak($sak), 'dokument' => $this->dokument($arkiv, $post, $versjon),
+                'merknader' => $this->merknader()->forJournalpost($arkiv, $v['id']),
+            ]);
+        });
+        // Retter registreringen. Statusen avgjør hva som kan rettes (Journalposter).
+        $r->legg('PUT', '/api/arkiv/journalposter/{id}', function (Foresporsel $f, array $v): Svar {
+            $arkiv = $this->arkiv();
+            $this->journalposter()->rett($arkiv, $v['id'], $f->json());
+
+            return Svar::json(['journalpost' => $this->skrevet($arkiv, $v['id'], 'urn:arkivar:hendelse:journalpost:rettet')]);
+        });
+        $r->legg('POST', '/api/arkiv/journalposter/{id}/flytt', function (Foresporsel $f, array $v): Svar {
+            $arkiv = $this->arkiv();
+            $this->journalposter()->flytt($arkiv, $v['id'], $f->json());
+
+            return Svar::json(['journalpost' => $this->skrevet($arkiv, $v['id'], 'urn:arkivar:hendelse:journalpost:flyttet')]);
+        });
+        // Forslaget til et svar på et inngående dokument: tittelen og mottakeren. Svaret skrives på skriveflaten.
+        $r->legg('GET', '/api/arkiv/journalposter/{id}/svar', function (Foresporsel $f, array $v): Svar {
+            $arkiv = $this->arkiv();
+            $register = $this->register();
+            $post = $register->journalpost($arkiv, $v['id']) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
+            $sak = $register->sak($arkiv, Felt::tekst($post['sak_id'])) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
+            $vist = $this->postmottak()->visJournalpost($post);
+            if (!is_array($vist['handlinger']) || !in_array('svar', $vist['handlinger'], true)) {
+                throw new HttpFeil(409, 'kan_ikke_besvares', 'arkivar.feil.kan_ikke_besvares');
+            }
+
+            return Svar::json([
+                'journalpost' => $vist, 'sak' => $register->visSak($sak),
+                'forslag' => ['tittel' => $this->maler()->svartittel(Felt::tekst($post['tittel'])), 'mottaker' => Felt::tekst($post['part_navn'])],
+            ]);
+        });
+        $r->legg('POST', '/api/arkiv/journalposter/{id}/avskriv', function (Foresporsel $f, array $v): Svar {
+            $arkiv = $this->arkiv();
+            $inn = $f->json();
+            $this->avskrivning()->avskriv($arkiv, $v['id'], $inn, $this->bruker());
+            $post = $this->skrevet($arkiv, $v['id'], null);
+            $objekt = $this->loggobjekt('journalpost', $v['id'], Felt::tekst($post['lopenummer']));
+            $this->kjerne->logg()->skriv('urn:arkivar:hendelse:journalpost:avskrevet', $objekt, [], [], ['mate' => Felt::tekst($inn['mate'] ?? null)]);
+
+            return Svar::json(['journalpost' => $post]);
+        });
+        $r->legg('DELETE', '/api/arkiv/journalposter/{id}/avskrivning', function (Foresporsel $f, array $v): Svar {
+            $arkiv = $this->arkiv();
+            $this->avskrivning()->angre($arkiv, $v['id']);
+
+            return Svar::json(['journalpost' => $this->skrevet($arkiv, $v['id'], 'urn:arkivar:hendelse:journalpost:avskrivning_angret')]);
         });
         // Kontrolloppgavene til arkivtjenesten: tellerne, dokumentene til journalføring, og handlingene.
         $r->legg('GET', '/api/arkiv/kontroll', fn (): Svar => Svar::json($this->kontroll()->tall($this->arkiv())));
+        $r->legg('GET', '/api/arkiv/kontroll/restanser', function (): Svar {
+            $arkiv = $this->arkiv();
+            $postmottak = $this->postmottak();
+
+            return Svar::json(['journalposter' => array_map(static fn (array $p): array => $postmottak->visJournalpost($p), $this->register()->restanser($arkiv))]);
+        });
         $r->legg('GET', '/api/arkiv/kontroll/journalposter/{gruppe}', function (Foresporsel $f, array $v): Svar {
             $arkiv = $this->arkiv();
             $postmottak = $this->postmottak();
@@ -302,6 +400,33 @@ final class Arkivruter
             $this->kontroll()->journalfor($arkiv, $v['id']);
 
             return Svar::json(['journalpost' => $this->skrevet($arkiv, $v['id'], 'urn:arkivar:hendelse:journalpost:journalfort')]);
+        });
+        $r->legg('POST', '/api/arkiv/journalposter/{id}/angre-journalforing', function (Foresporsel $f, array $v): Svar {
+            $arkiv = $this->arkiv();
+            $this->kontroll()->angreJournalforing($arkiv, $v['id']);
+
+            return Svar::json(['journalpost' => $this->skrevet($arkiv, $v['id'], 'urn:arkivar:hendelse:journalpost:journalforing_angret')]);
+        });
+        // Sjekklisten før avslutning: det som mangler, med journalposten hvert punkt gjelder.
+        $r->legg('GET', '/api/arkiv/saker/{id}/sjekkliste', function (Foresporsel $f, array $v): Svar {
+            $arkiv = $this->arkiv();
+            $postmottak = $this->postmottak();
+            $liste = $this->kontroll()->sjekkliste($arkiv, $v['id']);
+            $mangler = array_map(static fn (array $m): array => ['slag' => $m['slag'], 'journalpost' => $postmottak->visJournalpost($m['journalpost'])], $liste['mangler']);
+
+            return Svar::json(['mangler' => $mangler, 'dokumenter' => $liste['dokumenter'], 'kan_avsluttes' => $mangler === []]);
+        });
+        $r->legg('POST', '/api/arkiv/saker/{id}/til-avslutning', function (Foresporsel $f, array $v): Svar {
+            $arkiv = $this->arkiv();
+            $this->kontroll()->sendTilAvslutning($arkiv, $v['id']);
+
+            return Svar::json(['sak' => $this->mappeEtter($arkiv, $v['id'], 'urn:arkivar:hendelse:mappe:til_avslutning')]);
+        });
+        $r->legg('POST', '/api/arkiv/saker/{id}/tilbake', function (Foresporsel $f, array $v): Svar {
+            $arkiv = $this->arkiv();
+            $this->kontroll()->sendTilbake($arkiv, $v['id']);
+
+            return Svar::json(['sak' => $this->mappeEtter($arkiv, $v['id'], 'urn:arkivar:hendelse:mappe:tilbake_til_behandling')]);
         });
         $r->legg('POST', '/api/arkiv/saker/{id}/kontroller', function (Foresporsel $f, array $v): Svar {
             $arkiv = $this->arkiv();

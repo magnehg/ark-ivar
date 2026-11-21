@@ -1,7 +1,7 @@
 // Statusmerker: alltid ikon og tekst sammen, aldri bare farge (WCAG 1.4.1). Fargene kommer fra temaet.
 import { ReactNode } from 'react';
 import { makeStyles, mergeClasses, tokens } from '@fluentui/react-components';
-import { CheckmarkCircle16Filled, Circle16Regular, DismissCircle16Filled, Folder20Regular, FolderOpen20Regular, LockClosed16Regular } from '@fluentui/react-icons';
+import { CheckmarkCircle16Filled, Circle16Regular, DismissCircle16Filled, Folder20Regular, FolderOpen20Regular, LockClosed16Regular, Warning16Filled } from '@fluentui/react-icons';
 
 const s = makeStyles({
   mappe: { display: 'inline-flex', alignItems: 'center', gap: '6px', minWidth: 0, whiteSpace: 'nowrap', '& > svg': { flexShrink: 0, color: tokens.colorNeutralForeground2 } },
@@ -11,14 +11,15 @@ const s = makeStyles({
   ok: { color: tokens.colorPaletteGreenForeground1 },
   feil: { color: tokens.colorPaletteRedForeground1 },
   noytral: { color: tokens.colorNeutralForeground2 },
+  advarsel: { color: tokens.colorPaletteDarkOrangeForeground1 },
 });
 
-export type Statusslag = 'ok' | 'feil' | 'noytral' | 'skjermet';
+export type Statusslag = 'ok' | 'feil' | 'noytral' | 'skjermet' | 'advarsel';
 
 export function Status({ slag, children }: { slag: Statusslag; children: ReactNode }) {
   const c = s();
   const ikon = slag === 'ok' ? <CheckmarkCircle16Filled className={c.ok} /> : slag === 'feil' ? <DismissCircle16Filled className={c.feil} />
-    : slag === 'skjermet' ? <LockClosed16Regular className={c.noytral} /> : <Circle16Regular className={c.noytral} />;
+    : slag === 'skjermet' ? <LockClosed16Regular className={c.noytral} /> : slag === 'advarsel' ? <Warning16Filled className={c.advarsel} /> : <Circle16Regular className={c.noytral} />;
   return <span className={mergeClasses(c.merke, slag === 'skjermet' && c.brytes)}>{ikon}<span>{children}</span></span>;
 }
 

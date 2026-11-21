@@ -20,6 +20,7 @@ final class KodelisterTest extends TestCase
         'jpstatus' => Kodelister::JOURNALSTATUSER,
         'dokstatus' => Kodelister::DOKUMENTSTATUSER,
         'variantformat' => Kodelister::VARIANTFORMATER,
+        'avskrivningsmate' => Kodelister::AVSKRIVNINGSMATER,
     ];
 
     public function testHverStatuskodeHarNavnOgForklaringPaaAlleSpraak(): void
@@ -29,7 +30,8 @@ final class KodelisterTest extends TestCase
             foreach (self::LISTER as $liste => $koder) {
                 self::assertSame($koder, array_values(array_unique($koder)), "$liste: hver kode står én gang.");
                 foreach ($koder as $kode) {
-                    self::assertMatchesRegularExpression('/^[A-Z]$/', $kode, "$liste: kodene er én stor bokstav.");
+                    // Statuskodene er én stor bokstav. Avskrivningsmåtene har to eller tre (BU, TLF).
+                    self::assertMatchesRegularExpression($liste === 'avskrivningsmate' ? '/^[A-Z]{2,3}$/' : '/^[A-Z]$/', $kode, "$liste: kodene er store bokstaver.");
                     $nokkel = "arkivar.$liste." . strtolower($kode);
                     foreach ([$nokkel, $nokkel . '.bruk'] as $n) {
                         self::assertIsString($tekster[$n] ?? null, "$sprak: $n mangler.");
@@ -49,6 +51,13 @@ final class KodelisterTest extends TestCase
         self::assertContains(Kodelister::DOK_FERDIGSTILT, Kodelister::DOKUMENTSTATUSER);
         self::assertContains(Kodelister::VARIANT_PRODUKSJON, Kodelister::VARIANTFORMATER);
         self::assertContains(Kodelister::VARIANT_ARKIV, Kodelister::VARIANTFORMATER);
+        // Avskrivningsmåtene fra Noark 5 tjenestegrensesnitt. BU og SA kan ikke velges ved avskrivning uten svar.
+        foreach (['BU', 'BE', 'TLF', 'TE', 'TO', 'BN', 'SA'] as $kode) {
+            self::assertContains($kode, Kodelister::AVSKRIVNINGSMATER);
+        }
+        self::assertSame([], array_diff(Kodelister::AVSKRIVNING_UTEN_SVAR, Kodelister::AVSKRIVNINGSMATER));
+        self::assertNotContains(Kodelister::AVSKR_BREV, Kodelister::AVSKRIVNING_UTEN_SVAR);
+        self::assertNotContains(Kodelister::AVSKR_SAK_AVSLUTTET, Kodelister::AVSKRIVNING_UTEN_SVAR);
     }
 
     public function testDokumentfilenErIArkivformatNaarJournalpostenErJournalfortEkspedertEllerArkivert(): void

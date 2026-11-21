@@ -39,7 +39,25 @@ export type Journalpost = {
   mal: string | null; redigerbar: boolean;
   /** Dokumentet er ferdig fra saksbehandleren og venter på at arkivtjenesten journalfører det. */
   til_journalforing: boolean;
+  /** Avskrivningen av et inngående dokument: måten, datoen og journalposten som besvarer det (BU). */
+  avskrivning: { mate: string; dato: string; av: Henvisning | null } | null;
+  /** Dokumentene denne journalposten er svar på. avskriver: svaret er ekspedert og har avskrevet dokumentet. */
+  svar_paa: (Henvisning & { avskriver: boolean })[];
+  /** Et journalført inngående dokument uten avskrivning, og hvor mange dager det har stått siden journaldatoen. */
+  restanse: boolean; restanse_dager: number | null;
+  /** Det som kan gjøres med journalposten i statusen den har nå, og det neste steget i saksgangen (hovedknappen). */
+  handlinger: Jphandling[]; neste: Jphandling | null;
+  /** Om hele registreringen kan rettes («alle») eller bare tittelen og skjermingen («tittel»). */
+  rediger_felt: 'alle' | 'tittel' | null;
 };
+/** En annen journalpost det vises til: «2026/28-2». */
+export type Henvisning = { id: string; sak_id: string; postnr: number; saksnummer: string };
+export type Jphandling = 'rediger_dokument' | 'ferdigstill' | 'journalfor' | 'angre_journalforing' | 'rediger' | 'svar' | 'avskriv' | 'angre_avskrivning' | 'flytt' | 'slett';
+/** En merknad på en mappe eller journalpost: teksten, når den ble skrevet, og av hvem. */
+export type Merknad = { id: string; tekst: string; tidspunkt: string | null; av: string };
+/** Det som mangler før en mappe kan avsluttes, med journalposten hvert punkt gjelder. */
+export type Mangel = { slag: 'ikke_journalfort' | 'restanse' | 'under_redigering'; journalpost: Journalpost };
+export type Sjekklistedata = { mangler: Mangel[]; dokumenter: number; kan_avsluttes: boolean };
 export type Behandling = {
   dokument: Dokument; behandlet: boolean; handling?: Handling; vurdering?: Kriterium[]; poeng?: number; maks?: number;
   forslag?: { sak: string | null; sak_offentlig: string | null; tittel: string | null; offentlig_tittel: string | null } | null;
@@ -53,7 +71,11 @@ export type Registerpost = { kode: string; tittel: string; detalj: string; fodt:
 /** En saksmal: arkivdelen og et forslag til tittel er fylt inn når mappen opprettes. */
 export type Saksmal = { kode: string; navn: string; arkivdel: string; tittel: string; beskrivelse: string; soketips: string };
 /** En dokumentmal: typene journalposten kan ha (den første er forslaget), og forslaget til emne og tekst. */
-export type Dokumentmal = { kode: string; navn: string; beskrivelse: string; typer: string[]; kanal: string; avsender: 'kommunen' | 'blank'; emne: string; tekst: string[] };
+export type Dokumentmal = {
+  kode: string; navn: string; beskrivelse: string; typer: string[]; kanal: string; avsender: 'kommunen' | 'blank'; emne: string; tekst: string[];
+  /** Et svar skrevet fra malen avskriver dokumentet det besvarer. Et foreløpig svar gjør det ikke. */
+  avskriver: boolean;
+};
 export type Struktur = {
   arkivdeler: Arkivdel[];
   /** Arkivnøkkelen. En klasse med henvisning viser til en annen arkivdel og kan ikke velges i sakarkivet. */
@@ -72,10 +94,13 @@ export type Struktur = {
   journalstatuser: string[];
   dokumentstatuser: string[];
   variantformater: string[];
+  /** Avskrivningsmåtene fra Noark 5, og dem som kan velges når et dokument avskrives uten svar. */
+  avskrivningsmater: string[];
+  avskrivning_uten_svar: string[];
 };
 
 /** Kodelistene med status: tekstnøklene er arkivar.<liste>.<kode> (navnet) og arkivar.<liste>.<kode>.bruk (når koden brukes). */
-export type Statusliste = 'saksstatus' | 'jpstatus' | 'dokstatus' | 'variantformat';
+export type Statusliste = 'saksstatus' | 'jpstatus' | 'dokstatus' | 'variantformat' | 'avskrivningsmate';
 /** utdatert: arkivet ble fylt med en eldre utgave av mappene og oppgavene, og bør nullstilles. */
 export type Oversikt = { saker: number; journalposter: number; behandlet: number; poeng: number; maks: number; dokumenter: number; utdatert: boolean };
 

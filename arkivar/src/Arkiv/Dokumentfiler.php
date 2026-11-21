@@ -14,7 +14,11 @@ namespace ArkIvar\Arkiv;
  * på papir, er skannet, andre dokumenter utenfra er mottatt som PDF, og kommunens egne er skrevet i tekstbehandler.
  * Arkivformatet er ren tekst for e-post og PDF/A for alt annet.
  *
+ * En journalpost har ett hoveddokument og kan ha vedlegg (Noark: tilknyttet registrering som H og V). Vedleggene i
+ * øvingsarkivet har bare tittel, ikke innhold.
+ *
  * @phpstan-type Dokumentfil array{versjon: int, variantformat: string, format: string, filnavn: string}
+ * @phpstan-type Dokumentbeskrivelse array{nr: int, rolle: string, tittel: string, filer: list<Dokumentfil>}
  */
 final class Dokumentfiler
 {
@@ -53,22 +57,57 @@ final class Dokumentfiler
     }
 
     /**
-     * Filene til en journalpost med denne statusen. Produksjonsformatet finnes alltid; arkivformatet kommer i
-     * tillegg når journalposten er journalført, ekspedert eller arkivert (Kodelister::variantformat()).
+     * Filene til hoveddokumentet i en journalpost med denne statusen. Produksjonsformatet finnes alltid;
+     * arkivformatet kommer i tillegg når journalposten er journalført, ekspedert eller arkivert
+     * (Kodelister::variantformat()).
      *
      * @return list<Dokumentfil>
      */
     public static function filer(string $kanal, ?string $mottatt, string $journalstatus, string $tittel): array
     {
+        return self::varianter(self::produksjonsformat($kanal, $mottatt), self::arkivformat($kanal), $journalstatus, $tittel);
+    }
+
+    /**
+     * Formatet et vedlegg ble laget eller mottatt i: som hoveddokumentet, bortsett fra at et vedlegg til en e-post er
+     * en PDF og ikke en e-postfil.
+     */
+    public static function vedleggsformat(string $kanal, ?string $mottatt): string
+    {
+        return $kanal === self::KANAL_EPOST ? self::PDF : self::produksjonsformat($kanal, $mottatt);
+    }
+
+    /** @return list<Dokumentfil> */
+    private static function varianter(string $produksjon, string $arkiv, string $journalstatus, string $tittel): array
+    {
         $navn = self::filnavn($tittel);
-        $produksjon = self::produksjonsformat($kanal, $mottatt);
         $filer = [['versjon' => self::VERSJON, 'variantformat' => Kodelister::VARIANT_PRODUKSJON, 'format' => $produksjon, 'filnavn' => $navn . '.' . $produksjon]];
         if (Kodelister::variantformat($journalstatus) === Kodelister::VARIANT_ARKIV) {
-            $arkiv = self::arkivformat($kanal);
             $filer[] = ['versjon' => self::VERSJON, 'variantformat' => Kodelister::VARIANT_ARKIV, 'format' => $arkiv, 'filnavn' => $navn . '.' . $arkiv];
         }
 
         return $filer;
+    }
+
+    public const HOVEDDOKUMENT = 'H';
+    public const VEDLEGG = 'V';
+
+    /**
+     * Dokumentene i en journalpost: hoveddokumentet først (nr. 1) og så vedleggene, hvert med filene sine. Et vedlegg
+     * til en e-post er mottatt som PDF; ellers har vedleggene samme produksjonsformat som hoveddokumentet. Vedlegg
+     * arkiveres alltid som PDF.
+     *
+     * @param list<string> $vedlegg titlene på vedleggene
+     * @return list<Dokumentbeskrivelse>
+     */
+    public static function dokumenter(string $kanal, ?string $mottatt, string $journalstatus, string $tittel, array $vedlegg): array
+    {
+        $ut = [['nr' => 1, 'rolle' => self::HOVEDDOKUMENT, 'tittel' => $tittel, 'filer' => self::filer($kanal, $mottatt, $journalstatus, $tittel)]];
+        foreach ($vedlegg as $indeks => $navn) {
+            $ut[] = ['nr' => $indeks + 2, 'rolle' => self::VEDLEGG, 'tittel' => $navn, 'filer' => self::varianter(self::vedleggsformat($kanal, $mottatt), self::PDF, $journalstatus, $navn)];
+        }
+
+        return $ut;
     }
 
     /** Et filnavn av tittelen: små bokstaver uten æ, ø og å, med bindestrek mellom ordene. */

@@ -52,8 +52,10 @@ uttrekk eller avlevere.
   men hver journalpost med dokument har en fil i produksjonsformat (`eml` for e-post, `tif` for skannet brev og
   skjema, `pdf` for andre dokumenter utenfra, `docx` for kommunens egne) og, når journalposten er journalført, ekspedert
   eller arkivert, en i arkivformat (`txt` for e-post, ellers `pdf`). Hver fil har `versjon`; øvingsarkivet har bare
-  versjon 1. I listene står ikonet til arkivformatet foran tittelen (`Dokumenttittel`, `hovedfil()`), og en utvidet
-  rad viser versjonene med variantene under (`Filliste`). Den offentlige journalen har aldri filene. I grensesnittet kan radene
+  versjon 1. En journalpost har `dokumenter`: hoveddokumentet (rolle H) og ett per vedlegg (V, bare tittel, uten
+  innhold). I listene står ikonet til arkivformatet foran tittelen (`Dokumenttittel`, `hovedfil()`). En utvidet
+  journalpost viser hoveddokumentet og vedleggene (`Dokumentliste`), og hvert av dem kan utvides til versjonene med
+  variantene under (`Filliste`). Den offentlige journalen har aldri filene. I grensesnittet kan radene
   i `SorterbarTabell` utvides (`utvid`), `Filliste` viser filene med `Filikon` (fylt merke for arkivformat, ramme for
   produksjonsformat, og alltid tekst ved siden av), og `LesevinduTilbyder` (rundt `Skall`) holder lesevinduet til
   høyre: ikke modalt, lukkes med Escape og når adressen endres (side eller filter), og fokus settes tilbake på filen

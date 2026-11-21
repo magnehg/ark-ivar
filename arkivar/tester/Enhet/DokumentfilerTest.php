@@ -49,6 +49,21 @@ final class DokumentfilerTest extends TestCase
         }
     }
 
+    public function testJournalpostenHarHoveddokumentOgVedlegg(): void
+    {
+        $dokumenter = Dokumentfiler::dokumenter('epost', '2026-11-10', Kodelister::JP_JOURNALFORT, 'Spørsmål om åpningstider', ['Kart', 'Bilde av skiltet']);
+        self::assertSame([1, 2, 3], array_column($dokumenter, 'nr'));
+        self::assertSame(['H', 'V', 'V'], array_column($dokumenter, 'rolle'));
+        self::assertSame(['Spørsmål om åpningstider', 'Kart', 'Bilde av skiltet'], array_column($dokumenter, 'tittel'));
+        self::assertSame(['eml', 'txt'], array_column($dokumenter[0]['filer'], 'format'));
+        self::assertSame(['pdf', 'pdf'], array_column($dokumenter[1]['filer'], 'format'), 'Et vedlegg til en e-post er en PDF, og arkiveres som PDF.');
+        self::assertSame('kart.pdf', $dokumenter[1]['filer'][0]['filnavn']);
+        // Vedlegg til et skannet brev er skannet, og vedlegg til kommunens egne dokumenter er skrevet i tekstbehandler.
+        self::assertSame('tif', Dokumentfiler::vedleggsformat('brev', '2026-11-10'));
+        self::assertSame('docx', Dokumentfiler::vedleggsformat('brev', null));
+        self::assertCount(1, Dokumentfiler::dokumenter('notat', null, Kodelister::JP_JOURNALFORT, 'Notat', []));
+    }
+
     public function testFilnavnetHarBareTryggeTegn(): void
     {
         self::assertSame('byggesak-garasje-strandveien-16', Dokumentfiler::filnavn('Byggesak – garasje – Strandveien 16'));

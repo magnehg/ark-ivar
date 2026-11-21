@@ -34,6 +34,9 @@ final class Postmottak
     ) {
     }
 
+    /** @var array<string, array<string, string>> saksnumrene per arkiv, hentet én gang per forespørsel */
+    private array $saksnumre = [];
+
     /**
      * Dokumentene i postmottaket med status for dette arkivet, eldste mottatt først.
      *
@@ -379,9 +382,17 @@ final class Postmottak
             $ut['dokumentstatus'] = null;
             $ut['variantformat'] = null;
         }
-        $ut['filer'] = $offentlig || $dokument === null
-            ? []
-            : Dokumentfiler::filer($dokument['kanal'], $dokument['mottatt'], Felt::tekst($rad['status']), Felt::tekst($rad['tittel']));
+        $ut['dokumenter'] = [];
+        if (!$offentlig && $dokument !== null) {
+            // Titlene på vedleggene kan vise til saksnumre i studentens arkiv.
+            $arkivId = Felt::tekst($rad['arkiv_id']);
+            $this->saksnumre[$arkivId] ??= $this->register->saksnumre($arkivId);
+            $nokkel = $oppgave === null && $startdokument !== null ? explode('#', $startdokument)[0] : null;
+            $vedlegg = Grunndata::tekster(Grunndata::medSaksnumre(['vedlegg' => $dokument['vedlegg']], $this->saksnumre[$arkivId], $nokkel)['vedlegg'] ?? null);
+            $ut['dokumenter'] = Dokumentfiler::dokumenter($dokument['kanal'], $dokument['mottatt'], Felt::tekst($rad['status']), Felt::tekst($rad['tittel']), $vedlegg);
+        }
+        // Filene til hoveddokumentet, som listene viser ikonet til.
+        $ut['filer'] = $ut['dokumenter'][0]['filer'] ?? [];
 
         return $ut;
     }

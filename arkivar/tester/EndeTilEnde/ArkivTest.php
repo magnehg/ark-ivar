@@ -230,6 +230,12 @@ final class ArkivTest extends AppTestCase
             self::assertIsArray($post['filer']);
             self::assertSame(['P', 'A'], array_column($post['filer'], 'variantformat'), Felt::tekst($post['tittel']));
             self::assertSame([1, 1], array_column($post['filer'], 'versjon'));
+            // Dokumentene: hoveddokumentet først, så ett per vedlegg.
+            $dokumenter = self::rader($post['dokumenter']);
+            self::assertSame('H', $dokumenter[0]['rolle']);
+            self::assertSame($post['tittel'], $dokumenter[0]['tittel']);
+            self::assertSame($post['filer'], $dokumenter[0]['filer']);
+            self::assertSame(array_fill(0, count($dokumenter) - 1, 'V'), array_column(array_slice($dokumenter, 1), 'rolle'));
         }
         // I en avsluttet mappe er journalpostene arkivert, og dokumentene er gjort om til arkivformat.
         [, $j] = $this->kari->kall('GET', '/api/arkiv/saker/' . $this->sakId($this->kari, 'Byggesak – garasje – Strandveien 16'));
@@ -488,6 +494,7 @@ final class ArkivTest extends AppTestCase
         $sett = 0;
         foreach (self::rader($j['journalposter']) as $rad) {
             self::assertSame([], $rad['filer'], 'Den offentlige journalen har ikke dokumentfilene.');
+            self::assertSame([], $rad['dokumenter'], 'Den offentlige journalen har ikke vedleggene.');
             $sak = $saker[Felt::tekst($rad['sak_id'])];
             $del = $this->grunndata->arkivdel(Felt::tekst($sak['arkivdel']));
             if ($del === null || $del['ordning'] !== Grunndata::PERSON) {

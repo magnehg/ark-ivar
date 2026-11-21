@@ -57,7 +57,7 @@ export default function Journal() {
           <div aria-busy={venter}>
             <TabellVerktoy tekst={venter ? <Laster /> : t('arkivar.journal.antall', { antall: rader.length })}>{null}</TabellVerktoy>
             <SorterbarTabell rader={rader} kolonner={kolonner} nokkel={(r) => r.id} aria-label={t('arkivar.journal.tittel')} startSortering={{ id: 'lopenr', retning: 'descending' }}
-              utvid={offentlig ? undefined : { innhold: (r) => <Journalpostfiler post={r} />, vis: t('arkivar.filer.vis'), skjul: t('arkivar.filer.skjul'), beskrevetAv: 'tittel', kan: (r) => r.filer.length > 0 }} />
+              utvid={offentlig ? undefined : { innhold: (r) => <Journalpostfiler post={r} />, vis: t('arkivar.filer.vis'), skjul: t('arkivar.filer.skjul'), beskrevetAv: 'tittel', kan: (r) => r.dokumenter.length > 0 }} />
           </div>
         )}
       </Kort>

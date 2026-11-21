@@ -5,7 +5,7 @@ import { ReactNode, createContext, useCallback, useContext, useEffect, useId, us
 import { Link as Ruterlenke, useLocation } from 'react-router-dom';
 import { Button, DrawerBody, DrawerHeader, DrawerHeaderTitle, OverlayDrawer, Text, makeStyles, mergeClasses, tokens } from '@fluentui/react-components';
 import { ChevronDown20Regular, ChevronRight20Regular, Dismiss24Regular } from '@fluentui/react-icons';
-import { Dokument, Dokumentfil, Journalpost, del, hovedfil } from '../arkiv';
+import { Dokument, Dokumentbeskrivelse, Dokumentfil, Journalpost, del, hovedfil } from '../arkiv';
 import { useSprak, useT } from '../i18n';
 import { Ark } from './Ark';
 import { Hentefeil, Laster, useHent } from './Felles';
@@ -35,7 +35,9 @@ const s = makeStyles({
   dokument: { display: 'inline-flex', alignItems: 'flex-start', gap: '8px', minWidth: 0 },
   dokumentrad: { display: 'flex', alignItems: 'flex-start', gap: '4px' },
   utenknapp: { width: '24px', flexShrink: 0 },
-  under: { padding: '4px 0 8px 60px' },
+  under: { padding: '4px 0 8px 32px' },
+  rolle: { color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200, fontWeight: tokens.fontWeightSemibold, textTransform: 'uppercase', letterSpacing: '0.03em', marginRight: '4px' },
+  vedlegg: { display: 'flex', flexDirection: 'column', gap: '8px', padding: '20px', backgroundColor: tokens.colorNeutralBackground1, border: `1px solid ${tokens.colorNeutralStroke2}` },
   // Siden gir plass til vinduet (plass), så ingenting ligger under det. På smale skjermer dekker vinduet hele bredden.
   skuff: { width: BREDDE, '@media (max-width: 900px)': { width: '100vw' } },
   plass: { '@media (min-width: 901px)': { paddingRight: BREDDE } },
@@ -63,7 +65,8 @@ export function Filikon({ fil, storrelse = 32 }: { fil: Dokumentfil; storrelse?:
 }
 
 // ------------------------------------------------------------------ lesevinduet
-type Apen = { journalpost: string; sak: string; fil: Dokumentfil };
+/** Filen som er åpen: journalposten, dokumentet i den (1 = hoveddokumentet) og varianten. */
+type Apen = { journalpost: string; sak: string; dokument: number; tittel: string; fil: Dokumentfil };
 type Lesevindu = { apen: Apen | null; apne: (valg: Apen) => void; lukk: () => void };
 const LesevinduCtx = createContext<Lesevindu>({ apen: null, apne: () => undefined, lukk: () => undefined });
 export const useLesevindu = (): Lesevindu => useContext(LesevinduCtx);
@@ -90,6 +93,8 @@ function Filinnhold({ valg }: { valg: Apen }) {
   if (!hentet.data) return <Laster />;
   const dok = hentet.data.dokument;
   if (!dok) return <Text>{t('arkivar.journalpost.uten_dokument')}</Text>;
+  // Vedleggene i øvingsarkivet har bare tittel.
+  if (valg.dokument > 1) return <div className={c.vedlegg}><Text weight="semibold" lang="nb" block>{valg.tittel}</Text><Text block>{t('arkivar.lesevindu.vedlegg')}</Text></div>;
   return valg.fil.format === 'txt' ? <pre className={c.tekstfil} lang="nb">{somTekst(dok)}</pre> : <Ark dok={dok} />;
 }
 
@@ -141,7 +146,7 @@ export function LesevinduTilbyder({ children }: { children: ReactNode }) {
             </DrawerHeader>
             <DrawerBody className={c.kropp}>
               <Ruterlenke className={c.lenke} to={`/arkiv/saker/${apen.sak}/journalposter/${apen.journalpost}`}>{t('arkivar.lesevindu.journalpost')}</Ruterlenke>
-              <Filinnhold key={`${apen.journalpost}/${apen.fil.filnavn}`} valg={apen} />
+              <Filinnhold key={`${apen.journalpost}/${apen.dokument}/${apen.fil.filnavn}`} valg={apen} />
             </DrawerBody>
           </>
         )}
@@ -151,26 +156,28 @@ export function LesevinduTilbyder({ children }: { children: ReactNode }) {
 }
 
 // ------------------------------------------------------------------ fillistene
+type Postref = Pick<Journalpost, 'id' | 'sak_id'>;
+
 /**
- * Versjonene av dokumentet i en journalpost, og variantene (produksjonsformat og arkivformat) i hver versjon. Et klikk
- * på en variant åpner filen i lesevinduet.
+ * Versjonene av ett dokument, og variantene (produksjonsformat og arkivformat) i hver versjon. Et klikk på en variant
+ * åpner filen i lesevinduet.
  */
-export function Filliste({ post }: { post: Pick<Journalpost, 'id' | 'sak_id' | 'filer'> }) {
+export function Filliste({ post, dokument }: { post: Postref; dokument: Dokumentbeskrivelse }) {
   const c = s(); const t = useT(); const { sprak } = useSprak(); const vindu = useLesevindu();
-  if (post.filer.length === 0) return <Text className={c.dempet}>{t('arkivar.filer.ingen')}</Text>;
-  const versjoner = [...new Set(post.filer.map((f) => f.versjon))].sort((a, b) => b - a);
+  if (dokument.filer.length === 0) return <Text className={c.dempet}>{t('arkivar.filer.ingen')}</Text>;
+  const versjoner = [...new Set(dokument.filer.map((f) => f.versjon))].sort((a, b) => b - a);
   return (
     <ul className={c.versjoner} aria-label={t('arkivar.filer.tittel')} lang={sprak}>
       {versjoner.map((versjon) => (
         <li key={versjon}>
           <span className={c.versjon}>{t('arkivar.filer.versjon', { nr: versjon })}</span>
           <ul className={c.liste}>
-            {post.filer.filter((f) => f.versjon === versjon).map((fil) => {
-              const valgt = vindu.apen?.journalpost === post.id && vindu.apen.fil.filnavn === fil.filnavn;
+            {dokument.filer.filter((f) => f.versjon === versjon).map((fil) => {
+              const valgt = vindu.apen?.journalpost === post.id && vindu.apen.dokument === dokument.nr && vindu.apen.fil.filnavn === fil.filnavn;
               return (
                 <li key={fil.filnavn}>
                   <Button appearance="subtle" className={mergeClasses(c.fil, valgt && c.valgt)} icon={<Filikon fil={fil} />} aria-pressed={valgt}
-                    onClick={() => vindu.apne({ journalpost: post.id, sak: post.sak_id, fil })}>
+                    onClick={() => vindu.apne({ journalpost: post.id, sak: post.sak_id, dokument: dokument.nr, tittel: dokument.tittel, fil })}>
                     <span className={c.filtekst}>
                       <span>{t(`arkivar.variantformat.${fil.variantformat.toLowerCase()}`)} · {t(`arkivar.filformat.${fil.format}`)}</span>
                       <span className={mergeClasses(c.filnavn, c.dempet)} lang="nb">{fil.filnavn}</span>
@@ -196,14 +203,8 @@ export function Dokumenttittel({ filer, children }: { filer: Dokumentfil[]; chil
   return <span className={c.dokument}>{fil && <Filikon fil={fil} storrelse={24} />}<span>{children}</span></span>;
 }
 
-/** Innholdet under en utvidet journalpost i en oversikt. */
-export function Journalpostfiler({ post }: { post: Journalpost }) {
-  const c = s();
-  return <div className={c.utvidet}><Filliste post={post} /></div>;
-}
-
-/** Ett dokument i en utvidet mappe: ikonet og tittelen, og en knapp som viser versjonene og variantene. */
-function Mappedokument({ post }: { post: Journalpost }) {
+/** En rad som kan utvides: knappen, innholdet i raden og det som vises under når den er åpen. */
+function Utvidbar({ kan, rad, children }: { kan: boolean; rad: ReactNode; children: ReactNode }) {
   const c = s(); const t = useT(); const { sprak } = useSprak();
   const [apen, settApen] = useState(false);
   const id = useId();
@@ -211,20 +212,46 @@ function Mappedokument({ post }: { post: Journalpost }) {
   return (
     <li>
       <div className={c.dokumentrad}>
-        {post.filer.length > 0
+        {kan
           ? <Button appearance="subtle" size="small" icon={apen ? <ChevronDown20Regular /> : <ChevronRight20Regular />} aria-expanded={apen} aria-controls={apen ? id : undefined}
               aria-label={navn} title={navn} aria-describedby={`${id}-tittel`} lang={sprak} onClick={() => settApen(!apen)} />
           : <span className={c.utenknapp} />}
-        <Dokumenttittel filer={post.filer}>
-          <span id={`${id}-tittel`}>{post.postnr}. <Ruterlenke lang="nb" to={`/arkiv/saker/${post.sak_id}/journalposter/${post.id}`}>{post.tittel}</Ruterlenke></span>
-        </Dokumenttittel>
+        <span id={`${id}-tittel`}>{rad}</span>
       </div>
-      {apen && <div id={id} className={c.under}><Filliste post={post} /></div>}
+      {apen && <div id={id} className={c.under}>{children}</div>}
     </li>
   );
 }
 
-/** Innholdet under en utvidet mappe: dokumentene i mappen. Hentes når raden utvides. */
+/**
+ * Dokumentene i en journalpost: hoveddokumentet og vedleggene. Hvert av dem kan utvides og viser da versjonene og
+ * variantene.
+ */
+export function Dokumentliste({ post }: { post: Journalpost }) {
+  const c = s(); const t = useT(); const { sprak } = useSprak();
+  if (post.dokumenter.length === 0) return <Text className={c.dempet}>{t('arkivar.filer.ingen')}</Text>;
+  let vedlegg = 0;
+  return (
+    <ul className={c.poster} aria-label={t('arkivar.dokumenter.tittel')}>
+      {post.dokumenter.map((d) => {
+        const rolle = d.rolle === 'H' ? t('arkivar.dokrolle.h') : t('arkivar.dokrolle.v', { nr: ++vedlegg });
+        return (
+          <Utvidbar key={d.nr} kan={d.filer.length > 0} rad={<Dokumenttittel filer={d.filer}><span className={c.rolle} lang={sprak}>{rolle}</span> <span lang="nb">{d.tittel}</span></Dokumenttittel>}>
+            <Filliste post={post} dokument={d} />
+          </Utvidbar>
+        );
+      })}
+    </ul>
+  );
+}
+
+/** Innholdet under en utvidet journalpost i en oversikt: hoveddokumentet og vedleggene. */
+export function Journalpostfiler({ post }: { post: Journalpost }) {
+  const c = s();
+  return <div className={c.utvidet}><Dokumentliste post={post} /></div>;
+}
+
+/** Innholdet under en utvidet mappe: journalpostene i mappen, som hver kan utvides til dokumentene sine. */
 export function Mappefiler({ sak }: { sak: string }) {
   const c = s(); const t = useT(); const { sprak } = useSprak();
   const hentet = useHent<{ journalposter: Journalpost[] }>(`/api/arkiv/saker/${del(sak)}`);
@@ -234,7 +261,14 @@ export function Mappefiler({ sak }: { sak: string }) {
   if (poster.length === 0) return <div className={c.utvidet}><Text className={c.dempet} lang={sprak}>{t('arkivar.sak.tom')}</Text></div>;
   return (
     <div className={c.utvidet}>
-      <ul className={c.poster}>{poster.map((p) => <Mappedokument key={p.id} post={p} />)}</ul>
+      <ul className={c.poster}>
+        {poster.map((p) => (
+          <Utvidbar key={p.id} kan={p.dokumenter.length > 0}
+            rad={<Dokumenttittel filer={p.filer}>{p.postnr}. <Ruterlenke lang="nb" to={`/arkiv/saker/${p.sak_id}/journalposter/${p.id}`}>{p.tittel}</Ruterlenke></Dokumenttittel>}>
+            <Dokumentliste post={p} />
+          </Utvidbar>
+        ))}
+      </ul>
     </div>
   );
 }

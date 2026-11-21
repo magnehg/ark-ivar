@@ -12,8 +12,12 @@ import { Mappeikon, Status } from '../../komponenter/Status';
 
 const s = makeStyles({
   // To linjer: [type eller ikon] [nummer] [tittel og linje to] [dato]
-  linje: { display: 'grid', gridTemplateColumns: '34px 124px minmax(0, 1fr) 92px', columnGap: '10px', alignItems: 'start' },
-  mappelinje: { display: 'grid', gridTemplateColumns: '124px minmax(0, 1fr) 92px', columnGap: '10px', alignItems: 'start' },
+  // Når det er trangt (lesevinduet åpent, eller søket ved siden av et dokument), brytes raden: tittelen holder en
+  // lesbar bredde og flytter seg under nummeret, og datoen følger etter.
+  linje: { display: 'flex', flexWrap: 'wrap', gap: '2px 10px', alignItems: 'flex-start' },
+  typerute: { flexBasis: '34px', flexShrink: 0 },
+  nummerrute: { flexBasis: '124px', flexShrink: 0 },
+  tittelrute: { flexGrow: 1, flexShrink: 1, flexBasis: '15rem', minWidth: 0 },
   type: {
     display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '26px', height: '24px', border: `1.5px solid ${tokens.colorNeutralForeground2}`, borderRadius: '3px',
     fontWeight: tokens.fontWeightSemibold, textDecorationLine: 'none', cursor: 'help',
@@ -22,15 +26,13 @@ const s = makeStyles({
   lopenr: { color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200 },
   tittel: { fontWeight: tokens.fontWeightSemibold, minWidth: 0, overflowWrap: 'anywhere' },
   stor: { fontSize: tokens.fontSizeBase400 },
-  dato: { textAlign: 'right', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' },
+  dato: { marginLeft: 'auto', textAlign: 'right', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' },
   under: { display: 'block', color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200, fontWeight: tokens.fontWeightRegular, marginTop: '2px' },
   meta: { display: 'flex', flexWrap: 'wrap', gap: '2px 16px', color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200, marginTop: '4px', fontVariantNumeric: 'tabular-nums' },
   verdi: { color: tokens.colorNeutralForeground1 },
   sak: { display: 'block', marginTop: '2px' },
   ekstra: { marginTop: '4px' },
-  skjult: { position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clipPath: 'inset(50%)', whiteSpace: 'nowrap' },
   liten: { display: 'block', color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200 },
-  hode: { display: 'flex', gap: '12px', alignItems: 'flex-start', justifyContent: 'space-between' },
 });
 
 /** Løpenummeret i kortform, slik det står under saks- og dokumentnummeret: «3490/2026» blir «(3490/26)». */
@@ -77,12 +79,12 @@ export function useJournalpostvisning({ sak, tilgang }: Postvalg) {
     ),
     linjer: (r: Journalpost) => (
       <div className={c.linje} lang={sprak}>
-        <span>{type(r)}</span>
-        <span className={c.nummer}>
+        <span className={c.typerute}>{type(r)}</span>
+        <span className={`${c.nummer} ${c.nummerrute}`}>
           {sak ? saksnummer(r) : <Ruterlenke to={`/arkiv/saker/${r.sak_id}`}>{saksnummer(r)}</Ruterlenke>}
           <span className={c.lopenr}>{kortLopenummer(r.lopenummer)}</span>
         </span>
-        <span className={c.tittel}>
+        <span className={`${c.tittel} ${c.tittelrute}`}>
           <Dokumenttittel filer={r.filer}>{lenke(r)}</Dokumenttittel>
           <span className={c.under}>
             {part(r)}{!sak && <> · {t('arkivar.journal.sak')} <span className={c.verdi} lang="nb">{sakstittel(r)}</span></>} · <span className={c.verdi}>{tilgang(r)}</span>
@@ -116,10 +118,7 @@ export function useMappevisning<T>({ sak, lenke, enhetsnavn, handling, ekstra }:
       const m = sak(r);
       return (
         <div lang={sprak}>
-          <div className={c.hode}>
-            <span className={`${c.tittel} ${c.stor}`}>{til(m)}</span>
-            {handling?.(r)}
-          </div>
+          <span className={`${c.tittel} ${c.stor}`}>{til(m)}</span>
           <div className={c.meta}>
             <Mappeikon status={m.status}><span className={c.verdi}>{m.saksnummer}</span></Mappeikon>
             {felt(t('arkivar.sak.enhet.kort'), enhetsnavn(m.enhet), true)}
@@ -130,6 +129,7 @@ export function useMappevisning<T>({ sak, lenke, enhetsnavn, handling, ekstra }:
             <span>{t('arkivar.sak.primaer')} <span className={c.verdi}>{klassering(m)}</span></span>
           </div>
           {ekstra && <div className={c.ekstra}>{ekstra(r)}</div>}
+          {handling && <div className={c.ekstra}>{handling(r)}</div>}
         </div>
       );
     },
@@ -137,10 +137,10 @@ export function useMappevisning<T>({ sak, lenke, enhetsnavn, handling, ekstra }:
       const m = sak(r);
       return (
         <div lang={sprak}>
-          <div className={c.mappelinje}>
-            <Mappeikon status={m.status}>{m.saksnummer}</Mappeikon>
-            <span className={c.tittel}>
-              <span className={c.hode}>{til(m)}{handling?.(r)}</span>
+          <div className={c.linje}>
+            <span className={c.nummerrute}><Mappeikon status={m.status}>{m.saksnummer}</Mappeikon></span>
+            <span className={`${c.tittel} ${c.tittelrute}`}>
+              {til(m)}
               <span className={c.under}>
                 <span className={c.verdi} lang="nb">{m.enhet} / {m.saksansvarlig_navn}</span> · <span className={c.verdi}>{klassering(m)}</span> · {status(m)} · {t('arkivar.sok.dokumenter', { antall: m.antall })}
               </span>
@@ -148,6 +148,7 @@ export function useMappevisning<T>({ sak, lenke, enhetsnavn, handling, ekstra }:
             <span className={c.dato}>{dato(m.saksdato)}</span>
           </div>
           {ekstra && <div className={c.ekstra}>{ekstra(r)}</div>}
+          {handling && <div className={c.ekstra}>{handling(r)}</div>}
         </div>
       );
     },
@@ -171,8 +172,11 @@ export function useMappekolonner<T>({ sak, lenke, enhetsnavn, handling, ekstra }
     { id: 'dato', overskrift: t('arkivar.sak.dato'), stil: { width: '96px' }, celle: (r) => dato(sak(r).saksdato), sorter: (r) => sak(r).saksdato },
     { id: 'status', overskrift: t('arkivar.sak.status'), stil: { width: '64px' }, celle: (r) => <abbr title={t(`arkivar.saksstatus.${sak(r).status.toLowerCase()}`)}>{sak(r).status}</abbr>, sorter: (r) => sak(r).status },
     { id: 'antall', overskrift: t('arkivar.sak.antall'), stil: { width: '92px' }, celle: (r) => sak(r).antall, sorter: (r) => sak(r).antall },
-    { id: 'klasse', overskrift: t('arkivar.sak.primaer'), stil: { width: handling ? '180px' : '230px' }, sprak: 'nb', celle: (r) => (<>{sak(r).klasse_tekst}<span className={c.liten}>{sak(r).arkivdel_tekst}</span></>), sorter: (r) => `${sak(r).arkivdel_tekst} ${sak(r).klasse_tekst}` },
+    { id: 'klasse', overskrift: t('arkivar.sak.primaer'), stil: { width: '230px' }, sprak: 'nb', celle: (r) => (<>{sak(r).klasse_tekst}<span className={c.liten}>{sak(r).arkivdel_tekst}</span></>), sorter: (r) => `${sak(r).arkivdel_tekst} ${sak(r).klasse_tekst}` },
   ];
-  if (handling) kolonner.push({ id: 'handling', overskrift: <span className={c.skjult}>{t('arkivar.visning.handling')}</span>, stil: { width: '190px' }, celle: (r) => handling(r) });
-  return kolonner;
+  if (!handling) return kolonner;
+  // Med en handling står oversikten ved siden av et dokument og har liten plass: bare nummeret, tittelen (med
+  // handlingen under) og statusen. Resten står i de andre visningene og i mappen.
+  const tittel: Kolonne<T> = { ...kolonner[1], celle: (r, i) => <>{kolonner[1].celle(r, i)}<div className={c.ekstra} lang={sprak}>{handling(r)}</div></> };
+  return [kolonner[0], tittel, kolonner[5]];
 }

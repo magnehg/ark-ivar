@@ -129,9 +129,13 @@ beskrivelse og søketips.
 5. **Saksnummer.** Kommunens egne dokumenter viser til mappen med plassholderen `{{sak}}` (for eksempel «Vår ref.:
    {{sak}}» sist i første avsnitt, eller «arkivsak {{sak}}»). En annen mappe vises til med `{{sak:<nøkkel>}}`, som må
    finnes i `sirevag.json`. Innbyggere kan vise til «deres ref. {{sak}}» når de svarer på et brev fra kommunen.
-   Ikke dikt opp saksnummer med tall. Plassholderne virker bare i emnet, teksten og vedleggene til et dokument, ikke
-   i titler og navn. Et dokument i postmottaket (`oppgaver.json`) ligger ikke i en mappe ennå, så der brukes alltid
-   `{{sak:<nøkkel>}}`.
+   Ikke dikt opp saksnummer med tall. Plassholderne virker bare i emnet, teksten, vedleggene og utkastet til et
+   dokument, ikke i titler og navn. Et dokument i postmottaket (`oppgaver.json`) ligger ikke i en mappe ennå, så der
+   brukes alltid `{{sak:<nøkkel>}}`.
+   **Utkast.** Kommunens egne utgående dokumenter i `sirevag.json` kan ha feltet `utkast`: en liste med avsnitt som
+   er saksbehandlerens grove første utkast. Dokumentet får da to versjoner, utkastet som versjon 1 og den ferdige
+   teksten som versjon 2. Utkastet er kortere, kan ha stikkord og merknader i hakeparentes, og motsier ikke den
+   ferdige teksten. Dokumenter i postmottaket har ikke utkast.
 6. **Språk.** Klart norsk bokmål. Ikke engelske ord der norske finnes. Ikke tankestrek som komma; bruk «–» bare i
    titler mellom ledd. Datoer skrives «17. november 2026» i tekst.
 7. **Lovhenvisninger.** Bruk bare hjemlene i avsnittet «Regelverk» under, og bare der du er sikker. Er du i tvil,

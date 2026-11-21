@@ -3,7 +3,7 @@
 // - Alle tabeller kan sorteres ved å klikke på kolonneoverskriften. Sorteringen følger språket (Intl.Collator).
 // - Filter vises som et diskret ikon øverst til høyre over tabellen. Filterfeltene ligger i en sprettboks.
 //   Når et filter er i bruk, er ikonet fylt og viser antall aktive filtre (ikke bare farge, UU-05).
-import { CSSProperties, FocusEvent, Fragment, ReactNode, useEffect, useId, useMemo, useState } from 'react';
+import { CSSProperties, Dispatch, FocusEvent, Fragment, ReactNode, SetStateAction, useEffect, useId, useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
 import {
   Button, Popover, PopoverSurface, PopoverTrigger, Table, TableBody, TableCell, TableHeader, TableHeaderCell, TableRow,
@@ -31,9 +31,19 @@ export type Sortering = { id: string; retning: 'ascending' | 'descending' };
 const tom = (v: Sorteringsverdi) => v === null || v === undefined || v === '';
 
 /** Sorterer radene etter valgt kolonne. Tomme verdier havner alltid sist. Lik verdi beholder opprinnelig rekkefølge. */
-export function useSortering<T>(rader: T[], kolonner: Kolonne<T>[], start: Sortering | null = null) {
+/** Sorteringen når den eies av noen utenfor tabellen (oversiktene, der den skal overleve bytte av visning). */
+export type Sorteringstilstand = { sortering: Sortering | null; settSortering: (s: Sortering | null) => void };
+/** Radene som er utvidet, etter nøkkelen. */
+export type Apne = ReadonlySet<string | number>;
+export type SettApne = Dispatch<SetStateAction<Apne>>;
+/** Nøkkelen til en rad. */
+export type Radnokkel<T> = { (rad: T, indeks: number): string | number };
+
+export function useSortering<T>(rader: T[], kolonner: Kolonne<T>[], start: Sortering | null = null, ytre?: Sorteringstilstand) {
   const intl = useIntl();
-  const [sortering, settSortering] = useState<Sortering | null>(start);
+  const [egen, settEgen] = useState<Sortering | null>(start);
+  const sortering = ytre ? ytre.sortering : egen;
+  const settSortering = ytre ? ytre.settSortering : settEgen;
   const sammenlign = useMemo(() => new Intl.Collator(intl.locale, { numeric: true, sensitivity: 'base' }), [intl.locale]);
   const sortert = useMemo(() => {
     const med = rader.map((rad, indeks) => ({ rad, indeks }));
@@ -50,10 +60,24 @@ export function useSortering<T>(rader: T[], kolonner: Kolonne<T>[], start: Sorte
       return r * retning || a.indeks - b.indeks;
     });
   }, [rader, kolonner, sortering, sammenlign]);
-  const klikk = (id: string) => settSortering((s) => (s?.id === id ? { id, retning: s.retning === 'ascending' ? 'descending' : 'ascending' } : { id, retning: 'ascending' }));
+  const klikk = (id: string) => settSortering(sortering?.id === id ? { id, retning: sortering.retning === 'ascending' ? 'descending' : 'ascending' } : { id, retning: 'ascending' });
   /** Setter kolonnen og retningen direkte (visningene uten overskrifter å klikke på). */
   const velg = (id: string, retning: Sortering['retning']) => settSortering(id ? { id, retning } : null);
   return { sortert, sortering, klikk, velg };
+}
+
+/**
+ * Lukker utvidede rader som ikke lenger finnes: en rad som forsvinner (filter), er lukket når den kommer tilbake, og
+ * uten utviding er ingen rader åpne.
+ */
+export function useRyddApne<T>(rader: T[], nokkel: Radnokkel<T>, kanUtvides: boolean, settApne: SettApne): void {
+  const nokler = rader.map((rad, indeks) => nokkel(rad, indeks));
+  const finnes = nokler.join('\u0000');
+  useEffect(() => {
+    const igjen = new Set(kanUtvides ? nokler : []);
+    settApne((gml) => ([...gml].every((n) => igjen.has(n)) ? gml : new Set([...gml].filter((n) => igjen.has(n)))));
+    // Nøklene er samlet i «finnes».
+  }, [finnes, kanUtvides]); // eslint-disable-line react-hooks/exhaustive-deps
 }
 
 /**
@@ -86,12 +110,14 @@ export type TabellProps<T> = {
    * knappen i de to tilstandene; kan sier om raden har noe å vise (ellers får den ingen knapp). beskrevetAv er
    * kolonnen som sier hvilken rad knappen gjelder (tittelen), så knappene kan skilles fra hverandre i en skjermleser.
    */
+  /** Sorteringen og de utvidede radene eid av den som bruker tabellen. Uten holder tabellen dem selv. */
+  styrt?: Sorteringstilstand & { apne: Apne; settApne: SettApne };
   utvid?: { innhold: (rad: T, indeks: number) => ReactNode; vis: string; skjul: string; kan?: (rad: T, indeks: number) => boolean; beskrevetAv?: string };
 };
 
 /** Tabell der alle kolonner med sorteringsverdi kan sorteres ved klikk på overskriften (GRS-02). */
-export function SorterbarTabell<T>({ rader, kolonner, nokkel, size = 'small', style, radEgenskaper, utenVegg, startSortering, frysVedRedigering, kroppSprak, utvid, ...aria }: TabellProps<T>) {
-  const { sortert: levende, sortering, klikk: sorter } = useSortering(rader, kolonner, startSortering ?? null);
+export function SorterbarTabell<T>({ rader, kolonner, nokkel, size = 'small', style, radEgenskaper, utenVegg, startSortering, frysVedRedigering, kroppSprak, utvid, styrt, ...aria }: TabellProps<T>) {
+  const { sortert: levende, sortering, klikk: sorter } = useSortering(rader, kolonner, startSortering ?? null, styrt);
   const [frosset, settFrosset] = useState<number[] | null>(null);
   // Fryst rekkefølge: radene står der de stod da fokus kom inn i tabellkroppen. Nye rader legges sist.
   const sortert = useMemo(() => {
@@ -106,16 +132,11 @@ export function SorterbarTabell<T>({ rader, kolonner, nokkel, size = 'small', st
   const fokusUt = (e: FocusEvent<HTMLElement>) => { if (frosset && !e.currentTarget.contains(e.relatedTarget as Node | null)) settFrosset(null); };
   const c = s(); const { sprak } = useSprak();
   const idStart = useId();
-  // Radene som er utvidet, etter nøkkelen. En rad som forsvinner (filter), er lukket når den kommer tilbake.
-  const [apne, settApne] = useState<ReadonlySet<string | number>>(new Set());
+  const [egneApne, settEgneApne] = useState<Apne>(new Set());
+  const apne = styrt ? styrt.apne : egneApne;
+  const settApne = styrt ? styrt.settApne : settEgneApne;
   const veksle = (n: string | number) => settApne((gml) => { const ny = new Set(gml); if (!ny.delete(n)) ny.add(n); return ny; });
-  const nokler = rader.map((rad, indeks) => nokkel(rad, indeks));
-  const finnes = nokler.join('\u0000');
-  const kanUtvides = utvid !== undefined;
-  useEffect(() => {
-    const igjen = new Set(kanUtvides ? nokler : []);
-    settApne((gml) => ([...gml].every((n) => igjen.has(n)) ? gml : new Set([...gml].filter((n) => igjen.has(n)))));
-  }, [finnes, kanUtvides]);
+  useRyddApne(rader, nokkel, utvid !== undefined, settApne);
   const tabell = (
     <Table sortable size={size} style={style} className={utvid ? c.bred : undefined} aria-label={aria['aria-label']} aria-labelledby={aria['aria-labelledby']} onFocus={fokusInn} onBlur={fokusUt}>
       <TableHeader>

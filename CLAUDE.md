@@ -142,7 +142,8 @@ uttrekk eller avlevere.
   ledeteksten («Tittel:»), og verdien står ved siden av i et merket element.
 - **Migreringen `002_arkiv.sql`** er endret på stedet flere ganger før første utgivelse. Kjernen lagrer sjekksummen
   av hver kjørte fil og stopper på en endret fil, så en database installert fra en eldre commit må slettes og
-  installeres på nytt. Fra første utgivelse fryses filen, og endringer kommer i en ny fil (`003_….sql`).
+  installeres på nytt. Fra første utgivelse fryses filen, og endringer kommer i en ny fil med neste ledige nummer.
+  `003_brukervalg.sql` er ny og endres ikke.
 - **Utgaven av innholdet:** `arkivar_arkiv.innhold` er et fingeravtrykk av `sirevag.json` og `oppgaver.json` da
   arkivet ble fylt. Er filene byttet siden, gir `GET /api/arkiv` `utdatert`, og forsiden ber studenten nullstille:
   dokumentene leses fra filene og kan ha endret seg under mappene i arkivet. En behandling av et dokument som siden

@@ -1,7 +1,7 @@
 // Dokumentfilene til journalpostene: filikoner for produksjonsformat og arkivformat, listen som vises når en rad i en
 // oversikt er utvidet, og lesevinduet som åpnes til høyre når studenten klikker på en fil. Øvingsarkivet har ikke
 // virkelige filer: lesevinduet viser dokumentet slik filen ville sett ut (som ark, eller som ren tekst for txt).
-import { KeyboardEvent as ReactKeyboardEvent, ReactNode, createContext, useCallback, useContext, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { KeyboardEvent as ReactKeyboardEvent, ReactNode, createContext, useCallback, useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link as Ruterlenke, useLocation } from 'react-router-dom';
 import { Button, MessageBar, MessageBarBody, DrawerBody, DrawerHeader, DrawerHeaderTitle, OverlayDrawer, Text, makeStyles, mergeClasses, tokens } from '@fluentui/react-components';
 import { ChevronDown20Regular, ChevronRight20Regular, Dismiss24Regular } from '@fluentui/react-icons';
@@ -16,17 +16,23 @@ import { Hentefeil, Laster, useHent } from './Felles';
  */
 const BREDDE = 'var(--arkivar-lesevindu-bredde, min(680px, 44vw))';
 const BREDDEVARIABEL = '--arkivar-lesevindu-bredde';
-/** Minste bredde på lesevinduet og på siden ved siden av, og steget piltastene flytter kanten. */
+/**
+ * Minste bredde på lesevinduet og på siden ved siden av (venstremenyen og en brukbar bredde til innholdet), og
+ * steget piltastene flytter kanten.
+ */
 const MINST = 360;
-const MINST_SIDE = 420;
+const MINST_SIDE = 720;
 const STEG = 24;
 /** Bredden huskes i nettleseren: den hører til skjermen, ikke kontoen. */
 const LAGERNOKKEL = 'arkivar-lesevindu-bredde';
 
+/** Bredden holdt innenfor det skjermen har plass til: vinduet og siden ved siden av skal begge kunne brukes. */
+const innenfor = (bredde: number): number => Math.round(Math.min(Math.max(bredde, MINST), Math.max(MINST, window.innerWidth - MINST_SIDE)));
+
 function lagretBredde(): number | null {
   try {
     const tall = Number(window.localStorage.getItem(LAGERNOKKEL));
-    return Number.isFinite(tall) && tall >= MINST ? tall : null;
+    return Number.isFinite(tall) && tall >= MINST ? innenfor(tall) : null;
   } catch { return null; }
 }
 function huskBredde(bredde: number | null): void {
@@ -34,8 +40,6 @@ function huskBredde(bredde: number | null): void {
     if (bredde === null) window.localStorage.removeItem(LAGERNOKKEL); else window.localStorage.setItem(LAGERNOKKEL, String(Math.round(bredde)));
   } catch { /* uten lager gjelder bredden til siden lastes på nytt */ }
 }
-/** Bredden holdt innenfor det skjermen har plass til: vinduet og siden ved siden av skal begge kunne brukes. */
-const innenfor = (bredde: number): number => Math.round(Math.min(Math.max(bredde, MINST), Math.max(MINST, window.innerWidth - MINST_SIDE)));
 
 const s = makeStyles({
   ikon: { flexShrink: 0, display: 'block' },
@@ -178,10 +182,22 @@ export function LesevinduTilbyder({ children }: { children: ReactNode }) {
     window.addEventListener('resize', juster);
     return () => window.removeEventListener('resize', juster);
   }, []);
-  // Bredden vinduet har nå: den brukeren har satt, ellers den vinduet faktisk har på skjermen.
-  const vindu = (): Element | null => document.querySelector('[data-lesevindu]');
-  const naa = (): number => bredde ?? Math.round(vindu()?.getBoundingClientRect().width ?? 680);
+  // Bredden vinduet faktisk har på skjermen (til aria-valuenow) og bredden på nettleservinduet (til aria-valuemax).
+  // De måles etter tegningen, ikke under den.
+  const [maalt, settMaalt] = useState({ vindu: 0, skjerm: window.innerWidth });
+  useLayoutEffect(() => {
+    const maal = () => settMaalt({ vindu: Math.round(document.querySelector('[data-lesevindu]')?.getBoundingClientRect().width ?? 0), skjerm: window.innerWidth });
+    maal();
+    window.addEventListener('resize', maal);
+    return () => window.removeEventListener('resize', maal);
+  }, [apen, bredde]);
+  // Har brukeren satt en bredde, er det den som gjelder. Ellers er det bredden vinduet er målt til.
+  const naa = (): number => (bredde !== null ? innenfor(bredde) : maalt.vindu);
   const settOgHusk = (ny: number | null) => { const b = ny === null ? null : innenfor(ny); settBredde(b); huskBredde(b); };
+  // Dragingen regnes fra der pekeren og kanten stod da den begynte, så et klikk uten bevegelse ikke endrer noe.
+  const start = useRef<{ x: number; bredde: number; flyttet: boolean } | null>(null);
+  const draTil = (x: number): number => innenfor((start.current?.bredde ?? naa()) + ((start.current?.x ?? x) - x));
+  const slutt = (lagre: number | null) => { if (start.current?.flyttet && lagre !== null) settOgHusk(lagre); start.current = null; settDras(false); };
   const kanttast = (e: ReactKeyboardEvent) => {
     if (e.key === 'ArrowLeft') settOgHusk(naa() + STEG);
     else if (e.key === 'ArrowRight') settOgHusk(naa() - STEG);
@@ -198,15 +214,6 @@ export function LesevinduTilbyder({ children }: { children: ReactNode }) {
       <OverlayDrawer className={c.skuff} data-lesevindu="" position="end" modalType="non-modal" open={apen !== null} onOpenChange={(_, d) => { if (!d.open) lukk(); }} aria-label={t('arkivar.lesevindu.tittel')}>
         {apen && (
           <>
-            {/* Vinduet står til høyre, så bredden er avstanden fra pekeren til høyre kant. Dobbeltklikk gir standarden. */}
-            <div className={mergeClasses(c.kant, dras && c.dras)} role="separator" aria-orientation="vertical" tabIndex={0} aria-label={t('arkivar.lesevindu.kant')} title={t('arkivar.lesevindu.kant')}
-              aria-valuemin={MINST} aria-valuemax={Math.max(MINST, window.innerWidth - MINST_SIDE)} aria-valuenow={naa()}
-              onPointerDown={(e) => { e.currentTarget.setPointerCapture(e.pointerId); settDras(true); e.preventDefault(); }}
-              onPointerMove={(e) => { if (dras) settBredde(innenfor(window.innerWidth - e.clientX)); }}
-              onPointerUp={(e) => { if (dras) { settDras(false); settOgHusk(window.innerWidth - e.clientX); } }}
-              onPointerCancel={() => settDras(false)}
-              onDoubleClick={() => settOgHusk(null)}
-              onKeyDown={kanttast} />
             <DrawerHeader>
               <DrawerHeaderTitle action={<Button appearance="subtle" icon={<Dismiss24Regular />} aria-label={t('arkivar.lesevindu.lukk')} title={t('arkivar.lesevindu.lukk')} onClick={lukk} />}>
                 <span className={c.hodetekst}>
@@ -220,8 +227,25 @@ export function LesevinduTilbyder({ children }: { children: ReactNode }) {
             </DrawerHeader>
             <DrawerBody className={c.kropp}>
               <Ruterlenke className={c.lenke} to={`/arkiv/saker/${apen.sak}/journalposter/${apen.journalpost}`}>{t('arkivar.lesevindu.journalpost')}</Ruterlenke>
-              <Filinnhold key={`${apen.journalpost}/${apen.dokument}/${apen.fil.filnavn}`} valg={apen} />
+              <Filinnhold key={`${apen.journalpost}/${apen.dokument}/${apen.fil.versjon}/${apen.fil.variantformat}`} valg={apen} />
             </DrawerBody>
+            {/* Kanten står sist i vinduet, så fokus går til lukkeknappen og ikke hit når en fil åpnes. Dobbeltklikk gir standarden. */}
+            <div className={mergeClasses(c.kant, dras && c.dras)} role="separator" aria-orientation="vertical" tabIndex={0} aria-label={t('arkivar.lesevindu.kant')} title={t('arkivar.lesevindu.kant.hjelp')}
+              aria-valuemin={MINST} aria-valuemax={Math.max(MINST, maalt.skjerm - MINST_SIDE)} aria-valuenow={naa()}
+              onPointerDown={(e) => {
+                if (e.button !== 0 || !e.isPrimary) return;
+                e.currentTarget.setPointerCapture(e.pointerId); start.current = { x: e.clientX, bredde: naa(), flyttet: false }; settDras(true); e.preventDefault();
+              }}
+              onPointerMove={(e) => {
+                if (!start.current) return;
+                if (Math.abs(e.clientX - start.current.x) > 2) start.current.flyttet = true;
+                if (start.current.flyttet) settBredde(draTil(e.clientX));
+              }}
+              onPointerUp={(e) => slutt(draTil(e.clientX))}
+              onPointerCancel={() => slutt(null)}
+              onLostPointerCapture={() => slutt(null)}
+              onDoubleClick={() => settOgHusk(null)}
+              onKeyDown={kanttast} />
           </>
         )}
       </OverlayDrawer>
@@ -249,9 +273,10 @@ export function Filliste({ post, dokument }: { post: Postref; dokument: Dokument
           <span className={c.versjon}>{t('arkivar.filer.versjon', { nr: versjon })}{erUtkast(versjon) && <> · {t('arkivar.filer.utkast')}</>}</span>
           <ul className={c.liste}>
             {dokument.filer.filter((f) => f.versjon === versjon).map((fil) => {
-              const valgt = vindu.apen?.journalpost === post.id && vindu.apen.dokument === dokument.nr && vindu.apen.fil.filnavn === fil.filnavn;
+              // Varianten kjennes på versjonen og variantformatet: to varianter kan ha samme filnavn (begge PDF).
+              const valgt = vindu.apen?.journalpost === post.id && vindu.apen.dokument === dokument.nr && vindu.apen.fil.versjon === fil.versjon && vindu.apen.fil.variantformat === fil.variantformat;
               return (
-                <li key={fil.filnavn}>
+                <li key={`${fil.versjon}-${fil.variantformat}`}>
                   <Button appearance="subtle" className={mergeClasses(c.fil, valgt && c.valgt)} icon={<Filikon fil={fil} />} aria-pressed={valgt}
                     onClick={() => vindu.apne({ journalpost: post.id, sak: post.sak_id, dokument: dokument.nr, tittel: dokument.tittel, fil, utkast: erUtkast(versjon) })}>
                     <span className={c.filtekst}>

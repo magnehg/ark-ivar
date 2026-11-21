@@ -25,9 +25,11 @@ const s = makeStyles({
   modusLenke: { padding: '12px', color: tokens.colorNeutralForeground2, textDecoration: 'none', borderBottom: '3px solid transparent', whiteSpace: 'nowrap', ':hover': { background: tokens.colorNeutralBackground3 } },
   modusAktiv: { color: tokens.colorNeutralForeground1, fontWeight: tokens.fontWeightSemibold, borderBottomColor: tokens.colorBrandStroke1 },
   ramme: { display: 'grid', gridTemplateColumns: '240px minmax(0,1fr)', minHeight: 'calc(100vh - 97px - 49px)', '@media (max-width: 800px)': { gridTemplateColumns: '1fr' } },
-  side: { background: tokens.colorNeutralBackground2, borderRight: `1px solid ${tokens.colorNeutralStroke2}`, padding: '12px 8px', '@media (max-width: 800px)': { borderRight: 'none', borderBottom: `1px solid ${tokens.colorNeutralStroke2}` } },
+  side: { display: 'flex', flexDirection: 'column', background: tokens.colorNeutralBackground2, borderRight: `1px solid ${tokens.colorNeutralStroke2}`, padding: '12px 8px 0', '@media (max-width: 800px)': { borderRight: 'none', borderBottom: `1px solid ${tokens.colorNeutralStroke2}` } },
   sideTittel: { fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.04em', color: tokens.colorNeutralForeground3, margin: '12px 8px 4px' },
   sideLenke: { display: 'flex', gap: '8px', alignItems: 'center', padding: '8px', borderRadius: tokens.borderRadiusMedium, color: tokens.colorNeutralForeground1, textDecoration: 'none', minHeight: '24px', ':hover': { background: tokens.colorNeutralBackground3 } },
+  // Nederst i menyen. Er siden lengre enn skjermen, står den fast nederst i venstre hjørne mens siden rulles.
+  sideBunn: { marginTop: 'auto', position: 'sticky', bottom: 0, background: tokens.colorNeutralBackground2, borderTop: `1px solid ${tokens.colorNeutralStroke2}`, padding: '8px 0', marginLeft: '-8px', marginRight: '-8px', paddingLeft: '8px', paddingRight: '8px' },
   sideAktiv: { background: tokens.colorBrandBackground2, fontWeight: tokens.fontWeightSemibold, boxShadow: `inset 3px 0 0 ${tokens.colorBrandStroke1}` },
   brukerinfo: { display: 'flex', flexDirection: 'column', padding: '6px 10px 8px', color: tokens.colorNeutralForeground1 },
   brukerrolle: { fontSize: tokens.fontSizeBase200, color: tokens.colorNeutralForeground2 },
@@ -103,6 +105,7 @@ export function Skall() {
   const loggUt = () => { api.post('/bivrost/api/utlogging').catch(() => {}).finally(() => { settInnlogget(null); nav('/'); }); };
   const begrenset = bredde === 'begrenset';
   const rolle = innlogget?.tittel ?? innlogget?.tilganger.map((x) => x.navn).join(', ') ?? '';
+  const filer = (aktiv?.grupper ?? []).flatMap((g) => g.lenker.filter((l) => l.fil));
   return (
     <>
       <a href="#hoved" className={c.hopp}>{t('arkivar.felles.hopp_til_innhold')}</a>
@@ -154,11 +157,16 @@ export function Skall() {
           {aktiv?.grupper.map((g) => (
             <div key={g.tittel}>
               <h2 className={c.sideTittel}>{g.tittel}</h2>
-              {g.lenker.map((l) => (l.fil
-                ? <a key={l.til} href={l.til} className={c.sideLenke}>{l.ikon}{l.tekst}</a>
-                : <NavLink key={l.til} to={l.til} end={l.til === '/'} className={({ isActive }) => `${c.sideLenke} ${isActive ? c.sideAktiv : ''}`}>{l.ikon}{l.tekst}</NavLink>))}
+              {g.lenker.filter((l) => !l.fil).map((l) => (
+                <NavLink key={l.til} to={l.til} end={l.til === '/'} className={({ isActive }) => `${c.sideLenke} ${isActive ? c.sideAktiv : ''}`}>{l.ikon}{l.tekst}</NavLink>))}
             </div>
           ))}
+          {/* Lenkene ut av appen (arkivplanen) står nederst i menyen og følger med nederst i venstre hjørne når siden rulles. */}
+          {filer.length > 0 && (
+            <div className={c.sideBunn}>
+              {filer.map((l) => <a key={l.til} href={l.til} className={c.sideLenke}>{l.ikon}{l.tekst}</a>)}
+            </div>
+          )}
         </nav>
         {/* Siden lastes og tegnes inne i hovedfeltet: menyen står både mens siden lastes og hvis den feiler. */}
         <main id="hoved" tabIndex={-1} className={c.innhold}>

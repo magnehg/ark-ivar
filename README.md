@@ -26,7 +26,7 @@ saksgangen, i hvert sitt øvingsarkiv. Systemet lager ikke uttrekk og avleverer 
 | Postmottaket: 24 eksempeldokumenter som vurderes, registreres og journalføres, med skjerming | På plass |
 | Fasit og tilbakemelding per kriterium, og lærerens oversikt over fremdriften i klassen | På plass |
 | Offentlig journal (visning med skjermede titler og navn) | På plass |
-| Saksgang: svar ut, avskrivning, avslutning av saker | Ikke begynt |
+| Åpne en avsluttet mappe igjen, og historikk på mapper og journalposter | Ikke begynt |
 | Behandling av innsynskrav | Ikke begynt |
 | Arkivstruktur som studenten selv kan endre | Ikke begynt |
 

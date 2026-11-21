@@ -9,7 +9,7 @@ import { FormEvent, useEffect, useState } from 'react';
 import { Link as Ruterlenke, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Button, Caption1, Checkbox, Field, Input, MessageBar, MessageBarBody, Radio, RadioGroup, Select, Text, Textarea, makeStyles, tokens } from '@fluentui/react-components';
 import { api } from '../../api';
-import { Dokument, Dokumentmal, Journalpost, Sak, Struktur, del, useStruktur } from '../../arkiv';
+import { Dokument, Dokumentmal, Journalpost, Sak, Struktur, del, idagNorsk, useStruktur } from '../../arkiv';
 import { useKode, useSprak, useT } from '../../i18n';
 import { Avskrivningsmate, Henvisningslenke, dokumentnummer } from '../../komponenter/Avskrivning';
 import { Feil, Hentefeil, Hjelp, Kort, Laster, Sidehode, useFeiltekst, useHent, useOkt } from '../../komponenter/Felles';
@@ -112,7 +112,7 @@ export default function Skriv() {
     const fylt = fraMal(forste, svarmappe, maler);
     const f = svarforslag.forslag;
     settForslag({ emne: f.tittel, tekst: fylt.tekst ?? '' });
-    sett((forrige) => ({ ...forrige, mal: forste.kode, type: 'U', emne: f.tittel, tekst: fylt.tekst ?? '', tittel: f.tittel, mottaker: f.mottaker, part: f.mottaker, dokumentdato: new Date().toLocaleDateString('sv-SE') }));
+    sett((forrige) => ({ ...forrige, mal: forste.kode, type: 'U', emne: f.tittel, tekst: fylt.tekst ?? '', tittel: f.tittel, mottaker: f.mottaker, part: f.mottaker, dokumentdato: idagNorsk() }));
     settEgenTittel(true);
     settSvarFylt(true);
   }, [svarFylt, svarforslag, maler, svarmappe]);
@@ -256,7 +256,7 @@ export default function Skriv() {
                   </Field>
                   <Checkbox checked={v.skjermTittel} onChange={(_, d) => endre({ skjermTittel: d.checked === true })} label={t('arkivar.registrering.skjerm_tittel')} />
                   {v.skjermTittel && <Field label={t('arkivar.journalpost.offentlig_tittel')} hint={t('arkivar.registrering.offentlig.hjelp')}><Input value={v.offentlig} onChange={(_, d) => endre({ offentlig: d.value })} /></Field>}
-                  <Checkbox checked={v.skjermPart} onChange={(_, d) => endre({ skjermPart: d.checked === true })} label={t('arkivar.registrering.skjerm_part')} />
+                  <Checkbox checked={v.skjermPart} onChange={(_, d) => endre({ skjermPart: d.checked === true })} label={t(v.type === 'U' ? 'arkivar.registrering.skjerm_mottaker' : 'arkivar.registrering.skjerm_part')} />
                   <Caption1 className={c.dempet}>
                     {t('arkivar.skriv.status', { under: kode('jpstatus', v.type === 'I' ? 'M' : 'R'), ferdig: kode('jpstatus', ferdig) })}
                     {/* Statuskodene et utgående dokument går gjennom, bak et hjelpeikon. */}

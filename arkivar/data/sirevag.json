@@ -4921,7 +4921,8 @@
               "Forslag til regional plan",
               "Kart over kulturmiljøer av regional verdi"
             ]
-          }
+          },
+          "avskrivning": "TE"
         },
         {
           "type": "I",
@@ -4951,7 +4952,8 @@
             "vedlegg": [
               "Høringsnotat"
             ]
-          }
+          },
+          "avskrivning": "TE"
         },
         {
           "type": "I",
@@ -4981,7 +4983,8 @@
               "Høringsnotat",
               "Liste over høringsinstanser"
             ]
-          }
+          },
+          "avskrivning": "TE"
         },
         {
           "type": "I",
@@ -5011,7 +5014,8 @@
             "vedlegg": [
               "Forslag til håndbok"
             ]
-          }
+          },
+          "avskrivning": "TE"
         },
         {
           "type": "I",
@@ -5041,7 +5045,8 @@
             "vedlegg": [
               "Forslag til kommunedelplan"
             ]
-          }
+          },
+          "avskrivning": "TE"
         }
       ]
     },
@@ -5124,7 +5129,8 @@
               "Med hilsen Gunnar Grevling, byggesaksbehandler"
             ],
             "vedlegg": []
-          }
+          },
+          "forelopig_svar": true
         },
         {
           "type": "I",
@@ -5642,7 +5648,8 @@
               "Nabovarsel sendt 9. november 2026, dagen før søknaden. [regn ut når merknadsfristen går ut – to uker] Vi tar ikke saken til behandling før fristen er ute. Merknader skal sendes oss med redegjørelse.",
               "Frist for dokumentasjonen [sett dato]. Husk: saksbehandlingsfristen løper ikke før søknaden er komplett, ombyggingen kan ikke starte uten tillatelse, og søknaden kan bli avvist om vi ikke får det vi ber om."
             ]
-          }
+          },
+          "forelopig_svar": true
         }
       ]
     },

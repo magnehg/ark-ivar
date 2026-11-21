@@ -366,6 +366,24 @@ gjelder den saken. Ingen samlesaker som «Innsynskrav 2026» eller «Diverse hen
 Det eneste unntaket er samlemappen «Høringer 2026» (klasse 008): der legges høringer kommunen har mottatt, men ikke
 uttaler seg til. En høring kommunen skal behandle, får sin egen sak på emnet.
 
+## Avskrivningen av dokumentene som følger med
+
+Når et øvingsarkiv fylles, avskrives de inngående dokumentene i mappene etter rekkefølgen og typen på dokumentene
+(`Ovingsarkiv::avskrivStartdokumenter()`), så den som legger til eller endrer en mappe, endrer også avskrivningene:
+
+- Et inngående dokument er besvart (BU) med det første senere utgående dokumentet i samme mappe som er ekspedert
+  eller journalført, og som går til avsenderen (navnene sammenliknes ord for ord: «Jærposten» og «Jærposten v/
+  journalist Oda Nærland» er samme part). Et brev til en annen part er ikke et svar. Skriv derfor mottakeren på
+  svaret slik avsenderen står på det inngående dokumentet.
+- Et utgående dokument med en tittel som begynner med «Foreløpig svar», avskriver ikke (`forelopig_svar`, satt av
+  `bygg.py`). Det endelige svaret må komme senere i mappen, ellers står dokumentet uten svar.
+- Inngående dokumenter uten svar i en avsluttet mappe (status A) får SA.
+- Inngående dokumenter i samlemappen «Høringer 2026» er tatt til etterretning (`avskrivning: "TE"`, satt av
+  `bygg.py`).
+- Av de øvrige journalførte inngående dokumentene uten svar står de ti nyeste som restanser, og de eldre er tatt
+  til etterretning (TE). Et nytt inngående dokument uten svar med ny dato skyver derfor den eldste restansen ut.
+  `ArbeidsflytTest` har tallene og datoene, og må oppdateres når de endres.
+
 ## Det som må følges med på
 
 - **Ny forvaltningslov** (lov 20. juni 2025 nr. 81) er vedtatt, men ikke satt i kraft. Når den trer i kraft,

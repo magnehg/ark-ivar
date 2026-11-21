@@ -136,14 +136,15 @@ final class Kontroll
         if ($this->db->verdi('SELECT 1 FROM arkivar_dokument WHERE journalpost_id = ? LIMIT 1', [Felt::tekst($post['id'])]) === null) {
             return null;
         }
-        // Et dokument studenten har skrevet: statusen saksbehandleren satte da dokumentet ble ferdigstilt.
+        // Et dokument studenten har skrevet: statusen saksbehandleren satte da dokumentet ble ferdigstilt, og
+        // journaldatoen fra før journalføringen, som er dagen journalposten ble opprettet.
         $status = match (Felt::tekst($post['type'])) {
             'U' => Kodelister::JP_EKSPEDERT,
             'I' => Kodelister::JP_MIDLERTIDIG,
             default => Kodelister::JP_FERDIG,
         };
 
-        return ['status' => $status, 'journaldato' => $idag];
+        return ['status' => $status, 'journaldato' => Dato::norsk(Felt::tekst($post['opprettet']))];
     }
 
     /** Angrer journalføringen: journalposten står igjen til journalføring og er ute av journalen. */
@@ -154,6 +155,11 @@ final class Kontroll
             $post = $this->register->journalpost($arkivId, $journalpostId) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
             $for = $this->forJournalforing($post) ?? throw new HttpFeil(409, 'kan_ikke_angres', 'arkivar.feil.journalforing_kan_ikke_angres');
             $this->krevApenMappe($arkivId, $post);
+            if ($this->register->avskriverArkivert($arkivId, $journalpostId)) {
+                // Svaret kan ligge i en annen mappe enn dokumentet det avskriver. Er det dokumentet arkivert, står
+                // avskrivningen fast, og svaret som avskriver det, kan ikke tas ut av journalen.
+                throw new HttpFeil(409, 'avskriver_arkivert', 'arkivar.feil.avskriver_arkivert');
+            }
             $this->register->settJournalstatus($arkivId, $journalpostId, $for['status'], false, $for['journaldato']);
         });
     }

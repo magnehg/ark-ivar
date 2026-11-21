@@ -9,7 +9,9 @@ import { Journalpost, Mangel, Sak, Sjekklistedata, del } from '../arkiv';
 import { useDato, useKode, useT } from '../i18n';
 import { Avskrivfelt, dokumentnummer } from './Avskrivning';
 import { Bekreft, Feil, Hentefeil, Laster, useFeiltekst, useHent } from './Felles';
+import { useJournalposthandlinger } from './Journalposthandlinger';
 import { useKontrolltall } from './Kontrolloppgaver';
+import { avsluttknappId } from './Mappehandlinger';
 import { Status } from './Status';
 
 const s = makeStyles({
@@ -35,9 +37,11 @@ type Egenskaper = {
   etter: () => void;
   /** Kalles når mappen er avsluttet, med antall dokumenter som ble arkivert. Siden rundt viser kvitteringen. */
   avsluttet: (antall: number) => void;
+  /** Sjekklisten står på siden til mappen: da står dokumentnummeret alene (3), ellers hele nummeret (2026/28-3). */
+  iMappen?: boolean;
 };
 
-export function Sjekkliste({ sak, etter, avsluttet }: Egenskaper) {
+export function Sjekkliste({ sak, etter, avsluttet, iMappen = false }: Egenskaper) {
   const c = s(); const t = useT(); const dato = useDato(); const kode = useKode(); const feiltekst = useFeiltekst(); const naviger = useNavigate();
   const kontroll = useKontrolltall();
   const hentet = useHent<Sjekklistedata>(`/api/arkiv/saker/${del(sak.id)}/sjekkliste`);
@@ -46,10 +50,12 @@ export function Sjekkliste({ sak, etter, avsluttet }: Egenskaper) {
   // Punktet der feltene for avskrivning er åpne, og om avslutningen venter på bekreftelse.
   const [avskriver, settAvskriver] = useState<string | null>(null);
   const [bekrefter, settBekrefter] = useState(false);
+  // Punktene løses som ellers: journalføringen bekreftes først, og kvitteringen har «Angre».
+  const lost = () => { settAvskriver(null); hentet.last(); kontroll.oppdater(); etter(); };
+  const handlinger = useJournalposthandlinger({ etter: lost, sak });
   if (hentet.feil && !hentet.data) return <Hentefeil melding={hentet.feil} last={hentet.last} />;
   if (!hentet.data) return <Laster />;
   const { mangler, dokumenter } = hentet.data;
-  const lost = () => { settAvskriver(null); hentet.last(); kontroll.oppdater(); etter(); };
   const send = (sti: string, da: () => void) => {
     settFeil(null); settOpptatt(true);
     api.post(sti).then(da).catch((e: unknown) => { settFeil(feiltekst(e)); settBekrefter(false); }).finally(() => settOpptatt(false));
@@ -57,7 +63,7 @@ export function Sjekkliste({ sak, etter, avsluttet }: Egenskaper) {
   const lenke = (p: Journalpost) => (
     <>
       <abbr className={c.type} title={t(`arkivar.jptype.${p.type.toLowerCase()}`)}>{p.type}</abbr>
-      <span className={c.nummer}>{dokumentnummer(sak.saksnummer, p.postnr)}</span>
+      <span className={c.nummer}>{iMappen ? p.postnr : dokumentnummer(sak.saksnummer, p.postnr)}</span>
       <Ruterlenke to={`/arkiv/saker/${sak.id}/journalposter/${p.id}`} lang="nb">{p.tittel}</Ruterlenke>
     </>
   );
@@ -66,7 +72,7 @@ export function Sjekkliste({ sak, etter, avsluttet }: Egenskaper) {
     if (m.slag === 'ikke_journalfort') {
       return {
         merke: t('arkivar.sjekkliste.ikke_journalfort'), forklaring: t('arkivar.sjekkliste.ikke_journalfort.hjelp', { status: kode('jpstatus', p.status) }),
-        knapp: <Button size="small" disabled={opptatt} onClick={() => send(`/api/arkiv/journalposter/${del(p.id)}/journalfor`, lost)}>{t('arkivar.kontroll.journalfor')}</Button>,
+        knapp: handlinger.hovedknapp(p, 'small', 'secondary'),
       };
     }
     if (m.slag === 'restanse') {
@@ -82,6 +88,7 @@ export function Sjekkliste({ sak, etter, avsluttet }: Egenskaper) {
   };
   return (
     <div className={c.ramme}>
+      {handlinger.flater}
       <h3 className={c.tittel}>{mangler.length > 0 ? t('arkivar.sjekkliste.mangler', { antall: mangler.length }) : t('arkivar.sjekkliste.i_orden')}</h3>
       <ul className={c.liste}>
         {mangler.map((m) => {
@@ -94,7 +101,7 @@ export function Sjekkliste({ sak, etter, avsluttet }: Egenskaper) {
                 <div>{knapp}</div>
               </div>
               {/* Feltene for avskrivning åpnes rett under punktet. Punktet er løst først når avskrivningen er bekreftet. */}
-              {avskriver === m.journalpost.id && <div className={c.avskriv}><Avskrivfelt post={m.journalpost} avbryt={() => settAvskriver(null)} etter={lost} /></div>}
+              {avskriver === m.journalpost.id && <div className={c.avskriv}><Avskrivfelt post={m.journalpost} avbryt={() => settAvskriver(null)} etter={(ny) => { settAvskriver(null); handlinger.kvitterAvskrevet(m.journalpost, ny); }} /></div>}
             </li>
           );
         })}
@@ -109,7 +116,7 @@ export function Sjekkliste({ sak, etter, avsluttet }: Egenskaper) {
       {feil && <Feil melding={feil} />}
       <div className={c.bunn}>
         {/* Knappen kan få fokus også når den er sperret, så forklaringen ved siden av blir lest. */}
-        <Button appearance="primary" disabledFocusable={mangler.length > 0 || opptatt} aria-describedby={`sjekk-${sak.id}`} onClick={() => { if (mangler.length === 0 && !opptatt) settBekrefter(true); }}>
+        <Button id={avsluttknappId(sak.id)} appearance="primary" disabledFocusable={mangler.length > 0 || opptatt} aria-describedby={`sjekk-${sak.id}`} onClick={() => { if (mangler.length === 0 && !opptatt) settBekrefter(true); }}>
           {t('arkivar.kontroll.avslutt')}
         </Button>
         <Text id={`sjekk-${sak.id}`} className={c.sperret}>

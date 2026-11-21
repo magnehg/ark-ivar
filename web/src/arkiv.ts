@@ -165,6 +165,11 @@ export function lesFlyt(sok: URLSearchParams): Flyt {
 }
 /** En ID fra adressen som en del av en sti til API-et. Den kodes, så den aldri kan peke til en annen adresse. */
 export const del = (id: string): string => encodeURIComponent(id);
+/**
+ * Datoen i dag der kommunen holder til (ÅÅÅÅ-MM-DD), som serveren regner den (Dato::idag): journaldatoen og
+ * dokumentdatoen følger norsk tid, ikke tidssonen i nettleseren.
+ */
+export const idagNorsk = (): string => new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Oslo' }).format(new Date());
 export const flytSok = (flyt: Flyt): string => (flyt ? `?dokument=${encodeURIComponent(flyt.dokument)}&handling=${flyt.handling}` : '');
 
 /** Filen dokumentet vises med i en liste: arkivformatet når det finnes, ellers produksjonsformatet. */

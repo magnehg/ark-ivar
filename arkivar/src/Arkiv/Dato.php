@@ -18,4 +18,10 @@ final class Dato
     {
         return $klokke->now()->setTimezone(new \DateTimeZone(self::TIDSSONE))->format('Y-m-d');
     }
+
+    /** Datoen i norsk tid for et tidspunkt lagret i databasen (UTC, slik Db::tid() skriver det). */
+    public static function norsk(string $tidspunkt): string
+    {
+        return (new \DateTimeImmutable($tidspunkt, new \DateTimeZone('UTC')))->setTimezone(new \DateTimeZone(self::TIDSSONE))->format('Y-m-d');
+    }
 }

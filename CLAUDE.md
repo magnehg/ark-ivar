@@ -109,16 +109,23 @@ uttrekk eller avlevere.
   avslutningen av mappen, og de står grået ut i dialogen. «Svar» (`GET …/{id}/svar` gir forslaget, og dokumentet
   opprettes på skriveflaten med `svar_paa`) kobler et utgående dokument til det inngående i samme mappe
   (`arkivar_svar`); når svaret ferdigstilles (E), avskrives det inngående med BU. En mal med `avskriver: false`
-  (foreløpig svar) avskriver ikke. Slettes svaret, forsvinner koblingen og avskrivningen
-  (`Register::slettJournalpost`). Avskrivningen kan angres (`DELETE …/{id}/avskrivning`) så lenge mappen er åpen.
+  (foreløpig svar) avskriver ikke. Slettes svaret før det er ekspedert, forsvinner koblingen
+  (`Register::slettJournalpost`); et ekspedert svar kan ikke slettes. En avskrivning uten svar kan angres
+  (`DELETE …/{id}/avskrivning`, `Avskrivning::kanAngres()`) så lenge mappen er åpen. BU følger svaret og SA
+  avslutningen, og de kan ikke angres for seg. SA settes aldri av studenten: restanser stopper avslutningen, så SA
+  står bare i mapper som var avsluttet fra start (teksten i dialogen sier det).
   Tittelen på svaret («Svar på …») lages av serveren fra `svar.tittel` i `dokumentmaler.json`: den er
   arkivinnhold, ikke en tekstnøkkel. Koblingene hentes én gang per forespørsel (`Register::koblinger()`), og den
   offentlige journalen har dem ikke.
-- **Avskrivningene fra start** (`Ovingsarkiv::avskrivStartdokumenter()`): et inngående dokument med et senere
-  utgående i samme mappe er besvart med det (BU), inngående uten svar i avsluttede mapper har SA, og av de
-  journalførte uten svar i åpne mapper står de ti nyeste (`RESTANSER_FRA_START`) som restanser, mens de eldre er
-  tatt til etterretning (TE). `ArbeidsflytTest` og `ArkivTest` sjekker tallene. `Ovingsarkiv::FYLLING` økes når
-  påfyllingen endres uten at datafilene gjør det, så eldre arkiver blir «utdatert».
+- **Avskrivningene fra start** (`Ovingsarkiv::avskrivStartdokumenter()`): et inngående dokument er besvart (BU)
+  med det første senere utgående dokumentet i samme mappe som er sendt, går til avsenderen
+  (`Vurdering::sammePart()`) og ikke er et foreløpig svar (`forelopig_svar` på journalposten i `sirevag.json`,
+  satt av `bygg.py` for titler som begynner med «Foreløpig svar»). Høringene i samlemappen har `avskrivning: "TE"`
+  i grunndataene. Inngående uten svar i avsluttede mapper har SA, og av de journalførte uten svar i åpne mapper
+  står de ti nyeste (`RESTANSER_FRA_START`) som restanser, mens de eldre er tatt til etterretning (TE): 44 BU,
+  7 SA, 15 TE og ti restanser på 18–60 dager. `ArbeidsflytTest` og `ArkivTest` sjekker tallene, og
+  `docs/innhold.md` sier hva den som skriver nye mapper, må passe på. `Ovingsarkiv::FYLLING` økes når
+  påfyllingen endres, så eldre arkiver blir «utdatert».
 - **Merknader** (`Merknader`, `arkivar_merknad`): en merknad hører til en mappe eller en journalpost og har tekst,
   tidspunkt og hvem. Avskrivning uten svar lagrer merknaden på journalposten, og
   `GET /api/arkiv/journalposter/{id}` gir `merknader`.
@@ -128,19 +135,35 @@ uttrekk eller avlevere.
   (hamburgermeny i listene, «Mer» ved hovedknappen), dialogene og kvitteringen; et nytt menyvalg legges i `VALG`
   der og i `Postmottak::handlinger()`. Det som ikke kan angres, bekreftes først (`Bekreft`). Journalføringen
   setter status J (løpenummeret er tildelt fra før) og kan angres samme dag
-  (`POST …/{id}/angre-journalforing`, `Kontroll::forJournalforing()`). I en avsluttet mappe er alt låst.
+  (`POST …/{id}/angre-journalforing`, `Kontroll::forJournalforing()`; et dokument studenten har skrevet, får
+  tilbake journaldatoen fra dagen det ble opprettet). I en avsluttet mappe er alt låst, også mot sletting og mot
+  å angre behandlingen i postmottaket, og et svar som avskriver et arkivert dokument, kan ikke tas ut av journalen
+  (`Register::avskriverArkivert()`), heller ikke når det ligger i en annen mappe. En registrering uten dokument
+  kan slettes mens mappen er åpen; et dokument studenten har skrevet, bare i status R, M og S
+  (`Postmottak::kanSlettes()`). `ArbeidsflytTest::testEnAvsluttetMappeErLaastForAlleEndringer` går gjennom alle
+  rutene som endrer noe: en ny rute skal inn i listen der. Dialogene (`Dialogvindu`) gir fokus tilbake til
+  knappen som åpnet dem, også fra et menyvalg, og `Kvittering` tar fokus etter en handling; en side med både
+  mappe- og journalposthandlinger eier kvitteringen selv (`delt`).
 - **Retting og flytting** (`Journalposter`, `web/src/komponenter/RedigerJournalpost.tsx`): `PUT
   /api/arkiv/journalposter/{id}` retter registreringen: alle feltene før journalføringen, bare tittelen og
   skjermingen når statusen er J. `POST …/{id}/flytt` flytter journalposten til en annen åpen mappe: neste ledige
   dokumentnummer der, samme løpenummer. Dokumentene som fulgte med, kan også flyttes (dokumentteksten viser
-  fortsatt til saken den er skrevet i), og avskrivningskoblingene følger journalpostene på tvers av mapper. Er
+  fortsatt til saken den er skrevet i), og avskrivningskoblingene følger journalpostene på tvers av mapper. En
+  journalpost som er arkivert uten journalføring (A, ikke i journalen) i en åpen mappe, kan rettes og flyttes som
+  før journalføringen. I dialogen velges mappen først (titlene i søket er ikke lenker, `utenLenker`), og
+  flyttingen bekreftes, fordi dokumentnummeret i mappen den forlater, ikke brukes på nytt. Er
   journalposten et dokument fra postmottaket, vurderes begge mappene på nytt (`Postmottak::revurder()`).
 - **Stegene for mappen og sjekklisten** (`Kontroll`, `web/src/komponenter/Mappehandlinger.tsx` og
   `Sjekkliste.tsx`): R blir kontrollert (B), B sendes til avslutning (S, `POST …/saker/{id}/til-avslutning`), og
   S avsluttes (A) eller sendes tilbake (`…/tilbake`). `GET …/saker/{id}/sjekkliste` gir det som mangler før
   avslutning (`ikke_journalfort`, `restanse`, `under_redigering`), og `Kontroll::avslutt()` avviser til listen er
-  tom. Sjekklisten vises på mappen og i listen «Til avslutning», og avskrivning løses rett under punktet.
-- **Dokumentnummeret** står alene (1, 2, 3) i visningen av én mappe. Listene på tvers av mapper (journalen,
+  tom. Sjekklisten vises på mappen og i listen «Til avslutning», og avskrivning løses rett under punktet;
+  journalføringen går gjennom de samme handlingene som ellers (bekreftelse og kvittering med «Angre»). Mappen
+  har hovedknappen og menyen «Mer» (`useMappehandlinger().meny`, der «Send tilbake til behandling» står); i
+  status S går hovedknappen «Avslutt mappen» til knappen i sjekklisten, og nye dokumenter kan ikke registreres
+  før mappen er sendt tilbake (grensesnittet sperrer; serveren stopper først ved avslutningen).
+- **Dokumentnummeret** står alene (1, 2, 3) i visningen av én mappe, i kolonnen sammen med typen; tittelen er den
+  brede kolonnen, med avsenderen eller mottakeren, datoen og tilgangskoden under. Listene på tvers av mapper (journalen,
   søket, kontrolloppgavene) har hele nummeret (2026/28-3).
 - **Kommunevåpenet** (`web/src/bilder/sirevag-kommunevapen.svg`, `Kommunevapen`) er oppdiktet: «I blått en gull bjelke som på
   midten er bøyd ned i en nesten sluttet ring (en våg)». Det er valgt blant tre forslag og sjekket mot virkelige

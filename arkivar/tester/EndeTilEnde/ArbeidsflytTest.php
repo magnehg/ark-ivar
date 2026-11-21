@@ -108,7 +108,8 @@ final class ArbeidsflytTest extends AppTestCase
 
     public function testArkivetHarAvskrivningerOgRestanserFraStart(): void
     {
-        // Tallet er fast: de ti nyeste journalførte inngående dokumentene uten svar i åpne mapper.
+        // Tallet er fast: de ti nyeste journalførte inngående dokumentene uten svar i åpne mapper, bortsett fra
+        // høringene i samlemappen, som er tatt til etterretning.
         $restanser = $this->restanser();
         self::assertCount(Ovingsarkiv::RESTANSER_FRA_START, $restanser);
         self::assertSame(10, $this->tall()['restanser']);
@@ -124,8 +125,8 @@ final class ArbeidsflytTest extends AppTestCase
         $sortert = $datoer;
         sort($sortert);
         self::assertSame($sortert, $datoer);
-        self::assertSame('2026-05-21', $datoer[0]);
-        self::assertSame(183, $restanser[0]['restanse_dager']);
+        self::assertSame('2026-09-21', $datoer[0]);
+        self::assertSame(60, $restanser[0]['restanse_dager']);
         self::assertSame('2026-11-02', $datoer[9]);
         self::assertSame(18, $restanser[9]['restanse_dager']);
 
@@ -137,9 +138,9 @@ final class ArbeidsflytTest extends AppTestCase
             $mater[Felt::tekst($rad['mate'])] = Felt::tall($rad['antall']);
         }
         ksort($mater);
-        self::assertSame(['BU' => 57, 'SA' => 5, 'TE' => 5], $mater);
+        self::assertSame(['BU' => 44, 'SA' => 7, 'TE' => 15], $mater);
         $uten = $this->db->alle("SELECT j.status FROM arkivar_journalpost j WHERE j.type = 'I' AND NOT EXISTS (SELECT 1 FROM arkivar_avskrivning a WHERE a.journalpost_id = j.id) ORDER BY j.status");
-        self::assertSame(array_merge(array_fill(0, 10, 'J'), ['S', 'S']), array_column($uten, 'status'));
+        self::assertSame(array_merge(array_fill(0, 10, 'J'), ['M', 'S', 'S']), array_column($uten, 'status'));
         self::assertSame(0, Felt::tall($this->db->verdi(
             "SELECT COUNT(*) FROM arkivar_avskrivning a JOIN arkivar_journalpost j ON j.id = a.journalpost_id JOIN arkivar_sak s ON s.id = j.sak_id WHERE a.mate = 'SA' AND s.status <> 'A'",
         )), 'SA står bare i avsluttede mapper.');
@@ -147,6 +148,36 @@ final class ArbeidsflytTest extends AppTestCase
             "SELECT COUNT(*) FROM arkivar_avskrivning a JOIN arkivar_journalpost i ON i.id = a.journalpost_id JOIN arkivar_journalpost u ON u.id = a.avskrevet_av
               WHERE u.type <> 'U' OR u.sak_id <> i.sak_id OR u.postnr <= i.postnr OR i.type <> 'I'",
         )), 'Et inngående dokument er besvart med et senere utgående dokument i samme mappe.');
+        // Et foreløpig svar avskriver ikke, og svaret går til den som sendte dokumentet (ikke et brev til en annen part).
+        $bu = $this->db->alle(
+            "SELECT i.part_navn AS avsender, u.part_navn AS mottaker, u.tittel FROM arkivar_avskrivning a
+               JOIN arkivar_journalpost i ON i.id = a.journalpost_id JOIN arkivar_journalpost u ON u.id = a.avskrevet_av WHERE a.mate = 'BU'",
+        );
+        self::assertCount(44, $bu);
+        foreach ($bu as $rad) {
+            self::assertStringStartsNotWith('Foreløpig svar', Felt::tekst($rad['tittel']));
+            self::assertTrue(\ArkIvar\Arkiv\Vurdering::sammePart(Felt::tekst($rad['avsender']), Felt::tekst($rad['mottaker'])), Felt::tekst($rad['avsender']) . ' / ' . Felt::tekst($rad['mottaker']));
+        }
+        // Søknaden i Fyrveien 8 er besvart med tillatelsen (dok. 4), ikke med det foreløpige svaret (dok. 2), og
+        // søknaden i Havnegata 12 har bare fått foreløpig svar og er ikke avskrevet.
+        $fyrveien = $this->mappe('byggesak-fyrveien-8')['journalposter'];
+        $etterNr = array_column($fyrveien, null, 'postnr');
+        self::assertStringStartsWith('Foreløpig svar', Felt::tekst($etterNr[2]['tittel']));
+        self::assertIsArray($etterNr[1]['avskrivning']);
+        self::assertIsArray($etterNr[1]['avskrivning']['av']);
+        self::assertSame(['BU', 4], [$etterNr[1]['avskrivning']['mate'], $etterNr[1]['avskrivning']['av']['postnr']]);
+        self::assertSame([], $etterNr[2]['svar_paa']);
+        $havnegata = array_column($this->mappe('bruksendring-havnegata-12')['journalposter'], null, 'postnr');
+        self::assertSame([null, null], [$havnegata[1]['avskrivning'], $havnegata[3]['avskrivning']]);
+        self::assertSame([true, false], [$havnegata[1]['restanse'], $havnegata[3]['restanse']], 'Dok. 3 står til journalføring og er ikke en restanse ennå.');
+        // Høringene kommunen ikke uttaler seg til, er tatt til etterretning den dagen de ble journalført.
+        foreach ($this->mappe('horinger-2026')['journalposter'] as $post) {
+            if ($post['type'] !== 'I') {
+                continue;
+            }
+            self::assertIsArray($post['avskrivning']);
+            self::assertSame(['TE', $post['journaldato'], false], [$post['avskrivning']['mate'], $post['avskrivning']['dato'], $post['restanse']]);
+        }
 
         // Koblingen vises begge veier: «Avskrevet av 2» på det inngående og «Svar på 1» på det utgående.
         $rad = $this->db->en("SELECT a.journalpost_id, a.avskrevet_av FROM arkivar_avskrivning a WHERE a.mate = 'BU' LIMIT 1");
@@ -227,7 +258,7 @@ final class ArbeidsflytTest extends AppTestCase
         [$svar] = $this->kari->kall('POST', '/api/arkiv/nullstill', []);
         self::assertSame(200, $svar->status, $svar->kropp);
         self::assertSame(0, Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_merknad')));
-        self::assertSame(67, Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_avskrivning WHERE arkiv_id = ?', [$this->arkiv])));
+        self::assertSame(66, Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_avskrivning WHERE arkiv_id = ?', [$this->arkiv])));
         self::assertSame(10, $this->tall()['restanser']);
     }
 
@@ -257,12 +288,21 @@ final class ArbeidsflytTest extends AppTestCase
         [$svar] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/dokumenter", ['mal' => 'internt-notat', 'type' => 'X'] + self::brev() + ['svar_paa' => $kravId]);
         self::assertSame(422, $svar->status, $svar->kropp);
 
+        // Et svar som slettes før det er ekspedert, etterlater ingenting: koblingen forsvinner.
+        [, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/dokumenter", self::brev() + ['svar_paa' => $kravId]);
+        self::assertIsArray($j['journalpost']);
+        self::assertSame(1, Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_svar')));
+        [$svar] = $this->kari->kall('DELETE', '/api/arkiv/journalposter/' . Felt::tekst($j['journalpost']['id']));
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertSame(0, Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_svar')));
+
         // Mens svaret skrives (R), er det inngående fortsatt en restanse, men svaret viser hva det besvarer.
         [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/dokumenter", self::brev() + ['svar_paa' => $kravId]);
         self::assertSame(201, $svar->status, $svar->kropp);
         self::assertIsArray($j['journalpost']);
         $svarId = Felt::tekst($j['journalpost']['id']);
         self::assertSame('ferdigstill', $j['journalpost']['neste']);
+        self::assertContains('slett', (array) $j['journalpost']['handlinger']);
         self::assertSame([[$kravId, false]], array_map(static fn (array $s): array => [$s['id'], $s['avskriver']], self::rader($j['journalpost']['svar_paa'])));
         self::assertTrue($this->post($kravId)['restanse']);
 
@@ -279,18 +319,31 @@ final class ArbeidsflytTest extends AppTestCase
         self::assertSame([$svarId, $j['journalpost']['postnr']], [$besvart['avskrivning']['av']['id'], $besvart['avskrivning']['av']['postnr']]);
         self::assertSame(9, $this->tall()['restanser']);
 
-        // Slettes svaret, forsvinner koblingen, og det inngående er igjen en restanse.
-        [$svar] = $this->kari->kall('DELETE', "/api/arkiv/journalposter/$svarId");
+        // Et ekspedert svar kan ikke slettes, heller ikke når det er journalført: da ville avskrivningen forsvunnet
+        // og journalen fått et hull. BU følger svaret og kan ikke angres for seg.
+        self::assertNotContains('slett', (array) $j['journalpost']['handlinger']);
+        self::assertFalse($j['journalpost']['kan_slettes']);
+        [$svar, $j] = $this->kari->kall('DELETE', "/api/arkiv/journalposter/$svarId");
+        self::assertSame([409, 'kan_ikke_slettes'], [$svar->status, $j['kode']]);
+        [$svar] = $this->kari->kall('POST', "/api/arkiv/journalposter/$svarId/journalfor", []);
         self::assertSame(200, $svar->status, $svar->kropp);
-        self::assertSame([null, true], [$this->post($kravId)['avskrivning'], $this->post($kravId)['restanse']]);
-        self::assertSame(0, Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_svar')));
-
-        // Et svar som slettes før det er ekspedert, etterlater heller ingenting.
-        [, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/dokumenter", self::brev() + ['svar_paa' => $kravId]);
-        self::assertIsArray($j['journalpost']);
-        [$svar] = $this->kari->kall('DELETE', '/api/arkiv/journalposter/' . Felt::tekst($j['journalpost']['id']));
-        self::assertSame(200, $svar->status, $svar->kropp);
-        self::assertSame(0, Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_svar')));
+        self::assertNotContains('slett', (array) $this->post($svarId)['handlinger']);
+        [$svar, $j] = $this->kari->kall('DELETE', "/api/arkiv/journalposter/$svarId");
+        self::assertSame([409, 'kan_ikke_slettes'], [$svar->status, $j['kode']]);
+        self::assertNotContains('angre_avskrivning', (array) $besvart['handlinger']);
+        [$svar, $j] = $this->kari->kall('DELETE', "/api/arkiv/journalposter/$kravId/avskrivning");
+        self::assertSame([409, 'avskrivning_kan_ikke_angres'], [$svar->status, $j['kode']]);
+        self::assertSame('BU', $this->db->verdi('SELECT mate FROM arkivar_avskrivning WHERE journalpost_id = ?', [$kravId]));
+        self::assertSame(1, Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_svar')));
+        // Heller ikke BU-avskrivningene som fulgte med arkivet, kan angres.
+        $fraStart = Felt::tekst($this->db->verdi(
+            "SELECT a.journalpost_id FROM arkivar_avskrivning a JOIN arkivar_journalpost j ON j.id = a.journalpost_id JOIN arkivar_sak s ON s.id = j.sak_id
+              WHERE a.mate = 'BU' AND a.journalpost_id <> ? AND s.status = 'B' AND j.status = 'J' LIMIT 1",
+            [$kravId],
+        ));
+        self::assertNotContains('angre_avskrivning', (array) $this->post($fraStart)['handlinger']);
+        [$svar, $j] = $this->kari->kall('DELETE', "/api/arkiv/journalposter/$fraStart/avskrivning");
+        self::assertSame([409, 'avskrivning_kan_ikke_angres'], [$svar->status, $j['kode']]);
 
         // Et foreløpig svar avskriver ikke: restansen står.
         $annetId = Felt::tekst($annet['id']);
@@ -305,6 +358,9 @@ final class ArbeidsflytTest extends AppTestCase
         self::assertSame([null, true], [$this->post($annetId)['avskrivning'], $this->post($annetId)['restanse']]);
 
         // Er dokumentet avskrevet på annen måte før svaret ekspederes, står den avskrivningen.
+        $tredje = array_values(array_filter($this->restanser(), static fn (array $p): bool => $p['sak_id'] !== $sakId))[0];
+        $kravId = Felt::tekst($tredje['id']);
+        $sakId = Felt::tekst($tredje['sak_id']);
         [, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/dokumenter", self::brev() + ['svar_paa' => $kravId]);
         self::assertIsArray($j['journalpost']);
         $sent = Felt::tekst($j['journalpost']['id']);
@@ -591,6 +647,203 @@ final class ArbeidsflytTest extends AppTestCase
         self::assertTrue($j['journalpost']['restanse'], 'En ny inngående journalpost er en restanse til den er besvart eller avskrevet.');
         [$svar, $j] = $this->kari->kall('POST', '/api/arkiv/journalposter/' . Felt::tekst($j['journalpost']['id']) . '/angre-journalforing', []);
         self::assertSame([409, 'kan_ikke_angres'], [$svar->status, $j['kode']]);
+    }
+
+    public function testEnAvsluttetMappeErLaastForAlleEndringer(): void
+    {
+        // Et svar på en restanse, ferdigstilt og journalført; den andre restansen avskrives; mappen avsluttes.
+        $mappe = $this->mappe('lonnsforhandlinger-2026');
+        $sakId = Felt::tekst($mappe['sak']['id']);
+        [$krav, $annet] = array_values(array_filter($mappe['journalposter'], static fn (array $p): bool => $p['restanse'] === true));
+        $kravId = Felt::tekst($krav['id']);
+        [, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/dokumenter", self::brev() + ['svar_paa' => $kravId]);
+        self::assertIsArray($j['journalpost']);
+        $svarId = Felt::tekst($j['journalpost']['id']);
+        $this->kari->kall('POST', "/api/arkiv/journalposter/$svarId/ferdigstill", []);
+        $this->kari->kall('POST', "/api/arkiv/journalposter/$svarId/journalfor", []);
+        $this->kari->kall('POST', '/api/arkiv/journalposter/' . Felt::tekst($annet['id']) . '/avskriv', ['mate' => 'TE']);
+        // En egen registrering uten dokument og et dokument fra postmottaket ligger også i mappen.
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/journalposter", ['type' => 'U', 'tittel' => 'Egen registrering', 'dokumentdato' => '2026-11-20', 'part_navn' => 'NITO Sirevåg']);
+        self::assertSame(201, $svar->status, $svar->kropp);
+        self::assertIsArray($j['journalpost']);
+        $egen = Felt::tekst($j['journalpost']['id']);
+        self::assertContains('slett', (array) $j['journalpost']['handlinger'], 'En registrering uten dokument kan slettes mens mappen er åpen.');
+        $oppgave = (new Oppgavesett())->alle()[0];
+        [$svar] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/journalposter", [
+            'oppgave' => $oppgave['id'], 'journalfores' => true, 'type' => 'I', 'tittel' => 'Fra postmottaket', 'dokumentdato' => $oppgave['dokumentdato'], 'part_navn' => $oppgave['avsender']['navn'],
+        ]);
+        self::assertSame(201, $svar->status, $svar->kropp);
+        $fraPostmottak = Felt::tekst($this->db->verdi('SELECT journalpost_id FROM arkivar_oppgavestatus WHERE oppgave_id = ?', [$oppgave['id']]));
+        $this->kari->kall('POST', "/api/arkiv/journalposter/$fraPostmottak/avskriv", ['mate' => 'TE']);
+        $this->kari->kall('POST', "/api/arkiv/saker/$sakId/til-avslutning", []);
+        [$svar] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/avslutt", []);
+        self::assertSame(200, $svar->status, $svar->kropp);
+        $for = $this->mappe('lonnsforhandlinger-2026');
+        self::assertSame('A', $for['sak']['status']);
+        $annenMappe = Felt::tekst($this->mappe('horinger-2026')['sak']['id']);
+
+        // Ingen av rutene som endrer noe, slipper gjennom.
+        $forsok = [
+            ['DELETE', "/api/arkiv/journalposter/$svarId", null],
+            ['DELETE', "/api/arkiv/journalposter/$egen", null],
+            ['DELETE', '/api/arkiv/postmottak/' . $oppgave['id'], null],
+            ['POST', "/api/arkiv/journalposter/$svarId/angre-journalforing", []],
+            ['PUT', "/api/arkiv/journalposter/$kravId", ['tittel' => 'Rettet', 'tilgangskode' => '', 'skjerm_tittel' => false, 'skjerm_part' => false]],
+            ['POST', '/api/arkiv/journalposter/' . Felt::tekst($annet['id']) . '/avskriv', ['mate' => 'TO']],
+            ['DELETE', '/api/arkiv/journalposter/' . Felt::tekst($annet['id']) . '/avskrivning', null],
+            ['DELETE', "/api/arkiv/journalposter/$kravId/avskrivning", null],
+            ['POST', "/api/arkiv/journalposter/$kravId/flytt", ['sak' => $annenMappe]],
+            ['POST', "/api/arkiv/journalposter/$svarId/flytt", ['sak' => $annenMappe]],
+            ['POST', "/api/arkiv/journalposter/$svarId/journalfor", []],
+            ['POST', "/api/arkiv/saker/$sakId/journalposter", ['type' => 'I', 'tittel' => 'Ny registrering', 'dokumentdato' => '2026-11-20', 'part_navn' => 'NITO Sirevåg']],
+            ['POST', "/api/arkiv/saker/$sakId/dokumenter", self::brev()],
+            ['GET', "/api/arkiv/journalposter/$kravId/svar", null],
+            ['POST', "/api/arkiv/saker/$sakId/tilbake", []],
+            ['POST', "/api/arkiv/saker/$sakId/til-avslutning", []],
+            ['POST', "/api/arkiv/saker/$sakId/kontroller", []],
+            ['POST', "/api/arkiv/saker/$sakId/avslutt", []],
+            ['DELETE', "/api/arkiv/saker/$sakId", null],
+        ];
+        foreach ($forsok as [$metode, $sti, $kropp]) {
+            [$svar] = $kropp === null ? $this->kari->kall($metode, $sti) : $this->kari->kall($metode, $sti, $kropp);
+            self::assertSame(409, $svar->status, "$metode $sti: " . $svar->kropp);
+        }
+        // Mappen står som før: de samme journalpostene, arkivert, med avskrivningene sine, og uten handlinger.
+        $etter = $this->mappe('lonnsforhandlinger-2026');
+        self::assertSame(array_column($for['journalposter'], 'id'), array_column($etter['journalposter'], 'id'));
+        foreach ($etter['journalposter'] as $post) {
+            self::assertSame(['A', [], null, false], [$post['status'], $post['handlinger'], $post['neste'], $post['kan_slettes']]);
+            self::assertSame($post['type'] === 'I', $post['avskrivning'] !== null, 'Alle inngående dokumenter i den avsluttede mappen er avskrevet.');
+        }
+        self::assertSame([], $this->post($svarId)['handlinger']);
+        [, $j] = $this->kari->kall('GET', '/api/arkiv/postmottak/' . $oppgave['id']);
+        self::assertIsArray($j['journalpost'], 'Behandlingen av dokumentet fra postmottaket står.');
+    }
+
+    public function testSvaretIEnAnnenMappeAapnerIkkeDenAvsluttedeMappen(): void
+    {
+        // Svaret flyttes til en annen mappe før mappen med det inngående dokumentet avsluttes.
+        $mappe = $this->mappe('lonnsforhandlinger-2026');
+        $sakId = Felt::tekst($mappe['sak']['id']);
+        [$krav, $annet] = array_values(array_filter($mappe['journalposter'], static fn (array $p): bool => $p['restanse'] === true));
+        $kravId = Felt::tekst($krav['id']);
+        [, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/dokumenter", self::brev() + ['svar_paa' => $kravId]);
+        self::assertIsArray($j['journalpost']);
+        $svarId = Felt::tekst($j['journalpost']['id']);
+        $this->kari->kall('POST', "/api/arkiv/journalposter/$svarId/ferdigstill", []);
+        $this->kari->kall('POST', "/api/arkiv/journalposter/$svarId/journalfor", []);
+        $annenMappe = Felt::tekst($this->mappe('horinger-2026')['sak']['id']);
+        [$svar] = $this->kari->kall('POST', "/api/arkiv/journalposter/$svarId/flytt", ['sak' => $annenMappe]);
+        self::assertSame(200, $svar->status, $svar->kropp);
+        // Før avslutningen kan journalføringen av svaret angres (samme dag).
+        self::assertContains('angre_journalforing', (array) $this->post($svarId)['handlinger']);
+        $this->kari->kall('POST', '/api/arkiv/journalposter/' . Felt::tekst($annet['id']) . '/avskriv', ['mate' => 'TE']);
+        $this->kari->kall('POST', "/api/arkiv/saker/$sakId/til-avslutning", []);
+        [$svar] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/avslutt", []);
+        self::assertSame(200, $svar->status, $svar->kropp);
+
+        // Svaret ligger i en åpen mappe, men avskriver et arkivert dokument: det kan verken slettes eller tas ut av
+        // journalen. Tittelen kan fortsatt rettes, og det kan flyttes.
+        $vist = $this->post($svarId);
+        self::assertNotContains('angre_journalforing', (array) $vist['handlinger']);
+        self::assertNotContains('slett', (array) $vist['handlinger']);
+        self::assertContains('rediger', (array) $vist['handlinger']);
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/journalposter/$svarId/angre-journalforing", []);
+        self::assertSame([409, 'avskriver_arkivert'], [$svar->status, $j['kode']]);
+        [$svar, $j] = $this->kari->kall('DELETE', "/api/arkiv/journalposter/$svarId");
+        self::assertSame([409, 'kan_ikke_slettes'], [$svar->status, $j['kode']]);
+        $arkivert = $this->post($kravId);
+        self::assertIsArray($arkivert['avskrivning']);
+        self::assertIsArray($arkivert['avskrivning']['av']);
+        self::assertSame(['A', 'BU', $svarId], [$arkivert['status'], $arkivert['avskrivning']['mate'], $arkivert['avskrivning']['av']['id']]);
+        self::assertSame('J', $this->post($svarId)['status']);
+    }
+
+    public function testArkivertUtenJournalforingKanRettesOgFlyttesIEnAapenMappe(): void
+    {
+        // «Arkiveres uten journalføring» gir status A uten at journalposten står i journalen. I en åpen mappe er
+        // den ikke låst: den kan rettes og flyttes, og en egen registrering kan slettes.
+        $sakId = Felt::tekst($this->mappe('lonnsforhandlinger-2026')['sak']['id']);
+        $til = Felt::tekst($this->mappe('horinger-2026')['sak']['id']);
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/journalposter", ['journalfores' => false, 'type' => 'I', 'tittel' => 'Årsmelding', 'dokumentdato' => '2026-11-20', 'part_navn' => '']);
+        self::assertSame(201, $svar->status, $svar->kropp);
+        self::assertIsArray($j['journalpost']);
+        $id = Felt::tekst($j['journalpost']['id']);
+        self::assertSame(['A', false, 'alle', false], [$j['journalpost']['status'], $j['journalpost']['journalfort'], $j['journalpost']['rediger_felt'], $j['journalpost']['restanse']]);
+        self::assertSame(['rediger', 'flytt', 'slett'], $j['journalpost']['handlinger']);
+        [$svar, $j] = $this->kari->kall('PUT', "/api/arkiv/journalposter/$id", ['tittel' => 'Årsmelding 2025', 'dokumentdato' => '2026-11-19', 'part_navn' => '', 'tilgangskode' => '', 'skjerm_tittel' => false, 'skjerm_part' => false]);
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertIsArray($j['journalpost']);
+        self::assertSame(['Årsmelding 2025', '2026-11-19', 'A'], [$j['journalpost']['tittel'], $j['journalpost']['dokumentdato'], $j['journalpost']['status']]);
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/journalposter/$id/flytt", ['sak' => $til]);
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertIsArray($j['journalpost']);
+        self::assertSame($til, $j['journalpost']['sak_id']);
+
+        // Et dokument fra postmottaket som er arkivert uten journalføring i feil mappe, kan flyttes til en annen.
+        $oppgave = (new Oppgavesett())->alle()[0];
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/journalposter", ['oppgave' => $oppgave['id'], 'journalfores' => false, 'tittel' => 'Arkivert fra postmottaket', 'dokumentdato' => $oppgave['dokumentdato']]);
+        self::assertSame(201, $svar->status, $svar->kropp);
+        self::assertIsArray($j['journalpost']);
+        self::assertSame(['rediger', 'flytt'], $j['journalpost']['handlinger']);
+        [$svar] = $this->kari->kall('POST', '/api/arkiv/journalposter/' . Felt::tekst($j['journalpost']['id']) . '/flytt', ['sak' => $til]);
+        self::assertSame(200, $svar->status, $svar->kropp);
+
+        // Arkivert fra journalen (mappen er avsluttet) er fortsatt låst.
+        $arkivert = $this->db->en("SELECT j.id FROM arkivar_journalpost j JOIN arkivar_sak s ON s.id = j.sak_id WHERE s.status = 'A' AND j.status = 'A' LIMIT 1");
+        self::assertNotNull($arkivert);
+        self::assertSame([[], null], [$this->post(Felt::tekst($arkivert['id']))['handlinger'], $this->post(Felt::tekst($arkivert['id']))['rediger_felt']]);
+    }
+
+    public function testEnAnnenStudentNaarIkkeArbeidsflytenIArkivet(): void
+    {
+        $mappe = $this->mappe('lonnsforhandlinger-2026');
+        $sakId = Felt::tekst($mappe['sak']['id']);
+        $krav = array_values(array_filter($mappe['journalposter'], static fn (array $p): bool => $p['restanse'] === true))[0];
+        $kravId = Felt::tekst($krav['id']);
+        $avskrevet = Felt::tekst($this->db->verdi("SELECT journalpost_id FROM arkivar_avskrivning WHERE arkiv_id = ? AND mate = 'TE' LIMIT 1", [$this->arkiv]));
+        [, $j] = $this->kari->kall('GET', '/api/arkiv/kontroll/journalposter/utgaende');
+        $journalfort = Felt::tekst(self::rader($j['journalposter'])[0]['id']);
+        $this->kari->kall('POST', "/api/arkiv/journalposter/$journalfort/journalfor", []);
+
+        $ola = $this->student('ola@hogskolen.example', 'Ola Student', null, '10.0.0.2');
+        [$svar] = $ola->kall('GET', '/api/arkiv');
+        self::assertSame(200, $svar->status);
+        foreach ([['GET', "/api/arkiv/journalposter/$kravId/svar"], ['DELETE', "/api/arkiv/journalposter/$avskrevet/avskrivning"], ['POST', "/api/arkiv/journalposter/$journalfort/angre-journalforing"]] as [$metode, $sti]) {
+            [$svar] = $metode === 'POST' ? $ola->kall($metode, $sti, []) : $ola->kall($metode, $sti);
+            self::assertSame(404, $svar->status, "$metode $sti");
+        }
+        // En journalpost kan ikke flyttes til en annen students mappe, og et svar kan ikke gjelde en annen students dokument.
+        $olasMappe = Felt::tekst($this->db->verdi("SELECT id FROM arkivar_sak WHERE arkiv_id <> ? AND nokkel = 'horinger-2026'", [$this->arkiv]));
+        [$svar] = $this->kari->kall('POST', "/api/arkiv/journalposter/$kravId/flytt", ['sak' => $olasMappe]);
+        self::assertSame(422, $svar->status, $svar->kropp);
+        [$svar] = $ola->kall('POST', "/api/arkiv/saker/$olasMappe/dokumenter", self::brev() + ['svar_paa' => $kravId]);
+        self::assertSame(422, $svar->status, $svar->kropp);
+        // Karis arkiv er urørt.
+        self::assertSame($sakId, $this->post($kravId)['sak_id']);
+        self::assertNotNull($this->post($avskrevet)['avskrivning']);
+        self::assertSame('J', $this->post($journalfort)['status']);
+    }
+
+    public function testAngretJournalforingAvEgetDokumentGirJournaldatoenFraFor(): void
+    {
+        // Et dokument studenten skrev i går og journalfører i dag: angres journalføringen, er journaldatoen igjen
+        // dagen journalposten ble opprettet, ikke dagens dato.
+        $sakId = Felt::tekst($this->mappe('lonnsforhandlinger-2026')['sak']['id']);
+        [, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/dokumenter", self::brev());
+        self::assertIsArray($j['journalpost']);
+        $id = Felt::tekst($j['journalpost']['id']);
+        $this->kari->kall('POST', "/api/arkiv/journalposter/$id/ferdigstill", []);
+        // Opprettet 18.11.2026 klokka 23.30 UTC, som er 19.11. i norsk tid.
+        $this->db->utfor('UPDATE arkivar_journalpost SET opprettet = ?, journaldato = ? WHERE id = ?', ['2026-11-18 23:30:00.000000', '2026-11-19', $id]);
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/journalposter/$id/journalfor", []);
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertIsArray($j['journalpost']);
+        self::assertSame('2026-11-20', $j['journalpost']['journaldato']);
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/journalposter/$id/angre-journalforing", []);
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertIsArray($j['journalpost']);
+        self::assertSame(['E', '2026-11-19', false], [$j['journalpost']['status'], $j['journalpost']['journaldato'], $j['journalpost']['journalfort']]);
     }
 
     public function testSvartittelenFaarLitenForbokstavUnntattForForkortelserOgTall(): void

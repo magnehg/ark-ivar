@@ -35,7 +35,7 @@ export default function Journalpost() {
   const handlinger = useJournalposthandlinger({
     etter: hentet.last, sak: mappe,
     // Slettet: tilbake til mappen. Flyttet: journalposten har fått ny adresse i mappen den kom til.
-    etterSlett: () => naviger(mappe ? `/arkiv/saker/${mappe.id}` : '/arkiv/saker'),
+    etterSlett: (kvittering) => naviger(mappe ? `/arkiv/saker/${mappe.id}` : '/arkiv/saker', { state: { kvittering } }),
     etterFlytt: (ny) => naviger(`/arkiv/saker/${ny.sak_id}/journalposter/${ny.id}`, { replace: true }),
   });
   if (hentet.feil && !hentet.data) return <Feil melding={hentet.feil} />;

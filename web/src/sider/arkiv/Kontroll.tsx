@@ -9,7 +9,7 @@ import { Journalpost, Sak, del, useStruktur } from '../../arkiv';
 import { useDato, useKode, useSprak, useT } from '../../i18n';
 import { Avskrivningsmerke, dokumentnummer } from '../../komponenter/Avskrivning';
 import { Journalpostfiler, Mappefiler } from '../../komponenter/Dokumentfiler';
-import { Hentefeil, Kort, Laster, Ok, Sidehode, useHent } from '../../komponenter/Felles';
+import { Hentefeil, Kort, Kvittering, Laster, Ok, Sidehode, useHent } from '../../komponenter/Felles';
 import { useJournalposthandlinger } from '../../komponenter/Journalposthandlinger';
 import { KONTROLLISTER, Kontrolliste } from '../../komponenter/Kontrolloppgaver';
 import { useMappehandlinger } from '../../komponenter/Mappehandlinger';
@@ -61,15 +61,16 @@ function Dokumenter({ liste }: { liste: Kontrolliste }) {
     { id: 'nummer', overskrift: t('arkivar.journalpost.nr'), stil: { width: '108px' }, celle: (r) => <Ruterlenke to={`/arkiv/saker/${r.sak_id}`}>{dokumentnummer(r.saksnummer, r.postnr)}</Ruterlenke>, sorter: (r) => `${r.saksnummer ?? ''}-${r.postnr}` },
     { id: 'type', overskrift: t('arkivar.journalpost.type'), stil: { width: '60px' }, celle: (r) => <abbr title={t(`arkivar.jptype.${r.type.toLowerCase()}`)}>{r.type}</abbr>, sorter: (r) => r.type },
     { id: 'tittel', overskrift: t('arkivar.journalpost.tittel'), sprak: 'nb', celle: (r) => <Ruterlenke to={`/arkiv/saker/${r.sak_id}/journalposter/${r.id}`}>{r.tittel}</Ruterlenke>, sorter: (r) => r.tittel },
-    { id: 'part', overskrift: t('arkivar.journalpost.part'), stil: { width: '16%' }, sprak: 'nb', celle: (r) => r.part_navn, sorter: (r) => r.part_navn },
+    { id: 'part', overskrift: t('arkivar.journalpost.part'), stil: { width: '14%' }, sprak: 'nb', celle: (r) => r.part_navn, sorter: (r) => r.part_navn },
     // Restansene regnes fra journaldatoen. Det som står til journalføring, er ikke journalført ennå.
     restanser
       ? { id: 'dato', overskrift: t('arkivar.journal.journaldato'), stil: { width: '110px' }, celle: (r) => dato(r.journaldato), sorter: (r) => r.journaldato }
       : { id: 'dato', overskrift: t('arkivar.journalpost.dokumentdato'), stil: { width: '110px' }, celle: (r) => dato(r.dokumentdato), sorter: (r) => r.dokumentdato },
     restanser
-      ? { id: 'status', overskrift: t('arkivar.avskrivning.kolonne'), stil: { width: '170px' }, celle: (r) => <Avskrivningsmerke post={r} />, sorter: (r) => r.restanse_dager ?? 0 }
+      ? { id: 'status', overskrift: t('arkivar.avskrivning.kolonne'), stil: { width: '176px' }, celle: (r) => <Avskrivningsmerke post={r} />, sorter: (r) => r.restanse_dager ?? 0 }
       : { id: 'status', overskrift: t('arkivar.journalpost.status'), stil: { width: '64px' }, celle: (r) => <abbr title={kode('jpstatus', r.status)}>{r.status}</abbr>, sorter: (r) => r.status },
-    { id: 'handling', overskrift: t('arkivar.kontroll.handling'), stil: { width: '170px' }, celle: handlinger.begge },
+    // Hovedknappen og hamburgermenyen: smalere enn «Mer», så tittelen får plassen.
+    { id: 'handling', overskrift: t('arkivar.kontroll.handling'), stil: { width: '132px' }, celle: handlinger.iRad },
   ];
   const rader = hentet.data?.journalposter ?? [];
   return (
@@ -119,17 +120,20 @@ function Avslutning() {
   const mappe = useMappehandlinger({ etter: hentet.last });
   // Kvitteringene for mappene som er avsluttet her. Mappen forsvinner fra listen, så kvitteringen står igjen øverst.
   const [avsluttet, settAvsluttet] = useState<{ saksnummer: string; antall: number }[]>([]);
+  const siste = avsluttet[avsluttet.length - 1];
   const rader = (hentet.data?.saker ?? []).filter((m) => m.status === 'S').sort((a, b) => a.saksdato.localeCompare(b.saksdato));
   return (
     <Ramme liste="saker-avslutning" flater={<>
       {mappe.flater}
-      {avsluttet.map((a) => <div key={a.saksnummer} className={c.kvittering}><Ok melding={t('arkivar.sjekkliste.avsluttet', a)} /></div>)}
+      {avsluttet.slice(0, -1).map((a) => <div key={a.saksnummer} className={c.kvittering}><Ok melding={t('arkivar.sjekkliste.avsluttet', a)} /></div>)}
+      {/* Den siste kvitteringen får fokus: mappen og knappen som avsluttet den, er borte fra listen. */}
+      {siste && <Kvittering key={siste.saksnummer} kvittering={{ tekst: t('arkivar.sjekkliste.avsluttet', siste) }} />}
     </>}>
       {hentet.feil && !hentet.data ? <Hentefeil melding={hentet.feil} last={hentet.last} /> : !hentet.data ? <Laster /> : (
         <>
           <Teller>{t('arkivar.kontroll.antall', { antall: rader.length })}</Teller>
           {rader.map((m) => (
-            <Kort key={m.id} id={`avslutning-${m.id}`} handlinger={mappe.hovedknapp(m, 'small')}
+            <Kort key={m.id} id={`avslutning-${m.id}`} handlinger={mappe.meny(m, 'small')}
               tittel={<span className={c.mappetittel}><Mappeikon status={m.status}>{m.saksnummer}</Mappeikon><Ruterlenke to={`/arkiv/saker/${m.id}`} lang="nb">{m.tittel}</Ruterlenke></span>}>
               <Text className={c.meta} lang={sprak}>
                 <span lang="nb">{m.klasse_tekst} · {m.enhet} / {m.saksansvarlig_navn}</span> · {kode('saksstatus', m.status)}

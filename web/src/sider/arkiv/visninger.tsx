@@ -109,9 +109,15 @@ export function useJournalpostvisning({ sak, tilgang, handling, avskrivning = tr
   };
 }
 
+/** Tittelen på en mappe: en lenke til mappen, eller ren tekst når den ikke har noen adresse. */
+function Mappetittel({ sak, adresse }: { sak: Sak; adresse: string | null }) {
+  return adresse === null ? <span lang="nb">{sak.tittel}</span> : <Ruterlenke to={adresse} lang="nb">{sak.tittel}</Ruterlenke>;
+}
+
 type Mappevalg<T> = {
   sak: (rad: T) => Sak;
-  lenke: (sak: Sak) => string;
+  /** Adressen til mappen. Null gir tittelen som ren tekst (søket i en dialog, der tittelen ikke skal bytte siden). */
+  lenke: (sak: Sak) => string | null;
   enhetsnavn: (kode: string) => string;
   /** Det som står til høyre for mappen, for eksempel knappen som bruker den (søketreffene). */
   handling?: (rad: T) => ReactNode;
@@ -125,7 +131,7 @@ export function useMappevisning<T>({ sak, lenke, enhetsnavn, handling, ekstra }:
   const felt = (ledetekst: string, verdi: ReactNode, norsk = false) => <span>{ledetekst} <span className={c.verdi} lang={norsk ? 'nb' : undefined}>{verdi}</span></span>;
   const status = (m: Sak) => `${m.status} – ${t(`arkivar.saksstatus.${m.status.toLowerCase()}`)}`;
   const klassering = (m: Sak) => <><span lang="nb">{m.klasse_tekst} · {m.arkivdel_tekst}</span>{m.skjerm_klasse && <> <Status slag="skjermet">{t('arkivar.sak.skjermet_klasse')}</Status></>}</>;
-  const til = (m: Sak) => <Ruterlenke to={lenke(m)} lang="nb">{m.tittel}</Ruterlenke>;
+  const til = (m: Sak) => <Mappetittel sak={m} adresse={lenke(m)} />;
   return {
     tittel: (r: T) => {
       const m = sak(r);
@@ -179,7 +185,7 @@ export function useMappekolonner<T>({ sak, lenke, enhetsnavn, handling, ekstra }
   const c = s(); const t = useT(); const dato = useDato(); const { sprak } = useSprak();
   const kolonner: Kolonne<T>[] = [
     { id: 'nummer', overskrift: t('arkivar.sak.nummer'), stil: { width: '108px' }, celle: (r) => <Mappeikon status={sak(r).status}>{sak(r).saksnummer}</Mappeikon>, sorter: (r) => sorterbart(sak(r).saksnummer) },
-    { id: 'tittel', overskrift: t('arkivar.sak.tittel'), celle: (r) => <><Ruterlenke to={lenke(sak(r))} lang="nb">{sak(r).tittel}</Ruterlenke>{ekstra && <div className={c.ekstra} lang={sprak}>{ekstra(r)}</div>}</>, sorter: (r) => sak(r).tittel },
+    { id: 'tittel', overskrift: t('arkivar.sak.tittel'), celle: (r) => <><Mappetittel sak={sak(r)} adresse={lenke(sak(r))} />{ekstra && <div className={c.ekstra} lang={sprak}>{ekstra(r)}</div>}</>, sorter: (r) => sak(r).tittel },
     { id: 'enhet', overskrift: t('arkivar.sak.enhet.kort'), stil: { width: '64px' }, sprak: 'nb', celle: (r) => <abbr title={enhetsnavn(sak(r).enhet)}>{sak(r).enhet}</abbr>, sorter: (r) => sak(r).enhet },
     { id: 'ansvarlig', overskrift: t('arkivar.sak.ansvarlig'), stil: { width: '120px' }, sprak: 'nb', celle: (r) => sak(r).saksansvarlig_navn, sorter: (r) => sak(r).saksansvarlig_navn },
     { id: 'dato', overskrift: t('arkivar.sak.dato'), stil: { width: '96px' }, celle: (r) => dato(sak(r).saksdato), sorter: (r) => sak(r).saksdato },

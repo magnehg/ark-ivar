@@ -279,6 +279,16 @@ final class Register
         unset($this->koblinger[$arkivId]);
     }
 
+    /** Om journalposten avskriver et dokument som er arkivert (mappen det ligger i, er avsluttet). */
+    public function avskriverArkivert(string $arkivId, string $journalpostId): bool
+    {
+        return $this->db->verdi(
+            'SELECT 1 FROM arkivar_avskrivning a JOIN arkivar_journalpost j ON j.id = a.journalpost_id JOIN arkivar_sak s ON s.id = j.sak_id
+              WHERE a.arkiv_id = ? AND a.avskrevet_av = ? AND (j.status = ? OR s.status = ?) LIMIT 1',
+            [$arkivId, $journalpostId, Kodelister::JP_ARKIVERT, Kodelister::SAK_AVSLUTTET],
+        ) !== null;
+    }
+
     /** Sier at journalposten er et svar på et inngående dokument. */
     public function settSvar(string $arkivId, string $journalpostId, string $svarPaa): void
     {

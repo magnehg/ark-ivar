@@ -30,9 +30,11 @@ type Egenskaper = {
   sokt?: (antall: number) => void;
   /** Dokumentet som registreres. Det følger med i lenken til mappen, så det kan registreres derfra. */
   flyt?: Flyt;
+  /** Titlene er ikke lenker: søket står i en dialog, og et trykk på tittelen skal ikke bytte siden under den. */
+  utenLenker?: boolean;
 };
 
-export function Mappesok({ tips, tipsSprak, handling, sokt, flyt = null }: Egenskaper) {
+export function Mappesok({ tips, tipsSprak, handling, sokt, flyt = null, utenLenker = false }: Egenskaper) {
   const c = s(); const t = useT(); const feiltekst = useFeiltekst();
   const [sok, settSok] = useState('');
   // null betyr at det ikke er søkt ennå.
@@ -56,7 +58,7 @@ export function Mappesok({ tips, tipsSprak, handling, sokt, flyt = null }: Egens
   ));
   const struktur = useStruktur();
   const mappevalg = {
-    sak: (r: Sokestreff) => r.sak, lenke: (m: Sak) => `/arkiv/saker/${m.id}${flytSok(flyt)}`,
+    sak: (r: Sokestreff) => r.sak, lenke: (m: Sak) => (utenLenker ? null : `/arkiv/saker/${m.id}${flytSok(flyt)}`),
     enhetsnavn: (kode: string) => struktur.data?.enheter.find((e) => e.kode === kode)?.navn ?? kode,
     handling: handling ? (r: Sokestreff) => handling(r.sak) : undefined, ekstra,
   };

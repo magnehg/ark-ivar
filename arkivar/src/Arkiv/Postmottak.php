@@ -193,6 +193,11 @@ final class Postmottak
             if ($post['startdokument'] !== null) {
                 throw new HttpFeil(409, 'journalpost_fulgte_med', 'arkivar.feil.journalpost_fulgte_med');
             }
+            $this->krevApenMappe($arkivId, $post);
+            $skrevet = $this->db->verdi('SELECT 1 FROM arkivar_dokument WHERE arkiv_id = ? AND journalpost_id = ? LIMIT 1', [$arkivId, $id]) !== null;
+            if (!self::kanSlettes($post, $skrevet)) {
+                throw new HttpFeil(409, 'kan_ikke_slettes', 'arkivar.feil.kan_ikke_slettes');
+            }
             $this->register->slettJournalpost($arkivId, $id);
             if ($oppgaveId !== null) {
                 $this->db->utfor('DELETE FROM arkivar_oppgavestatus WHERE arkiv_id = ? AND oppgave_id = ?', [$arkivId, $oppgaveId]);
@@ -203,8 +208,42 @@ final class Postmottak
     }
 
     /**
+     * Statusene der et dokument studenten har skrevet selv, fortsatt kan slettes: mens det skrives (R, og M for et
+     * inngående brev) og mens et inngående står til journalføring (M, S). Når dokumentet er ferdigstilt, ekspedert
+     * eller journalført (F, E, J), er det sendt eller står i journalen, og et svar har avskrevet dokumentet det
+     * besvarer: da rettes feil ved å angre journalføringen eller rette registreringen, ikke ved å slette.
+     */
+    private const SLETTBARE_STATUSER = [Kodelister::JP_RESERVERT, Kodelister::JP_MIDLERTIDIG, Kodelister::JP_REGISTRERT];
+
+    /**
+     * Om en journalpost studenten har laget selv, kan slettes i statusen den har. En registrering uten dokument
+     * kan slettes så lenge mappen er åpen (den har ingen journalføring å angre); et dokument studenten har skrevet,
+     * bare i SLETTBARE_STATUSER. Om mappen er åpen, sjekkes for seg.
+     *
+     * @param array<string, mixed> $post raden fra arkivar_journalpost
+     */
+    private static function kanSlettes(array $post, bool $skrevet): bool
+    {
+        return !$skrevet || in_array(Felt::tekst($post['status']), self::SLETTBARE_STATUSER, true);
+    }
+
+    /**
+     * Ingenting endres i en avsluttet mappe.
+     *
+     * @param array<string, mixed> $post raden fra arkivar_journalpost
+     */
+    private function krevApenMappe(string $arkivId, array $post): void
+    {
+        $sak = $this->register->sak($arkivId, Felt::tekst($post['sak_id']));
+        if ($sak === null || Felt::tekst($sak['status']) === Kodelister::SAK_AVSLUTTET) {
+            throw new HttpFeil(409, 'mappe_avsluttet', 'arkivar.feil.mappe_laast');
+        }
+    }
+
+    /**
      * Angrer behandlingen: journalposten slettes, og dokumentet kan behandles på nytt. Mappen blir stående, og de
-     * andre dokumentene fra postmottaket i den vurderes på nytt (mappen kan ha blitt riktig for dem).
+     * andre dokumentene fra postmottaket i den vurderes på nytt (mappen kan ha blitt riktig for dem). Ligger
+     * journalposten i en avsluttet mappe, er den arkivert, og behandlingen kan ikke angres.
      */
     public function angre(string $arkivId, string $oppgaveId): void
     {
@@ -216,6 +255,7 @@ final class Postmottak
             }
             $post = is_string($status['journalpost_id']) ? $this->register->journalpost($arkivId, $status['journalpost_id']) : null;
             if ($post !== null) {
+                $this->krevApenMappe($arkivId, $post);
                 $this->register->slettJournalpost($arkivId, Felt::tekst($post['id']));
             }
             $this->db->utfor('DELETE FROM arkivar_oppgavestatus WHERE arkiv_id = ? AND oppgave_id = ?', [$arkivId, $oppgaveId]);
@@ -361,18 +401,22 @@ final class Postmottak
         $ut['redigerbar'] = !$offentlig && $skrevet !== null && Felt::valgfriTekst($rad['dokumentstatus'] ?? null) === Kodelister::DOK_UNDER_REDIGERING;
         // Ferdig fra saksbehandleren, og venter på at arkivtjenesten journalfører det.
         $ut['til_journalforing'] = !$offentlig && Kontroll::gruppe($rad) !== null;
+        // Et dokument studenten har skrevet, kan ikke slettes når det er ferdigstilt, ekspedert eller journalført.
+        $ut['kan_slettes'] = $ut['kan_slettes'] === true && self::kanSlettes($rad, $skrevet !== null);
         // Det som kan gjøres med journalposten i statusen den har nå. «neste» er det neste steget i saksgangen
         // (hovedknappen), og «rediger_felt» sier om hele registreringen kan rettes eller bare tittelen og skjermingen.
-        if ($offentlig) {
-            $ut += ['handlinger' => [], 'neste' => null, 'rediger_felt' => null];
-        } else {
+        $handlinger = ['handlinger' => [], 'neste' => null, 'rediger_felt' => null];
+        if (!$offentlig) {
             // Listene på tvers av mapper har statusen på mappen i raden. Ellers slås den opp, én gang per mappe.
             $sakId = Felt::tekst($rad['sak_id']);
             if (!array_key_exists('sak_status', $rad) && !array_key_exists($sakId, $this->sakstatus)) {
                 $this->sakstatus[$sakId] = Felt::valgfriTekst($this->register->sak($arkivId, $sakId)['status'] ?? null);
             }
-            $ut += self::handlinger($rad, $ut, Felt::valgfriTekst($rad['sak_status'] ?? $this->sakstatus[$sakId] ?? null));
+            $handlinger = self::handlinger($rad, $ut, Felt::valgfriTekst($rad['sak_status'] ?? $this->sakstatus[$sakId] ?? null));
         }
+        $ut += $handlinger;
+        // «Slett» blant handlingene er det som gjelder: i en avsluttet mappe kan ingenting slettes.
+        $ut['kan_slettes'] = in_array('slett', $handlinger['handlinger'], true);
         $ut['dokumenter'] = [];
         if (!$offentlig && $skrevet !== null) {
             $ut['har_dokument'] = true;
@@ -422,7 +466,7 @@ final class Postmottak
                 array_push($handlinger, 'svar', 'avskriv');
                 // En restanse skal avskrives: det er neste steg for et journalført inngående dokument.
                 $neste ??= $vist['restanse'] === true ? 'avskriv' : null;
-            } elseif (is_array($vist['avskrivning']) && $vist['avskrivning']['mate'] !== Kodelister::AVSKR_SAK_AVSLUTTET) {
+            } elseif (is_array($vist['avskrivning']) && Avskrivning::kanAngres($vist['avskrivning']['mate'])) {
                 $handlinger[] = 'angre_avskrivning';
             }
         }

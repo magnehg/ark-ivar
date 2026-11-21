@@ -126,7 +126,7 @@ export default function NyJournalpost() {
                 </Field>
                 <Checkbox checked={v.skjermTittel} onChange={(_, d) => endre({ skjermTittel: d.checked === true })} label={t('arkivar.registrering.skjerm_tittel')} />
                 {v.skjermTittel && <Field label={t('arkivar.journalpost.offentlig_tittel')} hint={t('arkivar.registrering.offentlig.hjelp')}><Input value={v.offentlig} onChange={(_, d) => endre({ offentlig: d.value })} /></Field>}
-                <Checkbox checked={v.skjermPart} onChange={(_, d) => endre({ skjermPart: d.checked === true })} label={t('arkivar.registrering.skjerm_part')} />
+                <Checkbox checked={v.skjermPart} onChange={(_, d) => endre({ skjermPart: d.checked === true })} label={t(v.type === 'U' ? 'arkivar.registrering.skjerm_mottaker' : 'arkivar.registrering.skjerm_part')} />
               </>
             )}
             {/* Feilen står ved knappen, der studenten ser den: skjemaet er høyere enn vinduet på en liten skjerm. */}

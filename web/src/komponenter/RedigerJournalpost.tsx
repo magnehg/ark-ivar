@@ -68,7 +68,7 @@ export function RedigerJournalpost({ post, etter, avbryt }: Egenskaper) {
           <Input lang="nb" value={v.offentlig} onChange={(_, d) => endre({ offentlig: d.value })} />
         </Field>
       )}
-      <Checkbox checked={v.skjermPart} onChange={(_, d) => endre({ skjermPart: d.checked === true })} label={t('arkivar.registrering.skjerm_part')} />
+      <Checkbox checked={v.skjermPart} onChange={(_, d) => endre({ skjermPart: d.checked === true })} label={t(post.type === 'U' ? 'arkivar.registrering.skjerm_mottaker' : 'arkivar.registrering.skjerm_part')} />
       {feil && <Feil melding={feil} />}
       <div className={c.knapper}>
         <Button appearance="primary" type="submit" disabled={opptatt}>{t('arkivar.skriv.lagre')}</Button>

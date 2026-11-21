@@ -53,6 +53,8 @@ use Bivrost\Kjerne\Database\Felt;
  *     status: string,
  *     journalfort: bool,
  *     tilgangskode: ?string,
+ *     forelopig_svar: bool,
+ *     avskrivning: ?string,
  *     dokument: ?Dokument,
  * }
  * @phpstan-type Startsak array{
@@ -394,6 +396,11 @@ final class Grunndata
                     'status' => Felt::tekst($p['status'] ?? null, 'J'),
                     'journalfort' => ($p['journalfort'] ?? true) !== false,
                     'tilgangskode' => Felt::valgfriTekst($p['tilgangskode'] ?? null),
+                    // Et foreløpig svar avskriver ikke dokumentet det svarer på, og et inngående dokument kan ha en
+                    // fast avskrivningsmåte (høringene kommunen ikke uttaler seg til, er tatt til etterretning). Se
+                    // Ovingsarkiv::avskrivStartdokumenter().
+                    'forelopig_svar' => ($p['forelopig_svar'] ?? false) === true,
+                    'avskrivning' => Felt::valgfriTekst($p['avskrivning'] ?? null),
                     'dokument' => $dokument,
                 ];
             }

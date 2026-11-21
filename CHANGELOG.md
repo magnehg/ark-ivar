@@ -118,3 +118,20 @@
   formatet, og et klikk på en fil åpner den i et lesevindu til høyre.
 - Tilgangskoder for alle unntakene i offentleglova §§ 13–26 (29 koder), og en samlemappe «Høringer 2026» (klasse 008)
   for høringer kommunen ikke uttaler seg til.
+- Etter gjennomgangen av arbeidsflyten:
+  - En avsluttet mappe er låst også mot sletting: en journalpost i den kan ikke slettes, og behandlingen av et
+    dokument fra postmottaket som ligger i den, kan ikke angres. Et svar som avskriver et arkivert dokument, kan
+    ikke tas ut av journalen, heller ikke når svaret ligger i en annen mappe.
+  - Et dokument studenten har skrevet, kan slettes til det er ferdigstilt eller ekspedert (R, M og S). Etterpå
+    rettes feil ved å angre journalføringen eller rette registreringen.
+  - «Angre avskrivning» gjelder avskrivning uten svar. BU følger svaret og kan ikke angres for seg.
+  - En journalpost som er arkivert uten journalføring i en åpen mappe, kan rettes og flyttes.
+  - Avskrivningene fra start: et svar må gå til avsenderen, et foreløpig svar avskriver ikke, og høringene i
+    samlemappen er tatt til etterretning. Arkivet har 44 BU, 7 SA, 15 TE og ti restanser (18–60 dager).
+    Arkiver fylt før endringen er «utdatert» og må nullstilles.
+  - «Flytt» velger mappen først og bekreftes etterpå, titlene i søket er ikke lenker, og kvitteringen har lenke
+    til den nye mappen. Fokus går tilbake til knappen når en dialog lukkes, og til kvitteringen etter en handling.
+  - Mappen viser dokumentene med tittelen som bred kolonne (avsender, dato og tilgangskode under) og hovedknappen
+    i raden. Mappen har menyen «Mer», og en mappe til avslutning tar ikke imot nye dokumenter før den er sendt
+    tilbake. Sjekklisten journalfører med bekreftelse og kvittering med «Angre».
+  - Angres journalføringen av et dokument studenten har skrevet, får journalposten tilbake journaldatoen fra før.

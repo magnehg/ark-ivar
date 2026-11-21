@@ -184,7 +184,10 @@ final class Arkivruter
     private function visPost(array $post): array
     {
         $vist = $this->postmottak()->visJournalpost($post);
-        if (is_array($vist['handlinger']) && $this->kontroll()->forJournalforing($post) !== null) {
+        $angres = $this->kontroll()->forJournalforing($post) !== null
+            && Felt::valgfriTekst($this->register()->sak(Felt::tekst($post['arkiv_id']), Felt::tekst($post['sak_id']))['status'] ?? null) !== Kodelister::SAK_AVSLUTTET
+            && !$this->register()->avskriverArkivert(Felt::tekst($post['arkiv_id']), Felt::tekst($post['id']));
+        if (is_array($vist['handlinger']) && $angres) {
             $vist['handlinger'][] = 'angre_journalforing';
         }
 

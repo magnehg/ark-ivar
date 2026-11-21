@@ -16,7 +16,9 @@ use Psr\Clock\ClockInterface;
  * telefon, med e-post eller med notat). BU og SA kan ikke velges her: BU settes av svaret, og SA hører til
  * avslutningen av saksmappen. En merknad kan følge med og lagres på journalposten.
  *
- * Avskrivningen kan angres så lenge mappen er åpen. Da er dokumentet igjen en restanse.
+ * En avskrivning uten svar kan angres så lenge mappen er åpen. Da er dokumentet igjen en restanse. BU kan ikke
+ * angres for seg: den følger svaret, og et ekspedert svar uten avskrivningen ville stått som et svar som ikke
+ * avskriver. SA følger avslutningen av mappen.
  */
 final class Avskrivning
 {
@@ -67,17 +69,24 @@ final class Avskrivning
         });
     }
 
+    /** Om en avskrivning med denne måten kan angres: bare dem arkivtjenesten selv har valgt (ikke BU og SA). */
+    public static function kanAngres(mixed $mate): bool
+    {
+        return in_array($mate, Kodelister::AVSKRIVNING_UTEN_SVAR, true);
+    }
+
     /** Angrer avskrivningen: dokumentet står igjen uten avskrivning. Merknadene blir stående. */
     public function angre(string $arkivId, string $journalpostId): void
     {
         $this->db->transaksjon(function () use ($arkivId, $journalpostId): void {
             $this->register->laas($arkivId);
             $post = $this->apen($arkivId, $journalpostId);
-            if ($this->register->avskrivning($arkivId, $journalpostId) === null) {
-                throw new HttpFeil(409, 'ikke_avskrevet', 'arkivar.feil.ikke_avskrevet');
-            }
+            $avskrivning = $this->register->avskrivning($arkivId, $journalpostId) ?? throw new HttpFeil(409, 'ikke_avskrevet', 'arkivar.feil.ikke_avskrevet');
             if (Felt::tekst($post['status']) === Kodelister::JP_ARKIVERT) {
                 throw new HttpFeil(409, 'mappe_avsluttet', 'arkivar.feil.mappe_laast');
+            }
+            if (!self::kanAngres($avskrivning['mate'])) {
+                throw new HttpFeil(409, 'avskrivning_kan_ikke_angres', 'arkivar.feil.avskrivning_kan_ikke_angres');
             }
             $this->register->fjernAvskrivning($arkivId, $journalpostId);
         });

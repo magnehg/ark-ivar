@@ -15,7 +15,9 @@ use Psr\Clock\ClockInterface;
  * Statusen avgjør hva som kan rettes. Før journalføringen (S, M, F, E) kan hele registreringen rettes: tittelen,
  * skjermingen, avsenderen eller mottakeren og dokumentdatoen. Når journalposten er journalført (J), kan bare
  * tittelen og skjermingen rettes. Et dokument som fortsatt er under redigering, endres på skriveflaten (Skriving),
- * og en arkivert journalpost og alt i en avsluttet mappe er låst.
+ * og alt i en avsluttet mappe er låst, sammen med journalposter som er arkivert etter journalføring. En journalpost
+ * som er arkivert uten journalføring (A, ikke i journalen) i en åpen mappe, kan rettes og flyttes som før
+ * journalføringen: ellers kunne ikke en feilplassert registrering fra postmottaket flyttes til riktig mappe.
  *
  * En journalpost kan flyttes til en annen åpen mappe. Den får neste ledige dokumentnummer der og beholder
  * løpenummeret. Det gjelder også dokumentene som fulgte med arkivet: dokumentteksten viser fortsatt til saken den
@@ -46,7 +48,8 @@ final class Journalposter
     public static function kanRettes(array $post, ?string $sakStatus): ?string
     {
         $status = Felt::tekst($post['status']);
-        if ($sakStatus === Kodelister::SAK_AVSLUTTET || $status === Kodelister::JP_ARKIVERT || Felt::valgfriTekst($post['dokumentstatus'] ?? null) === Kodelister::DOK_UNDER_REDIGERING) {
+        $arkivertFraJournalen = $status === Kodelister::JP_ARKIVERT && Felt::tall($post['journalfort']) === 1;
+        if ($sakStatus === Kodelister::SAK_AVSLUTTET || $arkivertFraJournalen || Felt::valgfriTekst($post['dokumentstatus'] ?? null) === Kodelister::DOK_UNDER_REDIGERING) {
             return null;
         }
 
@@ -54,7 +57,7 @@ final class Journalposter
     }
 
     /**
-     * Om journalposten kan flyttes: den er ferdig registrert, ikke arkivert, og mappen er åpen.
+     * Om journalposten kan flyttes: den er ferdig registrert, ikke arkivert fra journalen, og mappen er åpen.
      *
      * @param array<string, mixed> $post raden fra arkivar_journalpost
      */
@@ -82,7 +85,8 @@ final class Journalposter
                 $inn = ['dokumentdato' => Felt::tekst($post['dokumentdato']), 'part_navn' => Felt::tekst($post['part_navn'])] + $inn;
                 $part = Felt::tekst($post['part_navn']);
             } else {
-                $part = Registreringsfelt::part($inn['part_navn'] ?? null, $type, true);
+                // En journalpost som er arkivert uten journalføring, kan stå uten avsender eller mottaker.
+                $part = Registreringsfelt::part($inn['part_navn'] ?? null, $type, Felt::tall($post['journalfort']) === 1 || Felt::tekst($post['status']) !== Kodelister::JP_ARKIVERT);
             }
             $this->register->oppdaterJournalpost($arkivId, $journalpostId, Registreringsfelt::les($inn, $this->grunndata, $idag) + ['type' => $type, 'part_navn' => $part]);
             if ($post['oppgave_id'] !== null) {

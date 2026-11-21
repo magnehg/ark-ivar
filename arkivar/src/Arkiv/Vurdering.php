@@ -203,6 +203,16 @@ final class Vurdering
     }
 
     /**
+     * Om to navn gjelder samme part: alle ordene i det korteste står i det andre, uten hensyn til rekkefølge, småord
+     * og selskapsform («Jærposten» og «Jærposten v/ journalist Oda Nærland»). Brukes når arkivet fylles, til å
+     * avgjøre om et utgående dokument er svaret til avsenderen av et inngående.
+     */
+    public static function sammePart(string $a, string $b): bool
+    {
+        return self::sammeNavn($a, $b, false) || self::sammeNavn($b, $a, false);
+    }
+
+    /**
      * Om et av ordene står i teksten som et eget ord, også med genitivs-s. Navnene i arkivet er korte dyrenavn, så
      * det sammenliknes ord for ord: «Mår» skal ikke gi treff i «må regne».
      *

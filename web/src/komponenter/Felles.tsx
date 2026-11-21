@@ -1,10 +1,11 @@
 // Felles komponenter og økten. Status vises alltid med ikon og tekst, aldri bare med farge.
-import { Component, ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { Component, ReactNode, createContext, useContext, useEffect, useRef, useState } from 'react';
 import {
-  Body1, Button, Dialog, DialogActions, DialogBody, DialogContent, DialogSurface, DialogTitle, MessageBar, MessageBarBody, Popover, PopoverSurface, PopoverTrigger, Spinner, Title2,
+  Body1, Button, Dialog, DialogActions, DialogBody, DialogContent, DialogSurface, DialogTitle, MessageBar, MessageBarActions, MessageBarBody, Popover, PopoverSurface, PopoverTrigger, Spinner, Title2,
   makeStyles, tokens,
 } from '@fluentui/react-components';
-import { QuestionCircle16Regular } from '@fluentui/react-icons';
+import { ArrowUndo20Regular, QuestionCircle16Regular } from '@fluentui/react-icons';
+import { Link as Ruterlenke } from 'react-router-dom';
 import { ApiFeil, Innlogget, Oppsett, api } from '../api';
 import { useT } from '../i18n';
 
@@ -37,6 +38,7 @@ const s = makeStyles({
   hjelpknapp: { minWidth: '24px', verticalAlign: 'middle' },
   dialog: { maxWidth: 'min(760px, calc(100vw - 32px))' },
   dialoginnhold: { display: 'flex', flexDirection: 'column', gap: '8px', '& p': { margin: 0 } },
+  kvittering: { marginBottom: '12px', ':focus-visible': { outline: `2px solid ${tokens.colorStrokeFocus2}`, outlineOffset: '2px' } },
 });
 
 /**
@@ -91,9 +93,31 @@ type Dialogegenskaper = {
   knapper?: ReactNode;
 };
 
-/** En dialog over siden. Den lukkes med Escape og med knappene, og fokus går tilbake til det som åpnet den. */
+// Det siste som hadde fokus utenfor menyer og dialoger: knappen som åpnet menyen eller dialogen. En dialog som
+// åpnes fra et menyvalg, har ingen utløser Fluent kan gi fokus tilbake til (menyvalget er borte når dialogen
+// lukkes), så vi husker den selv.
+let sisteFokus: HTMLElement | null = null;
+if (typeof document !== 'undefined') {
+  document.addEventListener('focusin', (e) => {
+    const el = e.target;
+    if (el instanceof HTMLElement && !el.closest('[role="menu"], [role="dialog"], [role="alertdialog"]')) sisteFokus = el;
+  });
+}
+
+/**
+ * En dialog over siden. Den lukkes med Escape og med knappene, og fokus går tilbake til det som åpnet den (knappen
+ * eller menyknappen). Er det borte, eller kommer det en kvittering, tar kvitteringen fokus (Kvittering).
+ */
 export function Dialogvindu({ tittel, children, lukk, knapper }: Dialogegenskaper) {
   const c = s();
+  const [utloser] = useState(() => sisteFokus);
+  useEffect(() => () => {
+    // Etter at dialogen er tatt bort: fokus tilbake dit det var, om det ikke alt er satt et annet sted.
+    window.setTimeout(() => {
+      const aktiv = document.activeElement;
+      if (utloser?.isConnected && (aktiv === null || aktiv === document.body)) utloser.focus();
+    }, 0);
+  }, [utloser]);
   return (
     <Dialog open onOpenChange={(_, d) => { if (!d.open) lukk(); }}>
       <DialogSurface className={c.dialog}>
@@ -120,6 +144,38 @@ export function Bekreft({ tittel, children, bekreft, bekreftTekst, avbryt, oppta
       {children}
       {feil && <Feil melding={feil} />}
     </Dialogvindu>
+  );
+}
+
+export type Kvitteringsdata = {
+  tekst: string;
+  /** Det som angrer handlingen, når det går an. */
+  angre?: { (): void };
+  /** En lenke videre, for eksempel til mappen journalposten ble flyttet til. */
+  lenke?: { til: string; tekst: string };
+};
+
+/** En kvittering siden eier selv, når flere sett med handlinger på samme side skal dele én (mappen og journalpostene). */
+export type DeltKvittering = { kvittering: Kvitteringsdata | null; sett: (kvittering: Kvitteringsdata | null) => void };
+
+/**
+ * Kvitteringen etter en handling: hva som skjedde, med «Angre» der det går an. Den får fokus når den kommer, så den
+ * blir lest opp og tastaturet står ved «Angre»: knappen eller raden som utløste handlingen, kan være borte.
+ */
+export function Kvittering({ kvittering, opptatt }: { kvittering: Kvitteringsdata; opptatt?: boolean }) {
+  const c = s(); const t = useT();
+  const flate = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    // Litt etter at dialogen har gitt fokus tilbake til utløseren, så kvitteringen er den som står igjen med det.
+    const vent = window.setTimeout(() => flate.current?.focus(), 60);
+    return () => window.clearTimeout(vent);
+    // Teksten, ikke objektet: siden rundt kan lage et nytt objekt med samme kvittering hver gang den tegnes.
+  }, [kvittering.tekst]);
+  return (
+    <MessageBar ref={flate} tabIndex={-1} className={c.kvittering} intent="success" role="status">
+      <MessageBarBody>{kvittering.tekst}{kvittering.lenke && <> <Ruterlenke to={kvittering.lenke.til}>{kvittering.lenke.tekst}</Ruterlenke></>}</MessageBarBody>
+      {kvittering.angre && <MessageBarActions><Button size="small" icon={<ArrowUndo20Regular />} disabled={opptatt} onClick={kvittering.angre}>{t('arkivar.kvittering.angre')}</Button></MessageBarActions>}
+    </MessageBar>
   );
 }
 

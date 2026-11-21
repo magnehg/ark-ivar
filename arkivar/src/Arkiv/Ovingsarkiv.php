@@ -33,10 +33,10 @@ final class Ovingsarkiv
     }
 
     /**
-     * Utgaven av påfyllingen: økes når fyll() legger inn noe nytt fra de samme datafilene (2: avskrivningene), så
+     * Utgaven av påfyllingen: økes når fyll() legger inn noe nytt fra de samme datafilene (2: avskrivningene, 3: svaret må gå til avsenderen), så
      * arkiver som er fylt på den gamle måten, regnes som utdaterte.
      */
-    private const FYLLING = '2';
+    private const FYLLING = '3';
 
     /**
      * Så mange av de nyeste inngående dokumentene uten svar i åpne mapper står som restanser i et nytt arkiv. De
@@ -175,8 +175,11 @@ final class Ovingsarkiv
     /**
      * Avskriver de inngående dokumentene som fulgte med, så arkivet ser ut som et arkiv i bruk og ikke har alt som
      * restanser:
-     * - Et inngående dokument med et senere utgående dokument i samme mappe (ekspedert eller journalført) er besvart
-     *   med det første av dem (BU), på datoen svaret ble sendt.
+     * - Et inngående dokument som har en fast avskrivningsmåte i grunndataene (høringene kommunen ikke uttaler seg
+     *   til, er tatt til etterretning), får den på journaldatoen.
+     * - Et inngående dokument er besvart (BU) med det første senere utgående dokumentet i samme mappe som er sendt
+     *   (ekspedert eller journalført), som går til avsenderen (Vurdering::sammePart), og som ikke er et foreløpig
+     *   svar. Avskrivningsdatoen er datoen svaret ble sendt. Et brev til en annen part er ikke et svar.
      * - Inngående dokumenter uten svar i en avsluttet mappe er avskrevet da saken ble avsluttet (SA), på datoen til
      *   det siste dokumentet i mappen.
      * - Av de journalførte inngående dokumentene uten svar i åpne mapper står de nyeste (RESTANSER_FRA_START) som
@@ -197,9 +200,18 @@ final class Ovingsarkiv
                     continue;
                 }
                 $id = $ider[$sak['nokkel']][$post['nr']];
+                if ($post['avskrivning'] !== null) {
+                    if ($post['journalfort']) {
+                        $this->register->avskriv($arkivId, $id, $post['avskrivning'], $post['journaldato']);
+                    }
+                    continue;
+                }
                 $svar = null;
                 foreach ($sak['journalposter'] as $senere) {
-                    if ($senere['nr'] > $post['nr'] && $senere['type'] === 'U' && in_array($senere['status'], Kodelister::MED_ARKIVFORMAT, true)) {
+                    if (
+                        $senere['nr'] > $post['nr'] && $senere['type'] === 'U' && !$senere['forelopig_svar']
+                        && in_array($senere['status'], Kodelister::MED_ARKIVFORMAT, true) && Vurdering::sammePart($senere['part'], $post['part'])
+                    ) {
                         $svar = $senere;
                         break;
                     }

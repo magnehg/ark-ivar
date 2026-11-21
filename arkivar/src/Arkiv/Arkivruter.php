@@ -27,6 +27,8 @@ final class Arkivruter
 {
     private ?Grunndata $grunndata = null;
     private ?Oppgavesett $oppgaver = null;
+    private ?Dokumentmaler $maler = null;
+    private ?Skriving $skriving = null;
 
     public function __construct(private readonly Kjerne $kjerne, private readonly ClockInterface $klokke)
     {
@@ -52,6 +54,17 @@ final class Arkivruter
         return $this->oppgaver ??= new Oppgavesett();
     }
 
+    private function maler(): Dokumentmaler
+    {
+        return $this->maler ??= new Dokumentmaler();
+    }
+
+    /** Den samme i hele forespørselen: den husker hvilke journalposter som har et skrevet dokument. */
+    private function skriving(): Skriving
+    {
+        return $this->skriving ??= new Skriving($this->kjerne->db(), $this->klokke, $this->grunndata(), $this->maler(), $this->register());
+    }
+
     private function mapper(): Mapper
     {
         return new Mapper($this->kjerne->db(), $this->klokke, $this->grunndata(), $this->register());
@@ -65,17 +78,18 @@ final class Arkivruter
 
     private function postmottak(): Postmottak
     {
-        return new Postmottak($this->kjerne->db(), $this->klokke, $this->grunndata(), $this->oppgaver(), $this->register());
+        return new Postmottak($this->kjerne->db(), $this->klokke, $this->grunndata(), $this->oppgaver(), $this->register(), $this->skriving());
     }
 
     /**
      * Dokumentet til en journalpost: fra postmottaket når studenten har registrert det, ellers dokumentet som fulgte
-     * med arkivet. Null når posten ikke har noe dokument.
+     * med arkivet, eller det studenten har skrevet selv. Med $versjon gis den versjonen av dokumentet (bare skrevne
+     * dokumenter og dokumenter med utkast har flere). Null når posten ikke har noe dokument.
      *
      * @param array<string, mixed> $post
      * @return array<string, mixed>|null
      */
-    private function dokument(string $arkivId, array $post): ?array
+    private function dokument(string $arkivId, array $post, ?int $versjon = null): ?array
     {
         $saksnumre = $this->register()->saksnumre($arkivId);
         if (is_string($post['oppgave_id'])) {
@@ -84,11 +98,36 @@ final class Arkivruter
             return $oppgave !== null ? Grunndata::medSaksnumre(Oppgavesett::dokument($oppgave), $saksnumre) : null;
         }
         if (!is_string($post['startdokument'])) {
-            return null;
+            // Ingen av delene: dokumentet er skrevet av studenten, eller journalposten har ikke noe dokument.
+            return $this->skriving()->dokument($arkivId, $post, $versjon);
         }
         $dokument = $this->grunndata()->startdokument($post['startdokument']);
+        if ($dokument === null) {
+            return null;
+        }
+        if ($versjon === 1 && $dokument['utkast'] !== []) {
+            // Versjon 1 av et dokument med to versjoner er saksbehandlerens utkast, uten vedleggene.
+            $dokument = ['tekst' => $dokument['utkast'], 'vedlegg' => []] + $dokument;
+        }
 
-        return $dokument !== null ? Grunndata::medSaksnumre($dokument, $saksnumre, explode('#', $post['startdokument'])[0]) : null;
+        return Grunndata::medSaksnumre($dokument, $saksnumre, explode('#', $post['startdokument'])[0]);
+    }
+
+    /**
+     * Journalposten etter at dokumentet i den er opprettet, lagret eller ferdigstilt, og hendelsen i loggen
+     * (løpenummeret, ikke tittelen). Lagring av et utkast logges ikke.
+     *
+     * @return array<string, mixed>
+     */
+    private function skrevet(string $arkivId, string $id, ?string $hendelse): array
+    {
+        $rad = $this->register()->journalpost($arkivId, $id) ?? throw new HttpFeil(500, 'intern_feil', 'bivrost.feil.intern');
+        $post = $this->postmottak()->visJournalpost($rad);
+        if ($hendelse !== null) {
+            $this->kjerne->logg()->skriv($hendelse, $this->loggobjekt('journalpost', $id, Felt::tekst($post['lopenummer'])), [], [], ['mal' => $post['mal']]);
+        }
+
+        return $post;
     }
 
     /** ID-en til arkivet til den innloggede. Arkivet lages første gang det åpnes. */
@@ -126,7 +165,8 @@ final class Arkivruter
 
             return Svar::json([
                 'arkivdeler' => $g->arkivdeler(), 'klasser' => $g->klasser(), 'registre' => $registre, 'saksmaler' => $g->saksmaler(), 'enheter' => $g->enheter(),
-                'ansatte' => $g->ansatte(), 'tilgangskoder' => $g->tilgangskoder(), 'journalposttyper' => Kodelister::JOURNALPOSTTYPER, 'handlinger' => Kodelister::HANDLINGER,
+                'ansatte' => $g->ansatte(), 'tilgangskoder' => $g->tilgangskoder(), 'dokumentmaler' => $this->maler()->alle(),
+                'journalposttyper' => Kodelister::JOURNALPOSTTYPER, 'handlinger' => Kodelister::HANDLINGER,
                 // Statuskodene fra Noark 5 for mappen, journalposten og dokumentfilen. Navnene står i språkfilene.
                 'saksstatuser' => Kodelister::SAKSSTATUSER, 'journalstatuser' => Kodelister::JOURNALSTATUSER,
                 'dokumentstatuser' => Kodelister::DOKUMENTSTATUSER, 'variantformater' => Kodelister::VARIANTFORMATER,
@@ -225,7 +265,29 @@ final class Arkivruter
             $post = $register->journalpost($arkiv, $v['id']) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
             $sak = $register->sak($arkiv, Felt::tekst($post['sak_id'])) ?? throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
 
-            return Svar::json(['journalpost' => $this->postmottak()->visJournalpost($post), 'sak' => $register->visSak($sak), 'dokument' => $this->dokument($arkiv, $post)]);
+            // Lesevinduet ber om en bestemt versjon av dokumentet. Uten gis den gjeldende.
+            $versjon = isset($f->query['versjon']) ? max(1, (int) Felt::tekst($f->query['versjon'])) : null;
+
+            return Svar::json(['journalpost' => $this->postmottak()->visJournalpost($post), 'sak' => $register->visSak($sak), 'dokument' => $this->dokument($arkiv, $post, $versjon)]);
+        });
+        // Dokumenter studenten skriver selv: opprett fra en mal, lagre mens det er under redigering, og ferdigstill.
+        $r->legg('POST', '/api/arkiv/saker/{id}/dokumenter', function (Foresporsel $f, array $v): Svar {
+            $arkiv = $this->arkiv();
+            $id = $this->skriving()->opprett($arkiv, $v['id'], $f->json());
+
+            return Svar::json(['journalpost' => $this->skrevet($arkiv, $id, 'urn:arkivar:hendelse:dokument:opprettet')], 201);
+        });
+        $r->legg('PUT', '/api/arkiv/journalposter/{id}/dokument', function (Foresporsel $f, array $v): Svar {
+            $arkiv = $this->arkiv();
+            $this->skriving()->lagre($arkiv, $v['id'], $f->json());
+
+            return Svar::json(['journalpost' => $this->skrevet($arkiv, $v['id'], null)]);
+        });
+        $r->legg('POST', '/api/arkiv/journalposter/{id}/ferdigstill', function (Foresporsel $f, array $v): Svar {
+            $arkiv = $this->arkiv();
+            $this->skriving()->ferdigstill($arkiv, $v['id']);
+
+            return Svar::json(['journalpost' => $this->skrevet($arkiv, $v['id'], 'urn:arkivar:hendelse:dokument:ferdigstilt')]);
         });
         $r->legg('DELETE', '/api/arkiv/journalposter/{id}', function (Foresporsel $f, array $v): Svar {
             $lopenummer = $this->postmottak()->slettJournalpost($this->arkiv(), $v['id']);

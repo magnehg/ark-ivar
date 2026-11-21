@@ -18,6 +18,7 @@ saksgangen, i hvert sitt øvingsarkiv. Systemet lager ikke uttrekk og avleverer 
 | Arkivnøkkel bygd på statens fellesnøkkel, med søk | På plass |
 | Mapper med dokumenter som kan åpnes og leses (134 mapper med 259 dokumenter fra start) | På plass |
 | Dokumentfiler i produksjonsformat og arkivformat (PDF eller tekst), utvidbare rader og lesevindu til høyre | På plass |
+| Skriveflate med dokumentmaler: utgående brev, foreløpig svar, internt notat, møtereferat og blankt ark for inngående brev | På plass |
 | Arbeidsgangen: søk etter mappen, opprett den fra en saksmal hvis den ikke finnes, registrer journalposter i mappen | På plass |
 | Postmottaket: 24 eksempeldokumenter som vurderes, registreres og journalføres, med skjerming | På plass |
 | Fasit og tilbakemelding per kriterium, og lærerens oversikt over fremdriften i klassen | På plass |

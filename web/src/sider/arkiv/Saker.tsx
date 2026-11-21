@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Link as Ruterlenke, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Button, Field, MessageBar, MessageBarBody, Select, Text, makeStyles, tokens } from '@fluentui/react-components';
-import { Add20Regular, Delete20Regular } from '@fluentui/react-icons';
+import { Add20Regular, Delete20Regular, DocumentEdit20Regular } from '@fluentui/react-icons';
 import { api } from '../../api';
 import { Behandling, Journalpost, Sak, del, flytSok, lesFlyt, useStruktur } from '../../arkiv';
 import { useDato, useKode, useT } from '../../i18n';
@@ -90,12 +90,16 @@ export function EnSak() {
     { id: 'tittel', overskrift: t('arkivar.journalpost.tittel'), sprak: 'nb', celle: (r) => <Dokumenttittel filer={r.filer}><Ruterlenke to={`/arkiv/saker/${d.id}/journalposter/${r.id}`}>{r.tittel}</Ruterlenke></Dokumenttittel>, sorter: (r) => r.tittel },
     { id: 'part', overskrift: t('arkivar.journalpost.part'), stil: { width: '15%' }, sprak: 'nb', celle: (r) => r.part_navn, sorter: (r) => r.part_navn },
     { id: 'dato', overskrift: t('arkivar.journalpost.dokumentdato'), stil: { width: '110px' }, celle: (r) => dato(r.dokumentdato), sorter: (r) => r.dokumentdato },
-    { id: 'status', overskrift: t('arkivar.journalpost.status'), stil: { width: '150px' }, celle: (r) => (r.journalfort ? kode('jpstatus', r.status) : `${r.status} – ${t('arkivar.jpstatus.uten')}`), sorter: (r) => r.status },
+    { id: 'status', overskrift: t('arkivar.journalpost.status'), stil: { width: '150px' }, celle: (r) => (r.journalfort || r.status !== 'A' ? kode('jpstatus', r.status) : `${r.status} – ${t('arkivar.jpstatus.uten')}`), sorter: (r) => r.status },
     { id: 'tilgang', overskrift: t('arkivar.journalpost.tilgang'), stil: { width: '18%' }, celle: tilgang, sorter: (r) => r.tilgangskode ?? '' },
   ];
   const nyJournalpost = (
-    <Button appearance="primary" icon={<Add20Regular />} disabled={avsluttet} onClick={() => naviger(`/arkiv/saker/${d.id}/ny-journalpost${flytSok(aktivFlyt)}`)}>{t('arkivar.sak.ny_journalpost')}</Button>
+    <div className={c.knapper}>
+      <Button icon={<DocumentEdit20Regular />} disabled={avsluttet} onClick={() => naviger(`/arkiv/saker/${d.id}/nytt-dokument`)}>{t('arkivar.sak.nytt_dokument')}</Button>
+      <Button appearance="primary" icon={<Add20Regular />} disabled={avsluttet} onClick={() => naviger(`/arkiv/saker/${d.id}/ny-journalpost${flytSok(aktivFlyt)}`)}>{t('arkivar.sak.ny_journalpost')}</Button>
+    </div>
   );
+
   return (
     <>
       <Sidehode tittel={`${d.saksnummer} ${d.tittel}`} tittelSprak="nb" />

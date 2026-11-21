@@ -34,7 +34,8 @@ const s = makeStyles({
   kolonne: { display: 'flex', flexDirection: 'column', minWidth: 0 },
   // Brevhodet til kommunens egne dokumenter: våpenet står foran navnet og adressen.
   avsender: { display: 'flex', gap: '12px', alignItems: 'flex-start', minWidth: 0 },
-  mottaker: { marginBottom: '16px', color: tokens.colorNeutralForeground2 },
+  // Mottakeren kan stå på flere linjer (navn og adresse).
+  mottaker: { marginBottom: '16px', color: tokens.colorNeutralForeground2, whiteSpace: 'pre-line' },
   emne: { fontSize: tokens.fontSizeBase400, fontWeight: tokens.fontWeightSemibold, margin: '0 0 12px' },
   mellomtittel: { fontSize: tokens.fontSizeBase300, fontWeight: tokens.fontWeightSemibold, margin: '16px 0 6px' },
   avsnitt: { margin: '0 0 12px', maxWidth: '68ch', whiteSpace: 'pre-line' },

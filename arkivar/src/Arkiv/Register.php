@@ -96,11 +96,14 @@ final class Register
      *     journalfort?: bool,
      *     oppgave_id?: ?string,
      *     startdokument?: ?string,
+     *     dokumentstatus?: ?string,
+     *     variantformat?: ?string,
      * } $felt
      *
      * En journalpost med et dokument (fra postmottaket eller et som fulgte med) får status på dokumentfilen:
      * dokumentet er ferdigstilt, og det ligger i arkivformat når journalposten er arkivert, ellers i
-     * produksjonsformat. En registrering uten dokument har ingen dokumentfil.
+     * produksjonsformat. En registrering uten dokument har ingen dokumentfil. Et dokument studenten skriver selv,
+     * oppgir statusen på dokumentfilen (under redigering til det ferdigstilles).
      */
     public function opprettJournalpost(string $arkivId, string $sakId, array $felt): string
     {
@@ -119,7 +122,8 @@ final class Register
                 $felt['dokumentdato'], $felt['journaldato'], $felt['saksbehandler'], $felt['enhet'], $felt['tilgangskode'] ?? null,
                 ($felt['skjerm_tittel'] ?? false) ? 1 : 0, ($felt['skjerm_part'] ?? false) ? 1 : 0, $felt['part_navn'] ?? '', $felt['part_adresse'] ?? null,
                 $felt['oppgave_id'] ?? null, $felt['startdokument'] ?? null,
-                $harDokument ? Kodelister::DOK_FERDIGSTILT : null, $harDokument ? Kodelister::variantformat($felt['status']) : null, Db::tid($this->klokke->now()),
+                $felt['dokumentstatus'] ?? ($harDokument ? Kodelister::DOK_FERDIGSTILT : null),
+                $felt['variantformat'] ?? ($harDokument ? Kodelister::variantformat($felt['status']) : null), Db::tid($this->klokke->now()),
             ],
         );
 
@@ -192,7 +196,38 @@ final class Register
 
     public function slettJournalpost(string $arkivId, string $id): void
     {
+        // Dokumentet studenten har skrevet, følger journalposten.
+        $this->db->utfor('DELETE FROM arkivar_dokument WHERE arkiv_id = ? AND journalpost_id = ?', [$arkivId, $id]);
         $this->db->utfor('DELETE FROM arkivar_journalpost WHERE arkiv_id = ? AND id = ?', [$arkivId, $id]);
+    }
+
+    /**
+     * Endrer registreringsfeltene på en journalpost som er under arbeid (dokumentet er ikke ferdigstilt).
+     *
+     * @param array{tittel: string, offentlig_tittel: ?string, dokumentdato: string, tilgangskode: ?string, skjerm_tittel: bool, skjerm_part: bool, type: string, part_navn: string} $felt
+     */
+    public function oppdaterJournalpost(string $arkivId, string $id, array $felt): void
+    {
+        $this->db->utfor(
+            'UPDATE arkivar_journalpost SET type = ?, tittel = ?, offentlig_tittel = ?, dokumentdato = ?, tilgangskode = ?, skjerm_tittel = ?, skjerm_part = ?, part_navn = ?
+              WHERE arkiv_id = ? AND id = ?',
+            [
+                $felt['type'], $felt['tittel'], $felt['offentlig_tittel'], $felt['dokumentdato'], $felt['tilgangskode'],
+                $felt['skjerm_tittel'] ? 1 : 0, $felt['skjerm_part'] ? 1 : 0, $felt['part_navn'], $arkivId, $id,
+            ],
+        );
+    }
+
+    /**
+     * Ferdigstiller dokumentet i en journalpost: journalposten får den nye statusen og journaldatoen, den står i
+     * journalen, og dokumentfilen er ferdigstilt og gjort om til arkivformat.
+     */
+    public function ferdigstillJournalpost(string $arkivId, string $id, string $status, string $journaldato): void
+    {
+        $this->db->utfor(
+            'UPDATE arkivar_journalpost SET status = ?, journalfort = 1, journaldato = ?, dokumentstatus = ?, variantformat = ? WHERE arkiv_id = ? AND id = ?',
+            [$status, $journaldato, Kodelister::DOK_FERDIGSTILT, Kodelister::variantformat($status), $arkivId, $id],
+        );
     }
 
     /** Sletter en mappe studenten har opprettet selv, når den er tom. Gir om den ble slettet. */

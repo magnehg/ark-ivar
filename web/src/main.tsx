@@ -39,6 +39,7 @@ const Saker = lastSide(() => import('./sider/arkiv/Saker').then((m) => ({ defaul
 const EnSak = lastSide(() => import('./sider/arkiv/Saker').then((m) => ({ default: m.EnSak })));
 const NyMappe = lastSide(() => import('./sider/arkiv/NyMappe'));
 const NyJournalpost = lastSide(() => import('./sider/arkiv/NyJournalpost'));
+const Skriv = lastSide(() => import('./sider/arkiv/Skriv'));
 const Journal = lastSide(() => import('./sider/arkiv/Journal'));
 const Journalpost = lastSide(() => import('./sider/arkiv/Journalpost'));
 const Struktur = lastSide(() => import('./sider/arkiv/Struktur'));
@@ -79,6 +80,8 @@ function App() {
               {student && <Route path="arkiv/saker/ny" element={<NyMappe />} />}
               {student && <Route path="arkiv/saker/:id" element={<EnSak />} />}
               {student && <Route path="arkiv/saker/:id/ny-journalpost" element={<NyJournalpost />} />}
+              {student && <Route path="arkiv/saker/:id/nytt-dokument" element={<Skriv />} />}
+              {student && <Route path="arkiv/saker/:sakId/journalposter/:journalpost/rediger" element={<Skriv />} />}
               {student && <Route path="arkiv/journal" element={<Journal />} />}
               {student && <Route path="arkiv/saker/:sakId/journalposter/:id" element={<Journalpost />} />}
               {student && <Route path="arkiv/struktur" element={<Struktur />} />}

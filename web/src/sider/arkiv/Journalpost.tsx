@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Link as Ruterlenke, useNavigate, useParams } from 'react-router-dom';
 import { Button, Text, makeStyles, tokens } from '@fluentui/react-components';
-import { Delete20Regular } from '@fluentui/react-icons';
+import { Delete20Regular, DocumentEdit20Regular } from '@fluentui/react-icons';
 import { api } from '../../api';
 import { Dokument, Journalpost as Post, Sak, del } from '../../arkiv';
 import { useDato, useKode, useT } from '../../i18n';
@@ -28,6 +28,7 @@ export default function Journalpost() {
   if (hentet.feil) return <Feil melding={hentet.feil} />;
   if (!hentet.data) return <Laster />;
   const { journalpost: p, sak, dokument } = hentet.data;
+  const ferdigstill = () => { settFeil(null); api.post(`/api/arkiv/journalposter/${del(id)}/ferdigstill`).then(() => hentet.last()).catch((e: unknown) => settFeil(feiltekst(e))); };
   const slett = () => { settFeil(null); api.slett(`/api/arkiv/journalposter/${del(id)}`).then(() => naviger(`/arkiv/saker/${sak.id}`)).catch((e: unknown) => settFeil(feiltekst(e))); };
   return (
     <>
@@ -40,7 +41,7 @@ export default function Journalpost() {
             <dt>{t('arkivar.sak.arkivdel')}</dt><dd lang="nb">{sak.arkivdel_tekst}</dd>
             <dt>{t('arkivar.sak.primaer')}</dt><dd><span lang="nb">{sak.klasse_tekst}</span>{sak.skjerm_klasse && <> <Status slag="skjermet">{t('arkivar.sak.skjermet_klasse')}</Status></>}</dd>
             <dt>{t('arkivar.journalpost.type')}</dt><dd>{p.type} – {t(`arkivar.jptype.${p.type.toLowerCase()}`)}</dd>
-            <dt>{t('arkivar.journalpost.status')}</dt><dd>{p.journalfort ? kode('jpstatus', p.status) : `${p.status} – ${t('arkivar.jpstatus.uten')}`}</dd>
+            <dt>{t('arkivar.journalpost.status')}</dt><dd>{p.journalfort || p.status !== 'A' ? kode('jpstatus', p.status) : `${p.status} – ${t('arkivar.jpstatus.uten')}`}</dd>
             <dt>{t('arkivar.journalpost.part')}</dt><dd><span lang="nb">{p.part_navn}</span>{p.skjerm_part && <> <Status slag="skjermet">{t('arkivar.journalpost.skjermet')}</Status></>}</dd>
             <dt>{t('arkivar.journalpost.dokumentdato')}</dt><dd>{dato(p.dokumentdato)}</dd>
             <dt>{t('arkivar.journal.journaldato')}</dt><dd>{dato(p.journaldato)}</dd>
@@ -55,6 +56,9 @@ export default function Journalpost() {
           </dl>
           {feil && <Feil melding={feil} />}
           <div className={c.knapper}>
+            {/* Et dokument studenten har skrevet, kan endres og ferdigstilles til det er ferdigstilt. */}
+            {p.redigerbar && <Button appearance="primary" icon={<DocumentEdit20Regular />} onClick={() => naviger(`/arkiv/saker/${sak.id}/journalposter/${p.id}/rediger`)}>{t('arkivar.journalpost.rediger')}</Button>}
+            {p.redigerbar && <Button onClick={ferdigstill}>{t('arkivar.skriv.ferdigstill')}</Button>}
             {p.oppgave && <Ruterlenke to={`/arkiv/postmottak/${p.oppgave}`}>{t('arkivar.journalpost.vurdering')}</Ruterlenke>}
             {p.kan_slettes && <Button icon={<Delete20Regular />} onClick={slett}>{t('arkivar.journalpost.slett')}</Button>}
           </div>

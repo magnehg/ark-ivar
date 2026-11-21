@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace ArkIvar\Tester\Stotte;
 
+use ArkIvar\Arkiv\Dokumentmaler;
 use ArkIvar\Arkiv\Grunndata;
 use ArkIvar\Arkiv\Mapper;
 use ArkIvar\Arkiv\Oppgavesett;
 use ArkIvar\Arkiv\Ovingsarkiv;
 use ArkIvar\Arkiv\Postmottak;
 use ArkIvar\Arkiv\Register;
+use ArkIvar\Arkiv\Skriving;
 use Bivrost\Kjerne\Database\Db;
 use Bivrost\Kjerne\Database\Felt;
 use Bivrost\Kjerne\Feil\HttpFeil;
@@ -201,7 +203,7 @@ final class Bakgrunnsprosess
             $skriv(['forbindelse' => Felt::tall($db->verdi('SELECT CONNECTION_ID()'))]);
             $verdi = match (Felt::tekst($oppdrag['operasjon'] ?? null)) {
                 self::FOR_BRUKER => (new Ovingsarkiv($db, $klokke, $grunndata, $register, $oppgaver))->forBruker(Felt::tekst($a[0] ?? null)),
-                self::JOURNALPOST => (new Postmottak($db, $klokke, $grunndata, $oppgaver, $register))
+                self::JOURNALPOST => (new Postmottak($db, $klokke, $grunndata, $oppgaver, $register, new Skriving($db, $klokke, $grunndata, new Dokumentmaler(), $register)))
                     ->journalpost(Felt::tekst($a[0] ?? null), Felt::tekst($a[1] ?? null), self::tabell($a[2] ?? null))['journalpost']['id'] ?? null,
                 self::OPPRETT_MAPPE => (new Mapper($db, $klokke, $grunndata, $register))->opprett(Felt::tekst($a[0] ?? null), self::tabell($a[1] ?? null)),
                 self::NULLSTILL => (new Ovingsarkiv($db, $klokke, $grunndata, $register, $oppgaver))->nullstill(Felt::tekst($a[0] ?? null)),

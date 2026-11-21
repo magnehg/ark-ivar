@@ -1,0 +1,100 @@
+{
+  "maler": [
+    {
+      "kode": "utgaende-brev",
+      "navn": "Utgående brev",
+      "beskrivelse": "Et brev fra kommunen til en innbygger, en virksomhet eller et annet organ.",
+      "typer": ["U"],
+      "kanal": "brev",
+      "avsender": "kommunen",
+      "emne": "",
+      "tekst": [
+        "Vi viser til [brev, søknad eller henvendelse] datert [dato]. Vår ref.: {{sak}}.",
+        "[Skriv det brevet gjelder: hva kommunen har vurdert, og hva mottakeren skal gjøre eller kan vente seg.]",
+        "Har du spørsmål, kan du kontakte oss på postmottak@sirevag.example. Oppgi vår referanse.",
+        "Med hilsen\n{{saksbehandler}}\n{{stilling}}"
+      ]
+    },
+    {
+      "kode": "forelopig-svar",
+      "navn": "Foreløpig svar etter forvaltningsloven",
+      "beskrivelse": "Sendes når en henvendelse ikke kan besvares innen en måned. Svaret skal si hvorfor, og når mottakeren kan vente svar.",
+      "typer": ["U"],
+      "kanal": "brev",
+      "avsender": "kommunen",
+      "emne": "Foreløpig svar – [det saken gjelder]",
+      "tekst": [
+        "Vi viser til [søknaden eller henvendelsen] datert [dato], som kommunen mottok [dato]. Vår ref.: {{sak}}.",
+        "Saken kan ikke behandles innen en måned. Grunnen er [for eksempel at saken må sendes på høring, at kommunen venter på uttalelse fra en annen myndighet, eller at saken må legges fram for et folkevalgt organ].",
+        "Vi regner med at saken er ferdig behandlet innen [dato]. Blir det forsinkelser utover dette, får du beskjed.",
+        "Dette er et foreløpig svar etter forvaltningsloven § 11 a. Du trenger ikke å gjøre noe nå.",
+        "Med hilsen\n{{saksbehandler}}\n{{stilling}}"
+      ]
+    },
+    {
+      "kode": "internt-notat",
+      "navn": "Internt notat",
+      "beskrivelse": "Et notat i saken som ikke sendes ut. Velg N når notatet skal følges opp av noen, og X når det bare legges til saken.",
+      "typer": ["X", "N"],
+      "kanal": "notat",
+      "avsender": "kommunen",
+      "emne": "Notat – [det notatet gjelder]",
+      "tekst": [
+        "Notat til saken fra {{saksbehandler}}. Arkivsak {{sak}}.",
+        "## Bakgrunn",
+        "[Hva som har skjedd i saken, og hvorfor notatet skrives.]",
+        "## Vurdering",
+        "[Det som er vurdert, og hva vurderingen bygger på.]",
+        "## Videre oppfølging",
+        "[Hvem som gjør hva, og når.]"
+      ]
+    },
+    {
+      "kode": "motereferat-internt",
+      "navn": "Møtereferat (internt notat)",
+      "beskrivelse": "Referat fra et møte som bare legges i saken, for eksempel et internt arbeidsmøte.",
+      "typer": ["X", "N"],
+      "kanal": "notat",
+      "avsender": "kommunen",
+      "emne": "Referat fra møte [dato] – [det møtet gjaldt]",
+      "tekst": [
+        "Referat fra møte [dato] klokka [fra–til] i [sted]. Arkivsak {{sak}}.",
+        "Til stede: [navn og stilling]\nForfall: [navn]\nReferent: {{saksbehandler}}",
+        "## Sak 1 – [emne]",
+        "[Det som ble drøftet.]\nKonklusjon: [det møtet ble enige om]\nAnsvarlig: [navn] Frist: [dato]",
+        "## Sak 2 – [emne]",
+        "[Det som ble drøftet.]\nKonklusjon: [det møtet ble enige om]\nAnsvarlig: [navn] Frist: [dato]",
+        "Neste møte: [dato og sted]"
+      ]
+    },
+    {
+      "kode": "motereferat-utgaende",
+      "navn": "Møtereferat (utgående brev)",
+      "beskrivelse": "Referat fra et møte med noen utenfor kommunen, som sendes til dem som var med.",
+      "typer": ["U"],
+      "kanal": "brev",
+      "avsender": "kommunen",
+      "emne": "Referat fra møte [dato] – [det møtet gjaldt]",
+      "tekst": [
+        "Vi viser til møtet [dato] og sender med dette referatet. Vår ref.: {{sak}}.",
+        "Til stede: [navn og hvem de representerte]\nReferent: {{saksbehandler}}",
+        "## Sak 1 – [emne]",
+        "[Det som ble drøftet.]\nKonklusjon: [det møtet ble enige om]\nAnsvarlig: [navn] Frist: [dato]",
+        "## Sak 2 – [emne]",
+        "[Det som ble drøftet.]\nKonklusjon: [det møtet ble enige om]\nAnsvarlig: [navn] Frist: [dato]",
+        "Har du merknader til referatet, ber vi om at du sender dem innen [dato]. Kommer det ingen merknader, regnes referatet som godkjent.",
+        "Med hilsen\n{{saksbehandler}}\n{{stilling}}"
+      ]
+    },
+    {
+      "kode": "inngaende-blankt",
+      "navn": "Inngående brev (blankt ark)",
+      "beskrivelse": "Et helt blankt ark for et brev som er kommet inn til kommunen. Du skriver avsenderen og teksten selv.",
+      "typer": ["I"],
+      "kanal": "brev",
+      "avsender": "blank",
+      "emne": "",
+      "tekst": []
+    }
+  ]
+}

@@ -127,18 +127,16 @@ function somTekst(dok: Dokument): string {
 
 function Filinnhold({ valg }: { valg: Apen }) {
   const c = s(); const t = useT();
-  const hentet = useHent<{ dokument: Dokument | null }>(`/api/arkiv/journalposter/${del(valg.journalpost)}`);
+  const hentet = useHent<{ dokument: Dokument | null }>(`/api/arkiv/journalposter/${del(valg.journalpost)}?versjon=${valg.fil.versjon}`);
   if (hentet.feil) return <Hentefeil melding={hentet.feil} last={hentet.last} />;
   if (!hentet.data) return <Laster />;
   const dok = hentet.data.dokument;
   if (!dok) return <Text>{t('arkivar.journalpost.uten_dokument')}</Text>;
   // Vedleggene i øvingsarkivet har bare tittel.
   if (valg.dokument > 1) return <div className={c.vedlegg}><Text weight="semibold" lang="nb" block>{valg.tittel}</Text><Text block>{t('arkivar.lesevindu.vedlegg')}</Text></div>;
-  // Versjon 1 av et dokument med to versjoner er saksbehandlerens utkast.
-  if (valg.utkast && dok.utkast && dok.utkast.length > 0) {
-    return <><MessageBar className={c.lenke} intent="info"><MessageBarBody>{t('arkivar.lesevindu.utkast')}</MessageBarBody></MessageBar><Ark dok={{ ...dok, tekst: dok.utkast, vedlegg: [] }} /></>;
-  }
-  return valg.fil.format === 'txt' ? <pre className={c.tekstfil} lang="nb">{somTekst(dok)}</pre> : <Ark dok={dok} />;
+  // En tidligere versjon: tjeneren har gitt teksten slik den var da.
+  const tidligere = valg.utkast && <MessageBar className={c.lenke} intent="info"><MessageBarBody>{t('arkivar.lesevindu.utkast')}</MessageBarBody></MessageBar>;
+  return <>{tidligere}{valg.fil.format === 'txt' ? <pre className={c.tekstfil} lang="nb">{somTekst(dok)}</pre> : <Ark dok={dok} />}</>;
 }
 
 /** Holder lesevinduet for sidene under. Vinduet ligger til høyre og lukkes når studenten går til en annen side. */

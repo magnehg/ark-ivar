@@ -7,8 +7,6 @@ export type Postmottaksrad = { id: string; kanal: string; mottatt: string; emne:
 export type Dokument = {
   id?: string; kanal: string; mottatt: string | null; dokumentdato: string; emne: string; tekst: string[]; vedlegg: string[];
   avsender: { navn: string; adresse: string | null; epost: string | null }; mottaker: string | null;
-  /** Saksbehandlerens første utkast (versjon 1), for dokumentene som har to versjoner. */
-  utkast?: string[];
 };
 export type Kriterium = { id: string; ok: boolean; ditt: string; riktig: string; forklaring: string };
 /** En mappe. klasse er primærklasseringen; skjerm_klasse sier at den ikke vises i den offentlige journalen. */
@@ -37,6 +35,8 @@ export type Journalpost = {
   filer: Dokumentfil[];
   /** Hoveddokumentet og vedleggene. Tom i den offentlige journalen og for registreringer uten dokument. */
   dokumenter: Dokumentbeskrivelse[];
+  /** Malen dokumentet er skrevet fra, når studenten har skrevet det selv, og om det fortsatt kan endres. */
+  mal: string | null; redigerbar: boolean;
 };
 export type Behandling = {
   dokument: Dokument; behandlet: boolean; handling?: Handling; vurdering?: Kriterium[]; poeng?: number; maks?: number;
@@ -50,6 +50,8 @@ export type Klasse = { kode: string; tittel: string; forelder: string | null; me
 export type Registerpost = { kode: string; tittel: string; detalj: string; fodt: string | null; fnr: string | null };
 /** En saksmal: arkivdelen og et forslag til tittel er fylt inn når mappen opprettes. */
 export type Saksmal = { kode: string; navn: string; arkivdel: string; tittel: string; beskrivelse: string; soketips: string };
+/** En dokumentmal: typene journalposten kan ha (den første er forslaget), og forslaget til emne og tekst. */
+export type Dokumentmal = { kode: string; navn: string; beskrivelse: string; typer: string[]; kanal: string; avsender: 'kommunen' | 'blank'; emne: string; tekst: string[] };
 export type Struktur = {
   arkivdeler: Arkivdel[];
   /** Arkivnøkkelen. En klasse med henvisning viser til en annen arkivdel og kan ikke velges i sakarkivet. */
@@ -60,6 +62,7 @@ export type Struktur = {
   enheter: { kode: string; navn: string }[];
   ansatte: { initialer: string; navn: string; tittel: string; enhet: string }[];
   tilgangskoder: { kode: string; navn: string; hjemmel: string }[];
+  dokumentmaler: Dokumentmal[];
   journalposttyper: string[];
   handlinger: Handling[];
   /** Statuskodene fra Noark 5 for mappen, journalposten og dokumentfilen. Navnene står i språkfilene. */

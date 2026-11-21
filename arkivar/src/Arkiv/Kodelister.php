@@ -31,7 +31,9 @@ final class Kodelister
      */
     public const JP_JOURNALFORT = 'J';
     public const JP_ARKIVERT = 'A';
-    public const JOURNALSTATUSER = [self::JP_JOURNALFORT, 'F', 'G', self::JP_EKSPEDERT, self::JP_ARKIVERT, 'U', 'M', 'S', 'R'];
+    /** Reservert dokument: saksbehandleren har opprettet journalposten og skriver på dokumentet. */
+    public const JP_RESERVERT = 'R';
+    public const JOURNALSTATUSER = [self::JP_JOURNALFORT, 'F', 'G', self::JP_EKSPEDERT, self::JP_ARKIVERT, 'U', 'M', 'S', self::JP_RESERVERT];
 
     /** Dokumentstatus (på dokumentfilen): under redigering, ferdigstilt. */
     public const DOK_UNDER_REDIGERING = 'B';

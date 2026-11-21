@@ -59,9 +59,12 @@ final class DokumentfilerTest extends TestCase
         self::assertSame(['pdf', 'pdf'], array_column($dokumenter[1]['filer'], 'format'), 'Et vedlegg til en e-post er en PDF, og arkiveres som PDF.');
         self::assertSame('kart.pdf', $dokumenter[1]['filer'][0]['filnavn']);
         // Med et utkast har hoveddokumentet to versjoner: den ferdige først, og utkastet bare i produksjonsformat.
-        $med = Dokumentfiler::dokumenter('brev', null, Kodelister::JP_EKSPEDERT, 'Svar på søknad', ['Kart'], true);
-        self::assertSame([[2, 'A', 'svar-pa-soknad.pdf'], [2, 'P', 'svar-pa-soknad.docx'], [1, 'P', 'svar-pa-soknad-utkast.docx']], array_map(static fn (array $f): array => [$f['versjon'], $f['variantformat'], $f['filnavn']], $med[0]['filer']));
+        $med = Dokumentfiler::dokumenter('brev', null, Kodelister::JP_EKSPEDERT, 'Svar på søknad', ['Kart'], 2);
+        self::assertSame([[2, 'A', 'svar-pa-soknad.pdf'], [2, 'P', 'svar-pa-soknad.docx'], [1, 'P', 'svar-pa-soknad-v1.docx']], array_map(static fn (array $f): array => [$f['versjon'], $f['variantformat'], $f['filnavn']], $med[0]['filer']));
         self::assertSame([1, 1], array_column($med[1]['filer'], 'versjon'), 'Vedleggene har én versjon.');
+        // Et dokument som er under arbeid (reservert), har tre versjoner og ingen arkivformat ennå.
+        $utkast = Dokumentfiler::dokumenter('notat', null, Kodelister::JP_RESERVERT, 'Notat', [], 3);
+        self::assertSame([[3, 'P', 'notat.docx'], [2, 'P', 'notat-v2.docx'], [1, 'P', 'notat-v1.docx']], array_map(static fn (array $f): array => [$f['versjon'], $f['variantformat'], $f['filnavn']], $utkast[0]['filer']));
         // Vedlegg til et skannet brev er skannet, og vedlegg til kommunens egne dokumenter er skrevet i tekstbehandler.
         self::assertSame('tif', Dokumentfiler::vedleggsformat('brev', '2026-11-10'));
         self::assertSame('docx', Dokumentfiler::vedleggsformat('brev', null));

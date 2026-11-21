@@ -76,6 +76,11 @@
 - Reglene for innholdet står i `docs/innhold.md`.
 - 100 nye saksmapper i sakarkivet med 105 dokumenter, skrevet om fra dokumentene i Paragrafkarusellen og tilpasset
   Sirevåg kommune (nøklene begynner med «k1-» til «k10-»).
+- Skriveflate: studenten skriver egne dokumenter i en mappe fra en dokumentmal (utgående brev, foreløpig svar etter
+  forvaltningsloven, internt notat, møtereferat og et blankt ark for inngående brev), lagrer versjoner og
+  ferdigstiller dokumentet.
+- Arkivdel er en meny på linjen med visningsikonene, telleren står på samme linje, søketipset ligger bak et
+  spørsmålstegn, og arkivplanen står nederst i sidemenyen.
 - Oversiktene (mapper, dokumentene i en mappe, journalen og søketreffene) kan vises i kolonner, med tittelen først
   eller på to linjer. Brukeren bytter med ikoner over oversikten, og valget lagres på kontoen.
 - Kanten mellom siden og lesevinduet kan dras sidelengs, og bredden huskes i nettleseren. Lenkene i oversiktene står

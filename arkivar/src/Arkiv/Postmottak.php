@@ -31,6 +31,7 @@ final class Postmottak
         private readonly Grunndata $grunndata,
         private readonly Oppgavesett $oppgaver,
         private readonly Register $register,
+        private readonly Skriving $skriving,
     ) {
     }
 
@@ -128,51 +129,18 @@ final class Postmottak
         $idag = Dato::idag($this->klokke);
         $journalfor = ($inn['journalfores'] ?? true) !== false;
 
-        $tittel = trim(Felt::tekst($inn['tittel'] ?? null));
-        $lengde = mb_strlen($tittel, 'UTF-8');
-        if ($lengde < 3 || $lengde > 500) {
-            throw new HttpFeil(422, 'ugyldig_felt', 'arkivar.feil.tittel');
-        }
-        $dokumentdato = Felt::tekst($inn['dokumentdato'] ?? null);
-        $dato = \DateTimeImmutable::createFromFormat('!Y-m-d', $dokumentdato);
-        if ($dato === false || $dato->format('Y-m-d') !== $dokumentdato || $dokumentdato > $idag) {
-            throw new HttpFeil(422, 'ugyldig_dato', 'arkivar.feil.dokumentdato');
-        }
+        $felles = Registreringsfelt::les($inn, $this->grunndata, $idag);
         // Et dokument fra postmottaket som arkiveres uten journalføring, har ingen journalposttype å velge: det er
         // inngående. I en egen registrering velger studenten typen selv.
         $type = $journalfor || $oppgave === null ? Felt::tekst($inn['type'] ?? null) : 'I';
         if (!in_array($type, Kodelister::JOURNALPOSTTYPER, true)) {
             throw new HttpFeil(422, 'ugyldig_felt', 'arkivar.feil.journalposttype');
         }
-        $part = trim(Felt::tekst($inn['part_navn'] ?? null));
-        if (mb_strlen($part, 'UTF-8') > 300 || ($journalfor && in_array($type, ['I', 'U'], true) && $part === '')) {
-            throw new HttpFeil(422, 'ugyldig_felt', 'arkivar.feil.part');
-        }
-        $tilgangskode = trim(Felt::tekst($inn['tilgangskode'] ?? null));
-        if ($tilgangskode !== '' && !$this->grunndata->harTilgangskode($tilgangskode)) {
-            throw new HttpFeil(422, 'ugyldig_felt', 'arkivar.feil.tilgangskode');
-        }
-        $skjermTittel = ($inn['skjerm_tittel'] ?? false) === true;
-        $skjermPart = ($inn['skjerm_part'] ?? false) === true;
-        if (($skjermTittel || $skjermPart) && $tilgangskode === '') {
-            // Skjerming i journalen må ha en hjemmel, og hjemmelen følger tilgangskoden.
-            throw new HttpFeil(422, 'skjerming_uten_hjemmel', 'arkivar.feil.skjerming_uten_hjemmel');
-        }
-        $offentlig = trim(Felt::tekst($inn['offentlig_tittel'] ?? null));
-        if (mb_strlen($offentlig, 'UTF-8') > 500) {
-            throw new HttpFeil(422, 'ugyldig_felt', 'arkivar.feil.offentlig_tittel');
-        }
-        $felt = [
+        $felt = $felles + [
             'type' => $type,
             'status' => $journalfor ? Kodelister::JP_JOURNALFORT : Kodelister::JP_ARKIVERT,
-            'tittel' => $tittel,
-            'offentlig_tittel' => $skjermTittel ? ($offentlig !== '' ? $offentlig : '*****') : null,
-            'dokumentdato' => $dokumentdato,
             'journaldato' => $idag,
-            'tilgangskode' => $tilgangskode !== '' ? $tilgangskode : null,
-            'skjerm_tittel' => $skjermTittel,
-            'skjerm_part' => $skjermPart,
-            'part_navn' => $part,
+            'part_navn' => Registreringsfelt::part($inn['part_navn'] ?? null, $type, $journalfor),
             'journalfort' => $journalfor,
             'oppgave_id' => $oppgave['id'] ?? null,
         ];
@@ -375,6 +343,7 @@ final class Postmottak
         }
         // Dokumentfilene (produksjonsformat og arkivformat). Den offentlige journalen har ikke dokumentene.
         $startdokument = Felt::valgfriTekst($rad['startdokument'] ?? null);
+        $arkivId = Felt::tekst($rad['arkiv_id']);
         $dokument = $oppgave ?? ($oppgaveId === null && $startdokument !== null ? $this->grunndata->startdokument($startdokument) : null);
         if ($oppgaveId === null && $startdokument !== null && $dokument === null) {
             // Dokumentet som fulgte med, er tatt ut av grunndataene siden arkivet ble fylt: det er ikke noe å åpne.
@@ -382,15 +351,22 @@ final class Postmottak
             $ut['dokumentstatus'] = null;
             $ut['variantformat'] = null;
         }
+        // Et dokument studenten har skrevet selv: malen, og om det fortsatt kan endres.
+        $skrevet = $oppgaveId === null && $startdokument === null ? ($this->skriving->oversikt($arkivId)[Felt::tekst($rad['id'])] ?? null) : null;
+        $ut['mal'] = $offentlig ? null : ($skrevet['mal'] ?? null);
+        $ut['redigerbar'] = !$offentlig && $skrevet !== null && Felt::valgfriTekst($rad['dokumentstatus'] ?? null) === Kodelister::DOK_UNDER_REDIGERING;
         $ut['dokumenter'] = [];
-        if (!$offentlig && $dokument !== null) {
+        if (!$offentlig && $skrevet !== null) {
+            $ut['har_dokument'] = true;
+            $ut['dokumenter'] = Dokumentfiler::dokumenter($skrevet['kanal'], $skrevet['mottatt'], Felt::tekst($rad['status']), Felt::tekst($rad['tittel']), $skrevet['vedlegg'], $skrevet['versjoner']);
+        } elseif (!$offentlig && $dokument !== null) {
             // Titlene på vedleggene kan vise til saksnumre i studentens arkiv.
-            $arkivId = Felt::tekst($rad['arkiv_id']);
             $this->saksnumre[$arkivId] ??= $this->register->saksnumre($arkivId);
             $nokkel = $oppgave === null && $startdokument !== null ? explode('#', $startdokument)[0] : null;
             $vedlegg = Grunndata::tekster(Grunndata::medSaksnumre(['vedlegg' => $dokument['vedlegg']], $this->saksnumre[$arkivId], $nokkel)['vedlegg'] ?? null);
-            $harUtkast = ($dokument['utkast'] ?? []) !== [];
-            $ut['dokumenter'] = Dokumentfiler::dokumenter($dokument['kanal'], $dokument['mottatt'], Felt::tekst($rad['status']), Felt::tekst($rad['tittel']), $vedlegg, $harUtkast);
+            // Et dokument med utkast har to versjoner: utkastet og det ferdige.
+            $versjoner = ($dokument['utkast'] ?? []) !== [] ? 2 : 1;
+            $ut['dokumenter'] = Dokumentfiler::dokumenter($dokument['kanal'], $dokument['mottatt'], Felt::tekst($rad['status']), Felt::tekst($rad['tittel']), $vedlegg, $versjoner);
         }
         // Filene til hoveddokumentet. Den første er arkivformatet av den nyeste versjonen, som listene viser ikonet til.
         $ut['filer'] = $ut['dokumenter'][0]['filer'] ?? [];

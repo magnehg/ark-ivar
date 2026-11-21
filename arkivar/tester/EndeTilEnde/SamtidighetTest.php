@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace ArkIvar\Tester\EndeTilEnde;
 
+use ArkIvar\Arkiv\Dokumentmaler;
 use ArkIvar\Arkiv\Grunndata;
 use ArkIvar\Arkiv\Oppgavesett;
 use ArkIvar\Arkiv\Postmottak;
 use ArkIvar\Arkiv\Register;
+use ArkIvar\Arkiv\Skriving;
 use ArkIvar\Tester\Stotte\AppTestCase;
 use ArkIvar\Tester\Stotte\Bakgrunnsprosess;
 use ArkIvar\Tester\Stotte\Nettleser;
@@ -129,7 +131,7 @@ final class SamtidighetTest extends AppTestCase
         $sakId = $this->nyMappe($this->kari, ['tittel' => 'Byggesak – garasje – Strandveien 14', 'arkivdel' => 'EIENDOM', 'klasse' => '12/45', 'enhet' => 'PBE']);
         $post = ['oppgave' => 'dispensasjon-strandveien', 'journalfores' => true, 'type' => 'I', 'tittel' => 'Søknad om dispensasjon', 'dokumentdato' => '2026-11-12', 'part_navn' => 'Gudmund Refsnes', 'tilgangskode' => ''];
         $register = new Register($this->db, $this->klokke, $this->grunndata);
-        $postmottak = new Postmottak($this->db, $this->klokke, $this->grunndata, new Oppgavesett(), $register);
+        $postmottak = new Postmottak($this->db, $this->klokke, $this->grunndata, new Oppgavesett(), $register, new Skriving($this->db, $this->klokke, $this->grunndata, new Dokumentmaler(), $register));
         $andre = null;
         $forste = $this->db->transaksjon(function () use ($register, $postmottak, $arkivId, $sakId, $post, &$andre): array {
             $register->laas($arkivId);

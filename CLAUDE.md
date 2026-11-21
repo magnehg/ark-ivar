@@ -73,6 +73,17 @@ uttrekk eller avlevere.
   (I, U, N, X, S) i en rute først, så saks- og dokumentnummeret med løpenummeret under i kortform
   («2026/28-3» og «(104/26)», `kortLopenummer()`), tittelen og dokumentdatoen. Lenkene i oversiktene står i fet
   skrift uten understreking (`LENKE` i `Tabell.tsx`); understrekingen kommer ved peker og fokus.
+- **Skriveflaten** (`Skriving`, `Dokumentmaler`, `arkivar/data/dokumentmaler.json`, `web/src/sider/arkiv/Skriv.tsx`):
+  studenten skriver et dokument i en mappe fra en dokumentmal (utgående brev, foreløpig svar etter forvaltningsloven
+  § 11 a, internt notat, møtereferat som notat eller brev, og et blankt ark for et inngående brev). Malen gir
+  journalposttypene som kan velges, kanalen og om avsenderen er kommunen eller skrives av studenten; `{{sak}}`,
+  `{{saksbehandler}}` og `{{stilling}}` settes inn av grensesnittet. Dokumentet lagres som avsnitt (ingen
+  formatering) i `arkivar_dokument` (migrering 004), én rad per versjon. Journalposten har status R og
+  dokumentstatus B til dokumentet ferdigstilles (`POST /api/arkiv/journalposter/{id}/ferdigstill`): da blir den
+  ekspedert (U) eller journalført (de andre), står i journalen og får arkivformat, og dokumentet kan ikke endres.
+  `POST /api/arkiv/saker/{id}/dokumenter` oppretter, `PUT /api/arkiv/journalposter/{id}/dokument` lagrer (med
+  `ny_versjon` som ny versjon), og `GET /api/arkiv/journalposter/{id}?versjon=N` gir en bestemt versjon.
+  Registreringsfeltene kontrolleres av `Registreringsfelt`, som også postmottaket bruker.
 - **Kommunevåpenet** (`web/src/bilder/sirevag-kommunevapen.svg`, `Kommunevapen`) er oppdiktet: «I blått en gull bjelke som på
   midten er bøyd ned i en nesten sluttet ring (en våg)». Det er valgt blant tre forslag og sjekket mot virkelige
   kommunevåpen på Jæren og sørvestkysten (ikke uttømmende). Det er et bilde med sine egne heraldiske farger og
@@ -143,7 +154,7 @@ uttrekk eller avlevere.
 - **Migreringen `002_arkiv.sql`** er endret på stedet flere ganger før første utgivelse. Kjernen lagrer sjekksummen
   av hver kjørte fil og stopper på en endret fil, så en database installert fra en eldre commit må slettes og
   installeres på nytt. Fra første utgivelse fryses filen, og endringer kommer i en ny fil med neste ledige nummer.
-  `003_brukervalg.sql` er ny og endres ikke.
+  `003_brukervalg.sql` og `004_dokument.sql` er nye og endres ikke.
 - **Utgaven av innholdet:** `arkivar_arkiv.innhold` er et fingeravtrykk av `sirevag.json` og `oppgaver.json` da
   arkivet ble fylt. Er filene byttet siden, gir `GET /api/arkiv` `utdatert`, og forsiden ber studenten nullstille:
   dokumentene leses fra filene og kan ha endret seg under mappene i arkivet. En behandling av et dokument som siden

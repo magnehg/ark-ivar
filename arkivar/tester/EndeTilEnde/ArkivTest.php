@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ArkIvar\Tester\EndeTilEnde;
 
 use ArkIvar\Arkiv\Dokumentfiler;
+use ArkIvar\Arkiv\Dokumentmaler;
 use ArkIvar\Arkiv\Grunndata;
 use ArkIvar\Arkiv\Kodelister;
 use ArkIvar\Arkiv\Mapper;
@@ -12,6 +13,7 @@ use ArkIvar\Arkiv\Oppgavesett;
 use ArkIvar\Arkiv\Ovingsarkiv;
 use ArkIvar\Arkiv\Postmottak;
 use ArkIvar\Arkiv\Register;
+use ArkIvar\Arkiv\Skriving;
 use ArkIvar\Tester\Stotte\AppTestCase;
 use ArkIvar\Tester\Stotte\Nettleser;
 use Bivrost\Kjerne\Database\Felt;
@@ -871,7 +873,7 @@ final class ArkivTest extends AppTestCase
         self::assertIsArray($j['journalpost']);
         $notat = Felt::tekst($j['journalpost']['id']);
         $this->kari->kall('POST', '/api/arkiv/postmottak/kursinvitasjon', ['handling' => 'ikke_arkiver']);
-        $postmottak = new Postmottak($annen, $this->klokke, $this->grunndata, $this->oppgaver, $andre);
+        $postmottak = new Postmottak($annen, $this->klokke, $this->grunndata, $this->oppgaver, $andre, new Skriving($annen, $this->klokke, $this->grunndata, new Dokumentmaler(), $andre));
         $mapper = new Mapper($annen, $this->klokke, $this->grunndata, $andre);
         $ovingsarkiv = new Ovingsarkiv($annen, $this->klokke, $this->grunndata, $andre, $this->oppgaver);
         $journalpost = ['oppgave' => 'klage-fyrveien', 'journalfores' => true, 'type' => 'I', 'tittel' => 'Klage på vedtak', 'dokumentdato' => '2026-11-17', 'part_navn' => 'Solveig Mæland', 'tilgangskode' => ''];
@@ -1141,5 +1143,108 @@ final class ArkivTest extends AppTestCase
             [$svar] = $ukjent->kall($metode, $sti, []);
             self::assertSame(401, $svar->status, $sti);
         }
+    }
+
+    public function testStudentenSkriverEtDokumentFraEnMalOgFerdigstillerDet(): void
+    {
+        [, $j] = $this->kari->kall('GET', '/api/arkiv/struktur');
+        $maler = array_column(self::rader($j['dokumentmaler']), null, 'kode');
+        self::assertSame(['utgaende-brev', 'forelopig-svar', 'internt-notat', 'motereferat-internt', 'motereferat-utgaende', 'inngaende-blankt'], array_keys($maler));
+        self::assertSame(['U'], $maler['forelopig-svar']['typer']);
+        self::assertStringContainsString('forvaltningsloven § 11 a', json_encode($maler['forelopig-svar']['tekst'], JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE));
+        self::assertSame('blank', $maler['inngaende-blankt']['avsender']);
+
+        $sakId = $this->nyMappe($this->kari, ['tittel' => 'Søknad om støtte til korpsstevne 2027', 'arkivdel' => 'SAK', 'klasse' => '752', 'enhet' => 'NKB']);
+        $brev = [
+            'mal' => 'forelopig-svar', 'type' => 'U', 'tittel' => 'Foreløpig svar – søknad om støtte til korpsstevne', 'dokumentdato' => '2026-11-20', 'part_navn' => 'Sirevåg skolekorps',
+            'tilgangskode' => '', 'emne' => 'Foreløpig svar – søknad om støtte til korpsstevne', 'mottaker' => "Sirevåg skolekorps\nStadionveien 4, 4399 Sirevåg",
+            'tekst' => ['Vi viser til søknaden.', '', '## Videre behandling', 'Saken behandles i januar.'], 'vedlegg' => ['Retningslinjer for kulturmidler', ' '],
+        ];
+        // Reglene er de samme som for andre registreringer, og dokumentet må ha emne og tekst.
+        foreach ([['mal' => 'finnes-ikke'], ['type' => 'I'], ['emne' => 'x'], ['tekst' => []], ['tekst' => [str_repeat('a', 5001)]], ['part_navn' => ''], ['dokumentdato' => '2026-11-21'], ['tittel' => 'ab']] as $feil) {
+            [$svar] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/dokumenter", $feil + $brev);
+            self::assertSame(422, $svar->status, json_encode($feil, JSON_THROW_ON_ERROR) . ' ' . $svar->kropp);
+        }
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/dokumenter", $brev);
+        self::assertSame(201, $svar->status, $svar->kropp);
+        self::assertIsArray($j['journalpost']);
+        $id = Felt::tekst($j['journalpost']['id']);
+        // Under arbeid: reservert, dokumentet under redigering, bare produksjonsformat, og ikke i journalen.
+        self::assertSame(['R', 'B', 'P', 'forelopig-svar', true, true], [$j['journalpost']['status'], $j['journalpost']['dokumentstatus'], $j['journalpost']['variantformat'], $j['journalpost']['mal'], $j['journalpost']['redigerbar'], $j['journalpost']['har_dokument']]);
+        self::assertSame([[1, 'P', 'docx']], array_map(static fn (array $f): array => [$f['versjon'], $f['variantformat'], $f['format']], self::rader($j['journalpost']['filer'])));
+        self::assertSame(['H', 'V'], array_column(self::rader($j['journalpost']['dokumenter']), 'rolle'));
+        [, $journal] = $this->kari->kall('GET', '/api/arkiv/journal');
+        self::assertNotContains($id, array_column(self::rader($journal['journalposter']), 'id'), 'Et dokument under arbeid står ikke i journalen.');
+        [$svar, $j] = $this->kari->kall('GET', "/api/arkiv/journalposter/$id");
+        self::assertIsArray($j['dokument']);
+        self::assertSame(['Vi viser til søknaden.', '## Videre behandling', 'Saken behandles i januar.'], $j['dokument']['tekst'], 'Tomme avsnitt er tatt bort.');
+        self::assertSame(['Retningslinjer for kulturmidler'], $j['dokument']['vedlegg']);
+        self::assertSame(['navn' => 'Sirevåg kommune, Næring, kultur og beredskap', 'adresse' => 'Rådhusgata 1, 4399 Sirevåg', 'epost' => 'postmottak@sirevag.example'], $j['dokument']['avsender']);
+        self::assertNull($j['dokument']['mottatt']);
+
+        // Lagring erstatter den gjeldende versjonen, og «ny versjon» lager en ny. Den forrige kan fortsatt leses.
+        [$svar, $j] = $this->kari->kall('PUT', "/api/arkiv/journalposter/$id/dokument", ['tekst' => ['Rettet tekst.'], 'tittel' => 'Foreløpig svar – støtte til korpsstevne 2027'] + $brev);
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertIsArray($j['journalpost']);
+        self::assertSame('Foreløpig svar – støtte til korpsstevne 2027', $j['journalpost']['tittel']);
+        self::assertCount(1, self::rader($j['journalpost']['filer']));
+        [$svar, $j] = $this->kari->kall('PUT', "/api/arkiv/journalposter/$id/dokument", ['tekst' => ['Andre versjon.'], 'ny_versjon' => true] + $brev);
+        self::assertIsArray($j['journalpost']);
+        self::assertSame([2, 1], array_column(self::rader($j['journalpost']['filer']), 'versjon'));
+        [, $j] = $this->kari->kall('GET', "/api/arkiv/journalposter/$id?versjon=1");
+        self::assertIsArray($j['dokument']);
+        self::assertSame(['Rettet tekst.'], $j['dokument']['tekst']);
+        [, $j] = $this->kari->kall('GET', "/api/arkiv/journalposter/$id");
+        self::assertIsArray($j['dokument']);
+        self::assertSame(['Andre versjon.'], $j['dokument']['tekst']);
+
+        // En annen student når ikke dokumentet.
+        $ola = $this->student('ola@hogskolen.example', 'Ola Student', null, '10.0.0.2');
+        [$svar] = $ola->kall('PUT', "/api/arkiv/journalposter/$id/dokument", $brev);
+        self::assertSame(404, $svar->status);
+        [$svar] = $ola->kall('POST', "/api/arkiv/journalposter/$id/ferdigstill", []);
+        self::assertSame(404, $svar->status);
+
+        // Ferdigstilt: ekspedert (utgående), i journalen, med arkivformat, og kan ikke endres mer.
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/journalposter/$id/ferdigstill", []);
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertIsArray($j['journalpost']);
+        self::assertSame(['E', 'F', 'A', false, true], [$j['journalpost']['status'], $j['journalpost']['dokumentstatus'], $j['journalpost']['variantformat'], $j['journalpost']['redigerbar'], $j['journalpost']['journalfort']]);
+        self::assertSame([[2, 'A', 'pdf'], [2, 'P', 'docx'], [1, 'P', 'docx']], array_map(static fn (array $f): array => [$f['versjon'], $f['variantformat'], $f['format']], self::rader($j['journalpost']['filer'])));
+        [$svar, $j] = $this->kari->kall('PUT', "/api/arkiv/journalposter/$id/dokument", $brev);
+        self::assertSame([409, 'dokument_ferdigstilt'], [$svar->status, $j['kode']]);
+        [$svar] = $this->kari->kall('POST', "/api/arkiv/journalposter/$id/ferdigstill", []);
+        self::assertSame(409, $svar->status);
+        [, $journal] = $this->kari->kall('GET', '/api/arkiv/journal?offentlig=1');
+        $rad = array_column(self::rader($journal['journalposter']), null, 'id')[$id];
+        self::assertSame([[], [], null, false], [$rad['filer'], $rad['dokumenter'], $rad['mal'], $rad['redigerbar']], 'Den offentlige journalen har ikke dokumentet.');
+
+        // Et inngående brev på blankt ark: studenten skriver avsenderen, brevet er mottatt i dag og blir journalført.
+        $blankt = ['mal' => 'inngaende-blankt', 'type' => 'I', 'tittel' => 'Spørsmål om søknadsfrist', 'dokumentdato' => '2026-11-18', 'part_navn' => 'Sirevåg skolekorps', 'emne' => 'Spørsmål om søknadsfrist', 'tekst' => ['Når er fristen?']];
+        [$svar] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/dokumenter", $blankt);
+        self::assertSame(422, $svar->status, 'Et blankt ark må ha en avsender.');
+        [$svar, $j] = $this->kari->kall('POST', "/api/arkiv/saker/$sakId/dokumenter", $blankt + ['avsender' => ['navn' => 'Sirevåg skolekorps', 'adresse' => 'Stadionveien 4, 4399 Sirevåg']]);
+        self::assertSame(201, $svar->status, $svar->kropp);
+        self::assertIsArray($j['journalpost']);
+        $inn = Felt::tekst($j['journalpost']['id']);
+        self::assertSame(['tif'], array_column(self::rader($j['journalpost']['filer']), 'format'), 'Et brev på papir er skannet.');
+        [, $j] = $this->kari->kall('POST', "/api/arkiv/journalposter/$inn/ferdigstill", []);
+        self::assertIsArray($j['journalpost']);
+        self::assertSame('J', $j['journalpost']['status']);
+        [, $j] = $this->kari->kall('GET', "/api/arkiv/journalposter/$inn");
+        self::assertIsArray($j['dokument']);
+        self::assertSame('2026-11-20', $j['dokument']['mottatt']);
+        self::assertSame(['navn' => 'Sirevåg skolekorps', 'adresse' => 'Stadionveien 4, 4399 Sirevåg', 'epost' => null], $j['dokument']['avsender']);
+
+        // Journalposten kan slettes, og dokumentet følger med. En nullstilling tar også med dokumentene.
+        [$svar] = $this->kari->kall('DELETE', "/api/arkiv/journalposter/$inn");
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertSame(2, Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_dokument')));
+        // I en avsluttet mappe kan det ikke skrives nye dokumenter.
+        [$svar, $j] = $this->kari->kall('POST', '/api/arkiv/saker/' . $this->sakId($this->kari, 'Byggesak – garasje – Strandveien 16') . '/dokumenter', $brev);
+        self::assertSame([409, 'mappe_avsluttet'], [$svar->status, $j['kode']]);
+        [$svar] = $this->kari->kall('POST', '/api/arkiv/nullstill', []);
+        self::assertSame(200, $svar->status, $svar->kropp);
+        self::assertSame(0, Felt::tall($this->db->verdi('SELECT COUNT(*) FROM arkivar_dokument')));
     }
 }

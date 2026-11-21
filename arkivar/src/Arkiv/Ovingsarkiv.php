@@ -93,7 +93,7 @@ final class Ovingsarkiv
                 if ($this->db->verdi('SELECT 1 FROM arkivar_arkiv WHERE id = ?', [$arkivId]) === null) {
                     throw new HttpFeil(404, 'ikke_funnet', 'bivrost.feil.http.ikke_funnet');
                 }
-                foreach (['arkivar_oppgavestatus', 'arkivar_journalpost', 'arkivar_sak'] as $tabell) {
+                foreach (['arkivar_oppgavestatus', 'arkivar_dokument', 'arkivar_journalpost', 'arkivar_sak'] as $tabell) {
                     $this->db->utfor("DELETE FROM $tabell WHERE arkiv_id = ?", [$arkivId]);
                 }
                 $this->db->utfor('UPDATE arkivar_arkiv SET sak_sekvens = 0, journal_sekvens = 0, nullstilt = ? WHERE id = ?', [Db::tid($this->klokke->now()), $arkivId]);

@@ -330,6 +330,18 @@ final class Grunndata
         );
     }
 
+    /** Navnet på en enhet, eller koden når enheten ikke finnes. */
+    public function enhetsnavn(string $kode): string
+    {
+        foreach ($this->enheter() as $enhet) {
+            if ($enhet['kode'] === $kode) {
+                return $enhet['navn'];
+            }
+        }
+
+        return $kode;
+    }
+
     /** @return list<Ansatt> */
     public function ansatte(): array
     {
